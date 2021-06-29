@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 User = get_user_model()
 
@@ -67,7 +69,7 @@ class Product(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.created
+        return self.title
 
 
 class Mirror(Product):
@@ -83,76 +85,80 @@ class Mirror(Product):
         return self.form
 
 
-# class Review(models.Model):
-#     """Модель комментария."""
-#     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name='Продукт',
-#                                 related_name='reviews')
-#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Пользователь',
-#                              related_name='reviews')
-#     title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Заголовок')
-#     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Рейтинг')
-#     comment = models.TextField(null=True, blank=True, verbose_name='Комментарий')
-#     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
-#
-#     class Meta:
-#         ordering = ['created']
-#         verbose_name = 'Комментарий'
-#         verbose_name_plural = 'Комментарии'
-#
-#     def __str__(self):
-#         return str(self.rating)
-#
-#
-# class Order(models.Model):
-#     """Модель заказа."""
-#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Пользователь',
-#                              related_name='orders')
-#     payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name='Способ оплаты')
-#     tax_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Налог')
-#     shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
-#                                          verbose_name='Стоимость доставки')
-#     total_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
-#                                       verbose_name='Общая сумма заказа')
-#     is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
-#     paid_at = models.DateTimeField(auto_now_add=False, null=True, blank=True, verbose_name='Дата оплаты')
-#     is_delivered = models.BooleanField(default=False, verbose_name='Статус доставки')
-#     delivered_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата доставки')
-#     created = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name='Дата создания')
-#
-#     class Meta:
-#         ordering = ['created']
-#         verbose_name = 'Заказ'
-#         verbose_name_plural = 'Заказы'
-#
-#     def __str__(self):
-#         return str(self.created)
-#
-#
-# class OrderItem(models.Model):
-#     """Модель элемента одного заказа."""
-#     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, verbose_name='Продукт',
-#                                 related_name='orderItems')
-#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, verbose_name='Заказ',
-#                               related_name='orderItems')
-#     title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Название товара')
-#     quantity = models.IntegerField(null=True, blank=True, default=0, verbose_name='Кол-во')
-#     price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Цена')
-#     image = models.CharField(max_length=200, null=True, blank=True, verbose_name='Фото')
-#
-#     def __str__(self):
-#         return str(self.title)
-#
-#
-# class ShippingAddress(models.Model):
-#     """Модель доставки."""
-#     order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Заказ',
-#                                  related_name='shippingAddresses')
-#     address = models.CharField(max_length=200, null=True, blank=True, verbose_name='Адрес')
-#     city = models.CharField(max_length=200, null=True, blank=True, verbose_name='Город')
-#     postal_code = models.CharField(max_length=200, null=True, blank=True, verbose_name='Индекс')
-#     country = models.CharField(max_length=200, null=True, blank=True, verbose_name='Страна')
-#     shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
-#                                          verbose_name='Стоимость доставки')
-#
-#     def __str__(self):
-#         return str(self.address)
+class Review(models.Model):
+    """Модель комментария."""
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, verbose_name='Тип продукта',
+                                     related_name='reviews')
+    object_id = models.PositiveIntegerField('content_type', 'object_id')
+    content_object = GenericForeignKey()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name='Пользователь',
+                             related_name='reviews')
+    title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Заголовок')
+    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Рейтинг')
+    comment = models.TextField(null=True, blank=True, verbose_name='Комментарий')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+
+    class Meta:
+        ordering = ['created']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return str(self.rating)
+
+
+class Order(models.Model):
+    """Модель заказа."""
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Пользователь',
+                             related_name='orders')
+    payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name='Способ оплаты')
+    tax_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Налог')
+    shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
+                                         verbose_name='Стоимость доставки')
+    total_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
+                                      verbose_name='Общая сумма заказа')
+    is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
+    paid_at = models.DateTimeField(auto_now_add=False, null=True, blank=True, verbose_name='Дата оплаты')
+    is_delivered = models.BooleanField(default=False, verbose_name='Статус доставки')
+    delivered_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата доставки')
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name='Дата создания')
+
+    class Meta:
+        ordering = ['created']
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return str(self.created)
+
+
+class OrderItem(models.Model):
+    """Модель элемента одного заказа."""
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, verbose_name='Тип продукта',
+                                     related_name='orderItems')
+    object_id = models.PositiveIntegerField('content_type', 'object_id')
+    content_object = GenericForeignKey()
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, verbose_name='Заказ',
+                              related_name='orderItems')
+    title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Название товара')
+    quantity = models.IntegerField(null=True, blank=True, default=0, verbose_name='Кол-во')
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Цена')
+    image = models.CharField(max_length=200, null=True, blank=True, verbose_name='Фото')
+
+    def __str__(self):
+        return str(self.title)
+
+
+class ShippingAddress(models.Model):
+    """Модель доставки."""
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Заказ',
+                                 related_name='shippingAddresses')
+    address = models.CharField(max_length=200, null=True, blank=True, verbose_name='Адрес')
+    city = models.CharField(max_length=200, null=True, blank=True, verbose_name='Город')
+    postal_code = models.CharField(max_length=200, null=True, blank=True, verbose_name='Индекс')
+    country = models.CharField(max_length=200, null=True, blank=True, verbose_name='Страна')
+    shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
+                                         verbose_name='Стоимость доставки')
+
+    def __str__(self):
+        return str(self.address)
