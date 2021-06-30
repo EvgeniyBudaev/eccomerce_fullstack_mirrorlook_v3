@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from 'next/link';
 import { ReactNode } from 'react';
 import styles from "./Layout.module.scss";
 import { Header } from "components";
