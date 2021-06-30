@@ -22,13 +22,10 @@ body {
 
 body {
 	position: relative;
-
-	overflow-x: hidden;
-
-	min-width: 320px;
 	margin: 0;
 	padding: 0;
-
+	overflow-x: hidden;
+	min-width: 320px;
 	font-family: 'Montserrat', sans-serif;
 	font-size: 16px;
 	font-weight: 300;
@@ -39,15 +36,12 @@ ul,
 li {
 	margin: 0;
 	padding: 0;
-
 	list-style: none;
 }
 
 a {
 	display: inline-block;
-
 	text-decoration: none;
-
 	color: inherit;
 }
 
@@ -67,49 +61,5 @@ section {
 
 button {
 	cursor: pointer;
-
 	outline: transparent;
-}
-
-/* -------------------- Переменные -------------------- */
-
-:root {
-	/* #fff */
-	--white: rgba(255, 255, 255, 1);
-
-	/* #000 */
-	--black: rgba(0, 0, 0, 1);
-
-	/* #B0976A */
-	--beige: rgba(176, 151, 106, 1);
-
-	/* #997E4D */
-	--beigeH: rgba(153, 126, 77, 1);
-
-	/* #c34040 */
-	--red: rgba(195, 64, 64, 1);
-
-	/* #e5e5e5 */
-	--gray: rgba(229, 229, 229, 1);
-
-	/* #e4e4e4 */
-	--lightGray: rgba(228, 228, 228, 1);
-
-	/* #dfd5c3 */
-	--lightBeige: rgba(223, 213, 195, 1);
-
-	/* #f0ad4e */
-	--yellow: rgba(240, 173, 78, 1);
-
-	/* #ffd25d */
-	--yellow-light: rgba(255, 210, 93, 1);
-
-	/* #b3b3b3 */
-	--disabled: rgba(179, 179, 179, 1);
-
-	/* #b0976a */
-	--buttonBg: rgba(176, 151, 106, 0.9);
-
-	/* #bab9b9 */
-	--border: rgba(186, 185, 185, 0.5);
 }

@@ -1,0 +1,10 @@
+$base-font-family : 'Montserrat', sans-serif;
+
+/* Montserrat/16/Light/Body */
+@mixin text-16-body {
+	font-family: $base-font-family;
+	font-size: 16px;
+	font-weight: 300;
+	font-style: normal;
+	line-height: 1.25;
+}

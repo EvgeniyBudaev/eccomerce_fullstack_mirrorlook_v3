@@ -1,7 +1,9 @@
+import Layout from "components";
+
 export default function Home(): JSX.Element {
   return (
-    <div>
+    <Layout>
       <h1>Hello World</h1>
-    </div>
+    </Layout>
   );
 }
