@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import styles from "./Layout.module.scss";
+import { Header } from "components";
 
 export interface ILayoutProps {
   children?: ReactNode;
@@ -14,7 +15,7 @@ export default function Layout({children, title = "Интернет-магизи
       <Head>
         <title>{title} | MirrorLook</title>
       </Head>
-      <h1>Layout</h1>
+      <Header />
       <main>{children}</main>
     </div>
   );
