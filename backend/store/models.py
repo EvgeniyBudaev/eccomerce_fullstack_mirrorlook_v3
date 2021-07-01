@@ -18,8 +18,8 @@ class Catalog(models.Model):
 
     class Meta:
         ordering = ['title']
-        verbose_name = 'Группу'
-        verbose_name_plural = 'Группы'
+        verbose_name = 'Каталог'
+        verbose_name_plural = 'Каталог'
 
     def __str__(self):
         return self.title
@@ -125,8 +125,8 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['created']
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзина'
 
     def __str__(self):
         return str(self.created)
@@ -145,6 +145,11 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Цена')
     image = models.CharField(max_length=200, null=True, blank=True, verbose_name='Фото')
 
+    class Meta:
+        ordering = ['order']
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
     def __str__(self):
         return str(self.title)
 
@@ -159,6 +164,11 @@ class ShippingAddress(models.Model):
     country = models.CharField(max_length=200, null=True, blank=True, verbose_name='Страна')
     shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
                                          verbose_name='Стоимость доставки')
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = 'Доставка'
+        verbose_name_plural = 'Доставка'
 
     def __str__(self):
         return str(self.address)

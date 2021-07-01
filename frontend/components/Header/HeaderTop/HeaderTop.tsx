@@ -1,9 +1,9 @@
-import { Logo } from "components";
+import styles from "./HeaderTop.module.scss";
 
 export default function HeaderTop(): JSX.Element {
   return (
-    <div>
-      <Logo />
+    <div className={styles.HeaderTop}>
+      Кнопка
     </div>
   );
 }
