@@ -1,1 +1,26 @@
-.LayoutMirrorsAside {}
+.LayoutMirrorsAside {
+  min-width: 224px;
+  margin-right: 20px;
+  margin-top: 47px;
+
+  .FilterButton {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .LayoutMirrorsAside {
+    margin-top: 0;
+
+    .FilterButton {
+      display: block;
+      padding: 0;
+      margin-bottom: 20px;
+
+      & svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

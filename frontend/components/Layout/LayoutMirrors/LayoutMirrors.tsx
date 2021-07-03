@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import LayoutMirrorsAside from "./LayoutMirrorsAside/LayoutMirrorsAside";
+import { LayoutMirrorsAside } from "./LayoutMirrorsAside/LayoutMirrorsAside";
 import styles from "./LayoutMirrors.module.scss";
 
 export interface ILayoutMirrorsProps {
