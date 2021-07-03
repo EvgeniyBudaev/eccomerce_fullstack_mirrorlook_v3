@@ -1,1 +1,1 @@
-export {default} from "./LayoutMirrors";
+export { LayoutMirrors as default } from "./LayoutMirrors";

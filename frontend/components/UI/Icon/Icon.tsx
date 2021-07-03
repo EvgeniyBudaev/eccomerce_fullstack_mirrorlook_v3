@@ -3,12 +3,9 @@ import classNames from "classnames";
 import Filter from "components/UI/assets/icons/Filter.svg";
 import "./Icon.module.scss";
 
-export type IconType =
-  | "Filter";
+export type IconType = "Filter";
 
-const iconTypes = new Map([
-  ["Filter", <Filter key={Date.now()} />],
-]);
+const iconTypes = new Map([["Filter", <Filter key={Date.now()} />]]);
 
 export interface IIconProps extends DOMAttributes<HTMLSpanElement> {
   className?: string;

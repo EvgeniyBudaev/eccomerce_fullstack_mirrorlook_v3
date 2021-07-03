@@ -8,7 +8,7 @@ export interface ILayoutProps {
   title?: string;
 }
 
-export default function Layout({children, title = "Интернет-магазин зеркал"}: ILayoutProps): JSX.Element {
+export default function Layout({children, title = "Интернет-магазин зеркал"}): JSX.Element {
   return (
     <div className={styles.Layout}>
       <Head>

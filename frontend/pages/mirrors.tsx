@@ -25,18 +25,18 @@ export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<IMirrorsProps> = async () => {
-  const { data: mirrorsResponse } = await axios.get<IMirrorsResponse>(`http://127.0.0.1:8000/api/catalog/mirrors/`);
-  const {
-    entities,
-    pageNumber,
-    pagesCount } = mirrorsResponse;
+export const getServerSideProps: GetServerSideProps<IMirrorsProps> =
+  async () => {
+    const { data: mirrorsResponse } = await axios.get<IMirrorsResponse>(
+      `http://127.0.0.1:8000/api/catalog/mirrors/`
+    );
+    const { entities, pageNumber, pagesCount } = mirrorsResponse;
 
-  return {
-    props: {
-      entities,
-      pageNumber,
-      pagesCount
-    }
+    return {
+      props: {
+        entities,
+        pageNumber,
+        pagesCount,
+      },
+    };
   };
-};

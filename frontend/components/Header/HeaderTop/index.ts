@@ -1,1 +1,1 @@
-export {default} from "./HeaderTop";
+export { HeaderTop as default } from "./HeaderTop";

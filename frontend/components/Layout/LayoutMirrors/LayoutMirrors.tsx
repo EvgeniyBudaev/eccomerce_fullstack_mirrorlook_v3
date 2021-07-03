@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 import LayoutMirrorsAside from "./LayoutMirrorsAside/LayoutMirrorsAside";
 import styles from "./LayoutMirrors.module.scss";
 
@@ -6,7 +6,7 @@ export interface ILayoutMirrorsProps {
   children?: ReactNode;
 }
 
-export default function LayoutMirrors({children}: ILayoutMirrorsProps): JSX.Element {
+export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({ children }) => {
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
@@ -19,4 +19,4 @@ export default function LayoutMirrors({children}: ILayoutMirrorsProps): JSX.Elem
       </div>
     </section>
   );
-}
+};

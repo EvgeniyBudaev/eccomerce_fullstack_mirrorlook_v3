@@ -1,1 +1,1 @@
-export {default} from "./HeaderBottomMenu";
+export { HeaderBottomMenu as default } from "./HeaderBottomMenu";

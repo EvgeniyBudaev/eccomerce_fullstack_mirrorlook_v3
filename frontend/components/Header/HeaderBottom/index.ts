@@ -1,1 +1,1 @@
-export {default} from "./HeaderBottom";
+export { HeaderBottom as default } from "./HeaderBottom";

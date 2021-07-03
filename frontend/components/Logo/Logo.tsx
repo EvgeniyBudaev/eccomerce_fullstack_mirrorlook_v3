@@ -1,8 +1,9 @@
+import React from "react";
 import Link from "next/link";
 import LogoIcon from "./Logo.svg";
 import styles from "./Logo.module.scss";
 
-export default function Logo():JSX.Element {
+export const Logo: React.FC = () => {
   return (
     <Link href={"/"}>
       <a className={styles.Logo}>
@@ -10,4 +11,4 @@ export default function Logo():JSX.Element {
       </a>
     </Link>
   );
-}
+};
