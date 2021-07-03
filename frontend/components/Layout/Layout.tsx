@@ -8,14 +8,16 @@ export interface ILayoutProps {
   title?: string;
 }
 
-export default function Layout({children, title = "Интернет-магизин зеркал"}: ILayoutProps): JSX.Element {
+export default function Layout({children, title = "Интернет-магазин зеркал"}: ILayoutProps): JSX.Element {
   return (
     <div className={styles.Layout}>
       <Head>
         <title>{title} | MirrorLook</title>
       </Head>
-      <Header />
-      <main>{children}</main>
+      <div className={styles.Container}>
+        <Header />
+        <main>{children}</main>
+      </div>
     </div>
   );
 }
