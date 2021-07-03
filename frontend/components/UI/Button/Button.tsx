@@ -1,10 +1,9 @@
-import React, { DOMAttributes, ReactNode } from "react";
+import React, { DOMAttributes } from "react";
 import classNames from "classnames";
-import "./Button.module.scss";
+import styles from "./Button.module.scss";
 
 export interface IButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
-  children?: ReactNode;
   onClick?: (e?: React.MouseEvent) => void;
 }
 
@@ -16,7 +15,7 @@ export const Button: React.FC<IButtonProps> = ({
 }) => {
   return (
     <button
-      className={classNames("Button", className)}
+      className={classNames(styles.Button, className)}
       onClick={onClick}
       {...rest}
     >

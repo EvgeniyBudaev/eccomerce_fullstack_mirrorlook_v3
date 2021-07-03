@@ -1,30 +1,28 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import classNames from "classnames";
 import { Button, Icon, IconType } from "components/UI";
-import "./IconButton.module.scss";
+import { IButtonProps } from "../Button";
+import styles from "./IconButton.module.scss";
 
-export interface IIconButtonProps {
+export interface IIconButtonProps extends IButtonProps {
   className?: string;
-  type?: IconType;
-  children?: ReactNode;
+  type: IconType;
   onClick?: (e?: React.MouseEvent) => void;
 }
 
 export const IconButton: React.FC<IIconButtonProps> = ({
   className,
   type,
-  children,
   onClick,
   ...rest
 }) => {
   return (
     <Button
-      className={classNames("IconButton", className)}
+      className={classNames(styles.IconButton, className)}
       onClick={onClick}
       {...rest}
     >
       <Icon type={type} />
-      {children}
     </Button>
   );
 };

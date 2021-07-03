@@ -1,7 +1,7 @@
 import React, { DOMAttributes } from "react";
 import classNames from "classnames";
 import Filter from "components/UI/assets/icons/Filter.svg";
-import "./Icon.module.scss";
+import styles from "./Icon.module.scss";
 
 export type IconType = "Filter";
 
@@ -16,5 +16,9 @@ const getIcon = (type: IconType): JSX.Element =>
   iconTypes.get(type) as JSX.Element;
 
 export const Icon: React.FC<IIconProps> = ({ className, type, ...rest }) => {
-  return <div className={classNames("Icon", className)}>{getIcon(type)}</div>;
+  return (
+    <div className={classNames(styles.Icon, className)} {...rest}>
+      {getIcon(type)}
+    </div>
+  );
 };

@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 import { Layout, LayoutMirrors } from "components";
 import { IMirror, IMirrorsResponse } from "types/mirror";
+import { Button, IconButton, Icon } from "components/UI";
 
 interface IMirrorsProps {
   entities: IMirror[];

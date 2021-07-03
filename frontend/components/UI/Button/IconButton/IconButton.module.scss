@@ -1,0 +1,17 @@
+@import "styles";
+
+.IconButton {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: transparent;
+
+    svg {
+      stroke: $color-beige-hover;
+    }
+  }
+}
