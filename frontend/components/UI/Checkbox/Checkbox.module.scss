@@ -6,37 +6,83 @@
   transition: all 0.15s;
 
   .Checkbox {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    border: 1px solid $color-border;
-    box-sizing: border-box;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
 
-    svg {
-      transform: translateY(-5px);
-      opacity: 0;
-      transition: opacity .128s ease-in-out,transform .128s ease-in-out;
+    &+label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+
+      svg {
+        width: 15px;
+        height: 15px;
+        transform: translateY(-5px);
+        opacity: 0;
+        transition: opacity .128s ease-in-out,transform .328s ease-in-out;
+      }
     }
-  }
 
-  .Label,
-  .Description {
-    margin-left: 10px;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
+    &+label::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid $color-border;
+      margin-right: 15px;
+      transition: all 0.15s;
+    }
 
-  &__active {
-    .Checkbox {
-      background-color: $color-beige;
+    /* стили при нахождении элемента в состоянии checked */
+    &:checked+label {
       & svg {
         transform: translateY(0);
         opacity: 1;
       }
     }
+
+    &:checked+label::before {
+      border-color: $color-border;
+      background-color: $color-beige;
+    }
+
+    /* стили при наведении курсора на checkbox */
+    &:not(:disabled):not(:checked)+label:hover::before {
+      border-color: $color-border-hover;
+    }
+
+    /* стили для активного состояния чекбокса (при нажатии на него) */
+    &:not(:disabled):active+label::before {
+      background-color: $color-beige;
+      border-color: $color-border;
+    }
+
+    /* стили для чекбокса, находящегося в фокусе */
+    &:focus+label::before {
+      //box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    /* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
+    &:focus:not(:checked)+label::before {
+      border-color: $color-border;
+    }
+
+    /* стили для чекбокса, находящегося в состоянии disabled */
+    &:disabled+label::before {
+      background-color: $color-border;
+    }
+  }
+
+  .Label,
+  .Description {
+    position: relative;
+    margin-left: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.15s;
   }
 
   &:hover {
@@ -48,5 +94,10 @@
     .Description {
       color: $color-beige;
     }
+  }
+
+  .CheckboxIcon {
+    position: absolute;
+    left: 2px;
   }
 }

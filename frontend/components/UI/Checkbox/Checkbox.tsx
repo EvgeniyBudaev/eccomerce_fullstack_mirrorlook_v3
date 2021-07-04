@@ -5,37 +5,46 @@ import styles from "./Checkbox.module.scss";
 
 interface ICheckbox {
   className?: string;
+  id: string;
   label?: string;
-  isActive?: boolean;
+  value?: string[];
+  item: string;
   children?: ReactNode;
-  onClick: () => void;
+  handleChangeCheckedBox: (value: string[]) => void;
 }
 
 export const Checkbox: React.FC<ICheckbox> = ({
   className,
+  id,
   label,
-  isActive = false,
+  value = [],
+  item,
   children,
-  onClick,
+  handleChangeCheckedBox,
 }) => {
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
-    onClick();
+  const handleChange = event => {
+    const items = event.target.checked
+      ? [...value, event.target.value]
+      : value.filter(x => x !== event.target.value);
+    handleChangeCheckedBox(items);
   };
 
   return (
-    <div
-      className={classNames(
-        styles.CheckboxWrapper,
-        className,
-        isActive ? styles.CheckboxWrapper__active : ""
+    <div className={classNames(styles.CheckboxWrapper, className)}>
+      <input
+        className={styles.Checkbox}
+        id={id}
+        type="checkbox"
+        checked={value.includes(item)}
+        value={item}
+        onChange={handleChange}
+      />
+      {label && (
+        <label className={styles.Label} htmlFor={id}>
+          <Icon className={styles.CheckboxIcon} type="Checkbox" />
+          {label}
+        </label>
       )}
-      onClick={handleClick}
-    >
-      <div className={styles.Checkbox}>
-        <Icon type="Checkbox" />
-      </div>
-      {label && <label className={styles.Label}>{label}</label>}
       {children && <span className={styles.Description}>{children}</span>}
     </div>
   );
