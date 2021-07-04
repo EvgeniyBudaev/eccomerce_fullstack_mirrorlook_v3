@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Accordion, Checkbox, CheckboxGroup, IconButton } from "components/UI";
+import { Accordion, Checkbox, IconButton } from "components/UI";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 export const LayoutMirrorsAside: React.FC = () => {
@@ -16,6 +16,7 @@ export const LayoutMirrorsAside: React.FC = () => {
         <Accordion title="Категории" active={true}>
           <div className={styles.CheckboxItem}>
             <Checkbox
+              className={styles.CheckboxItem}
               label="Венецианские зеркала"
               isActive={isActive}
               onClick={handleCheckboxClick}
@@ -23,6 +24,7 @@ export const LayoutMirrorsAside: React.FC = () => {
           </div>
           <div className={styles.CheckboxItem}>
             <Checkbox
+              className={styles.CheckboxItem}
               label="Напольные зеркала"
               isActive={isActive}
               onClick={handleCheckboxClick}
@@ -32,6 +34,7 @@ export const LayoutMirrorsAside: React.FC = () => {
         <Accordion title="Форма" active={true}>
           <div className={styles.CheckboxItem}>
             <Checkbox
+              className={styles.CheckboxItem}
               label="Круглая"
               isActive={isActive}
               onClick={handleCheckboxClick}
@@ -39,6 +42,7 @@ export const LayoutMirrorsAside: React.FC = () => {
           </div>
           <div className={styles.CheckboxItem}>
             <Checkbox
+              className={styles.CheckboxItem}
               label="Прямоугольная"
               isActive={isActive}
               onClick={handleCheckboxClick}
@@ -46,18 +50,18 @@ export const LayoutMirrorsAside: React.FC = () => {
           </div>
         </Accordion>
         <Accordion title="Группы" active={true}>
-          <CheckboxGroup>
-            <Checkbox
-              label="Круглая"
-              isActive={isActive}
-              onClick={handleCheckboxClick}
-            />
-            <Checkbox
-              label="Прямоугольная"
-              isActive={isActive}
-              onClick={handleCheckboxClick}
-            />
-          </CheckboxGroup>
+          <Checkbox
+            className={styles.CheckboxItem}
+            label="Круглая"
+            isActive={isActive}
+            onClick={handleCheckboxClick}
+          />
+          <Checkbox
+            className={styles.CheckboxItem}
+            label="Прямоугольная"
+            isActive={isActive}
+            onClick={handleCheckboxClick}
+          />
         </Accordion>
       </form>
     </aside>

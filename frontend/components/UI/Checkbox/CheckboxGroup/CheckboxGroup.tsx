@@ -1,14 +1,19 @@
 import React, { ReactNode } from "react";
+import classNames from "classnames";
 import styles from "./CheckboxGroup.module.scss";
 
 export interface ICheckboxGroupProps {
+  className?: string;
   children?: ReactNode;
 }
 
-export const CheckboxGroup: React.FC<ICheckboxGroupProps> = ({ children }) => {
+export const CheckboxGroup: React.FC<ICheckboxGroupProps> = ({
+  className,
+  children,
+}) => {
   return (
-    <div className={styles.CheckboxGroup}>
-      <div className={styles.Item}>{children}</div>
+    <div className={classNames(styles.CheckboxGroup, className)}>
+      {children}
     </div>
   );
 };
