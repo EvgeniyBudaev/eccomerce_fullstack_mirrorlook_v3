@@ -6,6 +6,11 @@
   .FilterButton {
     display: none;
   }
+
+  .AsideFilter {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 980px) {

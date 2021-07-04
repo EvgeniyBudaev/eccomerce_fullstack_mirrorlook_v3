@@ -1,11 +1,15 @@
 import React, { DOMAttributes } from "react";
 import classNames from "classnames";
+import ArrowDown from "components/UI/assets/icons/ArrowDown.svg";
 import Filter from "components/UI/assets/icons/Filter.svg";
 import styles from "./Icon.module.scss";
 
-export type IconType = "Filter";
+export type IconType = "ArrowDown" | "Filter";
 
-const iconTypes = new Map([["Filter", <Filter key={Date.now()} />]]);
+const iconTypes = new Map([
+  ["ArrowDown", <ArrowDown key={Date.now()} />],
+  ["Filter", <Filter key={Date.now()} />],
+]);
 
 export interface IIconProps extends DOMAttributes<HTMLSpanElement> {
   className?: string;

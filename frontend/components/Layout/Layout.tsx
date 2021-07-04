@@ -1,14 +1,17 @@
 import Head from "next/head";
-import { ReactNode } from 'react';
-import styles from "./Layout.module.scss";
+import React, { ReactNode } from "react";
 import { Header } from "components";
+import styles from "./Layout.module.scss";
 
 export interface ILayoutProps {
   children?: ReactNode;
   title?: string;
 }
 
-export default function Layout({children, title = "Интернет-магазин зеркал"}): JSX.Element {
+export const Layout: React.FC<ILayoutProps> = ({
+  children,
+  title = "Интернет-магазин зеркал",
+}) => {
   return (
     <div className={styles.Layout}>
       <Head>
@@ -20,4 +23,4 @@ export default function Layout({children, title = "Интернет-магази
       </div>
     </div>
   );
-}
+};
