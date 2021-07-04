@@ -11,6 +11,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  //.CheckboxItem + .CheckboxItem {
+  //  margin-top: 15px;
+  //}
 }
 
 @media (max-width: 980px) {

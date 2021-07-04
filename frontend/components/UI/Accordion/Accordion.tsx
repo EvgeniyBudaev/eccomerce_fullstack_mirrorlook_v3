@@ -7,14 +7,16 @@ import styles from "./Accordion.module.scss";
 
 export interface IAccordionProps {
   title?: string;
+  active?: boolean;
   children?: React.ReactNode;
 }
 
 export const Accordion: React.FC<IAccordionProps> = ({
   title = "",
+  active = false,
   children = null,
 }) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(active);
 
   const toggleAccordion = () => {
     setIsActive(prev => !prev);
