@@ -62,3 +62,8 @@ button {
 	cursor: pointer;
 	outline: transparent;
 }
+
+.react-slidedown {
+  transition-duration: 0.3s !important;
+  transition-timing-function: ease !important;
+}

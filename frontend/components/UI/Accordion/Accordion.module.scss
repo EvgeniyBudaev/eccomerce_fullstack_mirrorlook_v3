@@ -13,7 +13,7 @@
     color: $color-text;
     background-color: $color-white;
     border: 1px solid $color-border;
-    transition: all 0.15s ease-in;
+    transition: all 0.3s ease;
 
     &:hover {
       cursor: pointer;
@@ -26,7 +26,7 @@
 
   .HeaderIcon {
     svg {
-      transition: all 0.3s ease-in;
+      transition: all 0.3s ease;
       width: 16px;
       height: 10px;
     }
@@ -39,7 +39,7 @@
     border-left: 1px solid transparent;
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
-    transition: all 0.15s;
+    transition: all 0.3s;
   }
 }
 
@@ -57,13 +57,10 @@
   }
 
   .Content {}
+
 }
 
 .Accordion + .Accordion {
   margin-top: 18px;
 }
 
-.react-slidedown.ContentSlideDown {
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
-}
