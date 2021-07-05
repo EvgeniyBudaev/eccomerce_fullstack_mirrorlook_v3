@@ -3,11 +3,11 @@ import { Accordion, Checkbox, IconButton } from "components/UI";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 export const LayoutMirrorsAside: React.FC = () => {
-  const [checked, setChecked] = useState([]);
-  console.log("checked", checked);
+  const [checkedMirrors, setCheckedMirrors] = useState([]);
+  console.log("checkedMirrors", checkedMirrors);
 
   const handleChangeCheckedBox = value => {
-    setChecked(value);
+    setCheckedMirrors(value);
   };
 
   const asideMirrorsOptions = {
@@ -25,7 +25,7 @@ export const LayoutMirrorsAside: React.FC = () => {
               className={styles.CheckboxItem}
               id={index.toString() + item}
               label={item}
-              value={checked}
+              value={checkedMirrors}
               item={item}
               key={index}
               handleChangeCheckedBox={handleChangeCheckedBox}
@@ -38,7 +38,7 @@ export const LayoutMirrorsAside: React.FC = () => {
               className={styles.CheckboxItem}
               id={index.toString() + item}
               label={item}
-              value={checked}
+              value={checkedMirrors}
               item={item}
               key={index}
               handleChangeCheckedBox={handleChangeCheckedBox}

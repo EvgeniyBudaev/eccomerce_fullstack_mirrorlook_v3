@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import axios from "axios";
-import { Layout, LayoutMirrors } from "components";
+import { Layout, LayoutMirrors, MirrorsList } from "components";
 import { IMirror, IMirrorsResponse } from "types/mirror";
 
 interface IMirrorsProps {
@@ -14,12 +14,7 @@ export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
   return (
     <Layout>
       <LayoutMirrors>
-        <h2>Список зеркал</h2>
-        <ul>
-          {mirrorsResponse.entities.map(mirror => (
-            <li key={mirror.id}>{mirror.title}</li>
-          ))}
-        </ul>
+        <MirrorsList mirrors={mirrorsResponse.entities} />
       </LayoutMirrors>
     </Layout>
   );

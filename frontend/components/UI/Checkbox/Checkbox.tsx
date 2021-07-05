@@ -7,7 +7,7 @@ interface ICheckbox {
   className?: string;
   id: string;
   label?: string;
-  value?: string[];
+  value: string[];
   item: string;
   children?: ReactNode;
   handleChangeCheckedBox: (value: string[]) => void;

@@ -1,14 +1,16 @@
 import React, { DOMAttributes } from "react";
 import classNames from "classnames";
 import ArrowDown from "components/UI/assets/icons/ArrowDown.svg";
+import Basket from "components/UI/assets/icons/Basket.svg";
 import Checkbox from "components/UI/assets/icons/Checkbox.svg";
 import Filter from "components/UI/assets/icons/Filter.svg";
 import styles from "./Icon.module.scss";
 
-export type IconType = "ArrowDown" | "Checkbox" | "Filter";
+export type IconType = "ArrowDown" | "Basket" | "Checkbox" | "Filter";
 
 const iconTypes = new Map([
   ["ArrowDown", <ArrowDown key={Date.now()} />],
+  ["Basket", <Basket key={Date.now()} />],
   ["Checkbox", <Checkbox key={Date.now()} />],
   ["Filter", <Filter key={Date.now()} />],
 ]);
