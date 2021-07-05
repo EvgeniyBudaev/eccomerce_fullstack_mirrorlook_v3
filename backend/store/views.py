@@ -2,16 +2,16 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Mirror
-from .serializers import MirrorSerializer
+from .models import Mirror, Console
+from .serializers import MirrorSerializer, ConsoleSerializer
 
 
 @api_view(['GET'])
 def get_products_by_catalog(request, catalog_slug):
-    """В звисимости от url каталога получаем соответствующие продукты."""
+    """В зависимости от url каталога получаем соответствующие продукты."""
     records_on_page = 10
-    serializer_classes = {'mirrors': MirrorSerializer}
-    items_classes = {'mirrors': Mirror}
+    serializer_classes = {'mirrors': MirrorSerializer, 'consoles': ConsoleSerializer}
+    items_classes = {'mirrors': Mirror, 'consoles': Console}
     query = request.query_params.get('searchValue', '')
     page = request.query_params.get('page')
 

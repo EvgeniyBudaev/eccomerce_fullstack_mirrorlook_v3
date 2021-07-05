@@ -7,7 +7,7 @@ User = get_user_model()
 
 
 class Catalog(models.Model):
-    """Модель каталога (зеркала, мебель, ...)."""
+    """Модель каталога (зеркала, консоли, ...)."""
     title = models.CharField(max_length=255, verbose_name='Название каталога',
                              help_text='Укажите название для каталога')
     image = models.ImageField(null=True, blank=True, verbose_name='Изображение каталога',
@@ -83,6 +83,20 @@ class Mirror(Product):
 
     def __str__(self):
         return self.form
+
+
+class Console(Product):
+    """Модель консоли."""
+    color = models.CharField(max_length=255, null=True, blank=True, verbose_name='Цвет')
+    count_legs = models.PositiveIntegerField(verbose_name='Количество ножек')
+
+    class Meta:
+        ordering = ['count_legs']
+        verbose_name = 'Консоль'
+        verbose_name_plural = 'Консоли'
+
+    def __str__(self):
+        return self.color
 
 
 class Review(models.Model):

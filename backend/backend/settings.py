@@ -28,7 +28,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "http://localhost:3000",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -138,3 +142,5 @@ MEDIA_ROOT = 'static/images'
 MEDIA_URL = '/images/'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ORIGIN_WHITELIST = ("http://localhost:3000",)

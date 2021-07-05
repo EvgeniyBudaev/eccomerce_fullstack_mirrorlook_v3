@@ -10,6 +10,7 @@ interface IMirrorsProps {
 }
 
 export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
+  console.log("[mirrorsResponse]", mirrorsResponse);
   console.log("mirrorsServerData.entities", mirrorsResponse.entities);
   return (
     <Layout>
