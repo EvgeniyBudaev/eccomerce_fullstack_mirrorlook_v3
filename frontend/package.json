@@ -1,6 +1,5 @@
 {
   "name": "frontend",
-  "proxy": "http://127.0.0.1:8000",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "express": "^4.17.1",
     "http-proxy-middleware": "^2.0.1",
     "next": "11.0.1",
     "normalize.css": "^8.0.1",

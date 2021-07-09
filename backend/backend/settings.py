@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'django_filters',
     'store'
 ]
 
@@ -142,5 +143,6 @@ MEDIA_ROOT = 'static/images'
 MEDIA_URL = '/images/'
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = ("http://localhost:3000",)

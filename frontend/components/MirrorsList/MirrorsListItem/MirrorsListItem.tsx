@@ -12,7 +12,6 @@ export interface IMirrorsListItemProps {
 export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   mirror,
 }) => {
-  console.log("[mirror]", mirror);
   return (
     <li className={styles.MirrorsListItem}>
       <div className={styles.Wrapper}>

@@ -3,30 +3,33 @@ import classNames from "classnames";
 import { Icon } from "components/UI";
 import styles from "./Checkbox.module.scss";
 
+interface IValue {
+  category_id: string[];
+  form: string[];
+}
+
 interface ICheckbox {
   className?: string;
   id: string;
-  label?: string;
-  value: string[];
-  item: string;
+  label: string;
+  nameGroup: string;
+  checkedBox: IValue;
   children?: ReactNode;
-  handleChangeCheckedBox: (value: string[]) => void;
+  onClick: (event, nameGroup) => void;
 }
 
 export const Checkbox: React.FC<ICheckbox> = ({
   className,
   id,
   label,
-  value = [],
-  item,
+  nameGroup,
+  checkedBox,
   children,
-  handleChangeCheckedBox,
+  onClick,
 }) => {
-  const handleChange = event => {
-    const items = event.target.checked
-      ? [...value, event.target.value]
-      : value.filter(x => x !== event.target.value);
-    handleChangeCheckedBox(items);
+  const handleChange = (event, nameGroup) => {
+    event.stopPropagation();
+    onClick(event, nameGroup);
   };
 
   return (
@@ -35,9 +38,10 @@ export const Checkbox: React.FC<ICheckbox> = ({
         className={styles.Checkbox}
         id={id}
         type="checkbox"
-        checked={value.includes(item)}
-        value={item}
-        onChange={handleChange}
+        name={label}
+        value={label}
+        checked={checkedBox[label]}
+        onChange={() => handleChange(event, nameGroup)}
       />
       {label && (
         <label className={styles.Label} htmlFor={id}>
