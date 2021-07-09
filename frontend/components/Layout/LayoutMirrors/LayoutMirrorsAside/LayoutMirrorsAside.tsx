@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Accordion, Checkbox, IconButton } from "components/UI";
+import { fetchProducts } from "ducks/products/actionCreator";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 interface ICheckedMirrorsProps {
@@ -9,6 +11,10 @@ interface ICheckedMirrorsProps {
 }
 
 export const LayoutMirrorsAside: React.FC = () => {
+  const dispatch = useDispatch();
+  const mir = useSelector(state => state);
+  console.log("[STATE]", mir);
+
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrorsProps>({
     category_id: [],
     form: [],
@@ -60,10 +66,15 @@ export const LayoutMirrorsAside: React.FC = () => {
       );
       console.log("[response][filter]", response);
       setIsSubmitting(false);
+      dispatch(fetchProducts(response.data.entities));
     }
 
     fetch(checkedMirrors);
-  }, [isSubmitting]);
+  }, [isSubmitting, dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(fetchProducts(checkedMirrors));
+  // }, [checkedMirrors]);
 
   return (
     <aside className={styles.LayoutMirrorsAside}>

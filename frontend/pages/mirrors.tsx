@@ -1,10 +1,12 @@
 import { GetServerSideProps } from "next";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Layout, LayoutMirrors, MirrorsList } from "components";
-import { Context } from "context/store";
 import { IFilter, IMirror, IMirrors } from "types/mirror";
-import { IPaging } from "../types/filter";
+import { IPaging } from "types/filter";
+import { fetchProducts } from "ducks/products/actionCreator";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IMirrorsProps {
   entities: IMirror[];
@@ -12,21 +14,19 @@ interface IMirrorsProps {
 }
 
 export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
+  const dispatch = useDispatch();
+  const state = useTypedSelector(state => state);
+  const [mirrors, setMirrors] = useState(mirrorsResponse.entities);
   console.log("[mirrorsResponse]", mirrorsResponse);
-  const { state, dispatch } = useContext(Context);
-  console.log("STATE", state);
 
   useEffect(() => {
-    dispatch({
-      type: "MIRRORS_REQUEST",
-      payload: mirrorsResponse,
-    });
-  }, [dispatch, mirrorsResponse]);
+    dispatch(fetchProducts(mirrors));
+  }, [mirrorsResponse, dispatch]);
 
   return (
     <Layout>
       <LayoutMirrors>
-        <MirrorsList mirrors={mirrorsResponse.entities} />
+        <MirrorsList mirrors={state.products.mirrors} />
       </LayoutMirrors>
     </Layout>
   );
