@@ -47,8 +47,12 @@ def get_products_by_catalog(request, catalog_slug):
     else:
         data = None
 
-    return Response({'entities': data, 'pageNumber': page,
-                     'pagesCount': paginator.num_pages})
+    paging = {
+        'pageNumber': page,
+        'pagesCount': paginator.num_pages
+    }
+
+    return Response({'entities': data, 'paging': paging})
 
 
 class MirrorFilter(django_filters.FilterSet):
@@ -61,7 +65,7 @@ class MirrorFilter(django_filters.FilterSet):
 # request.data {"form": ["круглая", "прямоугольная"], "category_id": [1]}
 @api_view(['POST'])
 def filter_mirrors(request):
-    print("[request.data!!!]", request.data)
+    print("[request.data!!!]", )
     forms = request.data.get('form', [])
     category_id = request.data.get('category_id', [])
     qs = Q()

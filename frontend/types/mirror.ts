@@ -1,7 +1,12 @@
-export interface IMirrorsResponse {
+import { IPaging } from "types/filter";
+
+export interface IFilter<TItem> {
+  entities: TItem[];
+  paging: IPaging;
+}
+
+export interface IMirrors {
   entities: IMirror[];
-  pageNumber: number;
-  pagesCount: number;
 }
 
 export interface IMirror {
