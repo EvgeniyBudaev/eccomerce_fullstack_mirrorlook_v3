@@ -12,7 +12,6 @@ interface IMirrorsProps {
 }
 
 export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
-  console.log("[mirrorsResponse]", mirrorsResponse);
   const { state, dispatch } = useContext(Context);
   console.log("STATE", state);
 
