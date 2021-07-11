@@ -11,11 +11,13 @@ from .serializers import MirrorSerializer, ConsoleSerializer
 @api_view(['GET'])
 def get_products_by_catalog(request, catalog_slug):
     """В зависимости от url каталога получаем соответствующие продукты."""
-    records_on_page = 10
+    records_on_page = 4
     serializer_classes = {'mirrors': MirrorSerializer, 'consoles': ConsoleSerializer}
     items_classes = {'mirrors': Mirror, 'consoles': Console}
-    query = request.query_params.get('searchValue', '')
+    query = request.query_params.get('value', '')
     page = request.query_params.get('page')
+    print("[PAGE]", page)
+    print("[request.query_params]", request.query_params)
 
     # Получаем все сущности нужного каталога, сохраняем их количество.
     items_class = items_classes.get(catalog_slug)
