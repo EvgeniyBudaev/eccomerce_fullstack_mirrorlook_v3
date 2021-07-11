@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Layout, LayoutMirrors, MirrorsList } from "components";
-import { IFilter, IMirror, IMirrors } from "types/mirror";
-import { IPaging } from "types/filter";
-import { fetchProducts } from "ducks/products/actionCreator";
+import { IMirror, IMirrors } from "types/mirror";
+import { IFilter, IPaging } from "types/filter";
+import { fetchMirrors } from "ducks/mirrors/actionCreator";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IMirrorsProps {
@@ -14,19 +14,19 @@ interface IMirrorsProps {
 }
 
 export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
-  const dispatch = useDispatch();
-  const state = useTypedSelector(state => state);
   const [mirrors, setMirrors] = useState(mirrorsResponse.entities);
+  const state = useTypedSelector(state => state);
+  const dispatch = useDispatch();
   console.log("[mirrorsResponse]", mirrorsResponse);
 
   useEffect(() => {
-    dispatch(fetchProducts(mirrors));
+    dispatch(fetchMirrors(mirrors));
   }, [mirrorsResponse, dispatch]);
 
   return (
     <Layout>
       <LayoutMirrors>
-        <MirrorsList mirrors={state.products.mirrors} />
+        <MirrorsList mirrors={state.mirrors.mirrors} />
       </LayoutMirrors>
     </Layout>
   );

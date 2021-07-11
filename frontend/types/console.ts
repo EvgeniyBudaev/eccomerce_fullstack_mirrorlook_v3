@@ -1,13 +1,14 @@
-export interface IMirrors {
-  entities: IMirror[];
+export interface IConsoles {
+  entities: IConsole[];
 }
 
-export interface IMirror {
+export interface IConsole {
   catalog_id: number[];
   category_id: number;
+  color: string;
+  count_legs: number;
   created: string;
   description: string;
-  form: string;
   id: number;
   image: string;
   price: string;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Accordion, Checkbox, IconButton } from "components/UI";
-import { fetchProducts } from "ducks/products/actionCreator";
+import { fetchMirrors } from "ducks/mirrors/actionCreator";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 interface ICheckedMirrorsProps {
@@ -61,12 +61,12 @@ export const LayoutMirrorsAside: React.FC = () => {
     async function fetch(request) {
       const response = await axios.post(
         `http://127.0.0.1:8000/api/catalog/mirrors/filter/`,
-        checkedMirrors,
+        request,
         config
       );
       console.log("[response][filter]", response);
       setIsSubmitting(false);
-      dispatch(fetchProducts(response.data.entities));
+      dispatch(fetchMirrors(response.data.entities));
     }
 
     fetch(checkedMirrors);

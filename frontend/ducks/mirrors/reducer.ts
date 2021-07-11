@@ -11,7 +11,7 @@ const initialState: IProductsState = {
   mirrors: [],
 };
 
-export const productsReducer: Reducer<IProductsState, AccountActionsType> = (
+export const reducer: Reducer<IProductsState, AccountActionsType> = (
   state = initialState,
   action
 ) => {

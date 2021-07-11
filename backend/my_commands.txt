@@ -51,7 +51,7 @@ python manage.py loaddata groups_fixture.json
 SideNavPanel
 
 Авторизация
-pip install djangorestframework-simplejwt
+pip install djoser djangorestframework-simplejwt
 
 Ошибка Сертификации
 pip install gensim config --global http.sslVerify false

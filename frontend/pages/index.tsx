@@ -10,6 +10,12 @@ export default function Home(): JSX.Element {
         <Link href={`/mirrors/`}>
           <a>Зеркала</a>
         </Link>
+        <div>
+          <hr />
+        </div>
+        <Link href={`/consoles/`}>
+          <a>Консоли</a>
+        </Link>
       </section>
     </Layout>
   );

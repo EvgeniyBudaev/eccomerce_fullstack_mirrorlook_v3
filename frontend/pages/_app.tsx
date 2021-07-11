@@ -1,5 +1,6 @@
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import "../styles/globals.scss";
 import { store } from "ducks/store";

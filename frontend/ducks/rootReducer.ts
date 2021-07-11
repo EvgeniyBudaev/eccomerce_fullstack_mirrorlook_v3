@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { productsReducer } from "ducks/products/reducer";
+import { reducer as mirrors } from "ducks/mirrors/reducer";
 
 export const rootReducer = combineReducers({
-  products: productsReducer,
+  mirrors,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

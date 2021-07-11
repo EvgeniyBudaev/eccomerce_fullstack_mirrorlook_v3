@@ -61,8 +61,6 @@ class MirrorFilter(django_filters.FilterSet):
         fields = ['category_id', 'form']
 
 
-# request.data ["круглая", "прямоугольная", "1"]
-# request.data {"form": ["круглая", "прямоугольная"], "category_id": [1]}
 @api_view(['POST'])
 def filter_mirrors(request):
     print("[request.data!!!]", )
