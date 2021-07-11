@@ -1,4 +1,4 @@
-import { MIRRORS_SUCCESS } from "constants/products";
+import { MIRRORS_SUCCESS } from "ducks/products/mirrors";
 import { IMirror } from "types/mirror";
 
 export const fetchMirrors = (mirrors: IMirror[]) =>

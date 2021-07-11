@@ -1,7 +1,6 @@
 import { Reducer } from "redux";
-import { CONSOLES_SUCCESS } from "constants/products";
 import { IConsole } from "types/console";
-import { AccountActionsType } from "./actionTypes";
+import { CONSOLES_SUCCESS, ConsolesActionsType } from "ducks/products/consoles";
 
 interface IProductsState {
   consoles: IConsole[];
@@ -11,7 +10,7 @@ const initialState: IProductsState = {
   consoles: [],
 };
 
-export const reducer: Reducer<IProductsState, AccountActionsType> = (
+export const reducer: Reducer<IProductsState, ConsolesActionsType> = (
   state = initialState,
   action
 ) => {

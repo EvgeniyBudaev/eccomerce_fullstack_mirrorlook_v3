@@ -1,7 +1,6 @@
 import { Reducer } from "redux";
-import { MIRRORS_SUCCESS } from "constants/products";
+import { MIRRORS_SUCCESS, MirrorsActionsType } from "ducks/products/mirrors";
 import { IMirror } from "types/mirror";
-import { AccountActionsType } from "./actionTypes";
 
 interface IProductsState {
   mirrors: IMirror[];
@@ -11,7 +10,7 @@ const initialState: IProductsState = {
   mirrors: [],
 };
 
-export const reducer: Reducer<IProductsState, AccountActionsType> = (
+export const reducer: Reducer<IProductsState, MirrorsActionsType> = (
   state = initialState,
   action
 ) => {
