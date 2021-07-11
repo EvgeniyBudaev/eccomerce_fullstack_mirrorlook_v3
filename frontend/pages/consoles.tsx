@@ -2,10 +2,10 @@ import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { Layout, LayoutMirrors } from "components";
+import { fetchConsoles } from "ducks/products/consoles";
+import { Layout } from "components";
 import { IConsole, IConsoles } from "types/console";
 import { IFilter, IPaging } from "types/filter";
-// import { fetchConsoles } from "ducks/mirrors/actionCreator";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IConsolesProps {
@@ -19,9 +19,9 @@ export default function Mirrors(consolesResponse: IConsolesProps): JSX.Element {
   const dispatch = useDispatch();
   console.log("[consolesResponse]", consolesResponse);
 
-  // useEffect(() => {
-  //   dispatch(fetchConsoles(consoles));
-  // }, [consolesResponse, dispatch]);
+  useEffect(() => {
+    dispatch(fetchConsoles(consoles));
+  }, [consolesResponse, dispatch]);
 
   return <Layout>Страница с консолями</Layout>;
 }

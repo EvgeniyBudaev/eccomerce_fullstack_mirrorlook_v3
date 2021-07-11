@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Accordion, Checkbox, IconButton } from "components/UI";
-import { fetchMirrors } from "ducks/mirrors/actionCreator";
+import { fetchMirrors } from "ducks/products/mirrors";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 interface ICheckedMirrorsProps {

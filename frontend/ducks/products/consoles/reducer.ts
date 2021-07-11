@@ -1,14 +1,14 @@
 import { Reducer } from "redux";
-import { PRODUCTS_SUCCESS } from "constants/products";
-import { IMirror } from "types/mirror";
+import { CONSOLES_SUCCESS } from "constants/products";
+import { IConsole } from "types/console";
 import { AccountActionsType } from "./actionTypes";
 
 interface IProductsState {
-  mirrors: IMirror[];
+  consoles: IConsole[];
 }
 
 const initialState: IProductsState = {
-  mirrors: [],
+  consoles: [],
 };
 
 export const reducer: Reducer<IProductsState, AccountActionsType> = (
@@ -16,10 +16,10 @@ export const reducer: Reducer<IProductsState, AccountActionsType> = (
   action
 ) => {
   switch (action.type) {
-    case PRODUCTS_SUCCESS:
+    case CONSOLES_SUCCESS:
       return {
         ...state,
-        mirrors: action.payload,
+        consoles: action.payload,
       };
     default:
       return state;

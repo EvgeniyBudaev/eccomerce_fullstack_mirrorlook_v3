@@ -5,7 +5,7 @@ import axios from "axios";
 import { Layout, LayoutMirrors, MirrorsList } from "components";
 import { IMirror, IMirrors } from "types/mirror";
 import { IFilter, IPaging } from "types/filter";
-import { fetchMirrors } from "ducks/mirrors/actionCreator";
+import { fetchMirrors } from "ducks/products/mirrors";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IMirrorsProps {
