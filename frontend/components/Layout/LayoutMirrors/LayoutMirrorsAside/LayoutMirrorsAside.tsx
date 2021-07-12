@@ -21,6 +21,10 @@ export const LayoutMirrorsAside: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleSubmit = () => {
+    setIsSubmitting(true);
+  };
+
   const handleChangeCheckedBox = (
     { target: { checked, value } },
     nameGroup
@@ -36,17 +40,14 @@ export const LayoutMirrorsAside: React.FC = () => {
         [nameGroup]: [...prevState[nameGroup].filter(x => x !== value)],
       }));
     }
+
+    handleSubmit();
   };
 
   const asideMirrorsOptions = {
     // categories: ["Венецианские зеркала", "Напольные зеркала"],
     category_id: ["1", "2"],
     form: ["Круглая", "Прямоугольная"],
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    setIsSubmitting(true);
   };
 
   useEffect(() => {
@@ -72,14 +73,10 @@ export const LayoutMirrorsAside: React.FC = () => {
     fetch(checkedMirrors);
   }, [isSubmitting, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchProducts(checkedMirrors));
-  // }, [checkedMirrors]);
-
   return (
     <aside className={styles.LayoutMirrorsAside}>
       <IconButton className={styles.FilterButton} type={"Filter"} />
-      <form className={styles.AsideFilter} onSubmit={handleSubmit}>
+      <form className={styles.AsideFilter}>
         <Accordion title="Категория" active={true}>
           {asideMirrorsOptions.category_id.map((label, index) => (
             <Checkbox
@@ -110,7 +107,6 @@ export const LayoutMirrorsAside: React.FC = () => {
             />
           ))}
         </Accordion>
-        <button type="submit">Отфильтровать</button>
       </form>
     </aside>
   );
