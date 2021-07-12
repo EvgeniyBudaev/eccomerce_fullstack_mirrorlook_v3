@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import "./Pagination.module.scss";
+import styles from "./Pagination.module.scss";
 
 export interface IPaginationPageButtonProps {
   className?: string;
@@ -23,9 +23,9 @@ export const PaginationPageButton: React.FC<IPaginationPageButtonProps> = ({
     <div
       onClick={handleClick}
       className={classNames(
-        "Pagination-PageButton",
+        styles.PaginationPageButton,
         {
-          "Pagination-PageButton_active": isActive,
+          [styles.PaginationPageButton_active]: isActive,
         },
         className
       )}

@@ -3,69 +3,71 @@
 .Pagination {
   display: flex;
   align-items: center;
+}
 
-  &-ArrowButton {
-    margin: 0 16px;
+.PaginationPageButton {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  border-radius: 8px;
+  color: darkblue;
+  line-height: 40px;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+}
 
-    .Icon {
-      svg {
-        width: 6px;
-        height: 12px;
-      }
-    }
-
-    &:active {
-      path {
-        fill: none;
-        stroke: white;
-      }
-    }
-
-    &__disabled {
-      opacity: 0.5;
-
-      &:active,
-      &:hover {
-        background-color: $color-light-gray;
-
-        path {
-          fill: $color-light-gray;
-          stroke: darkblue;
-        }
-      }
-    }
-  }
-
-  &-PageButton,
-  &-Space {
-    width: 40px;
-    height: 40px;
-    margin: 2px;
-    border-radius: 8px;
-    color: darkblue;
-    line-height: 40px;
-    text-align: center;
-  }
-
-  &-PageButton {
-    background-color: transparent;
-    cursor: pointer;
-
-    &_active {
-      background-color: darkblue;
+.PaginationPageButton_active {
+        background-color: darkblue;
       color: $color-light-gray;
-    }
+}
 
-    &__with-left-space {
-      margin-left: 14px;
-    }
+.PaginationPageButton__withLeftSpace {
+  margin-left: 14px;
+}
 
-    &__with-right-space {
-      margin-right: 14px;
+.PaginationPageButton__withRightSpace {
+  margin-right: 14px;
+}
+
+.PaginationSpace {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  border-radius: 8px;
+  color: darkblue;
+  line-height: 40px;
+  text-align: center;
+}
+
+.PaginationArrowButton {
+  margin: 0 16px;
+
+  .Icon {
+    svg {
+      width: 6px;
+      height: 12px;
     }
   }
 
-  &-Space {
-    color: $color-light-gray;
+  &:active {
+    path {
+      fill: none;
+      stroke: white;
+    }
+  }
+}
+
+.PaginationArrowButton__disabled {
+  opacity: 0.5;
+
+  &:active,
+  &:hover {
+    background-color: $color-light-gray;
+
+    path {
+      fill: $color-light-gray;
+      stroke: darkblue;
+    }
   }
 }

@@ -7,8 +7,8 @@ import { Layout, LayoutMirrors, MirrorsList } from "components";
 import { IMirror } from "types/mirror";
 import { IFilter, IPaging } from "types/filter";
 import { fetchMirrors } from "ducks/products/mirrors";
+import { Pagination } from "components/UI";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import Paginator from "../components/UI/Paginator";
 
 interface IMirrorsProps {
   entities: IMirror[];
@@ -32,10 +32,18 @@ export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
 
   const handlePageGoBack = () => {
     setCurrentPage(pageNumber => pageNumber - 1);
+    router.push({
+      href: "/mirrors",
+      search: `?page=${pageNumber - 1}`,
+    });
   };
 
   const handlePageGoForward = () => {
     setCurrentPage(pageNumber => pageNumber + 1);
+    router.push({
+      href: "/mirrors",
+      search: `?page=${pageNumber + 1}`,
+    });
   };
 
   const handlePageChange = (pageNumber: number) => {
@@ -53,23 +61,25 @@ export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
   return (
     <Layout>
       <LayoutMirrors>
-        <MirrorsList mirrors={state.mirrors.mirrors} />
-        {/*<Pagination*/}
-        {/*  currentPage={pageNumber}*/}
-        {/*  pageSize={1}*/}
-        {/*  totalItemsCount={pagesCount}*/}
-        {/*  onChange={handlePageChange}*/}
-        {/*  onGoBack={handlePageGoBack}*/}
-        {/*  onGoForward={handlePageGoForward}*/}
-        {/*/>*/}
+        <div className="Wrapper">
+          <MirrorsList mirrors={state.mirrors.mirrors} />
+          <Pagination
+            currentPage={pageNumber}
+            pageSize={1}
+            totalItemsCount={pagesCount}
+            onChange={handlePageChange}
+            onGoBack={handlePageGoBack}
+            onGoForward={handlePageGoForward}
+          />
 
-        {/*<Paginator*/}
-        {/*  pageNumber={currentPage}*/}
-        {/*  pagesCount={pagesCount}*/}
-        {/*  searchValue=""*/}
-        {/*  path="mirrors"*/}
-        {/*  onPageSet={handlePageSet}*/}
-        {/*/>*/}
+          {/*<Paginator*/}
+          {/*  pageNumber={currentPage}*/}
+          {/*  pagesCount={pagesCount}*/}
+          {/*  searchValue=""*/}
+          {/*  path="mirrors"*/}
+          {/*  onPageSet={handlePageSet}*/}
+          {/*/>*/}
+        </div>
       </LayoutMirrors>
     </Layout>
   );

@@ -63,7 +63,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
         <div className={classNames(className, styles.Pagination)}>
           <IconButton
             className={classNames(styles.PaginationArrowButton, {
-              "Pagination-ArrowButton__disabled": currentPage === firstPage,
+              [styles.PaginationArrowButton__disabled]:
+                currentPage === firstPage,
             })}
             type="ArrowDown"
             disabled={currentPage === firstPage}
@@ -72,7 +73,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
           <PaginationPageButton
             className={classNames({
-              "Pagination-PageButton__with-right-space":
+              [styles.PaginationPageButton__withRightSpace]:
                 showSpaceAfterFirstPage,
             })}
             page={1}
@@ -92,7 +93,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
           {showLastPage && (
             <PaginationPageButton
               className={classNames({
-                "Pagination-PageButton__with-left-space":
+                [styles.PaginationPageButton__withLeftSpace]:
                   showSpaceBeforeLastPage,
               })}
               page={lastPage}
@@ -103,7 +104,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
           <IconButton
             className={classNames(styles.PaginationArrowButton, {
-              "Pagination-ArrowButton__disabled": currentPage === lastPage,
+              [styles.PaginationArrowButton__disabled]:
+                currentPage === lastPage,
             })}
             type="ArrowDown"
             disabled={currentPage === lastPage}
