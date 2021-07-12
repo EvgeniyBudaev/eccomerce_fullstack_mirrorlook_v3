@@ -1,4 +1,4 @@
-import React, { DOMAttributes } from "react";
+import React, { DOMAttributes, useRef } from "react";
 import classNames from "classnames";
 import styles from "./Button.module.scss";
 
@@ -15,11 +15,30 @@ export const Button: React.FC<IButtonProps> = ({
   onClick,
   ...rest
 }) => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = e => {
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
+
+    const ripples = document.createElement("span");
+    ripples.style.left = x + "px";
+    ripples.style.top = y + "px";
+    buttonRef.current.appendChild(ripples);
+
+    setTimeout(() => {
+      ripples.remove();
+    }, 1000);
+
+    onClick(e);
+  };
+
   return (
     <button
       className={classNames(styles.Button, className)}
       disabled={disabled}
-      onClick={onClick}
+      ref={buttonRef}
+      onClick={handleClick}
       {...rest}
     >
       {children}

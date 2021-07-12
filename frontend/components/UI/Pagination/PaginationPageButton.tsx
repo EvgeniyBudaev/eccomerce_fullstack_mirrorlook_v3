@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import classNames from "classnames";
 import styles from "./Pagination.module.scss";
 
@@ -15,13 +15,26 @@ export const PaginationPageButton: React.FC<IPaginationPageButtonProps> = ({
   isActive,
   onClick,
 }) => {
-  const handleClick = () => {
+  const buttonRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = e => {
+    const x = e.clientX - e.target.offsetLeft;
+    const y = e.clientY - e.target.offsetTop;
+
+    const ripples = document.createElement("span");
+    ripples.style.left = x + "px";
+    ripples.style.top = y + "px";
+    buttonRef.current.appendChild(ripples);
+
+    setTimeout(() => {
+      ripples.remove();
+    }, 1000);
+
     onClick(page);
   };
 
   return (
     <div
-      onClick={handleClick}
       className={classNames(
         styles.PaginationPageButton,
         {
@@ -29,6 +42,8 @@ export const PaginationPageButton: React.FC<IPaginationPageButtonProps> = ({
         },
         className
       )}
+      ref={buttonRef}
+      onClick={handleClick}
     >
       {page}
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { Pagination } from "components/UI";
+import { Button, Pagination } from "components/UI";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { fetchMirrors } from "ducks/products/mirrors";
 import { IMirror } from "types/mirror";
@@ -59,6 +59,10 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     });
   };
 
+  const handleClick = () => {
+    console.log("click!!!");
+  };
+
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
@@ -68,6 +72,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
       <div className={styles.Inner}>
         <LayoutMirrorsAside />
         <div className={styles.Wrapper}>
+          <Button onClick={handleClick}>Нажать</Button>
           <MirrorsList mirrors={state.mirrors.mirrors} />
           <Pagination
             currentPage={pageNumber}

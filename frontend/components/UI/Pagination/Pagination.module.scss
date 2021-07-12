@@ -7,6 +7,7 @@
 }
 
 .PaginationPageButton {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,11 +18,43 @@
   background-color: transparent;
   border: 1px solid $color-beige;
   cursor: pointer;
+  overflow: hidden;
+  transition: all 0.15s;
+
+  &:hover {
+    background-color: $color-light-gray;
+  }
+
+  span {
+    position: absolute;
+    background-color: $color-white;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: animate 0.3s linear;
+  }
+
+  @keyframes animate {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+    100% {
+      width: 60px;
+      height: 60px;
+      opacity: 0;
+    }
+  }
 }
 
 .PaginationPageButton_active {
   background-color: $color-beige;
   color: $color-white;
+
+  &:hover {
+    background-color: $color-beige;
+  }
 }
 
 .PaginationPageButton__withLeftSpace {
@@ -65,11 +98,12 @@
 
   &:active,
   &:hover {
-    background-color: $color-light-gray;
+    //background-color: $color-light-gray;
+    cursor: default;
 
-    path {
-      fill: $color-light-gray;
-      stroke: $color-text;
-    }
+    //path {
+    //  fill: $color-light-gray;
+    //  stroke: $color-text;
+    //}
   }
 }

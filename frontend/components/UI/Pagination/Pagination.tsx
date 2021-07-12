@@ -66,7 +66,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               [styles.PaginationArrowButton__disabled]:
                 currentPage === firstPage,
             })}
-            type="ArrowDown"
+            type="ArrowLeft"
             disabled={currentPage === firstPage}
             onClick={onGoBack}
           />
