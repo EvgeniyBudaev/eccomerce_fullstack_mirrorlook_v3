@@ -1,12 +1,64 @@
-import React, { ReactNode } from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { Pagination } from "components/UI";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { fetchMirrors } from "ducks/products/mirrors";
+import { IMirror } from "types/mirror";
+import { IPaging } from "types/filter";
+import { MirrorsList } from "./MirrorsList";
 import { LayoutMirrorsAside } from "./LayoutMirrorsAside/LayoutMirrorsAside";
 import styles from "./LayoutMirrors.module.scss";
 
-export interface ILayoutMirrorsProps {
-  children?: ReactNode;
+interface ILayoutMirrors {
+  entities: IMirror[];
+  paging: IPaging;
 }
 
-export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({ children }) => {
+interface ILayoutMirrorsProps {
+  mirrorsResponse: ILayoutMirrors;
+}
+
+export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
+  mirrorsResponse,
+}) => {
+  const { pageNumber, pagesCount } = mirrorsResponse.paging;
+  const [currentPage, setCurrentPage] = React.useState(pageNumber);
+  const state = useTypedSelector(state => state);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  //console.log("[router]", router);
+  console.log("[mirrorsResponse]", mirrorsResponse);
+
+  useEffect(() => {
+    setCurrentPage(mirrorsResponse.paging.pageNumber);
+    dispatch(fetchMirrors(mirrorsResponse.entities));
+  }, [mirrorsResponse, dispatch]);
+
+  const handlePageGoBack = () => {
+    setCurrentPage(pageNumber => pageNumber - 1);
+    router.push({
+      href: "/mirrors",
+      search: `?page=${pageNumber - 1}`,
+    });
+  };
+
+  const handlePageGoForward = () => {
+    setCurrentPage(pageNumber => pageNumber + 1);
+    router.push({
+      href: "/mirrors",
+      search: `?page=${pageNumber + 1}`,
+    });
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    router.push({
+      href: "/mirrors",
+      search: `?page=${pageNumber}`,
+    });
+  };
+
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
@@ -15,7 +67,17 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({ children }) => {
       </div>
       <div className={styles.Inner}>
         <LayoutMirrorsAside />
-        <>{children}</>
+        <div className={styles.Wrapper}>
+          <MirrorsList mirrors={state.mirrors.mirrors} />
+          <Pagination
+            currentPage={pageNumber}
+            pageSize={1}
+            totalItemsCount={pagesCount}
+            onChange={handlePageChange}
+            onGoBack={handlePageGoBack}
+            onGoForward={handlePageGoForward}
+          />
+        </div>
       </div>
     </section>
   );

@@ -107,7 +107,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
               [styles.PaginationArrowButton__disabled]:
                 currentPage === lastPage,
             })}
-            type="ArrowDown"
+            type="ArrowRight"
             disabled={currentPage === lastPage}
             onClick={onGoForward}
           />

@@ -19,4 +19,10 @@
   .Inner {
     display: flex;
   }
+
+  .Wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 }
