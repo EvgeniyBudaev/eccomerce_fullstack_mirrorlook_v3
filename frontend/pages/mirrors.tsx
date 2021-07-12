@@ -62,13 +62,14 @@ export default function Mirrors(mirrorsResponse: IMirrorsProps): JSX.Element {
         {/*  onGoBack={handlePageGoBack}*/}
         {/*  onGoForward={handlePageGoForward}*/}
         {/*/>*/}
-        <Paginator
-          pageNumber={currentPage}
-          pagesCount={pagesCount}
-          searchValue=""
-          path="mirrors"
-          onPageSet={handlePageSet}
-        />
+
+        {/*<Paginator*/}
+        {/*  pageNumber={currentPage}*/}
+        {/*  pagesCount={pagesCount}*/}
+        {/*  searchValue=""*/}
+        {/*  path="mirrors"*/}
+        {/*  onPageSet={handlePageSet}*/}
+        {/*/>*/}
       </LayoutMirrors>
     </Layout>
   );
