@@ -91,3 +91,11 @@ def filter_mirrors(request):
 #
 #     return Response({'entities': serializer.data})
 
+def get_product_by_catalog(request, catalog_slug, product_slug):
+    serializer_classes = {'mirrors': MirrorSerializer, 'consoles': ConsoleSerializer}
+    items_classes = {'mirrors': Mirror, 'consoles': Console}
+    items_class = items_classes.get(catalog_slug)
+    serializer_class = serializer_classes.get(catalog_slug)
+    product = items_class.objects.get(product_slug=product_slug)
+    serializer = serializer_class(product, many=False)
+    return Response(serializer.data)

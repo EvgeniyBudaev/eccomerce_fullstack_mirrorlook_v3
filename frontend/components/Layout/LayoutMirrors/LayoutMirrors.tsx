@@ -55,7 +55,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     setCurrentPage(pageNumber);
     router.push({
       href: "/mirrors",
-      search: `?page=${pageNumber}`,
+      search: pageNumber === 1 ? "" : `?page=${pageNumber}`,
     });
   };
 
