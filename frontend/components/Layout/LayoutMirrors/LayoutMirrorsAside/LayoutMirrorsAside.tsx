@@ -6,7 +6,7 @@ import { fetchMirrors } from "ducks/products/mirrors";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 interface ICheckedMirrorsProps {
-  category_id: string[];
+  category: string[];
   form: string[];
 }
 
@@ -16,7 +16,7 @@ export const LayoutMirrorsAside: React.FC = () => {
   console.log("[STATE]", mir);
 
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrorsProps>({
-    category_id: [],
+    category: [],
     form: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -46,7 +46,7 @@ export const LayoutMirrorsAside: React.FC = () => {
 
   const asideMirrorsOptions = {
     // categories: ["Венецианские зеркала", "Напольные зеркала"],
-    category_id: ["1", "2"],
+    category: ["1", "2"],
     form: ["Круглая", "Прямоугольная"],
   };
 
@@ -78,7 +78,7 @@ export const LayoutMirrorsAside: React.FC = () => {
       <IconButton className={styles.FilterButton} type={"Filter"} />
       <form className={styles.AsideFilter}>
         <Accordion title="Категория" active={true}>
-          {asideMirrorsOptions.category_id.map((label, index) => (
+          {asideMirrorsOptions.category.map((label, index) => (
             <Checkbox
               className={styles.CheckboxItem}
               id={index.toString() + label}

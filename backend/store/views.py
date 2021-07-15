@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-import django_filters
 from django.db.models import Q
 
 from .models import Mirror, Console
@@ -12,7 +12,8 @@ from .serializers import MirrorSerializer, ConsoleSerializer
 def get_products_by_catalog(request, catalog_slug):
     """В зависимости от url каталога получаем соответствующие продукты."""
     records_on_page = 4
-    serializer_classes = {'mirrors': MirrorSerializer, 'consoles': ConsoleSerializer}
+    serializer_classes = {'mirrors': MirrorSerializer,
+                          'consoles': ConsoleSerializer}
     items_classes = {'mirrors': Mirror, 'consoles': Console}
     query = request.query_params.get('value', '')
     page = request.query_params.get('page')
@@ -22,7 +23,7 @@ def get_products_by_catalog(request, catalog_slug):
     # Получаем все сущности нужного каталога, сохраняем их количество.
     items_class = items_classes.get(catalog_slug)
     items = items_class.objects.filter(
-        catalog_id__catalog_slug__in=[catalog_slug])
+        category__catalog__catalog_slug__in=[catalog_slug])
 
     # Фильтруем items и разбиваем на страницы.
     items = items.filter(title__icontains=query)
@@ -57,22 +58,16 @@ def get_products_by_catalog(request, catalog_slug):
     return Response({'entities': data, 'paging': paging})
 
 
-class MirrorFilter(django_filters.FilterSet):
-    class Meta:
-        model = Mirror
-        fields = ['category_id', 'form']
-
-
 @api_view(['POST'])
 def filter_mirrors(request):
-    print("[request.data!!!]", )
+    print("[FILTER DATA REQUEST]", request)
     forms = request.data.get('form', [])
-    category_id = request.data.get('category_id', [])
+    category = request.data.get('category', [])
     qs = Q()
     if forms:
         qs &= Q(form__in=forms)
-    if category_id:
-        qs &= Q(category_id__in=category_id)
+    if category:
+        qs &= Q(category__in=category)
     mirrors = Mirror.objects.filter(qs)
     serializer = MirrorSerializer(mirrors, many=True)
     return Response({'entities': serializer.data})
@@ -92,7 +87,8 @@ def filter_mirrors(request):
 #     return Response({'entities': serializer.data})
 
 def get_product_by_catalog(request, catalog_slug, product_slug):
-    serializer_classes = {'mirrors': MirrorSerializer, 'consoles': ConsoleSerializer}
+    serializer_classes = {'mirrors': MirrorSerializer,
+                          'consoles': ConsoleSerializer}
     items_classes = {'mirrors': Mirror, 'consoles': Console}
     items_class = items_classes.get(catalog_slug)
     serializer_class = serializer_classes.get(catalog_slug)

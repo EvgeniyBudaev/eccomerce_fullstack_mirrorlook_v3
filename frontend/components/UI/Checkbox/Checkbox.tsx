@@ -4,7 +4,7 @@ import { Icon } from "components/UI";
 import styles from "./Checkbox.module.scss";
 
 interface IValue {
-  category_id: string[];
+  category: string[];
   form: string[];
 }
 

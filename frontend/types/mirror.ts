@@ -3,7 +3,6 @@ export interface IMirrors {
 }
 
 export interface IMirror {
-  catalog_id: number[];
   category_id: number;
   created: string;
   description: string;

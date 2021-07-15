@@ -10,11 +10,15 @@ class Catalog(models.Model):
     """Модель каталога (зеркала, консоли, ...)."""
     title = models.CharField(max_length=255, verbose_name='Название каталога',
                              help_text='Укажите название для каталога')
-    image = models.ImageField(null=True, blank=True, verbose_name='Изображение каталога',
+    image = models.ImageField(null=True, blank=True,
+                              verbose_name='Изображение каталога',
                               help_text='Добавьте изображение каталогу')
-    catalog_slug = models.SlugField(max_length=255, unique=True, verbose_name='URL каталога',
-                                    help_text='Задайте уникальный URL адрес названию каталога')
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    catalog_slug = models.SlugField(max_length=255, unique=True,
+                                    verbose_name='URL каталога',
+                                    help_text='Задайте уникальный URL адрес '
+                                              'названию каталога')
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name='Дата создания')
 
     class Meta:
         ordering = ['title']
@@ -27,14 +31,21 @@ class Catalog(models.Model):
 
 class Category(models.Model):
     """Модель категории (венецианские зеркала, напольные зеркала, ...)."""
-    catalog_id = models.ForeignKey(Catalog, null=True, verbose_name='Категория', on_delete=models.CASCADE,
-                                   related_name='categories', help_text='Пожалуйста, выберите  каталог')
-    title = models.CharField(max_length=255, verbose_name='Имя категории', help_text='Укажите название для категории')
-    image = models.ImageField(null=True, blank=True, verbose_name='Изображение категории',
+    catalog = models.ForeignKey(Catalog, null=True, verbose_name='Категория',
+                                on_delete=models.CASCADE,
+                                   related_name='categories',
+                                help_text='Пожалуйста, выберите  каталог')
+    title = models.CharField(max_length=255, verbose_name='Имя категории',
+                             help_text='Укажите название для категории')
+    image = models.ImageField(null=True, blank=True,
+                              verbose_name='Изображение категории',
                               help_text='Добавьте изображение к посту')
-    category_slug = models.SlugField(max_length=255, unique=True, verbose_name='URL категории',
-                                     help_text='Задайте уникальный URL адрес категории')
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    category_slug = models.SlugField(max_length=255, unique=True,
+                                     verbose_name='URL категории',
+                                     help_text='Задайте уникальный URL адрес '
+                                               'категории')
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name='Дата создания')
 
     class Meta:
         ordering = ['title']
@@ -47,22 +58,36 @@ class Category(models.Model):
 
 class Product(models.Model):
     """Абстрактная модель."""
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name='Пользователь')
-    catalog_id = models.ManyToManyField(Catalog, verbose_name='Каталог')
-    category_id = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Наименование товара')
-    product_slug = models.SlugField(max_length=255, unique=True, verbose_name='URL продукта')
-    image = models.ImageField(null=True, blank=True, upload_to='photos/%Y/%m/%d/', default='/placeholder.png',
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+                             verbose_name='Пользователь')
+    category = models.ForeignKey(Category, verbose_name='Категория',
+                                 on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True,
+                             verbose_name='Наименование товара')
+    product_slug = models.SlugField(max_length=255, unique=True,
+                                    verbose_name='URL продукта')
+    image = models.ImageField(null=True, blank=True,
+                              upload_to='photos/%Y/%m/%d/',
+                              default='/placeholder.png',
                               verbose_name='Изображение продукта')
-    product_photo1 = models.ImageField(null=True, blank=True, upload_to='photos/%Y/%m/%d/')
-    product_photo2 = models.ImageField(null=True, blank=True, upload_to='photos/%Y/%m/%d/')
-    product_photo3 = models.ImageField(null=True, blank=True, upload_to='photos/%Y/%m/%d/')
-    product_photo4 = models.ImageField(null=True, blank=True, upload_to='photos/%Y/%m/%d/')
-    price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Цена')
-    count_in_stock = models.IntegerField(null=True, blank=True, default=0, verbose_name='Кол-во товара')
-    description = models.TextField(null=True, blank=True, verbose_name='Описание товара')
-    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Рейтинг')
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    product_photo1 = models.ImageField(null=True, blank=True,
+                                       upload_to='photos/%Y/%m/%d/')
+    product_photo2 = models.ImageField(null=True, blank=True,
+                                       upload_to='photos/%Y/%m/%d/')
+    product_photo3 = models.ImageField(null=True, blank=True,
+                                       upload_to='photos/%Y/%m/%d/')
+    product_photo4 = models.ImageField(null=True, blank=True,
+                                       upload_to='photos/%Y/%m/%d/')
+    price = models.DecimalField(max_digits=8, decimal_places=2, null=True,
+                                blank=True, verbose_name='Цена')
+    count_in_stock = models.IntegerField(null=True, blank=True, default=0,
+                                         verbose_name='Кол-во товара')
+    description = models.TextField(null=True, blank=True,
+                                   verbose_name='Описание товара')
+    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                 blank=True, verbose_name='Рейтинг')
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name='Дата создания')
 
     class Meta:
         """Объявляет модель абстрактной."""
@@ -74,7 +99,8 @@ class Product(models.Model):
 
 class Mirror(Product):
     """Модель зеркала."""
-    form = models.CharField(max_length=64, null=True, blank=True, verbose_name='Форма зеркала')
+    form = models.CharField(max_length=64, null=True, blank=True,
+                            verbose_name='Форма зеркала')
 
     class Meta:
         ordering = ['form']
@@ -87,7 +113,8 @@ class Mirror(Product):
 
 class Console(Product):
     """Модель консоли."""
-    color = models.CharField(max_length=255, null=True, blank=True, verbose_name='Цвет')
+    color = models.CharField(max_length=255, null=True, blank=True,
+                             verbose_name='Цвет')
     count_legs = models.PositiveIntegerField(verbose_name='Количество ножек')
 
     class Meta:
@@ -101,16 +128,22 @@ class Console(Product):
 
 class Review(models.Model):
     """Модель комментария."""
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, verbose_name='Тип продукта',
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     null=True, verbose_name='Тип продукта',
                                      related_name='reviews')
     object_id = models.PositiveIntegerField('content_type', 'object_id')
     content_object = GenericForeignKey()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name='Пользователь',
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+                             verbose_name='Пользователь',
                              related_name='reviews')
-    title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Заголовок')
-    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Рейтинг')
-    comment = models.TextField(null=True, blank=True, verbose_name='Комментарий')
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    title = models.CharField(max_length=200, null=True, blank=True,
+                             verbose_name='Заголовок')
+    rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                 blank=True, verbose_name='Рейтинг')
+    comment = models.TextField(null=True, blank=True,
+                               verbose_name='Комментарий')
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name='Дата публикации')
 
     class Meta:
         ordering = ['created']
@@ -123,19 +156,28 @@ class Review(models.Model):
 
 class Order(models.Model):
     """Модель заказа."""
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Пользователь',
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,
+                             verbose_name='Пользователь',
                              related_name='orders')
-    payment_method = models.CharField(max_length=200, null=True, blank=True, verbose_name='Способ оплаты')
-    tax_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Налог')
-    shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
+    payment_method = models.CharField(max_length=200, null=True, blank=True,
+                                      verbose_name='Способ оплаты')
+    tax_price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                    blank=True, verbose_name='Налог')
+    shipping_price = models.DecimalField(max_digits=7, decimal_places=2,
+                                         null=True, blank=True,
                                          verbose_name='Стоимость доставки')
-    total_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
+    total_price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                      blank=True,
                                       verbose_name='Общая сумма заказа')
     is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
-    paid_at = models.DateTimeField(auto_now_add=False, null=True, blank=True, verbose_name='Дата оплаты')
-    is_delivered = models.BooleanField(default=False, verbose_name='Статус доставки')
-    delivered_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата доставки')
-    created = models.DateTimeField(auto_now_add=True, null=True, blank=True, verbose_name='Дата создания')
+    paid_at = models.DateTimeField(auto_now_add=False, null=True, blank=True,
+                                   verbose_name='Дата оплаты')
+    is_delivered = models.BooleanField(default=False,
+                                       verbose_name='Статус доставки')
+    delivered_at = models.DateTimeField(auto_now_add=True,
+                                        verbose_name='Дата доставки')
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True,
+                                   verbose_name='Дата создания')
 
     class Meta:
         ordering = ['created']
@@ -148,16 +190,22 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     """Модель элемента одного заказа."""
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, verbose_name='Тип продукта',
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     null=True, verbose_name='Тип продукта',
                                      related_name='orderItems')
     object_id = models.PositiveIntegerField('content_type', 'object_id')
     content_object = GenericForeignKey()
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, verbose_name='Заказ',
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True,
+                              verbose_name='Заказ',
                               related_name='orderItems')
-    title = models.CharField(max_length=200, null=True, blank=True, verbose_name='Название товара')
-    quantity = models.IntegerField(null=True, blank=True, default=0, verbose_name='Кол-во')
-    price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True, verbose_name='Цена')
-    image = models.CharField(max_length=200, null=True, blank=True, verbose_name='Фото')
+    title = models.CharField(max_length=200, null=True, blank=True,
+                             verbose_name='Название товара')
+    quantity = models.IntegerField(null=True, blank=True, default=0,
+                                   verbose_name='Кол-во')
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                blank=True, verbose_name='Цена')
+    image = models.CharField(max_length=200, null=True, blank=True,
+                             verbose_name='Фото')
 
     class Meta:
         ordering = ['order']
@@ -170,13 +218,19 @@ class OrderItem(models.Model):
 
 class ShippingAddress(models.Model):
     """Модель доставки."""
-    order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Заказ',
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True,
+                                 blank=True, verbose_name='Заказ',
                                  related_name='shippingAddresses')
-    address = models.CharField(max_length=200, null=True, blank=True, verbose_name='Адрес')
-    city = models.CharField(max_length=200, null=True, blank=True, verbose_name='Город')
-    postal_code = models.CharField(max_length=200, null=True, blank=True, verbose_name='Индекс')
-    country = models.CharField(max_length=200, null=True, blank=True, verbose_name='Страна')
-    shipping_price = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True,
+    address = models.CharField(max_length=200, null=True, blank=True,
+                               verbose_name='Адрес')
+    city = models.CharField(max_length=200, null=True, blank=True,
+                            verbose_name='Город')
+    postal_code = models.CharField(max_length=200, null=True, blank=True,
+                                   verbose_name='Индекс')
+    country = models.CharField(max_length=200, null=True, blank=True,
+                               verbose_name='Страна')
+    shipping_price = models.DecimalField(max_digits=7, decimal_places=2,
+                                         null=True, blank=True,
                                          verbose_name='Стоимость доставки')
 
     class Meta:

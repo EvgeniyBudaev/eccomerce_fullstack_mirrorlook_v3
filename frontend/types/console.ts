@@ -3,7 +3,6 @@ export interface IConsoles {
 }
 
 export interface IConsole {
-  catalog_id: number[];
   category_id: number;
   color: string;
   count_legs: number;
