@@ -86,6 +86,8 @@ def filter_mirrors(request):
 #
 #     return Response({'entities': serializer.data})
 
+
+@api_view(['GET'])
 def get_product_by_catalog(request, catalog_slug, product_slug):
     serializer_classes = {'mirrors': MirrorSerializer,
                           'consoles': ConsoleSerializer}

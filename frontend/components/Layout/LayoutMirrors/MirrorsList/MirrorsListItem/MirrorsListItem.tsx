@@ -17,7 +17,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
       <div className={styles.Wrapper}>
         <div className={styles.Content}>
           <div className={styles.ContentImg}>
-            <Link href={"/"}>
+            <Link href={`/mirrors/${mirror.product_slug}`}>
               <a>
                 <Image
                   src="https://vmk-mebel.ru/wp-content/uploads/2019/03/restavratsiya-zerkala-e1553860985233.jpg"
