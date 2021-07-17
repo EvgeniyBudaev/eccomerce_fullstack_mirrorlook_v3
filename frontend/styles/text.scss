@@ -1,10 +1,28 @@
 $base-font-family : 'Montserrat', sans-serif;
 
+/* Montserrat/14/Regular/Regular */
+@mixin text-14-regular {
+	font-family: $base-font-family;
+	font-size: 14px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.25;
+}
+
 /* Montserrat/16/Light/Body */
 @mixin text-16-body {
 	font-family: $base-font-family;
 	font-size: 16px;
 	font-weight: 300;
+	font-style: normal;
+	line-height: 1.25;
+}
+
+/* Montserrat/16/Medium/Medium */
+@mixin text-16-medium {
+	font-family: $base-font-family;
+	font-size: 16px;
+	font-weight: 500;
 	font-style: normal;
 	line-height: 1.25;
 }

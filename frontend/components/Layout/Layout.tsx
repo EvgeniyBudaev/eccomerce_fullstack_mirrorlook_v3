@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React, { ReactNode } from "react";
-import { Header } from "components";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
 import styles from "./Layout.module.scss";
 
 export interface ILayoutProps {
@@ -17,10 +18,11 @@ export const Layout: React.FC<ILayoutProps> = ({
       <Head>
         <title>{title} | MirrorLook</title>
       </Head>
+      <Header />
       <div className={styles.Container}>
-        <Header />
         <main>{children}</main>
       </div>
+      <Footer />
     </div>
   );
 };

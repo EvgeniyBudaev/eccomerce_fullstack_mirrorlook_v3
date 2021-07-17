@@ -1,0 +1,28 @@
+@import "styles";
+
+.HeaderBottom {
+  display: flex;
+  padding: 5px 0;
+  border-top: 1px solid $color-light-gray;
+  box-shadow: 0 1rem 1.7rem rgba(0, 0, 0, 0.05);
+}
+
+.Link {
+  transition: all 0.15s;
+
+  &:hover {
+    color: $color-beige-hover;
+  }
+}
+
+.Link+.Link {
+  margin-left: 25px;
+}
+
+.Container {
+  /*ширина контейнера чистая 1200px*/
+  max-width: 1230px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}

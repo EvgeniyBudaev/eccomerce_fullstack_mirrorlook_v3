@@ -5,14 +5,16 @@ import React from "react";
 import axios from "axios";
 import { IMirror } from "types/mirror";
 import { IFilter } from "types/filter";
+import { IFilterResponse } from "api/types";
+import { Layout } from "components";
+import { MirrorCard } from "components/Mirrors/MirrorCard";
 
-export default function MirrorDetail(props): JSX.Element {
+export default function MirrorDetail(props: IMirror): JSX.Element {
   console.log("[MirrorDetail][props]", props);
   return (
-    <>
-      <h1>MirrorDetail Page</h1>
-      <h2>{props.title}</h2>
-    </>
+    <Layout>
+      <MirrorCard mirror={props} />
+    </Layout>
   );
 }
 
@@ -22,7 +24,7 @@ export const getStaticProps: GetStaticProps<IMirror> = async ({
   const productSlug = params.slug;
 
   const { data: mirrorResponse } = await axios.get<IMirror>(
-    `http://localhost:8000/api/catalog/mirrors/${productSlug}`
+    `http://localhost:8000/api/v1/mirrors/${productSlug}`
   );
 
   if (!mirrorResponse) {
@@ -35,11 +37,11 @@ export const getStaticProps: GetStaticProps<IMirror> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: mirrorsResponse } = await axios.get<IFilter<IMirror>>(
-    `http://localhost:8000/api/catalog/mirrors`
+  const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
+    `http://localhost:8000/api/v1/mirrors`
   );
-  const { entities } = mirrorsResponse;
-  const slugs = entities.map(product => product.product_slug);
+  const { results } = mirrorsResponse;
+  const slugs = results.map(product => product.product_slug);
   const pathWithParams = slugs.map(slug => ({ params: { slug: slug } }));
 
   return {

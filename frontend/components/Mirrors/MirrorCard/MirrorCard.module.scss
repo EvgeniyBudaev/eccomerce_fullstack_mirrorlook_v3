@@ -1,0 +1,39 @@
+@import "styles";
+
+.MirrorCard {}
+
+.Title {
+  @include text-24-title;
+  margin-bottom: 30px;
+}
+
+.ProductMainInfo{}
+
+.ColMedia {}
+
+.ColPrice {
+  padding: 20px;
+  max-width: 330px;
+  border-radius: 4px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.06), 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+.ProductGallery {}
+
+.ProductSpecification {}
+
+.ProductPrice {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ProductAddToBasket {
+  width: 100%;
+}
+
+.ProductPay {
+  @include text-14-regular;
+  margin: 8px 0;
+}

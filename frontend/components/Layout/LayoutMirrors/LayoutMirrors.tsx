@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { Button, Pagination } from "components/UI";
+import { Button, Pagination } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { fetchMirrors } from "ducks/products/mirrors";
 import { IMirror } from "types/mirror";
@@ -27,7 +27,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   const state = useTypedSelector(state => state);
   const dispatch = useDispatch();
   const router = useRouter();
-  //console.log("[router]", router);
+  console.log("[router]", router);
   console.log("[mirrorsResponse]", mirrorsResponse);
 
   useEffect(() => {
@@ -63,19 +63,22 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     console.log("click!!!");
   };
 
+  console.log("pageNumber", pageNumber);
+  console.log("currentPage", currentPage);
+  console.log("pagesCount", pagesCount);
+
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
-        <h2 className={styles.Title}>Зеркала</h2>
+        <h1 className={styles.Title}>Зеркала</h1>
         <span>1-13 из 600 товаров</span>
       </div>
       <div className={styles.Inner}>
         <LayoutMirrorsAside />
         <div className={styles.Wrapper}>
-          <Button onClick={handleClick}>Нажать</Button>
           <MirrorsList mirrors={state.mirrors.mirrors} />
           <Pagination
-            currentPage={pageNumber}
+            currentPage={currentPage}
             pageSize={1}
             totalItemsCount={pagesCount}
             onChange={handlePageChange}

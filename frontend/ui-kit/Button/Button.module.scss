@@ -1,0 +1,43 @@
+@import "styles/index";
+
+.Button {
+  @include text-16-medium;
+  position: relative;
+  padding: 10px 30px;
+  height: max-content;
+  width: max-content;
+  color: white;
+  background-color: $color-beige;
+  //background: linear-gradient(to left, #000000, #B0976A);
+  border: 2px solid $color-beige;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $color-beige-hover;
+  }
+
+  span {
+    position: absolute;
+    background-color: $color-white;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: animate 0.6s linear;
+  }
+
+  @keyframes animate {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+    100% {
+      width: 500px;
+      height: 500px;
+      opacity: 0;
+    }
+  }
+}

@@ -115,10 +115,9 @@ class Console(Product):
     """Модель консоли."""
     color = models.CharField(max_length=255, null=True, blank=True,
                              verbose_name='Цвет')
-    count_legs = models.PositiveIntegerField(verbose_name='Количество ножек')
 
     class Meta:
-        ordering = ['count_legs']
+        ordering = ['color']
         verbose_name = 'Консоль'
         verbose_name_plural = 'Консоли'
 

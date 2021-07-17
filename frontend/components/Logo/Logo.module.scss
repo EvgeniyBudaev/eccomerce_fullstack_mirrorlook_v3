@@ -1,7 +1,18 @@
+@import "styles";
+
 .Logo {
+  display: flex;
+  align-items: center;
+
   svg {
     max-width: 364px;
     width: 100%;
-    height: 60px;
+    height: 48px;
+    fill: $color-beige;
+    transition: all 0.15s;
+
+    &:hover {
+      fill: $color-beige-hover;
+    }
   }
 }

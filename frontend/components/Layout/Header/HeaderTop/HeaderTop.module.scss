@@ -1,0 +1,42 @@
+@import "styles";
+
+.HeaderTop {}
+
+.Info {
+  padding: 5px 0;
+  border-bottom: 1px solid $color-light-gray;
+}
+
+.InfoInner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.InfoLeft,
+.InfoRight {
+  display: flex;
+}
+
+.InfoLeft .Text:first-child {
+  margin-right: 25px;
+}
+
+.InfoRight .Text:last-child {
+  margin-left: 25px;
+}
+
+.Text {
+  transition: all 0.15s;
+
+  &:hover {
+    color: $color-beige-hover;
+  }
+}
+
+.Container {
+  /*ширина контейнера чистая 1200px*/
+  max-width: 1230px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}

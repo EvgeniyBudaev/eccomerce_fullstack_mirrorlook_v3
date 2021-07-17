@@ -29,7 +29,8 @@ pip install -r requirements.txt
 Таким образом, разом установятся все необходимые пакеты.
 
 Создание приложения
-python3 manage.py startapp support
+python3 manage.py startapp my_app_name
+python manage.py startapp api
 
 Создать миграцию
 python manage.py makemigrations
@@ -51,7 +52,7 @@ python manage.py loaddata groups_fixture.json
 SideNavPanel
 
 Авторизация
-pip install djoser djangorestframework-simplejwt
+pip install djangorestframework-simplejwt
 
 Ошибка Сертификации
 pip install gensim config --global http.sslVerify false

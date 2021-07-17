@@ -55,7 +55,7 @@ p {
 }
 
 section {
-	margin: 50px 0;
+	margin: 30px 0;
 }
 
 button {
@@ -66,4 +66,85 @@ button {
 .react-slidedown {
   transition-duration: 0.3s !important;
   transition-timing-function: ease !important;
+}
+
+// Резиновая главная картинка в слайдере
+.slick-slide img {
+  max-width: 100%;
+  width: 100%;
+  //height: auto;
+  max-height: 500px;
+  margin: 0 auto;
+  outline: transparent;
+}
+
+.slick-slider {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.slick-slider .slick-dots {
+  display: flex !important;
+  justify-content: center;
+  bottom: -45px;
+
+  & li {
+    margin: 0 5px;
+    cursor: pointer;
+
+    & button {
+      font-size: 0;
+      width: 15px;
+      height: 15px;
+      background-color: $color-gray;
+      border: none;
+      outline: none;
+    }
+  }
+  & li.slick-active button {
+    background-color: $color-beige;
+    outline: transparent;
+  }
+
+  li button:before,
+  li.slick-active button:before {
+    color: transparent;
+  }
+}
+
+
+// Стрелки слайдера на главной странице
+.SliderSimple {
+  .slick-prev,
+  .slick-next {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+  }
+
+  .slick-prev {
+    left: 25px;
+  }
+
+  .slick-next {
+    right: 25px;
+  }
+}
+
+// Общие свойства для всех слайдеров
+.slick-list,
+.slick-track {
+  touch-action: pan-y;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  touch-action: pan-y;
+}
+
+@media (max-width: 500px) {
+  .nav.slick-initialized .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
 }

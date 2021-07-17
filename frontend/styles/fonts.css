@@ -2,33 +2,33 @@
   font-weight: 300;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  src: url("components/UI/assets/fonts/Montserrat-Light.ttf") format("truetype");
+  src: url("../ui-kit/assets/fonts/Montserrat-Light.ttf") format("truetype");
 }
 
 @font-face {
   font-weight: 400;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  src: url("components/UI/assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  src: url("../ui-kit/assets/fonts/Montserrat-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  src: url("components/UI/assets/fonts/Montserrat-Medium.ttf") format("truetype");
+  src: url("../ui-kit/assets/fonts/Montserrat-Medium.ttf") format("truetype");
 }
 
 @font-face {
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  src: url("components/UI/assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
+  src: url("../ui-kit/assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
   font-weight: 700;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
-  src: url("components/UI/assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  src: url("../ui-kit/assets/fonts/Montserrat-Bold.ttf") format("truetype");
 }

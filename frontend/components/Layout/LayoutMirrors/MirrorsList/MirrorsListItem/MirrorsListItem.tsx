@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { IMirror } from "types/mirror";
-import { IconButton } from "../../../../UI";
+import { IconButton } from "ui-kit";
 import styles from "./MirrorsListItem.module.scss";
 
 export interface IMirrorsListItemProps {

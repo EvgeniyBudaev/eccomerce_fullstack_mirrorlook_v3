@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Accordion, Checkbox, IconButton } from "components/UI";
+import { Accordion, Checkbox, IconButton } from "ui-kit";
 import { fetchMirrors } from "ducks/products/mirrors";
 import styles from "./LayoutMirrorsAside.module.scss";
 
@@ -45,8 +45,7 @@ export const LayoutMirrorsAside: React.FC = () => {
   };
 
   const asideMirrorsOptions = {
-    // categories: ["Венецианские зеркала", "Напольные зеркала"],
-    category: ["1", "2"],
+    category: ["Венецианские зеркала", "Напольные зеркала"],
     form: ["Круглая", "Прямоугольная"],
   };
 

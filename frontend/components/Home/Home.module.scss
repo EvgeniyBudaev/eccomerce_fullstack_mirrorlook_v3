@@ -1,0 +1,15 @@
+.Home {}
+
+.Catalog {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(585px, 1fr));
+  width: 100%;
+  margin: 75px 0 30px;
+
+  .CatalogImg {
+    max-width: 585px;
+    width: 100%;
+    height: auto;
+  }
+}

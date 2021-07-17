@@ -1,22 +1,9 @@
-import Link from "next/link";
-import { Layout } from "components";
+import { Home, Layout } from "components";
 
-export default function Home(): JSX.Element {
+export default function HomePage(): JSX.Element {
   return (
     <Layout>
-      <section>Slider Component</section>
-      <section>
-        <h2>Каталог</h2>
-        <Link href={`/mirrors/`}>
-          <a>Зеркала</a>
-        </Link>
-        <div>
-          <hr />
-        </div>
-        <Link href={`/consoles/`}>
-          <a>Консоли</a>
-        </Link>
-      </section>
+      <Home />
     </Layout>
   );
 }

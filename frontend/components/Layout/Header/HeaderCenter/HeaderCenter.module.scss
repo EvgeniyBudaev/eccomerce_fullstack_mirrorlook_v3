@@ -1,0 +1,29 @@
+@import "styles";
+
+.HeaderCenter {}
+
+.Container {
+  /*ширина контейнера чистая 1200px*/
+  max-width: 1230px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.Inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Basket {
+  cursor: pointer;
+
+  svg {
+      transition: all 0.15s;
+
+    &:hover {
+      fill: $color-beige-hover;
+    }
+  }
+}

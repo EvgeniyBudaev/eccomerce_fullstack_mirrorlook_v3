@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Catalog, Category, Mirror, Console, Review, Order, OrderItem, ShippingAddress
+from .models import (Catalog, Category, Mirror, Console, Review, Order,
+                     OrderItem, ShippingAddress)
 
 
 class CatalogAdmin(admin.ModelAdmin):
