@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { IMirror } from "types/mirror";
 import { IconButton } from "ui-kit";
+import { numberWithSpaces } from "utils/numberWithSpaces";
 import styles from "./MirrorsListItem.module.scss";
 
 export interface IMirrorsListItemProps {
@@ -38,7 +39,9 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <IconButton className={styles.FooterTopBasket} type={"Basket"} />
           </div>
           <div className={styles.FooterBottom}>
-            <div className={styles.FooterBottomNum}>{mirror.price} ₽</div>
+            <div className={styles.FooterBottomNum}>
+              {numberWithSpaces(parseInt(mirror.price))} ₽
+            </div>
             <div className={styles.FooterBottomStatus}>В наличии</div>
           </div>
         </div>

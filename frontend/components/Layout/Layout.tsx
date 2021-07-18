@@ -18,11 +18,15 @@ export const Layout: React.FC<ILayoutProps> = ({
       <Head>
         <title>{title} | MirrorLook</title>
       </Head>
-      <Header />
-      <div className={styles.Container}>
-        <main>{children}</main>
+      <div className={styles.Wrapper}>
+        <div className={styles.Content}>
+          <Header />
+          <main>
+            <div className={styles.Container}>{children}</div>
+          </main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

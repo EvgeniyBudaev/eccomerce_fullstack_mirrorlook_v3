@@ -33,7 +33,7 @@ class Category(models.Model):
     """Модель категории (венецианские зеркала, напольные зеркала, ...)."""
     catalog = models.ForeignKey(Catalog, null=True, verbose_name='Категория',
                                 on_delete=models.CASCADE,
-                                   related_name='categories',
+                                related_name='categories',
                                 help_text='Пожалуйста, выберите  каталог')
     title = models.CharField(max_length=255, verbose_name='Имя категории',
                              help_text='Укажите название для категории')
@@ -58,6 +58,10 @@ class Category(models.Model):
 
 class Product(models.Model):
     """Абстрактная модель."""
+    BRAND = (
+        ('Mirror Look', 'Mirror Look'),
+    )
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                              verbose_name='Пользователь')
     category = models.ForeignKey(Category, verbose_name='Категория',
@@ -66,6 +70,8 @@ class Product(models.Model):
                              verbose_name='Наименование товара')
     product_slug = models.SlugField(max_length=255, unique=True,
                                     verbose_name='URL продукта')
+    brand = models.CharField(max_length=64, null=True, blank=True,
+                             verbose_name='Бренд', choices=BRAND)
     image = models.ImageField(null=True, blank=True,
                               upload_to='photos/%Y/%m/%d/',
                               default='/placeholder.png',
@@ -80,12 +86,15 @@ class Product(models.Model):
                                        upload_to='photos/%Y/%m/%d/')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True,
                                 blank=True, verbose_name='Цена')
-    count_in_stock = models.IntegerField(null=True, blank=True, default=0,
-                                         verbose_name='Кол-во товара')
+    count_in_stock = models.PositiveIntegerField(null=True, blank=True,
+                                                 default=1,
+                                                 verbose_name='Кол-во товара')
     description = models.TextField(null=True, blank=True,
                                    verbose_name='Описание товара')
     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,
                                  blank=True, verbose_name='Рейтинг')
+    weight = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                 blank=True, verbose_name='Вес')
     created = models.DateTimeField(auto_now_add=True,
                                    verbose_name='Дата создания')
 
@@ -99,8 +108,50 @@ class Product(models.Model):
 
 class Mirror(Product):
     """Модель зеркала."""
+    FORM_TYPES = (
+        ('Прямоугольная', 'Прямоугольная'),
+        ('Круглая', 'Круглая'),
+        ('Овальная', 'Овальная'),
+    )
+
+    MIRROR_MATERIAL = (
+        ('Влагостойкое серебряное зеркало', 'Влагостойкое серебряное зеркало'),
+    )
+
+    FRAME_MATERIAL = (
+        ('Основа МДФ', 'Основа МДФ'),
+        ('Полирезин', 'Полирезин'),
+    )
+
+    FRAME_COLOR = (
+        ('Серебро', 'Серебро'),
+    )
+
     form = models.CharField(max_length=64, null=True, blank=True,
-                            verbose_name='Форма зеркала')
+                            verbose_name='Форма зеркала', choices=FORM_TYPES)
+    mirror_material = models.CharField(max_length=64, null=True, blank=True,
+                                       verbose_name='Материал зеркала',
+                                       choices=MIRROR_MATERIAL)
+    frame_material = models.CharField(max_length=64, null=True, blank=True,
+                                      verbose_name='Материал рамы',
+                                      choices=FRAME_MATERIAL)
+    frame_color = models.CharField(max_length=64, null=True, blank=True,
+                                   verbose_name='Цвет рамы',
+                                   choices=FRAME_COLOR)
+    height_with_frame = models.DecimalField(max_digits=7, decimal_places=2,
+                                            null=True, blank=True,
+                                            verbose_name="Высота с рамой")
+    width_with_frame = models.DecimalField(max_digits=7, decimal_places=2,
+                                            null=True, blank=True,
+                                            verbose_name="Ширина с рамой")
+    height_without_frame = models.DecimalField(max_digits=7, decimal_places=2,
+                                               null=True, blank=True,
+                                               verbose_name="Высота без рамы")
+    width_without_frame = models.DecimalField(max_digits=7, decimal_places=2,
+                                               null=True, blank=True,
+                                               verbose_name="Ширина без рамы")
+    is_faced = models.BooleanField(default=True, null=True, blank=True,
+                                   verbose_name='Наличие фацета')
 
     class Meta:
         ordering = ['form']

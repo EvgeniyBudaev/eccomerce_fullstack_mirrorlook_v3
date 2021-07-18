@@ -21,7 +21,7 @@ export const Button: React.FC<IButtonProps> = ({
     const x = e.clientX - e.target.offsetLeft;
     const y = e.clientY - e.target.offsetTop;
 
-    const ripples = document.createElement("span");
+    const ripples = document.createElement("p");
     ripples.style.left = x + "px";
     ripples.style.top = y + "px";
     buttonRef.current.appendChild(ripples);
@@ -35,13 +35,15 @@ export const Button: React.FC<IButtonProps> = ({
 
   return (
     <button
-      className={classNames(styles.Button, className)}
+      className={classNames(styles.Button, className, {
+        [styles.Button__disabled]: disabled,
+      })}
       disabled={disabled}
       ref={buttonRef}
       onClick={handleClick}
       {...rest}
     >
-      {children}
+      <span>{children}</span>
     </button>
   );
 };

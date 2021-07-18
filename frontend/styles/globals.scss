@@ -31,6 +31,10 @@ body {
 	color: $color-text;
 }
 
+#__next {
+  height: 100%;
+}
+
 ul,
 li {
 	margin: 0;
@@ -80,7 +84,7 @@ button {
 
 .slick-slider {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .slick-slider .slick-dots {
@@ -128,6 +132,27 @@ button {
 
   .slick-next {
     right: 25px;
+  }
+}
+
+// Слайдер в карточке продукта
+.SliderNav {
+  .slick-prev:before,
+  .slick-next:before {
+    color: black;
+  }
+
+  .slick-slide {
+    img {
+      padding: 5px !important;
+    }
+  }
+
+  .slick-slide.slick-current {
+    img {
+      border: 1px solid $color-text !important;
+      border-radius: 4px !important;
+    }
   }
 }
 

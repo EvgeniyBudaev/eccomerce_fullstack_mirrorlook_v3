@@ -4,23 +4,72 @@
 
 .Title {
   @include text-24-title;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
-.ProductMainInfo{}
+.ProductMainInfo{
+  display: flex;
+  justify-content: space-between;
+}
 
-.ColMedia {}
+.ColMedia {
+  max-width: 400px;
+  width: 100%;
+}
+
+.ColSpecification {
+  padding: 0 25px;
+}
 
 .ColPrice {
   padding: 20px;
   max-width: 330px;
+  width: 100%;
+  height: max-content;
   border-radius: 4px;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.06), 0 2px 2px 0 rgba(0, 0, 0, 0.12);
+
+  &Title {
+    display: inline-block;
+  }
 }
 
 .ProductGallery {}
 
-.ProductSpecification {}
+.ProductSpecification {
+  @include text-14-regular;
+
+  &Title {
+    @include text-14-bold;
+    margin-bottom: 16px;
+  }
+
+  &List {
+    margin-bottom: 8px;
+  }
+
+  li {
+    position: relative;
+    padding-left: 12px;
+
+    &::before {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      display: block;
+      width: 4px;
+      height: 4px;
+      content: " ";
+      border-radius: 4px;
+      background: #999;
+    }
+  }
+
+  li+li {
+    margin-top: 8px;
+  }
+}
 
 .ProductPrice {
   font-size: 32px;
@@ -29,11 +78,16 @@
   margin-bottom: 8px;
 }
 
+.ProductStatus {
+  display: inline-block;
+  color: $color-beige;
+}
+
 .ProductAddToBasket {
   width: 100%;
 }
 
 .ProductPay {
   @include text-14-regular;
-  margin: 8px 0;
+  margin: 8px 0 16px;
 }
