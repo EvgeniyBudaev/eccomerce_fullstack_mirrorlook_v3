@@ -57,7 +57,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
       search: pageNumber === 1 ? "" : `?page=${pageNumber}`,
     });
   };
-  
+
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
