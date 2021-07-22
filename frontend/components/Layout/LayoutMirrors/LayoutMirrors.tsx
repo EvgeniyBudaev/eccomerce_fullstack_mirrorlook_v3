@@ -22,16 +22,15 @@ interface ILayoutMirrorsProps {
 export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   mirrorsResponse,
 }) => {
-  const { pageNumber, pagesCount } = mirrorsResponse.paging;
+  const { pageNumber, pagesCount, displayItems } = mirrorsResponse.paging;
   const [currentPage, setCurrentPage] = React.useState(pageNumber);
   const state = useTypedSelector(state => state);
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log("[router]", router);
-  console.log("[mirrorsResponse]", mirrorsResponse);
+  // console.log("[router]", router);
+  // console.log("[mirrorsResponse]", mirrorsResponse);
 
   useEffect(() => {
-    setCurrentPage(mirrorsResponse.paging.pageNumber);
     dispatch(fetchMirrors(mirrorsResponse.entities));
   }, [mirrorsResponse, dispatch]);
 
@@ -63,10 +62,6 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     console.log("click!!!");
   };
 
-  console.log("pageNumber", pageNumber);
-  console.log("currentPage", currentPage);
-  console.log("pagesCount", pagesCount);
-
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
@@ -79,6 +74,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
           <MirrorsList mirrors={state.mirrors.mirrors} />
           <Pagination
             currentPage={currentPage}
+            displayItems={displayItems}
             pageSize={1}
             totalItemsCount={pagesCount}
             onChange={handlePageChange}

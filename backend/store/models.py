@@ -154,7 +154,7 @@ class Mirror(Product):
                                    verbose_name='Наличие фацета')
 
     class Meta:
-        ordering = ['form']
+        # ordering = ['form']
         verbose_name = 'Зеркало'
         verbose_name_plural = 'Зеркала'
 
@@ -168,7 +168,7 @@ class Console(Product):
                              verbose_name='Цвет')
 
     class Meta:
-        ordering = ['color']
+        # ordering = ['color']
         verbose_name = 'Консоль'
         verbose_name_plural = 'Консоли'
 

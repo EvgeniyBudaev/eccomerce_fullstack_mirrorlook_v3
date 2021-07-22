@@ -6,4 +6,5 @@ export interface IFilter<TItem> {
 export interface IPaging {
   pageNumber: number;
   pagesCount: number;
+  displayItems: number;
 }

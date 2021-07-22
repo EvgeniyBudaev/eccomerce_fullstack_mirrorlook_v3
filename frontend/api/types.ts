@@ -1,4 +1,4 @@
 export interface IFilterResponse<TItem> {
-  results: TItem[];
+  entities: TItem[];
   count: number;
 }

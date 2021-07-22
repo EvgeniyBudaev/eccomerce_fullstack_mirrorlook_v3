@@ -7,6 +7,7 @@ import styles from "./Pagination.module.scss";
 export interface IPaginationProps {
   className?: string;
   currentPage: number;
+  displayItems: number;
   pageSize: number;
   totalItemsCount: number;
   onChange: (pageNumber: number) => void;
@@ -16,6 +17,7 @@ export interface IPaginationProps {
 
 export const Pagination: React.FC<IPaginationProps> = ({
   className,
+  displayItems,
   totalItemsCount,
   pageSize,
   currentPage,
@@ -23,7 +25,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
   onGoBack,
   onGoForward,
 }) => {
-  const DISPLAY_ITEMS_COUNT = 4;
+  const DISPLAY_ITEMS_COUNT = displayItems;
   const FIRST_PAGE_NUMBER = 1;
 
   const pagesCount = Math.max(Math.ceil(totalItemsCount / pageSize), 1);

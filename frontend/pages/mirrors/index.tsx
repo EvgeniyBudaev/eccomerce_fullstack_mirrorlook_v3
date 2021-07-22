@@ -47,20 +47,23 @@ export default function MirrorsPage(
 export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
   query: { value = "", page = 1 },
 }) => {
+  const DISPLAY_ITEMS_COUNT = 2;
   console.log("[Value]", value);
   console.log("[PAGE]", page);
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
     `http://localhost:8000/api/v1/mirrors?value=${value}&page=${page}`
   );
   console.log("[mirrorsResponse]", mirrorsResponse);
-  const { results, count } = mirrorsResponse;
+  const { entities, count } = mirrorsResponse;
+  const pagesCount = Math.max(Math.ceil(count / DISPLAY_ITEMS_COUNT), 1);
 
   return {
     props: {
-      entities: results,
+      entities: entities,
       paging: {
         pageNumber: 1,
-        pagesCount: count,
+        pagesCount: pagesCount,
+        displayItems: DISPLAY_ITEMS_COUNT,
       },
     },
   };
