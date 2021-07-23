@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useRouter } from "next/router";
-import { Button, Pagination } from "ui-kit";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { fetchMirrors } from "ducks/products/mirrors";
+import { Pagination } from "ui-kit";
 import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
 import { MirrorsList } from "./MirrorsList";
@@ -23,43 +20,32 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   mirrorsResponse,
 }) => {
   const { pageNumber, pagesCount, displayItems } = mirrorsResponse.paging;
-  const [currentPage, setCurrentPage] = React.useState(pageNumber);
-  const state = useTypedSelector(state => state);
-  const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = React.useState(1);
   const router = useRouter();
-  // console.log("[router]", router);
-  console.log("[mirrorsResponse]", mirrorsResponse);
-
-  // useEffect(() => {
-  //   dispatch(fetchMirrors(mirrorsResponse.entities));
-  // }, [mirrorsResponse, dispatch]);
+  const path = router.asPath;
 
   const handlePageGoBack = () => {
     setCurrentPage(pageNumber => pageNumber - 1);
     router.push({
-      href: "/mirrors",
-      search: `?page=${pageNumber - 1}`,
+      href: path,
+      query: { ...router.query, page: currentPage - 1 },
     });
   };
 
   const handlePageGoForward = () => {
     setCurrentPage(pageNumber => pageNumber + 1);
     router.push({
-      href: "/mirrors",
-      search: `?page=${pageNumber + 1}`,
+      href: path,
+      query: { ...router.query, page: currentPage + 1 },
     });
   };
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     router.push({
-      href: "/mirrors",
-      search: pageNumber === 1 ? "" : `?page=${pageNumber}`,
+      href: path,
+      query: { ...router.query, page: pageNumber },
     });
-  };
-
-  const handleClick = () => {
-    console.log("click!!!");
   };
 
   return (

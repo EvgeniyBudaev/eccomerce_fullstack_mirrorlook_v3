@@ -1,10 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { isEmpty } from "lodash";
 import { Accordion, Checkbox, IconButton } from "ui-kit";
-import { fetchMirrors } from "ducks/products/mirrors";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 interface ICheckedMirrors {
@@ -13,19 +10,16 @@ interface ICheckedMirrors {
 }
 
 export const LayoutMirrorsAside: React.FC = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
-  const mir = useSelector(state => state);
-  // console.log("[STATE]", mir);
-
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
     category: [],
     form: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = () => {
-    setIsSubmitting(true);
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(prevState => !prevState);
   };
 
   const handleChangeCheckedBox = (
@@ -43,8 +37,6 @@ export const LayoutMirrorsAside: React.FC = () => {
         [nameGroup]: [...prevState[nameGroup].filter(x => x !== value)],
       }));
     }
-
-    handleSubmit();
   };
 
   const asideMirrorsOptions = {
@@ -55,54 +47,33 @@ export const LayoutMirrorsAside: React.FC = () => {
   useEffect(() => {
     if (!isSubmitting) return;
 
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-
     const handleFilter = (request: ICheckedMirrors) => {
-      let str = "";
+      const obj = {};
       const entries = Object.entries(request);
       entries.forEach(([key, value]) => {
-        console.log(`${key}: ${value}`);
-        str += isEmpty(value) ? "" : `${key}=${value}&`;
+        if (!isEmpty(value)) {
+          obj[key] = value;
+        }
       });
 
-      console.log("[STR]", str);
-
-      return str;
+      return { ...obj };
     };
 
-    async function fetch(request) {
-      // const response = await axios.post(
-      //   `http://127.0.0.1:8000/api/catalog/mirrors/filter/`,
-      //   request,
-      //   config
-      // );
-      // console.log("[response][filter]", response);
-      // setIsSubmitting(false);
-      // dispatch(fetchMirrors(response.data.entities));
-
-      router.push({
+    async function fetchMirrorsFilter(request) {
+      await router.push({
         href: "/mirrors",
-        search: handleFilter(request),
-        // search: isEmpty(request.category)
-        //   ? ""
-        //   : `?category=${request.category.join(",")}`,
-        //search: isEmpty(request.form) ? "" : `?form=${request.form.join(",")}`,
+        query: handleFilter(request),
       });
     }
+    setIsSubmitting(prevState => !prevState);
 
-    fetch(checkedMirrors);
-    console.log("[checkedMirrors form]", checkedMirrors.form.join(","));
-    console.log("[checkedMirrors category]", checkedMirrors.category.join(","));
-  }, [isSubmitting, dispatch, checkedMirrors]);
+    fetchMirrorsFilter(checkedMirrors);
+  }, [isSubmitting, checkedMirrors, router]);
 
   return (
     <aside className={styles.LayoutMirrorsAside}>
       <IconButton className={styles.FilterButton} type={"Filter"} />
-      <form className={styles.AsideFilter}>
+      <form className={styles.AsideFilter} onSubmit={handleSubmit}>
         <Accordion title="Категория" active={true}>
           {asideMirrorsOptions.category.map((label, index) => (
             <Checkbox
@@ -133,6 +104,7 @@ export const LayoutMirrorsAside: React.FC = () => {
             />
           ))}
         </Accordion>
+        <button type="submit">Применить</button>
       </form>
     </aside>
   );
