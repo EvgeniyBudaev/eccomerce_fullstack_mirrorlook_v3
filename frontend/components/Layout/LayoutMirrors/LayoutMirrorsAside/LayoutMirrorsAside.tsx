@@ -2,11 +2,12 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { isEmpty } from "lodash";
 import { Accordion, Checkbox, IconButton } from "ui-kit";
 import { fetchMirrors } from "ducks/products/mirrors";
 import styles from "./LayoutMirrorsAside.module.scss";
 
-interface ICheckedMirrorsProps {
+interface ICheckedMirrors {
   category: string[];
   form: string[];
 }
@@ -17,7 +18,7 @@ export const LayoutMirrorsAside: React.FC = () => {
   const mir = useSelector(state => state);
   // console.log("[STATE]", mir);
 
-  const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrorsProps>({
+  const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
     category: [],
     form: [],
   });
@@ -60,8 +61,20 @@ export const LayoutMirrorsAside: React.FC = () => {
       },
     };
 
+    const handleFilter = (request: ICheckedMirrors) => {
+      let str = "";
+      const entries = Object.entries(request);
+      entries.forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+        str += isEmpty(value) ? "" : `${key}=${value}&`;
+      });
+
+      console.log("[STR]", str);
+
+      return str;
+    };
+
     async function fetch(request) {
-      console.log("REQUEST", request);
       // const response = await axios.post(
       //   `http://127.0.0.1:8000/api/catalog/mirrors/filter/`,
       //   request,
@@ -70,14 +83,21 @@ export const LayoutMirrorsAside: React.FC = () => {
       // console.log("[response][filter]", response);
       // setIsSubmitting(false);
       // dispatch(fetchMirrors(response.data.entities));
+
       router.push({
         href: "/mirrors",
-        search: `?form=${request.form[0]}`,
+        search: handleFilter(request),
+        // search: isEmpty(request.category)
+        //   ? ""
+        //   : `?category=${request.category.join(",")}`,
+        //search: isEmpty(request.form) ? "" : `?form=${request.form.join(",")}`,
       });
     }
 
     fetch(checkedMirrors);
-  }, [isSubmitting, dispatch]);
+    console.log("[checkedMirrors form]", checkedMirrors.form.join(","));
+    console.log("[checkedMirrors category]", checkedMirrors.category.join(","));
+  }, [isSubmitting, dispatch, checkedMirrors]);
 
   return (
     <aside className={styles.LayoutMirrorsAside}>
@@ -91,7 +111,7 @@ export const LayoutMirrorsAside: React.FC = () => {
               label={label}
               checkedBox={checkedMirrors}
               key={index}
-              nameGroup="category_id"
+              nameGroup="category"
               onClick={(event, nameGroup) =>
                 handleChangeCheckedBox(event, nameGroup)
               }

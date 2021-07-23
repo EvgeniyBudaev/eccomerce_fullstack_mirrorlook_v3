@@ -4,7 +4,7 @@ from store.models import Mirror, Console
 
 
 class MirrorSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField(many=False, read_only=True)
+    category = serializers.StringRelatedField(source='category.title', many=False, read_only=True)
 
     class Meta:
         model = Mirror

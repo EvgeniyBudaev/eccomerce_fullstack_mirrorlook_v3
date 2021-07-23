@@ -34,8 +34,10 @@ class CharFilterInFilter(df_filters.BaseInFilter, df_filters.CharFilter):
 
 class MirrorFilter(df_filters.FilterSet):
     form = CharFilterInFilter(field_name='form', lookup_expr='in')
+    category = CharFilterInFilter(field_name='category__title',
+                                  lookup_expr='in')
     price = df_filters.RangeFilter()
 
     class Meta:
         model = Mirror
-        fields = ('form', 'price')
+        fields = ('form', 'category', 'price')
