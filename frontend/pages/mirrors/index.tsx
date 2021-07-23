@@ -45,15 +45,19 @@ export default function MirrorsPage(
 // };
 
 export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
-  query: { value = "", page = 1 },
+  query: { page = 1, form = "" },
 }) => {
   const DISPLAY_ITEMS_COUNT = 2;
-  console.log("[Value]", value);
   console.log("[PAGE]", page);
-  const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
-    `http://localhost:8000/api/v1/mirrors?value=${value}&page=${page}`
+  console.log("[form]", form);
+  const url = encodeURI(
+    `http://127.0.0.1:8000/api/v1/mirrors/?form=${form}&page=${page}`
   );
-  console.log("[mirrorsResponse]", mirrorsResponse);
+
+  const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
+    url
+  );
+
   const { entities, count } = mirrorsResponse;
   const pagesCount = Math.max(Math.ceil(count / DISPLAY_ITEMS_COUNT), 1);
 

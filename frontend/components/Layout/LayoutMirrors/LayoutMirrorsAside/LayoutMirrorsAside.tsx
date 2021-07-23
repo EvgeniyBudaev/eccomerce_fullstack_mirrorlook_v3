@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -12,8 +13,9 @@ interface ICheckedMirrorsProps {
 
 export const LayoutMirrorsAside: React.FC = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const mir = useSelector(state => state);
-  console.log("[STATE]", mir);
+  // console.log("[STATE]", mir);
 
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrorsProps>({
     category: [],
@@ -59,14 +61,19 @@ export const LayoutMirrorsAside: React.FC = () => {
     };
 
     async function fetch(request) {
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/catalog/mirrors/filter/`,
-        request,
-        config
-      );
-      console.log("[response][filter]", response);
-      setIsSubmitting(false);
-      dispatch(fetchMirrors(response.data.entities));
+      console.log("REQUEST", request);
+      // const response = await axios.post(
+      //   `http://127.0.0.1:8000/api/catalog/mirrors/filter/`,
+      //   request,
+      //   config
+      // );
+      // console.log("[response][filter]", response);
+      // setIsSubmitting(false);
+      // dispatch(fetchMirrors(response.data.entities));
+      router.push({
+        href: "/mirrors",
+        search: `?form=${request.form[0]}`,
+      });
     }
 
     fetch(checkedMirrors);

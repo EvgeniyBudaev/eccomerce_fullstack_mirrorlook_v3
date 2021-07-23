@@ -28,11 +28,11 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   const dispatch = useDispatch();
   const router = useRouter();
   // console.log("[router]", router);
-  // console.log("[mirrorsResponse]", mirrorsResponse);
+  console.log("[mirrorsResponse]", mirrorsResponse);
 
-  useEffect(() => {
-    dispatch(fetchMirrors(mirrorsResponse.entities));
-  }, [mirrorsResponse, dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMirrors(mirrorsResponse.entities));
+  // }, [mirrorsResponse, dispatch]);
 
   const handlePageGoBack = () => {
     setCurrentPage(pageNumber => pageNumber - 1);
@@ -71,7 +71,8 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
       <div className={styles.Inner}>
         <LayoutMirrorsAside />
         <div className={styles.Wrapper}>
-          <MirrorsList mirrors={state.mirrors.mirrors} />
+          {/*<MirrorsList mirrors={state.mirrors.mirrors} />*/}
+          <MirrorsList mirrors={mirrorsResponse.entities} />
           <Pagination
             currentPage={currentPage}
             displayItems={displayItems}
