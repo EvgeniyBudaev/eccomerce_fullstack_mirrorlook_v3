@@ -36,21 +36,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   const path = router.asPath;
 
   const handlePageChange = currentButton => {
-    // setCurrentPage(currentButton);
-    router.push({
-      href: path,
-      query: { ...router.query, page: currentButton },
-    });
-  };
-
-  const handlePageGoBack = currentButton => {
-    router.push({
-      href: path,
-      query: { ...router.query, page: currentButton },
-    });
-  };
-
-  const handlePageGoForward = currentButton => {
+    setCurrentPage(currentButton);
     router.push({
       href: path,
       query: { ...router.query, page: currentButton },
@@ -95,8 +81,6 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
             pages={pagesCount}
             isFirstPage={isFirstPage}
             onChange={handlePageChange}
-            onGoBack={handlePageGoBack}
-            onGoForward={handlePageGoForward}
           />
         </div>
       </div>

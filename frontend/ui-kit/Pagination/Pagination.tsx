@@ -7,15 +7,11 @@ export interface IPaginationProps {
   pages: number;
   isFirstPage: boolean;
   onChange: (number) => void;
-  onGoBack: (number) => void;
-  onGoForward: (number) => void;
 }
 
 export const Pagination: React.FC<IPaginationProps> = ({
   pages,
   onChange,
-  onGoBack,
-  onGoForward,
   isFirstPage,
 }) => {
   const FIRST_PAGE = 1;
@@ -78,7 +74,6 @@ export const Pagination: React.FC<IPaginationProps> = ({
     ) {
       return;
     }
-
   }, [currentButton, setCurrentButton, pages]);
 
   useEffect(() => {
@@ -87,8 +82,6 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
   useEffect(() => {
     onChange(currentButton);
-    onGoBack(currentButton);
-    onGoForward(currentButton);
   }, [currentButton]);
 
   const handlePageChange = item => {
