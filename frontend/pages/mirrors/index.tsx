@@ -47,7 +47,6 @@ export default function MirrorsPage(
 export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
   query: { page = 1, category = "", form = "" },
 }) => {
-  const DISPLAY_ITEMS_COUNT = 2;
   console.log("[PAGE]", page);
   console.log("[category]", category);
   console.log("[form]", form);
@@ -59,17 +58,17 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
     url
   );
 
-  const { entities, count } = mirrorsResponse;
-  const pagesCount = Math.max(Math.ceil(count / DISPLAY_ITEMS_COUNT), 1);
+  const { entities, pageItemsCount, totalItemsCount } = mirrorsResponse;
+  const pagesCount = Math.max(Math.ceil(totalItemsCount / pageItemsCount), 1);
 
   return {
     props: {
       entities: entities,
       paging: {
-        displayItems: DISPLAY_ITEMS_COUNT,
+        pageItemsCount: pageItemsCount,
         pageNumber: 1,
         pagesCount: pagesCount,
-        totalItemsCount: count,
+        totalItemsCount: totalItemsCount,
       },
     },
   };

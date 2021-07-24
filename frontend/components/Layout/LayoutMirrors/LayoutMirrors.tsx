@@ -29,7 +29,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     endProduct: 0,
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const { pageNumber, pagesCount, displayItems, totalItemsCount } =
+  const { pageNumber, pagesCount, pageItemsCount, totalItemsCount } =
     mirrorsResponse.paging;
   const router = useRouter();
   const path = router.asPath;
@@ -57,20 +57,20 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   };
 
   useEffect(() => {
-    const lastPage = Math.max(Math.ceil(totalItemsCount / displayItems), 1);
+    const lastPage = Math.max(Math.ceil(totalItemsCount / pageItemsCount), 1);
 
     if (currentPage === lastPage) {
       setProductRange({
-        startProduct: (currentPage - 1) * displayItems + 1,
+        startProduct: (currentPage - 1) * pageItemsCount + 1,
         endProduct: totalItemsCount,
       });
     } else {
       setProductRange({
-        startProduct: (currentPage - 1) * displayItems + 1,
-        endProduct: currentPage * displayItems,
+        startProduct: (currentPage - 1) * pageItemsCount + 1,
+        endProduct: currentPage * pageItemsCount,
       });
     }
-  }, [currentPage, displayItems, totalItemsCount]);
+  }, [currentPage, pageItemsCount, totalItemsCount]);
 
   return (
     <section className={styles.LayoutMirrors}>

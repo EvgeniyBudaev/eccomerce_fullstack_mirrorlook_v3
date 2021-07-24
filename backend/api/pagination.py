@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 class StorePagination(PageNumberPagination):
     # default_limit = 2
-    page_size = 2
+    page_size = 4
 
     def get_paginated_response(self, data):
         return Response({
@@ -14,6 +14,7 @@ class StorePagination(PageNumberPagination):
                 'previous': self.get_previous_link()
             },
             # 'count': self.count,
-            'count': self.page.paginator.count,
+            'pageItemsCount': self.page_size,
+            'totalItemsCount': self.page.paginator.count,
             'entities': data
         })
