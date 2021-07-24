@@ -1,6 +1,6 @@
 $base-font-family : 'Roboto', sans-serif;
 
-/* Montserrat/14/Regular */
+/* 14/Regular */
 @mixin text-14-regular {
 	font-family: $base-font-family;
 	font-size: 14px;
@@ -9,7 +9,7 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* Montserrat/14/Bold */
+/* 14/Bold */
 @mixin text-14-bold {
 	font-family: $base-font-family;
 	font-size: 14px;
@@ -18,7 +18,7 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* Montserrat/16/Light/Body */
+/* 16/Light/Body */
 @mixin text-16-body {
 	font-family: $base-font-family;
 	font-size: 16px;
@@ -27,7 +27,7 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* Montserrat/16/Regular */
+/* 16/Regular */
 @mixin text-16-regular {
 	font-family: $base-font-family;
 	font-size: 16px;
@@ -36,7 +36,7 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* Montserrat/16/Medium */
+/* 16/Medium */
 @mixin text-16-medium {
 	font-family: $base-font-family;
 	font-size: 16px;
@@ -45,7 +45,7 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* Montserrat/16/Bold/Title*/
+/* 16/Bold/Title*/
 @mixin text-16-title {
 	font-family: $base-font-family;
 	font-size: 16px;
@@ -54,7 +54,7 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* Montserrat/24/Bold/Title */
+/* 24/Bold/Title */
 @mixin text-24-title {
 	font-family: $base-font-family;
 	font-size: 24px;

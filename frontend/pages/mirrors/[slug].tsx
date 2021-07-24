@@ -40,8 +40,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
     `http://localhost:8000/api/v1/mirrors`
   );
-  const { results } = mirrorsResponse;
-  const slugs = results.map(product => product.product_slug);
+  const { entities } = mirrorsResponse;
+  const slugs = entities.map(product => product.product_slug);
   const pathWithParams = slugs.map(slug => ({ params: { slug: slug } }));
 
   return {

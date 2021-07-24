@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { isEmpty } from "lodash";
-import { Accordion, Checkbox, IconButton } from "ui-kit";
+import { Accordion, Button, Checkbox, IconButton } from "ui-kit";
 import styles from "./LayoutMirrorsAside.module.scss";
 
 interface ICheckedMirrors {
@@ -104,7 +104,13 @@ export const LayoutMirrorsAside: React.FC = () => {
             />
           ))}
         </Accordion>
-        <button type="submit">Применить</button>
+        <Button
+          className={styles.LayoutMirrorsAsideButton}
+          type="submit"
+          onClick={() => {}}
+        >
+          Применить
+        </Button>
       </form>
     </aside>
   );

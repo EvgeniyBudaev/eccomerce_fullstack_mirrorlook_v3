@@ -7,6 +7,11 @@
   box-shadow: none;
   transition: all 0.15s;
 
+  &::before {
+    height: 0;
+    width: 0;
+  }
+
   & svg {
     transition: all 0.15s;
   }

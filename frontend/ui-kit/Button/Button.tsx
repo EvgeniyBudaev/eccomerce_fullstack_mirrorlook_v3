@@ -2,9 +2,12 @@ import React, { DOMAttributes, useRef } from "react";
 import classNames from "classnames";
 import styles from "./Button.module.scss";
 
+export type ButtonType = "button" | "submit";
+
 export interface IButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
   disabled?: boolean;
+  type?: ButtonType;
   onClick?: (e?: React.MouseEvent) => void;
 }
 
@@ -12,6 +15,7 @@ export const Button: React.FC<IButtonProps> = ({
   className,
   children,
   disabled = false,
+  type = "button",
   onClick,
   ...rest
 }) => {
@@ -21,7 +25,7 @@ export const Button: React.FC<IButtonProps> = ({
     const x = e.clientX - e.target.offsetLeft;
     const y = e.clientY - e.target.offsetTop;
 
-    const ripples = document.createElement("p");
+    const ripples = document.createElement("span");
     ripples.style.left = x + "px";
     ripples.style.top = y + "px";
     buttonRef.current.appendChild(ripples);
@@ -40,6 +44,7 @@ export const Button: React.FC<IButtonProps> = ({
       })}
       disabled={disabled}
       ref={buttonRef}
+      type={type}
       onClick={handleClick}
       {...rest}
     >

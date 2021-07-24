@@ -66,9 +66,10 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
     props: {
       entities: entities,
       paging: {
+        displayItems: DISPLAY_ITEMS_COUNT,
         pageNumber: 1,
         pagesCount: pagesCount,
-        displayItems: DISPLAY_ITEMS_COUNT,
+        totalItemsCount: count,
       },
     },
   };
