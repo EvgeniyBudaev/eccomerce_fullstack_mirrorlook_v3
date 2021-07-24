@@ -29,13 +29,14 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     endProduct: 0,
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const { pageNumber, pagesCount, pageItemsCount, totalItemsCount } =
+  const [isFirstPage, setIsFirstPage] = useState(false);
+  const { pagesCount, pageItemsCount, totalItemsCount } =
     mirrorsResponse.paging;
   const router = useRouter();
   const path = router.asPath;
 
   const handlePageChange = currentButton => {
-    setCurrentPage(currentButton);
+    // setCurrentPage(currentButton);
     router.push({
       href: path,
       query: { ...router.query, page: currentButton },
@@ -45,14 +46,14 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   const handlePageGoBack = currentButton => {
     router.push({
       href: path,
-      query: { ...router.query, page: currentButton - 1 },
+      query: { ...router.query, page: currentButton },
     });
   };
 
   const handlePageGoForward = currentButton => {
     router.push({
       href: path,
-      query: { ...router.query, page: currentButton + 1 },
+      query: { ...router.query, page: currentButton },
     });
   };
 
@@ -72,6 +73,10 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     }
   }, [currentPage, pageItemsCount, totalItemsCount]);
 
+  const handleChangeOnFirstPage = () => {
+    setIsFirstPage(prev => !prev);
+  };
+  console.log("[mirrorsResponse.entities]", mirrorsResponse.entities);
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
@@ -82,12 +87,13 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
         </span>
       </div>
       <div className={styles.Inner}>
-        <LayoutMirrorsAside />
+        <LayoutMirrorsAside onFirstPage={handleChangeOnFirstPage} />
         <div className={styles.Wrapper}>
           {/*<MirrorsList mirrors={state.mirrors.mirrors} />*/}
           <MirrorsList mirrors={mirrorsResponse.entities} />
           <Pagination
             pages={pagesCount}
+            isFirstPage={isFirstPage}
             onChange={handlePageChange}
             onGoBack={handlePageGoBack}
             onGoForward={handlePageGoForward}

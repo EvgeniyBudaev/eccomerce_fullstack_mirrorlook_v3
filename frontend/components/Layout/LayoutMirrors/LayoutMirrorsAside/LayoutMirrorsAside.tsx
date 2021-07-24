@@ -9,7 +9,13 @@ interface ICheckedMirrors {
   form: string[];
 }
 
-export const LayoutMirrorsAside: React.FC = () => {
+interface LayoutMirrorsAsideProps {
+  onFirstPage: () => void;
+}
+
+export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
+  onFirstPage,
+}) => {
   const router = useRouter();
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
     category: [],
@@ -52,11 +58,11 @@ export const LayoutMirrorsAside: React.FC = () => {
       const entries = Object.entries(request);
       entries.forEach(([key, value]) => {
         if (!isEmpty(value)) {
-          obj[key] = value;
+          obj[key] = value.join(",");
         }
       });
 
-      return { ...obj };
+      return { ...obj, page: 1 };
     };
 
     async function fetchMirrorsFilter(request) {
@@ -64,11 +70,12 @@ export const LayoutMirrorsAside: React.FC = () => {
         href: "/mirrors",
         query: handleFilter(request),
       });
+      onFirstPage();
     }
     setIsSubmitting(prevState => !prevState);
 
     fetchMirrorsFilter(checkedMirrors);
-  }, [isSubmitting, checkedMirrors, router]);
+  }, [isSubmitting, checkedMirrors, onFirstPage]);
 
   return (
     <aside className={styles.LayoutMirrorsAside}>

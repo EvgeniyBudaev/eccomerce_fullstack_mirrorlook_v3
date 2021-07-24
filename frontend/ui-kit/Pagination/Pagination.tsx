@@ -5,6 +5,7 @@ import styles from "./Pagination.module.scss";
 
 export interface IPaginationProps {
   pages: number;
+  isFirstPage: boolean;
   onChange: (number) => void;
   onGoBack: (number) => void;
   onGoForward: (number) => void;
@@ -15,10 +16,11 @@ export const Pagination: React.FC<IPaginationProps> = ({
   onChange,
   onGoBack,
   onGoForward,
+  isFirstPage,
 }) => {
+  const FIRST_PAGE = 1;
   //Set number of pages
   const numberOfPages = [];
-  const FIRST_PAGE = 1;
 
   for (let i = 1; i <= pages; i++) {
     numberOfPages.push(i);
@@ -76,13 +78,22 @@ export const Pagination: React.FC<IPaginationProps> = ({
     ) {
       return;
     }
-    onChange(currentButton);
+
   }, [currentButton, setCurrentButton, pages]);
+
+  useEffect(() => {
+    setCurrentButton(1);
+  }, [isFirstPage]);
+
+  useEffect(() => {
+    onChange(currentButton);
+    onGoBack(currentButton);
+    onGoForward(currentButton);
+  }, [currentButton]);
 
   const handlePageChange = item => {
     if (item !== currentButton) {
       setCurrentButton(item);
-      onChange(currentButton);
     }
   };
 
@@ -92,7 +103,6 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
   const handlePageGoForward = () => {
     setCurrentButton(prev => (prev >= pages ? prev : prev + 1));
-    onGoForward(currentButton);
   };
 
   const handleItemNumberOrDots = (item: number) => {
