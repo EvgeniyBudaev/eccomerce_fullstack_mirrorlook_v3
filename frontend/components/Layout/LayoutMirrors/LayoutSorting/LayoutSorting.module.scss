@@ -1,0 +1,31 @@
+.LayoutSorting {
+  margin-bottom: 30px;
+
+  &SelectPrice {
+    max-width: 220px;
+    width: 100%;
+
+    svg {
+      fill: black;
+    }
+  }
+}
+
+.Inner,
+.SelectGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.SelectGroupItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &Label {
+    display: inline-block;
+    margin-right: 30px;
+  }
+}

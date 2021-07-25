@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { isEmpty } from "lodash";
 import { Pagination } from "ui-kit";
 import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
 import { MirrorsList } from "./MirrorsList";
 import { LayoutMirrorsAside } from "./LayoutMirrorsAside/LayoutMirrorsAside";
+import { LayoutSorting } from "./LayoutSorting/LayoutSorting";
 import styles from "./LayoutMirrors.module.scss";
 
 export interface IProductRange {
@@ -42,7 +42,8 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     entries.forEach(([key, value]) => {
       obj[key] = value;
     });
-
+    console.log("router.query", router.query);
+    console.log("obj ", obj);
     if (currentButton === 1) {
       delete obj["page"];
       return { ...obj };
@@ -52,6 +53,13 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   };
 
   const handlePageChange = currentButton => {
+    if (
+      currentButton === -100 ||
+      currentButton === -99 ||
+      currentButton === -101
+    ) {
+      return;
+    }
     setCurrentPage(currentButton);
     router.push({
       href: path,
@@ -91,6 +99,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
       <div className={styles.Inner}>
         <LayoutMirrorsAside onFirstPage={handleChangeOnFirstPage} />
         <div className={styles.Wrapper}>
+          <LayoutSorting onFirstPage={handleChangeOnFirstPage} />
           {/*<MirrorsList mirrors={state.mirrors.mirrors} />*/}
           <MirrorsList mirrors={mirrorsResponse.entities} />
           <Pagination

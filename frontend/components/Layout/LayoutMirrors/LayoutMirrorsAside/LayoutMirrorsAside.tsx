@@ -62,7 +62,11 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
         }
       });
 
-      return { ...obj, page: 1 };
+      if (!isEmpty(router.query.ordering)) {
+        return { ...obj, ordering: router.query.ordering, page: 1 };
+      } else {
+        return { ...obj, page: 1 };
+      }
     };
 
     async function fetchMirrorsFilter(request) {
@@ -113,7 +117,7 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
         </Accordion>
         <Button
           className={styles.LayoutMirrorsAsideButton}
-          type="submit"
+          typeButton="submit"
           onClick={() => {}}
         >
           Применить

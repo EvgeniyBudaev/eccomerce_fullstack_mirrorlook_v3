@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from store.models import Mirror, Console
@@ -12,8 +12,10 @@ class MirrorViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MirrorSerializer
     pagination_class = StorePagination
     lookup_field = 'product_slug'
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
     filterset_class = MirrorFilter
+    ordering_fields = ('price',)
+    ordering = ('price',)
 
 
 class ConsoleViewSet(viewsets.ReadOnlyModelViewSet):

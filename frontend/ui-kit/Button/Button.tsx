@@ -7,7 +7,7 @@ export type ButtonType = "button" | "submit";
 export interface IButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
   disabled?: boolean;
-  type?: ButtonType;
+  typeButton?: ButtonType;
   onClick?: (e?: React.MouseEvent) => void;
 }
 
@@ -15,7 +15,7 @@ export const Button: React.FC<IButtonProps> = ({
   className,
   children,
   disabled = false,
-  type = "button",
+  typeButton = "button",
   onClick,
   ...rest
 }) => {
@@ -44,7 +44,7 @@ export const Button: React.FC<IButtonProps> = ({
       })}
       disabled={disabled}
       ref={buttonRef}
-      type={type}
+      type={typeButton}
       onClick={handleClick}
       {...rest}
     >
