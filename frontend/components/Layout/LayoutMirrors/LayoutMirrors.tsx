@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { isEmpty } from "lodash";
 import { Pagination } from "ui-kit";
 import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
@@ -35,11 +36,26 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   const router = useRouter();
   const path = router.asPath;
 
+  const handleFilter = (currentButton: number) => {
+    const obj = {};
+    const entries = Object.entries(router.query);
+    entries.forEach(([key, value]) => {
+      obj[key] = value;
+    });
+
+    if (currentButton === 1) {
+      delete obj["page"];
+      return { ...obj };
+    } else {
+      return { ...obj, page: currentButton };
+    }
+  };
+
   const handlePageChange = currentButton => {
     setCurrentPage(currentButton);
     router.push({
       href: path,
-      query: { ...router.query, page: currentButton },
+      query: handleFilter(currentButton),
     });
   };
 
