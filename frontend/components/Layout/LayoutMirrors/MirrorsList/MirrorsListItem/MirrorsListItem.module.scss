@@ -8,6 +8,7 @@
   height: 360px;
   border: 1px solid #e4e4e4;
   padding: 10px;
+  transition: box-shadow 0.15s;
 
   &:hover {
     box-shadow: $shadow-card;
