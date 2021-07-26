@@ -5,6 +5,8 @@ import ArrowLeft from "ui-kit/assets/icons/ArrowLeft.svg";
 import ArrowRight from "ui-kit/assets/icons/ArrowRight.svg";
 import Basket from "ui-kit/assets/icons/Basket.svg";
 import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
+import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
+import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
 import styles from "./Icon.module.scss";
 
@@ -14,6 +16,8 @@ export type IconType =
   | "ArrowRight"
   | "Basket"
   | "Checkbox"
+  | "DisplayGrid"
+  | "DisplayLine"
   | "Filter";
 
 const iconTypes = new Map([
@@ -22,6 +26,8 @@ const iconTypes = new Map([
   ["ArrowRight", <ArrowRight key={Date.now()} />],
   ["Basket", <Basket key={Date.now()} />],
   ["Checkbox", <Checkbox key={Date.now()} />],
+  ["DisplayGrid", <DisplayGrid key={Date.now()} />],
+  ["DisplayLine", <DisplayLine key={Date.now()} />],
   ["Filter", <Filter key={Date.now()} />],
 ]);
 

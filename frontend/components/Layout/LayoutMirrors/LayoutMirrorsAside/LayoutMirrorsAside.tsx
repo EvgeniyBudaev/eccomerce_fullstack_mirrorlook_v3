@@ -79,6 +79,7 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
     setIsSubmitting(prevState => !prevState);
 
     fetchMirrorsFilter(checkedMirrors);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, checkedMirrors, onFirstPage]);
 
   return (

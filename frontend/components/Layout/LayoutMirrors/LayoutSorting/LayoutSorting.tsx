@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import classNames from "classnames";
+import { IconButton } from "ui-kit";
 import { LayoutSortingSelectStyles } from "./styles";
 import styles from "./LayoutSorting.module.scss";
 
@@ -10,10 +12,14 @@ interface ISorting {
 }
 
 interface ILayoutSortingProps {
+  isClickedDisplayLine?: boolean;
+  onDisplayLine: () => void;
   onFirstPage: () => void;
 }
 
 export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
+  isClickedDisplayLine,
+  onDisplayLine,
   onFirstPage,
 }) => {
   const PRICE_UP = "по возрастанию цены";
@@ -54,6 +60,7 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
     setIsSubmitting(prevState => !prevState);
 
     fetchMirrorsSorting(selectedOption);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, onFirstPage]);
 
   return (
@@ -71,6 +78,31 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
               onChange={handleChange}
               options={options}
             />
+          </div>
+        </div>
+        <div className={styles.ListingViewSwitcher}>
+          <div className={styles.ListingViewSwitcherInner}>
+            <div
+              className={classNames(styles.ListingViewSwitcherPointer, {
+                [styles.ListingViewSwitcherPointer__line]: isClickedDisplayLine,
+              })}
+            />
+            <div className={styles.DisplayButtons}>
+              <IconButton
+                className={classNames(styles.DisplayButton, {
+                  [styles.DisplayButton__line]: isClickedDisplayLine,
+                })}
+                type="DisplayLine"
+                onClick={onDisplayLine}
+              />
+              <IconButton
+                className={classNames(styles.DisplayButton, {
+                  [styles.DisplayButton__line]: !isClickedDisplayLine,
+                })}
+                type="DisplayGrid"
+                onClick={onDisplayLine}
+              />
+            </div>
           </div>
         </div>
       </div>

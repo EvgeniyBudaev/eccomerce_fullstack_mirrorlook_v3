@@ -74,6 +74,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
     ) {
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentButton, setCurrentButton, pages]);
 
   useEffect(() => {
@@ -82,6 +83,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
 
   useEffect(() => {
     onChange(currentButton);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentButton]);
 
   const handlePageChange = item => {

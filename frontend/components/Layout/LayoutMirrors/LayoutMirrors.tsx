@@ -31,6 +31,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [isFirstPage, setIsFirstPage] = useState(false);
+  const [isClickedDisplayLine, setIsClickedDisplayLine] = useState(false);
   const { pagesCount, pageItemsCount, totalItemsCount } =
     mirrorsResponse.paging;
   const router = useRouter();
@@ -42,8 +43,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     entries.forEach(([key, value]) => {
       obj[key] = value;
     });
-    console.log("router.query", router.query);
-    console.log("obj ", obj);
+
     if (currentButton === 1) {
       delete obj["page"];
       return { ...obj };
@@ -86,7 +86,13 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
   const handleChangeOnFirstPage = () => {
     setIsFirstPage(prev => !prev);
   };
+
+  const handleDisplayLine = () => {
+    setIsClickedDisplayLine(prev => !prev);
+  };
+
   console.log("[mirrorsResponse.entities]", mirrorsResponse.entities);
+
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>
@@ -99,9 +105,16 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
       <div className={styles.Inner}>
         <LayoutMirrorsAside onFirstPage={handleChangeOnFirstPage} />
         <div className={styles.Wrapper}>
-          <LayoutSorting onFirstPage={handleChangeOnFirstPage} />
+          <LayoutSorting
+            isClickedDisplayLine={isClickedDisplayLine}
+            onDisplayLine={handleDisplayLine}
+            onFirstPage={handleChangeOnFirstPage}
+          />
           {/*<MirrorsList mirrors={state.mirrors.mirrors} />*/}
-          <MirrorsList mirrors={mirrorsResponse.entities} />
+          <MirrorsList
+            mirrors={mirrorsResponse.entities}
+            isClickedDisplayLine={isClickedDisplayLine}
+          />
           <Pagination
             pages={pagesCount}
             isFirstPage={isFirstPage}
