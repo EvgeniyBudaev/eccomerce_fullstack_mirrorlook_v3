@@ -6,6 +6,7 @@
   margin-bottom: 40px;
 
   &__line {
+    gap: 0;
     grid-template-columns: 1fr;
   }
 }

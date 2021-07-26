@@ -68,7 +68,7 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
       <div className={styles.Inner}>
         <div className={styles.SelectGroup}>
           <div className={styles.SelectGroupItem}>
-            <span className={styles.SelectGroupItemLabel}>Сортировать по</span>
+            <span className={styles.SelectGroupItemLabel}>Сортировать</span>
             <Select
               className={styles.LayoutSortingSelectPrice}
               styles={LayoutSortingSelectStyles}

@@ -12,12 +12,13 @@
     padding: 7px 15px 7px 0;
     color: $color-text;
     background-color: $color-white;
+    border-bottom: 1px solid $color-border;
     transition: all 0.3s ease;
 
     &:hover {
       cursor: pointer;
       background-color: $color-white;
-      box-shadow: $shadow-black;
+      box-shadow: $shadow-bottom;
     }
   }
 
@@ -43,10 +44,6 @@
 }
 
 .Accordion.Accordion__active {
-  .Header{
-    border-bottom: 1px solid $color-border;
-  }
-
   .HeaderIcon {
     svg {
       transform: rotate(180deg);
