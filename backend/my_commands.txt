@@ -6,7 +6,6 @@
 python manage.py runserver
 
 Создание виртуального окружения
-python3 -m venv venv
 python -m venv venv
 
 Запуск виртуального окружения проекта
@@ -18,7 +17,7 @@ deactivate
 
 Установка Django (LTS)
 pip install Django==3.2.3
-python3 -m pip install --upgrade pip
+python -m pip install --upgrade pip
 
 Создание проекта
 django-admin startproject backend
@@ -29,8 +28,7 @@ pip install -r requirements.txt
 Таким образом, разом установятся все необходимые пакеты.
 
 Создание приложения
-python3 manage.py startapp my_app_name
-python manage.py startapp api
+python manage.py startapp app_name
 
 Создать миграцию
 python manage.py makemigrations
@@ -56,3 +54,7 @@ pip install djangorestframework-simplejwt
 
 Ошибка Сертификации
 pip install gensim config --global http.sslVerify false
+
+Удаляет все данные из базы данных, запускает “post-synchronization” обработчики
+и загружает начальные данные из фикстур.
+python manage.py flush

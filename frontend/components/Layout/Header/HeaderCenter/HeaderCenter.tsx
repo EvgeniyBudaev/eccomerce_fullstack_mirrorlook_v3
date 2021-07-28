@@ -1,6 +1,6 @@
 import React from "react";
 import { Logo } from "components";
-import { Icon } from "ui-kit";
+import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 
 export const HeaderCenter: React.FC = () => {
@@ -9,7 +9,7 @@ export const HeaderCenter: React.FC = () => {
       <div className={styles.Container}>
         <div className={styles.Inner}>
           <Logo />
-          <Icon className={styles.Basket} type={"Basket"} />
+          <HeaderIconsList />
         </div>
       </div>
     </div>

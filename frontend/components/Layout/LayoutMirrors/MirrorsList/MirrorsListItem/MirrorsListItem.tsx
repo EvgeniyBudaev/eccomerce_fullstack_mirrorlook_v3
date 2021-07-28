@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import classNames from "classnames";
 import { IMirror } from "types/mirror";
-import {Button, IconButton} from "ui-kit";
+import { Button, IconButton } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import styles from "./MirrorsListItem.module.scss";
 

@@ -1,10 +1,16 @@
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-from store.models import Mirror, Console
+from store.models import User, Mirror, Console
+from accounts.serializers import UserSerializer
 from .serializers import MirrorSerializer, ConsoleSerializer
 from .pagination import StorePagination
-from .filters import ProductMultipleFilterBackend, MirrorFilter
+from .filters import MirrorFilter
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class MirrorViewSet(viewsets.ReadOnlyModelViewSet):

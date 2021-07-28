@@ -1,0 +1,10 @@
+export const FETCH_USER = "account/FETCH_USER";
+export const FETCH_USER_SUCCESS = "account/FETCH_USER_SUCCESS";
+export const FETCH_USER_FAIL = "account/FETCH_USER_FAIL";
+export const SET_USER = "account/SET_USER";
+export const LOGIN = "account/LOGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const AUTHENTICATED_SUCCESS = "AUTHENTICATED_SUCCESS";
+export const AUTHENTICATED_FAIL = "AUTHENTICATED_FAIL";
+export const LOGOUT = "LOGOUT";

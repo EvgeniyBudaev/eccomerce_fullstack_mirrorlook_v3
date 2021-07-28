@@ -8,6 +8,7 @@ import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
+import User from "ui-kit/assets/icons/User.svg";
 import styles from "./Icon.module.scss";
 
 export type IconType =
@@ -18,7 +19,8 @@ export type IconType =
   | "Checkbox"
   | "DisplayGrid"
   | "DisplayLine"
-  | "Filter";
+  | "Filter"
+  | "User";
 
 const iconTypes = new Map([
   ["ArrowDown", <ArrowDown key={Date.now()} />],
@@ -29,6 +31,7 @@ const iconTypes = new Map([
   ["DisplayGrid", <DisplayGrid key={Date.now()} />],
   ["DisplayLine", <DisplayLine key={Date.now()} />],
   ["Filter", <Filter key={Date.now()} />],
+  ["User", <User key={Date.now()} />],
 ]);
 
 export interface IIconProps extends DOMAttributes<HTMLSpanElement> {

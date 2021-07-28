@@ -15,15 +15,3 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.Basket {
-  cursor: pointer;
-
-  svg {
-      transition: all 0.15s;
-
-    &:hover {
-      fill: $color-beige-hover;
-    }
-  }
-}

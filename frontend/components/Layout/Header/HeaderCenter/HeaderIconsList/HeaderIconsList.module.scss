@@ -1,0 +1,42 @@
+@import "styles";
+
+.HeaderIconsList {
+  display: flex;
+  max-width: 188px;
+  width: 100%;
+}
+
+.HeaderIconListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 94px;
+  width: 100%;
+
+  a {
+    color: $color-text;
+    text-decoration: none;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
+}
+
+.Icon {
+  cursor: pointer;
+
+  svg {
+    fill: $color-beige;
+    transition: all 0.15s;
+
+    &:hover {
+      fill: $color-beige-hover;
+    }
+  }
+}
+
+.IconDescription {}
