@@ -7,6 +7,10 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_CONFIRM_SUCCESS,
+  PASSWORD_RESET_CONFIRM_FAIL,
 } from "./actionTypes";
 
 const initialState = {
@@ -56,6 +60,17 @@ export const reducer: Reducer<any> = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        error: action.payload,
+      };
+    case PASSWORD_RESET_SUCCESS:
+    case PASSWORD_RESET_CONFIRM_SUCCESS:
+      return {
+        ...state,
+      };
+    case PASSWORD_RESET_FAIL:
+    case PASSWORD_RESET_CONFIRM_FAIL:
+      return {
+        ...state,
         error: action.payload,
       };
     default:
