@@ -12,22 +12,22 @@ interface ILoginData {
 }
 
 export default function LoginPage(): JSX.Element {
-  const [loginData, setLoginData] = useState<ILoginData>({
+  const [formData, setFormData] = useState<ILoginData>({
     email: "",
     password: "",
   });
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const { email, password } = loginData;
+  const { email, password } = formData;
   const myState = useTypedSelector(state => state);
   const isAuthenticated = useTypedSelector(
     state => state.account.isAuthenticated
   );
-  console.log("[myState]", myState);
+  console.log("[login][myState]", myState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setLoginData({ ...loginData, [event.target.name]: event.target.value });
+    setFormData({ ...formData, [event.target.name]: event.target.value });
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();

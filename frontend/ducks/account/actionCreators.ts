@@ -11,6 +11,10 @@ import {
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
 } from "./actionTypes";
 
 export const fetchUser = () => async dispatch => {
@@ -76,6 +80,69 @@ export const login = (email: string, password: string) => async dispatch => {
     });
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
+  }
+};
+
+export const signup =
+  (name: string, email: string, password: string, re_password: string) =>
+  async dispatch => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const body = JSON.stringify({ name, email, password, re_password });
+    console.log("[signup][body]", body);
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/api/v1/auth/users/`,
+        body,
+        config
+      );
+      console.log("[signup][response]", response);
+      dispatch({
+        type: SIGNUP_SUCCESS,
+        payload: response.data,
+      });
+      //localStorage.setItem("access", response.data.access);
+    } catch (error) {
+      dispatch({
+        type: SIGNUP_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+      //localStorage.removeItem("access");
+      //localStorage.removeItem("refresh");
+    }
+  };
+
+export const verify = (uid, token: string) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ uid, token });
+  try {
+    const response = await axios.post(
+      `http://127.0.0.1:8000/api/v1/auth/users/activation/`,
+      body,
+      config
+    );
+    dispatch({
+      type: ACTIVATION_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ACTIVATION_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
   }
 };
 
