@@ -7,7 +7,9 @@ import { useTypedSelector } from "hooks/useTypedSelector";
 import { Layout } from "components";
 
 interface ISignupData {
-  name: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
   email: string;
   password: string;
   re_password: string;
@@ -16,7 +18,9 @@ interface ISignupData {
 export default function SignupPage(): JSX.Element {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [formData, setFormData] = useState<ISignupData>({
-    name: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
     email: "",
     password: "",
     re_password: "",
@@ -24,7 +28,8 @@ export default function SignupPage(): JSX.Element {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const { name, email, password, re_password } = formData;
+  const { first_name, last_name, phone_number, email, password, re_password } =
+    formData;
   const myState = useTypedSelector(state => state);
   const isAuthenticated = useTypedSelector(
     state => state.account.isAuthenticated
@@ -37,7 +42,16 @@ export default function SignupPage(): JSX.Element {
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password === re_password) {
-      dispatch(signup(name, email, password, re_password));
+      dispatch(
+        signup(
+          first_name,
+          last_name,
+          phone_number,
+          email,
+          password,
+          re_password
+        )
+      );
       setIsAccountCreated(true);
     }
   };
@@ -59,9 +73,29 @@ export default function SignupPage(): JSX.Element {
         <div>
           <input
             type="text"
-            placeholder="Name"
-            name="name"
-            value={name}
+            placeholder="Имя"
+            name="first_name"
+            value={first_name}
+            required
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Фамилия"
+            name="last_name"
+            value={last_name}
+            required
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Номер телефона"
+            name="phone_number"
+            value={phone_number}
             required
             onChange={handleChange}
           />

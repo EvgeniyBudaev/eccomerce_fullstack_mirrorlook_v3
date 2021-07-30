@@ -39,6 +39,7 @@ python manage.py migrate support
 
 Создать супер пользователя
 python manage.py createsuperuser
+winpty python manage.py createsuperuser
 
 Fixture - выгрузка данных из БД (dump данных)
 python manage.py dumpdata support.Category > categories.json
@@ -58,3 +59,7 @@ pip install gensim config --global http.sslVerify false
 Удаляет все данные из базы данных, запускает “post-synchronization” обработчики
 и загружает начальные данные из фикстур.
 python manage.py flush
+
+Удаление коммита с GitHub
+git reset --hard f5aa5273dd93f550bf0c95cdd7ccad3cc3a7750c
+git push --force

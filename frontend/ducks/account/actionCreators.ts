@@ -84,14 +84,28 @@ export const login = (email: string, password: string) => async dispatch => {
 };
 
 export const signup =
-  (name: string, email: string, password: string, re_password: string) =>
+  (
+    first_name: string,
+    last_name: string,
+    phone_number: string,
+    email: string,
+    password: string,
+    re_password: string
+  ) =>
   async dispatch => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    const body = JSON.stringify({ name, email, password, re_password });
+    const body = JSON.stringify({
+      first_name,
+      last_name,
+      phone_number,
+      email,
+      password,
+      re_password,
+    });
     console.log("[signup][body]", body);
     try {
       const response = await axios.post(
