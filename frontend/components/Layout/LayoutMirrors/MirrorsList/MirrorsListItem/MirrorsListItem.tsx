@@ -28,9 +28,9 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <Link href={`/mirrors/${mirror.product_slug}`}>
               <a>
                 <Image
-                  src={`http://127.0.0.1:8000/mirrors/${mirror.image}`}
+                  src={mirror.product_photo1}
                   alt=""
-                  width="202"
+                  width="164"
                   height="216"
                 />
               </a>
