@@ -9,6 +9,7 @@
 .LoginSectionLeft {
   position: absolute;
   left: 0;
+  bottom: 46px;
   align-self: flex-end;
   flex-shrink: 1;
 }
@@ -19,7 +20,7 @@
   justify-content: center;
   flex-grow: 1;
   flex-direction: column;
-  margin-top: 160px;
+  margin-top: 50px;
   height: 582px;
   max-width: 470px;
   width: 100%;
@@ -57,9 +58,15 @@
   }
 }
 
+.LoginSectionCenter_Image {
+  position: absolute;
+  bottom: 46px;
+}
+
 .LoginSectionRight {
   position: absolute;
   right: 0;
+  bottom: 46px;
   align-self: flex-end;
   flex-shrink: 1;
 }
@@ -78,55 +85,12 @@
   }
 }
 
-.TextField {
-  position: relative;
-  margin-bottom: 30px;
-  height: 56px;
-  width: 100%;
-  //background-color: $color-bg-input;
-  border-radius: 4px;
-  word-wrap: break-word;
+.ErrorResponse {
+  display: none;
 }
 
-.TextField_Label {
-  @include text-14-regular;
-  position: absolute;
-  top: 20px;
-  left: 12px;
-  z-index: 1;
-  color: rgba(0,0,0,.54);
-  pointer-events:none;
-  transition: all 0.2s;
-
-  .Input__error {
-    background-color: $color-light-red;
-  }
-}
-
-.TextField__active {
-  width: 100%;
-  background-color: $color-white;
-
-  .TextField_Label {
-    @include text-12-regular;
-    top: -7px;
-    padding: 0 5px;
-    color: $color-text;
-    background-color: $color-white;
-  }
-
-  .Input__active {
-    width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.54);
-    background-color: $color-white;
-
-    input {
-      background-color: $color-white;
-    }
-  }
-
-  .Input__active.Input__error {
-    border: 1px solid $color-red;
-    background-color: $color-white;
-  }
+.ErrorResponse__error {
+  display: block;
+  margin-bottom: 20px;
+  color: $color-red;
 }

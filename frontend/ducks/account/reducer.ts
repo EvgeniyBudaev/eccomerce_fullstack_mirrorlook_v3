@@ -1,4 +1,5 @@
 import { Reducer } from "redux";
+import { IAccount } from "api/types/account";
 import {
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
@@ -16,6 +17,7 @@ import {
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
 } from "./actionTypes";
+import { AccountActionsType } from "./types";
 
 const initialState = {
   access: null,
@@ -25,12 +27,13 @@ const initialState = {
   error: null,
 };
 
-export const reducer: Reducer<any> = (state = initialState, action) => {
+export const reducer: Reducer<IAccount> = (state = initialState, action) => {
   switch (action.type) {
     case AUTHENTICATED_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
+        error: null,
       };
     case AUTHENTICATED_FAIL:
       return {
@@ -43,7 +46,7 @@ export const reducer: Reducer<any> = (state = initialState, action) => {
         ...state,
         access: action.payload.access,
         refresh: action.payload.refresh,
-        isAuthenticated: true,
+        error: null,
       };
     case SIGNUP_SUCCESS:
       return {
@@ -65,12 +68,15 @@ export const reducer: Reducer<any> = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isAuthenticated: true,
+        error: null,
       };
     case FETCH_USER_FAIL:
       return {
         ...state,
         user: null,
         error: action.payload,
+        isAuthenticated: false,
       };
     case PASSWORD_RESET_SUCCESS:
     case PASSWORD_RESET_CONFIRM_SUCCESS:

@@ -9,7 +9,7 @@ import * as yup from "yup";
 import classNames from "classnames";
 import { login } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { Button, Input } from "ui-kit";
+import { Button, FormField } from "ui-kit";
 import styles from "./Login.module.scss";
 
 interface ILoginForm {
@@ -29,10 +29,6 @@ const schema = yup.object().shape({
 });
 
 export const Login: React.FC = () => {
-  const [formData, setFormData] = useState<ILoginForm>({
-    email: "",
-    password: "",
-  });
   const [isFocused, setIsFocused] = useState({
     email: false,
     password: false,
@@ -45,17 +41,16 @@ export const Login: React.FC = () => {
   } = useForm<ILoginForm>({ resolver: yupResolver(schema) });
   const dispatch = useDispatch();
   const router = useRouter();
-  const { email, password } = formData;
-  const myState = useTypedSelector(state => state);
+  const account = useTypedSelector(state => state.account);
+  const { error } = account;
   const isAuthenticated = useTypedSelector(
     state => state.account.isAuthenticated
   );
-  console.log("[login][myState]", myState);
+  console.log("[login][account]", account);
   const watchAllFields = watch();
 
   const onSubmit = (data: ILoginForm) => {
-    setFormData(data);
-    dispatch(login(email, password));
+    dispatch(login(data.email, data.password));
   };
 
   useEffect(() => {
@@ -91,49 +86,38 @@ export const Login: React.FC = () => {
         <div className={styles.LoginSectionCenter_Content}>
           <h1 className={styles.LoginSectionCenterContent_Title}>Вход</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div
-              className={classNames(styles.TextField, {
-                [styles.TextField__active]: isFocused.email,
-                [styles.TextField__error]: errors,
-              })}
-            >
-              <label className={styles.TextField_Label} htmlFor="email">
-                Электронная почта
-              </label>
-              <Input
-                className={classNames({
-                  [styles.Input__active]: isFocused.email,
-                  [styles.Input__error]: errors.email,
-                })}
-                {...register("email")}
-                error={errors.email}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-              />
-            </div>
+            <FormField
+              labelTitle="Электронная почта"
+              name="email"
+              register={register}
+              isFocused={isFocused.email}
+              error={errors.email}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
             <div className={styles.RememberPassword}>
               <Link href={"/reset-password"}>
                 <a>Забыли пароль?</a>
               </Link>
             </div>
+            <FormField
+              labelTitle="Пароль"
+              name="password"
+              register={register}
+              isFocused={isFocused.password}
+              error={errors.password}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
             <div
-              className={classNames(styles.TextField, {
-                [styles.TextField__active]: isFocused.password,
-                [styles.Input__error]: errors.password,
+              className={classNames(styles.ErrorResponse, {
+                [styles.ErrorResponse__error]: error,
               })}
             >
-              <label className={styles.TextField_Label} htmlFor="password">
-                Пароль
-              </label>
-              <Input
-                className={classNames({
-                  [styles.Input__active]: isFocused.password,
-                })}
-                {...register("password")}
-                error={errors.password}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-              />
+              {error &&
+              error === "No active account found with the given credentials"
+                ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
+                : "No active account found with the given credentials"}
             </div>
             <Button
               className={styles.LoginSectionCenter_Button}
@@ -150,12 +134,14 @@ export const Login: React.FC = () => {
             </Link>
           </div>
         </div>
-        <Image
-          src={"/images/login-center-background.png"}
-          alt=""
-          height="222"
-          width="257"
-        />
+        <div className={styles.LoginSectionCenter_Image}>
+          <Image
+            src={"/images/login-center-background.png"}
+            alt=""
+            height="202"
+            width="237"
+          />
+        </div>
       </div>
       <div className={styles.LoginSectionRight}>
         <Image

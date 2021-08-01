@@ -5,6 +5,7 @@ import Checkbox from "./Checkbox";
 import Input from "./Input";
 import Icon from "./Icon";
 import IconButton from "./Button/IconButton";
+import FormField from "./FormField";
 import Pagination from "./Pagination";
 import SliderSimple from "./Slider/SliderSimple";
 
@@ -18,6 +19,7 @@ export {
   Input,
   Icon,
   IconButton,
+  FormField,
   Pagination,
   SliderSimple,
 };

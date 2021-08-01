@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IFetchUserResponse, ILoginResponse } from "api/types/account";
 import {
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
@@ -27,10 +28,11 @@ export const fetchUser = () => async dispatch => {
       },
     };
     try {
-      const response = await axios.get(
+      const response = await axios.get<IFetchUserResponse>(
         `http://127.0.0.1:8000/api/v1/auth/users/me/`,
         config
       );
+      console.log("[fetchUser][response]", response);
       dispatch({
         type: FETCH_USER_SUCCESS,
         payload: response.data,
@@ -58,16 +60,18 @@ export const login = (email: string, password: string) => async dispatch => {
     },
   };
   const body = JSON.stringify({ email, password });
+  console.log("[body]", body);
   try {
-    const response = await axios.post(
+    const response = await axios.post<ILoginResponse>(
       `http://127.0.0.1:8000/api/v1/auth/jwt/create/`,
       body,
       config
     );
+    console.log("[login][response]", response);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data,
-    });
+    } as const);
     localStorage.setItem("access", response.data.access);
     dispatch(fetchUser());
   } catch (error) {
