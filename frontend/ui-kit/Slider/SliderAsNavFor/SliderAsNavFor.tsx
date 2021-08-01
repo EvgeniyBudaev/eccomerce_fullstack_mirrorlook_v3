@@ -1,17 +1,11 @@
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
-import styles from "./sliderAsNavFor.module.scss";
-
-import slider1 from "ui-kit/assets/images/slide-home-5.jpg";
-import slider2 from "ui-kit/assets/images/slide-home-6.jpg";
-import slider3 from "ui-kit/assets/images/slide-home-7.jpg";
-
 import slide5 from "ui-kit/assets/images/slide-home-5.jpg";
 import slide6 from "ui-kit/assets/images/slide-home-6.jpg";
 import slide7 from "ui-kit/assets/images/slide-home-7.jpg";
 
-const SliderAsNavFor = () => {
+const SliderAsNavFor: React.FC = () => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const slider1 = useRef(null);
@@ -57,16 +51,16 @@ const SliderAsNavFor = () => {
   return (
     <>
       <Slider asNavFor={nav2} ref={slider1} {...settingsFor}>
-        <div className={styles.Item}>
+        <div>
           <Image src={slide5} alt="" width="400" height="400" />
         </div>
-        <div className={styles.Item}>
+        <div>
           <Image src={slide6} alt="" width="400" height="400" />
         </div>
-        <div className={styles.Item}>
+        <div>
           <Image src={slide7} alt="" width="400" height="400" />
         </div>
-        <div className={styles.Item}>
+        <div>
           <Image src={slide5} alt="" width="400" height="400" />
         </div>
       </Slider>
@@ -79,7 +73,7 @@ const SliderAsNavFor = () => {
         focusOnSelect={true}
         {...settingsNav}
       >
-        <div className={styles.ItemNav}>
+        <div>
           <Image
             className="ItemImageNav"
             src={slide5}
@@ -88,7 +82,7 @@ const SliderAsNavFor = () => {
             height="60"
           />
         </div>
-        <div className={styles.ItemNav}>
+        <div>
           <Image
             className="ItemImageNav"
             src={slide6}
@@ -97,7 +91,7 @@ const SliderAsNavFor = () => {
             height="60"
           />
         </div>
-        <div className={styles.ItemNav}>
+        <div>
           <Image
             className="ItemImageNav"
             src={slide7}
@@ -106,7 +100,7 @@ const SliderAsNavFor = () => {
             height="60"
           />
         </div>
-        <div className={styles.ItemNav}>
+        <div>
           <Image
             className="ItemImageNav"
             src={slide5}

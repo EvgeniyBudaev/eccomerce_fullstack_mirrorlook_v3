@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "ducks/account";
@@ -27,7 +27,7 @@ export default function SignupPage(): JSX.Element {
   });
 
   const dispatch = useDispatch();
-  const router = useRouter();
+  //const router = useRouter();
   const { first_name, last_name, phone_number, email, password, re_password } =
     formData;
   const myState = useTypedSelector(state => state);

@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { verify } from "ducks/account";
-import { useTypedSelector } from "hooks/useTypedSelector";
 import { Layout } from "components";
 
 export default function ActivatePage(): JSX.Element {
@@ -12,9 +10,9 @@ export default function ActivatePage(): JSX.Element {
   const router = useRouter();
 
   const handleVerifyAccount = () => {
-    // const uid = match.params.uid;
-    // const token = match.params.token;
-    // dispatch(verify(uid, token));
+    const uid = router.asPath.split("/")[2];
+    const token = router.asPath.split("/")[3];
+    dispatch(verify(uid, token));
     setIsVerified(true);
   };
 

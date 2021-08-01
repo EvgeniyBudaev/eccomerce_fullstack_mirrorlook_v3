@@ -10,6 +10,7 @@ interface IFormData {
 }
 
 export default function ResetPasswordConfirmPage(): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [requestSent, setRequestSent] = useState(false);
   const [formData, setFormData] = useState<IFormData>({
     new_password: "",
@@ -18,15 +19,14 @@ export default function ResetPasswordConfirmPage(): JSX.Element {
   const { new_password, re_new_password } = formData;
   const dispatch = useDispatch();
   const router = useRouter();
-  // const uid = match.params.uid;
-  // const token = match.params.token;
-
+  const uid = router.asPath.split("/")[2];
+  const token = router.asPath.split("/")[3];
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [event.target.name]: event.target.value });
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // dispatch(reset_password_confirm(uid, token, new_password, re_new_password));
+    dispatch(reset_password_confirm(uid, token, new_password, re_new_password));
     setRequestSent(true);
   };
 

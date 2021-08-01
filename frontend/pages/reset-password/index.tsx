@@ -1,8 +1,6 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { reset_password } from "ducks/account";
-import { useTypedSelector } from "hooks/useTypedSelector";
 import { Layout } from "components";
 
 interface IFormData {
@@ -10,12 +8,11 @@ interface IFormData {
 }
 
 export default function ResetPasswordPage(): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [requestSent, setRequestSent] = useState(false);
   const [formData, setFormData] = useState<IFormData>({ email: "" });
   const { email } = formData;
   const dispatch = useDispatch();
-  const router = useRouter();
-  const myState = useTypedSelector(state => state);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setFormData({ ...formData, [event.target.name]: event.target.value });

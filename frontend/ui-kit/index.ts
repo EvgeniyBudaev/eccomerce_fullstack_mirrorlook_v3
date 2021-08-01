@@ -2,6 +2,7 @@ import Accordion from "./Accordion";
 import AccordionGroup from "./Accordion/AccordionGroup";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
+import Input from "./Input";
 import Icon from "./Icon";
 import IconButton from "./Button/IconButton";
 import Pagination from "./Pagination";
@@ -14,6 +15,7 @@ export {
   AccordionGroup,
   Button,
   Checkbox,
+  Input,
   Icon,
   IconButton,
   Pagination,

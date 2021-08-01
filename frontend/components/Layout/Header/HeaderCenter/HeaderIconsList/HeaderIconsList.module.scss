@@ -22,6 +22,10 @@
 
     &:hover {
       color: $color-beige-hover;
+
+      svg {
+        fill: $color-beige-hover;
+      }
     }
   }
 }
@@ -30,12 +34,8 @@
   cursor: pointer;
 
   svg {
-    fill: $color-beige;
+    fill: $color-text;
     transition: all 0.15s;
-
-    &:hover {
-      fill: $color-beige-hover;
-    }
   }
 }
 

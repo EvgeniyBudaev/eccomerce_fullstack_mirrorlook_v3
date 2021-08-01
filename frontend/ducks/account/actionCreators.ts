@@ -71,6 +71,7 @@ export const login = (email: string, password: string) => async dispatch => {
     localStorage.setItem("access", response.data.access);
     dispatch(fetchUser());
   } catch (error) {
+    console.log("[error]", error.response.data.detail);
     dispatch({
       type: LOGIN_FAIL,
       payload:

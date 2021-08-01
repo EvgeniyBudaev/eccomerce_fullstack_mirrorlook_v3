@@ -4,7 +4,8 @@ from store.models import Mirror, Console
 
 
 class MirrorSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField(source='category.title', many=False, read_only=True)
+    category = serializers.StringRelatedField(source='category.title',
+                                              many=False, read_only=True)
 
     class Meta:
         model = Mirror
@@ -24,6 +25,6 @@ class ConsoleSerializer(serializers.ModelSerializer):
         model = Console
         fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
                   'product_photo2', 'product_photo3', 'product_photo4', 'price',
-                  'count_in_stock', 'description', 'rating', 'created', 'color', 'brand', 'weight',
-                  'user', 'category')
+                  'count_in_stock', 'description', 'rating', 'created', 'color',
+                  'brand', 'weight', 'user', 'category')
         lookup_field = 'product_slug'

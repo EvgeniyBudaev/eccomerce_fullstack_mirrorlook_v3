@@ -1,5 +1,14 @@
 $base-font-family : 'Roboto', sans-serif;
 
+/* 12/Regular */
+@mixin text-12-regular {
+	font-family: $base-font-family;
+	font-size: 12px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.25;
+}
+
 /* 14/Regular */
 @mixin text-14-regular {
 	font-family: $base-font-family;
@@ -58,6 +67,15 @@ $base-font-family : 'Roboto', sans-serif;
 @mixin text-24-title {
 	font-family: $base-font-family;
 	font-size: 24px;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 1.25;
+}
+
+/* 32/Bold/Title */
+@mixin text-32-title {
+	font-family: $base-font-family;
+	font-size: 32px;
 	font-weight: 700;
 	font-style: normal;
 	line-height: 1.25;

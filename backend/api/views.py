@@ -6,6 +6,7 @@ from accounts.serializers import UserSerializer
 from .serializers import MirrorSerializer, ConsoleSerializer
 from .pagination import StorePagination
 from .filters import MirrorFilter
+from .permissions import IsAuthorOrReadOnly, ReadOnly
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -16,6 +17,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 class MirrorViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Mirror.objects.all()
     serializer_class = MirrorSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
     pagination_class = StorePagination
     lookup_field = 'product_slug'
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
@@ -23,9 +25,25 @@ class MirrorViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ('price',)
     ordering = ('price',)
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_permissions(self):
+        if self.action == 'retrieve':
+            return (ReadOnly(),)
+
+        return super().get_permissions()
+
 
 class ConsoleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Console.objects.all()
     serializer_class = ConsoleSerializer
+    permission_classes = (IsAuthorOrReadOnly,)
     pagination_class = StorePagination
     lookup_field = 'product_slug'
+
+    def get_permissions(self):
+        if self.action == 'retrieve':
+            return (ReadOnly(),)
+
+        return super().get_permissions()
