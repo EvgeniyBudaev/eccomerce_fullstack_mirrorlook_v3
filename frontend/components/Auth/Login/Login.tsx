@@ -46,7 +46,6 @@ export const Login: React.FC = () => {
   const isAuthenticated = useTypedSelector(
     state => state.account.isAuthenticated
   );
-  console.log("[login][account]", account);
   const watchAllFields = watch();
 
   const onSubmit = (data: ILoginForm) => {
@@ -87,11 +86,11 @@ export const Login: React.FC = () => {
           <h1 className={styles.LoginSectionCenterContent_Title}>Вход</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormField
-              labelTitle="Электронная почта"
+              label="Электронная почта"
               name="email"
               register={register}
-              isFocused={isFocused.email}
               error={errors.email}
+              isFocused={isFocused.email}
               onBlur={handleBlur}
               onFocus={handleFocus}
             />
@@ -101,11 +100,11 @@ export const Login: React.FC = () => {
               </Link>
             </div>
             <FormField
-              labelTitle="Пароль"
+              label="Пароль"
               name="password"
               register={register}
-              isFocused={isFocused.password}
               error={errors.password}
+              isFocused={isFocused.password}
               onBlur={handleBlur}
               onFocus={handleFocus}
             />

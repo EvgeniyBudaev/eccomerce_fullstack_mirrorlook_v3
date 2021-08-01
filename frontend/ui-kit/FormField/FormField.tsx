@@ -5,7 +5,7 @@ import { Input } from "ui-kit";
 import styles from "./FormField.module.scss";
 
 export interface IFormFieldProps {
-  labelTitle?: string;
+  label?: string;
   name?: string;
   register?: (Ref, RegisterOptions?) => { onChange; onBlur; name; ref };
   error?: FieldError;
@@ -15,7 +15,7 @@ export interface IFormFieldProps {
 }
 
 export const FormField: React.FC<IFormFieldProps> = ({
-  labelTitle,
+  label,
   name,
   register,
   error,
@@ -30,7 +30,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
       })}
     >
       <label className={styles.FormField_Label} htmlFor={name}>
-        {labelTitle}
+        {label}
       </label>
       <Input
         className={classNames({
