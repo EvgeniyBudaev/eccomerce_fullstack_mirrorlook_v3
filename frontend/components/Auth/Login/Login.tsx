@@ -85,38 +85,42 @@ export const Login: React.FC = () => {
         <div className={styles.LoginSectionCenter_Content}>
           <h1 className={styles.LoginSectionCenterContent_Title}>Вход</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormField
-              label="Электронная почта"
-              name="email"
-              register={register}
-              error={errors.email}
-              isFocused={isFocused.email}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-            />
-            <div className={styles.RememberPassword}>
-              <Link href={"/reset-password"}>
-                <a>Забыли пароль?</a>
-              </Link>
-            </div>
-            <FormField
-              label="Пароль"
-              name="password"
-              register={register}
-              error={errors.password}
-              isFocused={isFocused.password}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-            />
-            <div
-              className={classNames(styles.ErrorResponse, {
-                [styles.ErrorResponse__error]: error,
-              })}
-            >
-              {error &&
-              error === "No active account found with the given credentials"
-                ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
-                : "No active account found with the given credentials"}
+            <div className={styles.FormFieldGroup}>
+              <FormField
+                label="Электронная почта"
+                name="email"
+                register={register}
+                error={errors.email}
+                isFocused={isFocused.email}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <div className={styles.RememberPassword}>
+                <Link href={"/reset-password"}>
+                  <a>Забыли пароль?</a>
+                </Link>
+              </div>
+              <FormField
+                label="Пароль"
+                name="password"
+                register={register}
+                error={errors.password}
+                isFocused={isFocused.password}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <div
+                className={classNames(styles.ErrorResponse, {
+                  [styles.ErrorResponse__error]: error,
+                })}
+              >
+                {error &&
+                error &&
+                (!errors.password || !errors.email) &&
+                error === "No active account found with the given credentials"
+                  ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
+                  : ""}
+              </div>
             </div>
             <Button
               className={styles.LoginSectionCenter_Button}

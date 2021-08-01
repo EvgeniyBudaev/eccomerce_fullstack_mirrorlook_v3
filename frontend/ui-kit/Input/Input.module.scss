@@ -9,9 +9,18 @@
   border: 1px solid transparent;
   border-radius: 4px;
   outline: transparent;
+  transition: all .25s ease;
+
+  &:hover {
+    background-color: $color-bg-input-hover;
+  }
 
   &.Input__error {
     background-color: $color-light-red;
+
+    &:hover {
+      background-color: $color-light-red-hover;
+    }
   }
 }
 
