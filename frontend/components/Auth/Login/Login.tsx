@@ -49,7 +49,8 @@ export const Login: React.FC = () => {
   const watchAllFields = watch();
 
   const onSubmit = (data: ILoginForm) => {
-    dispatch(login(data.email, data.password));
+    console.log("[Login][data]", data);
+    //dispatch(login(data.email, data.password));
   };
 
   useEffect(() => {
@@ -73,7 +74,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className={styles.Login}>
-      <div className={styles.LoginSectionLeft}>
+      <div className={styles.SectionLeft}>
         <Image
           src={"/images/login-left-background.png"}
           alt=""
@@ -81,14 +82,15 @@ export const Login: React.FC = () => {
           width="475"
         />
       </div>
-      <div className={styles.LoginSectionCenter}>
-        <div className={styles.LoginSectionCenter_Content}>
-          <h1 className={styles.LoginSectionCenterContent_Title}>Вход</h1>
+      <div className={styles.SectionCenter}>
+        <div className={styles.SectionCenter_Content}>
+          <h1 className={styles.SectionCenterContent_Title}>Вход</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.FormFieldGroup}>
               <FormField
                 label="Электронная почта"
                 name="email"
+                type="text"
                 register={register}
                 error={errors.email}
                 isFocused={isFocused.email}
@@ -123,21 +125,21 @@ export const Login: React.FC = () => {
               </div>
             </div>
             <Button
-              className={styles.LoginSectionCenter_Button}
+              className={styles.SectionCenter_Button}
               typeButton="submit"
               onClick={() => {}}
             >
               Войти
             </Button>
           </form>
-          <div className={styles.LoginSectionCenter_Registration}>
+          <div className={styles.SectionCenter_Registration}>
             <span>Нет аккаунта?</span>
             <Link href={"/signup"}>
               <a>Зарегистрироваться</a>
             </Link>
           </div>
         </div>
-        <div className={styles.LoginSectionCenter_Image}>
+        <div className={styles.SectionCenter_Image}>
           <Image
             src={"/images/login-center-background.png"}
             alt=""
@@ -146,7 +148,7 @@ export const Login: React.FC = () => {
           />
         </div>
       </div>
-      <div className={styles.LoginSectionRight}>
+      <div className={styles.SectionRight}>
         <Image
           src={"/images/login-right-background.png"}
           alt=""

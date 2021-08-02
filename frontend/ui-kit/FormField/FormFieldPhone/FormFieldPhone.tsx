@@ -1,29 +1,29 @@
 import React from "react";
 import { FieldError } from "react-hook-form";
 import classNames from "classnames";
-import { Input, InputType } from "ui-kit";
-import styles from "./FormField.module.scss";
+import { InputPhone } from "ui-kit/Input/InputPhone/InputPhone";
+import styles from "./FormFieldPhone.module.scss";
 
-export interface IFormFieldProps {
+export interface IFormFieldPhoneProps {
   label?: string;
   name?: string;
-  type?: InputType;
   register?: (Ref, RegisterOptions?) => { onChange; onBlur; name; ref };
   error?: FieldError;
   isFocused?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  control?: any;
 }
 
-export const FormField: React.FC<IFormFieldProps> = ({
+export const FormFieldPhone: React.FC<IFormFieldPhoneProps> = ({
   label,
   name,
-  type,
   register,
   error,
   isFocused,
   onBlur,
   onFocus,
+  control,
 }) => {
   return (
     <div
@@ -34,14 +34,14 @@ export const FormField: React.FC<IFormFieldProps> = ({
       <label className={styles.FormField_Label} htmlFor={name}>
         {label}
       </label>
-      <Input
+      <InputPhone
         className={classNames({
           [styles.Input__active]: isFocused,
           [styles.Input__error]: error,
         })}
-        type={type}
         {...register(name)}
         error={error}
+        control={control}
         onFocus={onFocus}
         onBlur={onBlur}
       />

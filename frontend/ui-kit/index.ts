@@ -10,6 +10,7 @@ import Pagination from "./Pagination";
 import SliderSimple from "./Slider/SliderSimple";
 
 export type IconType = import("./Icon").IconType;
+export type InputType = import("./Input").InputType;
 
 export {
   Accordion,

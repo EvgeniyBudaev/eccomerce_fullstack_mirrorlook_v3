@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { signup } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Layout } from "components";
+import { Signup } from "components/Auth";
 
 interface ISignupData {
   first_name: string;
@@ -68,76 +69,7 @@ export default function SignupPage(): JSX.Element {
 
   return (
     <Layout>
-      <h1>Регистрация</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Имя"
-            name="first_name"
-            value={first_name}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Фамилия"
-            name="last_name"
-            value={last_name}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Номер телефона"
-            name="phone_number"
-            value={phone_number}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={email}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Пароль"
-            name="password"
-            value={password}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Подтверждение пароля"
-            name="re_password"
-            value={re_password}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">Зарегистрироваться</button>
-      </form>
-      <div>
-        <span>Есть аккаунт?</span>
-        <Link href={"/login"}>
-          <a>Зарегистрироваться</a>
-        </Link>
-      </div>
+      <Signup />
     </Layout>
   );
 }
