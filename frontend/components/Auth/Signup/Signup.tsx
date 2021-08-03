@@ -15,7 +15,7 @@ import { Button, FormField } from "ui-kit";
 import FormFieldPhone from "ui-kit/FormField/FormFieldPhone";
 import styles from "./Signup.module.scss";
 
-interface ISignupForm {
+export interface ISignupForm {
   first_name: string;
   last_name: string;
   phone_number: string;
@@ -108,6 +108,7 @@ export const Signup: React.FC = () => {
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    console.log("watchAllFields", watchAllFields);
     if (watchAllFields[event.target.name] !== "") {
       setIsFocused({ ...isFocused, [event.target.name]: true });
     } else {

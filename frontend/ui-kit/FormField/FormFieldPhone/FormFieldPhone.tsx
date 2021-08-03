@@ -1,7 +1,8 @@
 import React from "react";
-import { FieldError } from "react-hook-form";
+import { FieldError, Control } from "react-hook-form";
 import classNames from "classnames";
 import { InputPhone } from "ui-kit/Input/InputPhone/InputPhone";
+import { ISignupForm } from "components/Auth/Signup/Signup";
 import styles from "./FormFieldPhone.module.scss";
 
 export interface IFormFieldPhoneProps {
@@ -12,7 +13,7 @@ export interface IFormFieldPhoneProps {
   isFocused?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  control?: any;
+  control?: Control<ISignupForm>;
 }
 
 export const FormFieldPhone: React.FC<IFormFieldPhoneProps> = ({

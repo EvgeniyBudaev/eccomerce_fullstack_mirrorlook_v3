@@ -39,8 +39,10 @@
   .Input__active {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.54);
+    color: $color-text;
     background-color: $color-white;
 
+    input:hover,
     input {
       background-color: $color-white;
     }

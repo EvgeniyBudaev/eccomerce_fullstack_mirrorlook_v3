@@ -5,8 +5,9 @@ import React, {
   forwardRef,
 } from "react";
 import classNames from "classnames";
-import { FieldError, Controller } from "react-hook-form";
+import { FieldError, Controller, Control } from "react-hook-form";
 import NumberFormat from "react-number-format";
+import { ISignupForm } from "components/Auth/Signup/Signup";
 import styles from "./InputPhone.module.scss";
 
 export interface IInputPhoneProps
@@ -16,14 +17,14 @@ export interface IInputPhoneProps
   > {
   className?: string;
   error?: FieldError;
-  control?: any;
+  control?: Control<ISignupForm>;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const InputPhone = forwardRef(
   (
-    { className, error, control, onBlur, onFocus, ...rest }: IInputPhoneProps,
+    { className, error, control, onBlur, onFocus }: IInputPhoneProps,
     ref: ForwardedRef<HTMLInputElement>
   ): JSX.Element => {
     return (
@@ -37,6 +38,7 @@ export const InputPhone = forwardRef(
               format="+7 (###) ###-##-##"
               allowEmptyFormatting
               mask="_"
+              ref={ref}
               onFocus={onFocus}
               onBlur={onBlur}
               {...field}
