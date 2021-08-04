@@ -12,7 +12,6 @@ import NumberFormat from "react-number-format";
 import { signup } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField } from "ui-kit";
-import FormFieldPhone from "ui-kit/FormField/FormFieldPhone";
 import styles from "./Signup.module.scss";
 
 export interface ISignupForm {
@@ -82,66 +81,8 @@ export const Signup: React.FC = () => {
   const watchAllFields = watch();
   const hasPhone = watch("phone_number");
 
-  const normalizePhoneNumber = (value: string) => {
-    return value.replace(/\D/g, "");
-  };
-
-  const onPhoneInput = (value: string) => {
-    console.log("value", value);
-    //console.log("value.length", value.length);
-    //console.log("hasPhone", hasPhone);
-    let inputNumbersValue = normalizePhoneNumber(value);
-    console.log("inputNumbersValue", inputNumbersValue);
-    let formattedInputValue = "";
-    const selectionStart = inputPhoneRef.current.selectionStart;
-
-    if (!inputNumbersValue) {
-      return "";
-    }
-
-    // if (value.length !== selectionStart) {
-    // }
-
-    if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
-      if (inputNumbersValue[0] === "9") {
-        inputNumbersValue = "7" + inputNumbersValue;
-      }
-
-      const firstSymbols = inputNumbersValue[0] === "8" ? "8" : "+7";
-      formattedInputValue = firstSymbols + " ";
-      if (inputNumbersValue.length > 1) {
-        formattedInputValue += "(" + inputNumbersValue.substring(1, 4);
-      }
-      if (inputNumbersValue.length >= 5) {
-        formattedInputValue += ") " + inputNumbersValue.substring(4, 7);
-      }
-      if (inputNumbersValue.length >= 8) {
-        formattedInputValue += "-" + inputNumbersValue.substring(7, 9);
-      }
-      if (inputNumbersValue.length >= 10) {
-        formattedInputValue += "-" + inputNumbersValue.substring(9, 11);
-      }
-    } else {
-      formattedInputValue = "+" + inputNumbersValue.substring(0, 16);
-    }
-
-    inputNumbersValue = formattedInputValue;
-    return inputNumbersValue;
-  };
-
-  useEffect(() => {
-    if (hasPhone) {
-      const phoneInput = onPhoneInput(hasPhone);
-      if (phoneKeyDown == "") {
-        setValue(phoneKeyDown);
-      } else {
-        setValue(phoneInput);
-      }
-    }
-  }, [hasPhone, phoneKeyDown]);
-
   const onSubmit = (data: ISignupForm) => {
-    //console.log("[DATA]", data);
+    console.log("[DATA]", data);
     // const phone_number = normalizePhoneNumber(data.phone_number);
     // if (data.password === data.re_password) {
     //   dispatch(
@@ -170,43 +111,11 @@ export const Signup: React.FC = () => {
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    //console.log("watchAllFields", watchAllFields);
     if (watchAllFields[event.target.name] !== "") {
       setIsFocused({ ...isFocused, [event.target.name]: true });
     } else {
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
-  };
-
-  const handlePhoneKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    //console.log("[event][KeyDown]", event);
-    let input = event.key;
-    if (event.key === "Backspace" && normalizePhoneNumber(value).length <= 1) {
-      input = "";
-    }
-    setPhoneKeyDown(input);
-    return input;
-  };
-
-  const handleInputRef = (ref: React.RefObject<HTMLInputElement>) => {
-    ref.current && setInputPhoneRef(ref);
-  };
-
-  const handlePhonePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
-    const pasted = event.clipboardData;
-    console.log("hasPhone", hasPhone);
-    console.log("event", event);
-    const inputNumbersValue = hasPhone && normalizePhoneNumber(hasPhone);
-
-    if (pasted) {
-      console.log("pasted", pasted);
-      const textPasted = pasted.getData("Text");
-      if (/\D/g.test(textPasted)) {
-        return inputNumbersValue;
-      }
-    }
-
-    return inputNumbersValue;
   };
 
   return (
@@ -243,42 +152,16 @@ export const Signup: React.FC = () => {
               {/*  onFocus={handleFocus}*/}
               {/*/>*/}
 
-              {/*<FormField*/}
-              {/*  label="Мобильный телефон"*/}
-              {/*  name="phone_number"*/}
-              {/*  type="tel"*/}
-              {/*  register={register}*/}
-              {/*  error={errors.phone_number}*/}
-              {/*  isFocused={isFocused.phone_number}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  onFocus={handleFocus}*/}
-              {/*/>*/}
-
-              <FormFieldPhone
+              <FormField
                 label="Мобильный телефон"
                 name="phone_number"
+                type="tel"
                 register={register}
-                value={value}
                 error={errors.phone_number}
                 isFocused={isFocused.phone_number}
-                onBlur={handleBlur}
                 onFocus={handleFocus}
-                onKeyDown={handlePhoneKeyDown}
-                onInputRef={handleInputRef}
-                onPaste={handlePhonePaste}
+                onBlur={handleBlur}
               />
-
-              {/*<NumberFormat format="+7 (###) ###-##-##" allowEmptyFormatting mask="_"/>*/}
-
-              {/*<input*/}
-              {/*  type="tel"*/}
-              {/*  placeholder="0 000 000 00 00"*/}
-              {/*  onChange={event => {*/}
-              {/*    event.target.value = normalizePhoneNumber(event);*/}
-              {/*  }}*/}
-              {/*  autoComplete="cc-number"*/}
-              {/*  inputMode="tel"*/}
-              {/*/>*/}
 
               {/*<FormField*/}
               {/*  label="Электронная почта"*/}

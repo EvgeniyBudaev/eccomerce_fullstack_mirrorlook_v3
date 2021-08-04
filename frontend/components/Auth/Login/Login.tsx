@@ -49,8 +49,7 @@ export const Login: React.FC = () => {
   const watchAllFields = watch();
 
   const onSubmit = (data: ILoginForm) => {
-    console.log("[Login][data]", data);
-    //dispatch(login(data.email, data.password));
+    dispatch(login(data.email, data.password));
   };
 
   useEffect(() => {
