@@ -1,30 +1,35 @@
 import React from "react";
-import { FieldError, Control } from "react-hook-form";
+import { FieldError } from "react-hook-form";
 import classNames from "classnames";
 import { InputPhone } from "ui-kit/Input/InputPhone/InputPhone";
-import { ISignupForm } from "components/Auth/Signup/Signup";
 import styles from "./FormFieldPhone.module.scss";
 
 export interface IFormFieldPhoneProps {
   label?: string;
   name?: string;
   register?: (Ref, RegisterOptions?) => { onChange; onBlur; name; ref };
+  value?: string;
   error?: FieldError;
   isFocused?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  control?: Control<ISignupForm>;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onInputRef?: (ref: React.RefObject<HTMLInputElement>) => void;
+  onPaste?: (event: React.ClipboardEvent<HTMLInputElement>) => void;
 }
 
 export const FormFieldPhone: React.FC<IFormFieldPhoneProps> = ({
   label,
   name,
   register,
+  value,
   error,
   isFocused,
   onBlur,
   onFocus,
-  control,
+  onKeyDown,
+  onInputRef,
+  onPaste,
 }) => {
   return (
     <div
@@ -41,10 +46,13 @@ export const FormFieldPhone: React.FC<IFormFieldPhoneProps> = ({
           [styles.Input__error]: error,
         })}
         {...register(name)}
+        value={value}
         error={error}
-        control={control}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyDown={onKeyDown}
+        onInputRef={onInputRef}
+        onPaste={onPaste}
       />
     </div>
   );

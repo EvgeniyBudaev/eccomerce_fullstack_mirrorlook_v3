@@ -3,11 +3,10 @@ import React, {
   ForwardedRef,
   HTMLAttributes,
   forwardRef,
+  useEffect,
 } from "react";
 import classNames from "classnames";
-import { FieldError, Controller, Control } from "react-hook-form";
-import NumberFormat from "react-number-format";
-import { ISignupForm } from "components/Auth/Signup/Signup";
+import { FieldError } from "react-hook-form";
 import styles from "./InputPhone.module.scss";
 
 export interface IInputPhoneProps
@@ -16,36 +15,51 @@ export interface IInputPhoneProps
     HTMLInputElement
   > {
   className?: string;
+  value?: string;
   error?: FieldError;
-  control?: Control<ISignupForm>;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onInputRef?: (ref: React.RefObject<HTMLInputElement>) => void;
+  onPaste?: (event: React.ClipboardEvent<HTMLInputElement>) => void;
 }
 
 export const InputPhone = forwardRef(
   (
-    { className, error, control, onBlur, onFocus }: IInputPhoneProps,
+    {
+      className,
+      value,
+      error,
+      onBlur,
+      onFocus,
+      onKeyDown,
+      onInputRef,
+      onPaste,
+      ...rest
+    }: IInputPhoneProps,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref: ForwardedRef<HTMLInputElement>
   ): JSX.Element => {
+    const inputRef = React.useRef(null);
+    useEffect(() => {
+      onInputRef(inputRef);
+    }, [inputRef]);
+
     return (
       <>
-        <Controller
-          render={({ field }) => (
-            <NumberFormat
-              className={classNames(className, styles.Input, {
-                [styles.Input__error]: error,
-              })}
-              format="+7 (###) ###-##-##"
-              allowEmptyFormatting
-              mask="_"
-              ref={ref}
-              onFocus={onFocus}
-              onBlur={onBlur}
-              {...field}
-            />
-          )}
-          name="phone_number"
-          control={control}
+        <input
+          className={classNames(className, styles.Input, {
+            [styles.Input__error]: error,
+          })}
+          value={value}
+          type="tel"
+          ref={inputRef}
+          maxLength={18}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onKeyDown={onKeyDown}
+          onPaste={onPaste}
+          {...rest}
         />
         {error && <div className={styles.ErrorMessage}>{error.message}</div>}
       </>

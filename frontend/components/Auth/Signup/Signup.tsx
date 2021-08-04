@@ -61,6 +61,10 @@ export const Signup: React.FC = () => {
     password: false,
     re_password: false,
   });
+  const [value, setValue] = useState("");
+  const [phoneKeyDown, setPhoneKeyDown] = useState("");
+  const [inputPhoneRef, setInputPhoneRef] =
+    useState<React.RefObject<HTMLInputElement>>();
   const {
     register,
     watch,
@@ -78,9 +82,67 @@ export const Signup: React.FC = () => {
   const watchAllFields = watch();
   const hasPhone = watch("phone_number");
 
+  const normalizePhoneNumber = (value: string) => {
+    return value.replace(/\D/g, "");
+  };
+
+  const onPhoneInput = (value: string) => {
+    console.log("value", value);
+    //console.log("value.length", value.length);
+    //console.log("hasPhone", hasPhone);
+    let inputNumbersValue = normalizePhoneNumber(value);
+    console.log("inputNumbersValue", inputNumbersValue);
+    let formattedInputValue = "";
+    const selectionStart = inputPhoneRef.current.selectionStart;
+
+    if (!inputNumbersValue) {
+      return "";
+    }
+
+    // if (value.length !== selectionStart) {
+    // }
+
+    if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
+      if (inputNumbersValue[0] === "9") {
+        inputNumbersValue = "7" + inputNumbersValue;
+      }
+
+      const firstSymbols = inputNumbersValue[0] === "8" ? "8" : "+7";
+      formattedInputValue = firstSymbols + " ";
+      if (inputNumbersValue.length > 1) {
+        formattedInputValue += "(" + inputNumbersValue.substring(1, 4);
+      }
+      if (inputNumbersValue.length >= 5) {
+        formattedInputValue += ") " + inputNumbersValue.substring(4, 7);
+      }
+      if (inputNumbersValue.length >= 8) {
+        formattedInputValue += "-" + inputNumbersValue.substring(7, 9);
+      }
+      if (inputNumbersValue.length >= 10) {
+        formattedInputValue += "-" + inputNumbersValue.substring(9, 11);
+      }
+    } else {
+      formattedInputValue = "+" + inputNumbersValue.substring(0, 16);
+    }
+
+    inputNumbersValue = formattedInputValue;
+    return inputNumbersValue;
+  };
+
+  useEffect(() => {
+    if (hasPhone) {
+      const phoneInput = onPhoneInput(hasPhone);
+      if (phoneKeyDown == "") {
+        setValue(phoneKeyDown);
+      } else {
+        setValue(phoneInput);
+      }
+    }
+  }, [hasPhone, phoneKeyDown]);
+
   const onSubmit = (data: ISignupForm) => {
-    event.preventDefault();
-    console.log("[DATA]", data);
+    //console.log("[DATA]", data);
+    // const phone_number = normalizePhoneNumber(data.phone_number);
     // if (data.password === data.re_password) {
     //   dispatch(
     //     signup(
@@ -108,7 +170,7 @@ export const Signup: React.FC = () => {
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    console.log("watchAllFields", watchAllFields);
+    //console.log("watchAllFields", watchAllFields);
     if (watchAllFields[event.target.name] !== "") {
       setIsFocused({ ...isFocused, [event.target.name]: true });
     } else {
@@ -116,28 +178,35 @@ export const Signup: React.FC = () => {
     }
   };
 
-  const normalizePhoneNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const res =
-      event.target.value
-        .replace(/\s/g, "")
-        .match(/.{1,4}/g)
-        .join(" ")
-        .substr(0, 11) || "";
-    const phoneNumber = parsePhoneNumberFromString(res, "RU");
-    if (!phoneNumber) {
-      console.log("не распарсил номер");
-      return res;
-    } else {
-      console.log("распарсил", phoneNumber.formatNational());
-      return phoneNumber.formatInternational();
+  const handlePhoneKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    //console.log("[event][KeyDown]", event);
+    let input = event.key;
+    if (event.key === "Backspace" && normalizePhoneNumber(value).length <= 1) {
+      input = "";
     }
+    setPhoneKeyDown(input);
+    return input;
   };
 
-  const [value, setValue] = useState("");
+  const handleInputRef = (ref: React.RefObject<HTMLInputElement>) => {
+    ref.current && setInputPhoneRef(ref);
+  };
 
-  const handleValueChange = (values: any) => {
-    console.log("[values]", values);
-    //setValue(values.value);
+  const handlePhonePaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    const pasted = event.clipboardData;
+    console.log("hasPhone", hasPhone);
+    console.log("event", event);
+    const inputNumbersValue = hasPhone && normalizePhoneNumber(hasPhone);
+
+    if (pasted) {
+      console.log("pasted", pasted);
+      const textPasted = pasted.getData("Text");
+      if (/\D/g.test(textPasted)) {
+        return inputNumbersValue;
+      }
+    }
+
+    return inputNumbersValue;
   };
 
   return (
@@ -185,29 +254,18 @@ export const Signup: React.FC = () => {
               {/*  onFocus={handleFocus}*/}
               {/*/>*/}
 
-              {/*<Controller*/}
-              {/*  name="phone_number"*/}
-              {/*  control={control}*/}
-              {/*  render={({ field: { onChange, value } }) => (*/}
-              {/*    <NumberFormat*/}
-              {/*      format="+7 (###) ###-##-##"*/}
-              {/*      allowEmptyFormatting*/}
-              {/*      mask="_"*/}
-              {/*      value={value}*/}
-              {/*      onValueChange={handleValueChange}*/}
-              {/*    />*/}
-              {/*  )}*/}
-              {/*/>*/}
-
               <FormFieldPhone
                 label="Мобильный телефон"
                 name="phone_number"
                 register={register}
+                value={value}
                 error={errors.phone_number}
                 isFocused={isFocused.phone_number}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
-                control={control}
+                onKeyDown={handlePhoneKeyDown}
+                onInputRef={handleInputRef}
+                onPaste={handlePhonePaste}
               />
 
               {/*<NumberFormat format="+7 (###) ###-##-##" allowEmptyFormatting mask="_"/>*/}
