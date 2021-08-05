@@ -24,15 +24,6 @@
   }
 }
 
-.ErrorMessage {
-  @include text-12-regular;
-  display: block;
-  padding-top: 5px;
-  color: $color-red;
-  transition: all 0.3s;
-}
-
-
 .Input:-webkit-autofill {
     -webkit-background-clip: text;
 }

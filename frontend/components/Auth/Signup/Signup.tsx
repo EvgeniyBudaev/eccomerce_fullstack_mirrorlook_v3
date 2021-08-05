@@ -138,7 +138,7 @@ export const Signup: React.FC = () => {
                 label="Имя"
                 name="first_name"
                 register={register}
-                error={errors.first_name}
+                error={errors.first_name && errors.first_name.message}
                 isFocused={isFocused.first_name}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -147,7 +147,7 @@ export const Signup: React.FC = () => {
                 label="Фамилия"
                 name="last_name"
                 register={register}
-                error={errors.last_name}
+                error={errors.last_name && errors.last_name.message}
                 isFocused={isFocused.last_name}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -157,7 +157,7 @@ export const Signup: React.FC = () => {
                 name="phone_number"
                 type="tel"
                 register={register}
-                error={errors.phone_number}
+                error={errors.phone_number && errors.phone_number.message}
                 isFocused={isFocused.phone_number}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
@@ -166,17 +166,34 @@ export const Signup: React.FC = () => {
                 label="Электронная почта"
                 name="email"
                 register={register}
-                error={errors.email}
+                error={
+                  (errors.email && errors.email.message) ||
+                  (!errors.email &&
+                    error === "user account с таким email уже существует.")
+                    ? "Пользователь с таким email уже существует"
+                    : ""
+                }
                 isFocused={isFocused.email}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
+              {/*<div*/}
+              {/*  className={classNames(styles.ErrorResponse, {*/}
+              {/*    [styles.ErrorResponse__error]: error,*/}
+              {/*  })}*/}
+              {/*>*/}
+              {/*  {error &&*/}
+              {/*  (!errors.password || !errors.email) &&*/}
+              {/*  error.email[0] === "user account с таким email уже существует."*/}
+              {/*    ? "Пользователь с таким email уже существует"*/}
+              {/*    : ""}*/}
+              {/*</div>*/}
               <FormField
                 label="Пароль"
                 name="password"
                 type="password"
                 register={register}
-                error={errors.password}
+                error={errors.password && errors.password.message}
                 isFocused={isFocused.password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -186,7 +203,7 @@ export const Signup: React.FC = () => {
                 name="re_password"
                 type="password"
                 register={register}
-                error={errors.re_password}
+                error={errors.re_password && errors.re_password.message}
                 isFocused={isFocused.re_password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}

@@ -17,7 +17,7 @@ export interface IInputPhoneProps
   className?: string;
   name?: string;
   type?: InputType;
-  error?: FieldError;
+  error?: string;
 }
 
 export const InputPhone = forwardRef(
@@ -116,7 +116,7 @@ export const InputPhone = forwardRef(
           onPaste={handlePhonePaste}
           {...rest}
         />
-        {error && <div className={styles.ErrorMessage}>{error.message}</div>}
+        {error && <div className={styles.ErrorMessage}>{error}</div>}
       </>
     );
   }

@@ -18,7 +18,7 @@ export interface IInputProps
   className?: string;
   name?: string;
   type?: string;
-  error?: FieldError;
+  error?: string;
 }
 
 export const Input = forwardRef(
@@ -37,7 +37,6 @@ export const Input = forwardRef(
           ref={ref}
           {...rest}
         />
-        {error && <div className={styles.ErrorMessage}>{error.message}</div>}
       </>
     );
   }

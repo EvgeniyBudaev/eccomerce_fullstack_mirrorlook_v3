@@ -10,7 +10,8 @@ export interface IFormFieldProps {
   name?: string;
   type?: InputType;
   register?: (Ref, RegisterOptions?) => { onChange; onBlur; name; ref };
-  error?: FieldError;
+  // error?: FieldError;
+  error?: string;
   isFocused?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -66,7 +67,10 @@ export const FormField: React.FC<IFormFieldProps> = ({
             onBlur={onBlur}
           />
           {type === "password" && (
-            <div className={styles.FormField_Visibility} onClick={handlePasswordShow}>
+            <div
+              className={styles.FormField_Visibility}
+              onClick={handlePasswordShow}
+            >
               {isShowPassword ? (
                 <Icon type="VisibilityOff" />
               ) : (
@@ -74,6 +78,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
               )}
             </div>
           )}
+          {error && <div className={styles.ErrorMessage}>{error}</div>}
         </>
       )}
       {type === "tel" && (

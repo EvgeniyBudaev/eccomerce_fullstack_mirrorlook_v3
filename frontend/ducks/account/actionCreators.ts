@@ -75,7 +75,10 @@ export const login = (email: string, password: string) => async dispatch => {
     localStorage.setItem("access", response.data.access);
     dispatch(fetchUser());
   } catch (error) {
-    console.log("[error]", error.response.data.detail);
+    console.log("[error]", error);
+    console.log("[error.response]", error.response);
+    console.log("[error.response.data.detail]", error.response.data.detail);
+    console.log("[error.message]", error.message);
     dispatch({
       type: LOGIN_FAIL,
       payload:
@@ -125,11 +128,15 @@ export const signup =
       });
       //localStorage.setItem("access", response.data.access);
     } catch (error) {
+      console.log("[error]", error);
+      console.log("[error.response]", error.response);
+      console.log("[error.response.data]", error.response.data);
+      console.log("[error.message]", error.message);
       dispatch({
         type: SIGNUP_FAIL,
         payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
+          error.response && error.response.data
+            ? error.response.data
             : error.message,
       });
       //localStorage.removeItem("access");

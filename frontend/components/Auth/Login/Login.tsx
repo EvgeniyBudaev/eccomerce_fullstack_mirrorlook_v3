@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import classNames from "classnames";
 import { login } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField } from "ui-kit";
@@ -91,7 +90,7 @@ export const Login: React.FC = () => {
                 name="email"
                 type="text"
                 register={register}
-                error={errors.email}
+                error={errors.email && errors.email.message}
                 isFocused={isFocused.email}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -106,23 +105,17 @@ export const Login: React.FC = () => {
                 name="password"
                 type="password"
                 register={register}
-                error={errors.password}
+                error={
+                  (errors.password && errors.password.message) ||
+                  ((!errors.password || !errors.email) &&
+                  error === "No active account found with the given credentials"
+                    ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
+                    : "")
+                }
                 isFocused={isFocused.password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
-              <div
-                className={classNames(styles.ErrorResponse, {
-                  [styles.ErrorResponse__error]: error,
-                })}
-              >
-                {error &&
-                error &&
-                (!errors.password || !errors.email) &&
-                error === "No active account found with the given credentials"
-                  ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
-                  : ""}
-              </div>
             </div>
             <Button
               className={styles.SectionCenter_Button}

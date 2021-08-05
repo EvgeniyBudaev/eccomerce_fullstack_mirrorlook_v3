@@ -89,14 +89,3 @@
   position: relative;
   margin-bottom: 50px;
 }
-
-.ErrorResponse {
-  position: absolute;
-  bottom: -35px;
-  display: none;
-}
-
-.ErrorResponse__error {
-  display: block;
-  color: $color-red;
-}
