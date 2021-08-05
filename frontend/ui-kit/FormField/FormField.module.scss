@@ -24,6 +24,18 @@
   }
 }
 
+.FormField_Visibility {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
+
+  svg {
+    fill: rgba(0,0,0,.54);
+  }
+}
+
 .FormField__active {
   width: 100%;
   background-color: $color-white;

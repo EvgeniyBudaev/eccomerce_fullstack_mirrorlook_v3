@@ -104,6 +104,7 @@ export const Login: React.FC = () => {
               <FormField
                 label="Пароль"
                 name="password"
+                type="password"
                 register={register}
                 error={errors.password}
                 isFocused={isFocused.password}

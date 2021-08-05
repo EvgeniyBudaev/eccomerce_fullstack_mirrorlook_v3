@@ -12,6 +12,7 @@ import NumberFormat from "react-number-format";
 import { signup } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField } from "ui-kit";
+import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Signup.module.scss";
 
 export interface ISignupForm {
@@ -83,7 +84,8 @@ export const Signup: React.FC = () => {
 
   const onSubmit = (data: ISignupForm) => {
     console.log("[DATA]", data);
-    // const phone_number = normalizePhoneNumber(data.phone_number);
+    const phone_number = normalizePhoneNumber(data.phone_number);
+    console.log("phone_number", phone_number);
     // if (data.password === data.re_password) {
     //   dispatch(
     //     signup(

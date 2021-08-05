@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { FieldError } from "react-hook-form";
 import styles from "./Input.module.scss";
 
-export type InputType = "text" | "email" | "password" | "tel";
+export type InputType = "text" | "password" | "tel";
 
 export interface IInputProps
   extends DetailedHTMLProps<
@@ -17,7 +17,7 @@ export interface IInputProps
   > {
   className?: string;
   name?: string;
-  type?: InputType;
+  type?: string;
   error?: FieldError;
 }
 

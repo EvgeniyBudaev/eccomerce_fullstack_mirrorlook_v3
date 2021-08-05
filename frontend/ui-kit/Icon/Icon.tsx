@@ -9,6 +9,8 @@ import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
 import User from "ui-kit/assets/icons/User.svg";
+import Visibility from "ui-kit/assets/icons/Visibility.svg";
+import VisibilityOff from "ui-kit/assets/icons/VisibilityOff.svg";
 import styles from "./Icon.module.scss";
 
 export type IconType =
@@ -20,7 +22,9 @@ export type IconType =
   | "DisplayGrid"
   | "DisplayLine"
   | "Filter"
-  | "User";
+  | "User"
+  | "Visibility"
+  | "VisibilityOff";
 
 const iconTypes = new Map([
   ["ArrowDown", <ArrowDown key={Date.now()} />],
@@ -32,6 +36,8 @@ const iconTypes = new Map([
   ["DisplayLine", <DisplayLine key={Date.now()} />],
   ["Filter", <Filter key={Date.now()} />],
   ["User", <User key={Date.now()} />],
+  ["Visibility", <Visibility key={Date.now()} />],
+  ["VisibilityOff", <VisibilityOff key={Date.now()} />],
 ]);
 
 export interface IIconProps extends DOMAttributes<HTMLSpanElement> {
