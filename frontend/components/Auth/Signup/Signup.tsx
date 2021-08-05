@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import classNames from "classnames";
-import parsePhoneNumberFromString from "libphonenumber-js";
-import NumberFormat from "react-number-format";
 import { signup } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField } from "ui-kit";
@@ -25,22 +23,26 @@ export interface ISignupForm {
 }
 
 const schema = yup.object().shape({
-  // first_name: yup
-  //   .string()
-  //   .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
-  //   .required("Укажите имя"),
-  // last_name: yup
-  //   .string()
-  //   .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
-  //   .required("Укажите фамилию"),
-  // email: yup
-  //   .string()
-  //   .required("Укажите Email")
-  //   .email("Неверный email. Проверьте, правильно ли введён email"),
-  // password: yup
-  //   .string()
-  //   .required("Укажите пароль")
-  //   .min(8, "Пароль должен быть не менее 8 символов"),
+  first_name: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
+    .required("Укажите имя"),
+  last_name: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
+    .required("Укажите фамилию"),
+  email: yup
+    .string()
+    .required("Укажите Email")
+    .email("Неверный email. Проверьте, правильно ли введён email"),
+  password: yup
+    .string()
+    .required("Укажите пароль")
+    .min(8, "Пароль должен быть не менее 8 символов"),
+  re_password: yup
+    .string()
+    .required("Укажите пароль")
+    .min(8, "Пароль должен быть не менее 8 символов"),
 });
 
 export const Signup: React.FC = () => {
@@ -68,7 +70,6 @@ export const Signup: React.FC = () => {
   const {
     register,
     watch,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<ISignupForm>({ resolver: yupResolver(schema) });
@@ -80,25 +81,23 @@ export const Signup: React.FC = () => {
     state => state.account.isAuthenticated
   );
   const watchAllFields = watch();
-  const hasPhone = watch("phone_number");
 
   const onSubmit = (data: ISignupForm) => {
     console.log("[DATA]", data);
-    const phone_number = normalizePhoneNumber(data.phone_number);
-    console.log("phone_number", phone_number);
-    // if (data.password === data.re_password) {
-    //   dispatch(
-    //     signup(
-    //       data.first_name,
-    //       data.last_name,
-    //       data.phone_number,
-    //       data.email,
-    //       data.password,
-    //       data.re_password
-    //     )
-    //   );
-    //   setIsAccountCreated(true);
-    // }
+    const phone_number_normalize = normalizePhoneNumber(data.phone_number);
+    if (data.password === data.re_password) {
+      dispatch(
+        signup(
+          data.first_name,
+          data.last_name,
+          phone_number_normalize,
+          data.email,
+          data.password,
+          data.re_password
+        )
+      );
+      setIsAccountCreated(true);
+    }
   };
 
   useEffect(() => {
@@ -135,25 +134,24 @@ export const Signup: React.FC = () => {
           <h1 className={styles.SectionCenterContent_Title}>Регистрация</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.FormFieldGroup}>
-              {/*<FormField*/}
-              {/*  label="Имя"*/}
-              {/*  name="first_name"*/}
-              {/*  register={register}*/}
-              {/*  error={errors.first_name}*/}
-              {/*  isFocused={isFocused.first_name}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  onFocus={handleFocus}*/}
-              {/*/>*/}
-              {/*<FormField*/}
-              {/*  label="Фамилия"*/}
-              {/*  name="last_name"*/}
-              {/*  register={register}*/}
-              {/*  error={errors.last_name}*/}
-              {/*  isFocused={isFocused.last_name}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  onFocus={handleFocus}*/}
-              {/*/>*/}
-
+              <FormField
+                label="Имя"
+                name="first_name"
+                register={register}
+                error={errors.first_name}
+                isFocused={isFocused.first_name}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <FormField
+                label="Фамилия"
+                name="last_name"
+                register={register}
+                error={errors.last_name}
+                isFocused={isFocused.last_name}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
               <FormField
                 label="Мобильный телефон"
                 name="phone_number"
@@ -164,34 +162,35 @@ export const Signup: React.FC = () => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
-
-              {/*<FormField*/}
-              {/*  label="Электронная почта"*/}
-              {/*  name="email"*/}
-              {/*  register={register}*/}
-              {/*  error={errors.email}*/}
-              {/*  isFocused={isFocused.email}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  onFocus={handleFocus}*/}
-              {/*/>*/}
-              {/*<FormField*/}
-              {/*  label="Пароль"*/}
-              {/*  name="password"*/}
-              {/*  register={register}*/}
-              {/*  error={errors.password}*/}
-              {/*  isFocused={isFocused.password}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  onFocus={handleFocus}*/}
-              {/*/>*/}
-              {/*<FormField*/}
-              {/*  label="Подтверждение пароля"*/}
-              {/*  name="re_password"*/}
-              {/*  register={register}*/}
-              {/*  error={errors.re_password}*/}
-              {/*  isFocused={isFocused.re_password}*/}
-              {/*  onBlur={handleBlur}*/}
-              {/*  onFocus={handleFocus}*/}
-              {/*/>*/}
+              <FormField
+                label="Электронная почта"
+                name="email"
+                register={register}
+                error={errors.email}
+                isFocused={isFocused.email}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <FormField
+                label="Пароль"
+                name="password"
+                type="password"
+                register={register}
+                error={errors.password}
+                isFocused={isFocused.password}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <FormField
+                label="Подтверждение пароля"
+                name="re_password"
+                type="password"
+                register={register}
+                error={errors.re_password}
+                isFocused={isFocused.re_password}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
               <div
                 className={classNames(styles.ErrorResponse, {
                   [styles.ErrorResponse__error]: error,

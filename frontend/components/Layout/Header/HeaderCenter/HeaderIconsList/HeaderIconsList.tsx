@@ -6,7 +6,7 @@ import styles from "./HeaderIconsList.module.scss";
 
 export const HeaderIconsList: React.FC = () => {
   const account = useTypedSelector(state => state.account);
-  console.log("[HeaderIconsList][account]", account);
+  //console.log("[HeaderIconsList][account]", account);
 
   return (
     <div className={styles.HeaderIconsList}>
@@ -15,9 +15,7 @@ export const HeaderIconsList: React.FC = () => {
           <a>
             <Icon className={styles.Icon} type={"User"} />
             <div className={styles.IconDescription}>
-              {account.isAuthenticated
-                ? account.user.first_name
-                : "Войти"}
+              {account.isAuthenticated ? account.user.first_name : "Войти"}
             </div>
           </a>
         </Link>
