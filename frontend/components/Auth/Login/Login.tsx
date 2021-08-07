@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { login } from "ducks/account";
+import { LOGIN } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { Button, FormField } from "ui-kit";
+import { Button, FormField, Spinner } from "ui-kit";
 import styles from "./Login.module.scss";
 
 interface ILoginForm {
@@ -40,15 +40,23 @@ export const Login: React.FC = () => {
   } = useForm<ILoginForm>({ resolver: yupResolver(schema) });
   const dispatch = useDispatch();
   const router = useRouter();
-  const account = useTypedSelector(state => state.account);
-  const { error } = account;
+  const loading = useTypedSelector(state => state.loading);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
   const isAuthenticated = useTypedSelector(
     state => state.account.isAuthenticated
   );
+  const { isLoading } = loading;
+  const { error } = unhandledError;
   const watchAllFields = watch();
 
   const onSubmit = (data: ILoginForm) => {
-    dispatch(login(data.email, data.password));
+    dispatch({
+      type: LOGIN,
+      payload: {
+        email: data.email,
+        password: data.password,
+      },
+    });
   };
 
   useEffect(() => {
@@ -69,6 +77,8 @@ export const Login: React.FC = () => {
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.Login}>
@@ -108,7 +118,9 @@ export const Login: React.FC = () => {
                 error={
                   (errors.password && errors.password.message) ||
                   ((!errors.password || !errors.email) &&
-                  error === "No active account found with the given credentials"
+                  error &&
+                  error.response.data.detail ===
+                    "No active account found with the given credentials"
                     ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
                     : "")
                 }

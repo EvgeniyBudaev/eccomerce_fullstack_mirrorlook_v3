@@ -8,6 +8,7 @@ import IconButton from "./Button/IconButton";
 import FormField from "./FormField";
 import Pagination from "./Pagination";
 import SliderSimple from "./Slider/SliderSimple";
+import Spinner from "./Spinner";
 
 export type IconType = import("./Icon").IconType;
 export type InputType = import("./Input").InputType;
@@ -23,4 +24,5 @@ export {
   FormField,
   Pagination,
   SliderSimple,
+  Spinner,
 };

@@ -1,9 +1,10 @@
 import { Reducer } from "redux";
+import { AxiosError } from "axios";
 import * as actionTypes from "./actionTypes";
 import { UnhandledErrorActionsType } from "./types";
 
 export interface IUnhandledErrorState {
-  error: Error | null;
+  error: AxiosError | null;
 }
 
 const defaultState: IUnhandledErrorState = {

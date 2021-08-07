@@ -14,6 +14,7 @@ export const PASSWORD_RESET_CONFIRM_SUCCESS =
   "account/PASSWORD_RESET_CONFIRM_SUCCESS";
 export const PASSWORD_RESET_CONFIRM_FAIL =
   "account/PASSWORD_RESET_CONFIRM_FAIL";
+export const SET_USER_TOKEN = "account/SET_USER_TOKEN";
 export const SIGNUP_SUCCESS = "account/SIGNUP_SUCCESS";
 export const SIGNUP_FAIL = "account/SIGNUP_FAIL";
 export const ACTIVATION_SUCCESS = "account/ACTIVATION_SUCCESS";

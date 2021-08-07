@@ -6,13 +6,17 @@ import {
   ConsolesActionsType,
 } from "ducks/products/consoles";
 import { reducer as loading, LoadingActionsType } from "ducks/loading";
-import { UnhandledErrorActionsType } from "ducks/unhandledError";
+import {
+  reducer as unhandledError,
+  UnhandledErrorActionsType,
+} from "ducks/unhandledError";
 
 export const rootReducer = combineReducers({
   account,
   mirrors,
   consoles,
   loading,
+  unhandledError,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

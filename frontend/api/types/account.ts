@@ -8,7 +8,6 @@ export interface IUserAccount {
 
 export interface IAccount {
   access: string;
-  error: string;
   isAuthenticated: boolean;
   refresh: string;
   user: IUserAccount;
@@ -22,7 +21,7 @@ export interface IFetchUserResponse {
   phone_number: string;
 }
 
-export interface ILoginResponse {
+export interface ITokenResponse {
   access: string;
   refresh: string;
 }

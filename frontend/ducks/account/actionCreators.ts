@@ -1,95 +1,32 @@
 import axios from "axios";
-import { IFetchUserResponse, ILoginResponse } from "api/types/account";
 import {
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAIL,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
   LOGOUT,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
+  SET_USER,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
+  SET_USER_TOKEN,
 } from "./actionTypes";
+import { IActionSetUserTokenType, IActionSetUserType } from "./types";
 
-export const fetchUser = () => async dispatch => {
-  if (localStorage.getItem("access")) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-        Accept: "application/json",
-      },
-    };
-    try {
-      const response = await axios.get<IFetchUserResponse>(
-        `http://127.0.0.1:8000/api/v1/auth/users/me/`,
-        config
-      );
-      console.log("[fetchUser][response]", response);
-      dispatch({
-        type: FETCH_USER_SUCCESS,
-        payload: response.data,
-      });
-    } catch (error) {
-      dispatch({
-        type: FETCH_USER_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  } else {
-    dispatch({
-      type: FETCH_USER_FAIL,
-    });
-  }
-};
+export const setUserToken = (payload: IActionSetUserTokenType) =>
+  ({
+    type: SET_USER_TOKEN,
+    payload,
+  } as const);
 
-export const login = (email: string, password: string) => async dispatch => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const body = JSON.stringify({ email, password });
-  console.log("[body]", body);
-  try {
-    const response = await axios.post<ILoginResponse>(
-      `http://127.0.0.1:8000/api/v1/auth/jwt/create/`,
-      body,
-      config
-    );
-    console.log("[login][response]", response);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: response.data,
-    } as const);
-    localStorage.setItem("access", response.data.access);
-    dispatch(fetchUser());
-  } catch (error) {
-    console.log("[error]", error);
-    console.log("[error.response]", error.response);
-    console.log("[error.response.data.detail]", error.response.data.detail);
-    console.log("[error.message]", error.message);
-    dispatch({
-      type: LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
-  }
-};
+export const setUser = (payload: IActionSetUserType) =>
+  ({
+    type: SET_USER,
+    payload,
+  } as const);
 
 export const signup =
   (

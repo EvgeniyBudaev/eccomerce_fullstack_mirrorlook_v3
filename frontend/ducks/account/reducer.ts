@@ -3,10 +3,6 @@ import { IAccount } from "api/types/account";
 import {
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAIL,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
   LOGOUT,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAIL,
@@ -16,44 +12,41 @@ import {
   SIGNUP_FAIL,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
+  SET_USER_TOKEN,
+  SET_USER,
 } from "./actionTypes";
-import { AccountActionsType } from "./types";
 
 const initialState = {
   access: null,
   refresh: null,
   user: null,
   isAuthenticated: null,
-  error: null,
 };
 
 export const reducer: Reducer<IAccount> = (state = initialState, action) => {
+  console.log("action", action);
   switch (action.type) {
     case AUTHENTICATED_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        error: null,
       };
     case AUTHENTICATED_FAIL:
       return {
         ...state,
         isAuthenticated: false,
-        error: action.payload,
       };
-    case LOGIN_SUCCESS:
+    case SET_USER_TOKEN:
       return {
         ...state,
         access: action.payload.access,
         refresh: action.payload.refresh,
-        error: null,
       };
     case SIGNUP_SUCCESS:
       return {
         ...state,
         isAuthenticated: false,
       };
-    case LOGIN_FAIL:
     case SIGNUP_FAIL:
     case LOGOUT:
       return {
@@ -62,21 +55,12 @@ export const reducer: Reducer<IAccount> = (state = initialState, action) => {
         refresh: null,
         user: null,
         isAuthenticated: false,
-        error: action.payload,
       };
-    case FETCH_USER_SUCCESS:
+    case SET_USER:
       return {
         ...state,
         user: action.payload,
         isAuthenticated: true,
-        error: null,
-      };
-    case FETCH_USER_FAIL:
-      return {
-        ...state,
-        user: null,
-        error: action.payload,
-        isAuthenticated: false,
       };
     case PASSWORD_RESET_SUCCESS:
     case PASSWORD_RESET_CONFIRM_SUCCESS:
@@ -89,7 +73,6 @@ export const reducer: Reducer<IAccount> = (state = initialState, action) => {
     case ACTIVATION_FAIL:
       return {
         ...state,
-        error: action.payload,
       };
     default:
       return state;
