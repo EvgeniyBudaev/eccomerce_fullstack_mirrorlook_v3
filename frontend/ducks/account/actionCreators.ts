@@ -8,13 +8,16 @@ import {
   PASSWORD_RESET_CONFIRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
   SET_USER,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAIL,
+  SIGNUP_USER,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   SET_USER_TOKEN,
 } from "./actionTypes";
-import { IActionSetUserTokenType, IActionSetUserType } from "./types";
+import {
+  IActionSetUserTokenType,
+  IActionSetUserType,
+  IActionSignupType,
+} from "./types";
 
 export const setUserToken = (payload: IActionSetUserTokenType) =>
   ({
@@ -28,58 +31,11 @@ export const setUser = (payload: IActionSetUserType) =>
     payload,
   } as const);
 
-export const signup =
-  (
-    first_name: string,
-    last_name: string,
-    phone_number: string,
-    email: string,
-    password: string,
-    re_password: string
-  ) =>
-  async dispatch => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({
-      first_name,
-      last_name,
-      phone_number,
-      email,
-      password,
-      re_password,
-    });
-    console.log("[signup][body]", body);
-    try {
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/v1/auth/users/`,
-        body,
-        config
-      );
-      console.log("[signup][response]", response);
-      dispatch({
-        type: SIGNUP_SUCCESS,
-        payload: response.data,
-      });
-      //localStorage.setItem("access", response.data.access);
-    } catch (error) {
-      console.log("[error]", error);
-      console.log("[error.response]", error.response);
-      console.log("[error.response.data]", error.response.data);
-      console.log("[error.message]", error.message);
-      dispatch({
-        type: SIGNUP_FAIL,
-        payload:
-          error.response && error.response.data
-            ? error.response.data
-            : error.message,
-      });
-      //localStorage.removeItem("access");
-      //localStorage.removeItem("refresh");
-    }
-  };
+export const signup = (payload: IActionSignupType) =>
+  ({
+    type: SIGNUP_USER,
+    payload,
+  } as const);
 
 export const verify = (uid, token: string) => async dispatch => {
   const config = {

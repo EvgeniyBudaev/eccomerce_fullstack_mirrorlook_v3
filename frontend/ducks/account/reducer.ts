@@ -8,12 +8,11 @@ import {
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAIL,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   SET_USER_TOKEN,
   SET_USER,
+  SIGNUP_USER,
 } from "./actionTypes";
 
 const initialState = {
@@ -42,12 +41,17 @@ export const reducer: Reducer<IAccount> = (state = initialState, action) => {
         access: action.payload.access,
         refresh: action.payload.refresh,
       };
-    case SIGNUP_SUCCESS:
+    case SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+      };
+    case SIGNUP_USER:
       return {
         ...state,
         isAuthenticated: false,
       };
-    case SIGNUP_FAIL:
     case LOGOUT:
       return {
         ...state,
@@ -55,12 +59,6 @@ export const reducer: Reducer<IAccount> = (state = initialState, action) => {
         refresh: null,
         user: null,
         isAuthenticated: false,
-      };
-    case SET_USER:
-      return {
-        ...state,
-        user: action.payload,
-        isAuthenticated: true,
       };
     case PASSWORD_RESET_SUCCESS:
     case PASSWORD_RESET_CONFIRM_SUCCESS:

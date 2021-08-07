@@ -6,10 +6,9 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import classNames from "classnames";
-import { signup } from "ducks/account";
+import { SIGNUP } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { Button, FormField } from "ui-kit";
+import { Button, FormField, Spinner } from "ui-kit";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Signup.module.scss";
 
@@ -47,14 +46,7 @@ const schema = yup.object().shape({
 
 export const Signup: React.FC = () => {
   const [isAccountCreated, setIsAccountCreated] = useState(false);
-  const [formData, setFormData] = useState<ISignupForm>({
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-    email: "",
-    password: "",
-    re_password: "",
-  });
+  const [isPasswordMatch, setIsPasswordMatch] = useState(true);
   const [isFocused, setIsFocused] = useState({
     first_name: false,
     last_name: false,
@@ -63,10 +55,6 @@ export const Signup: React.FC = () => {
     password: false,
     re_password: false,
   });
-  const [value, setValue] = useState("");
-  const [phoneKeyDown, setPhoneKeyDown] = useState("");
-  const [inputPhoneRef, setInputPhoneRef] =
-    useState<React.RefObject<HTMLInputElement>>();
   const {
     register,
     watch,
@@ -75,37 +63,41 @@ export const Signup: React.FC = () => {
   } = useForm<ISignupForm>({ resolver: yupResolver(schema) });
   const dispatch = useDispatch();
   const router = useRouter();
-  const account = useTypedSelector(state => state.account);
-  const { error } = account;
-  const isAuthenticated = useTypedSelector(
-    state => state.account.isAuthenticated
-  );
+  const loading = useTypedSelector(state => state.loading);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { isLoading } = loading;
+  const { error } = unhandledError;
   const watchAllFields = watch();
 
   const onSubmit = (data: ISignupForm) => {
     console.log("[DATA]", data);
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     if (data.password === data.re_password) {
-      dispatch(
-        signup(
-          data.first_name,
-          data.last_name,
-          phone_number_normalize,
-          data.email,
-          data.password,
-          data.re_password
-        )
-      );
+      setIsPasswordMatch(true);
+      dispatch({
+        type: SIGNUP,
+        payload: {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          phone_number: phone_number_normalize,
+          email: data.email,
+          password: data.password,
+          re_password: data.re_password,
+        },
+      });
       setIsAccountCreated(true);
+    } else {
+      setIsPasswordMatch(false);
+      console.log("пароли не совпадают");
     }
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
+    if (isAccountCreated) {
+      router.push("/activate");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAccountCreated]);
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused({ ...isFocused, [event.target.name]: true });
@@ -118,6 +110,8 @@ export const Signup: React.FC = () => {
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.Signup}>
@@ -169,7 +163,9 @@ export const Signup: React.FC = () => {
                 error={
                   (errors.email && errors.email.message) ||
                   (!errors.email &&
-                    error === "user account с таким email уже существует.")
+                    error &&
+                    error.response.data.email[0] ===
+                      "user account с таким email уже существует.")
                     ? "Пользователь с таким email уже существует"
                     : ""
                 }
@@ -177,23 +173,17 @@ export const Signup: React.FC = () => {
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
-              {/*<div*/}
-              {/*  className={classNames(styles.ErrorResponse, {*/}
-              {/*    [styles.ErrorResponse__error]: error,*/}
-              {/*  })}*/}
-              {/*>*/}
-              {/*  {error &&*/}
-              {/*  (!errors.password || !errors.email) &&*/}
-              {/*  error.email[0] === "user account с таким email уже существует."*/}
-              {/*    ? "Пользователь с таким email уже существует"*/}
-              {/*    : ""}*/}
-              {/*</div>*/}
               <FormField
                 label="Пароль"
                 name="password"
                 type="password"
                 register={register}
-                error={errors.password && errors.password.message}
+                error={
+                  (errors.password && errors.password.message) ||
+                  (!errors.password && !isPasswordMatch)
+                    ? "Пароли не совпадают"
+                    : ""
+                }
                 isFocused={isFocused.password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -203,23 +193,16 @@ export const Signup: React.FC = () => {
                 name="re_password"
                 type="password"
                 register={register}
-                error={errors.re_password && errors.re_password.message}
+                error={
+                  (errors.re_password && errors.re_password.message) ||
+                  (!errors.re_password && !isPasswordMatch)
+                    ? "Пароли не совпадают"
+                    : ""
+                }
                 isFocused={isFocused.re_password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
-              <div
-                className={classNames(styles.ErrorResponse, {
-                  [styles.ErrorResponse__error]: error,
-                })}
-              >
-                {error &&
-                error &&
-                (!errors.password || !errors.email) &&
-                error === "No active account found with the given credentials"
-                  ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
-                  : ""}
-              </div>
             </div>
             <Button
               className={styles.SectionCenter_Button}

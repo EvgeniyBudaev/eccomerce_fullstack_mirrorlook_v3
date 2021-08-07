@@ -21,7 +21,15 @@ export interface IFetchUserResponse {
   phone_number: string;
 }
 
-export interface ITokenResponse {
+export interface IFetchTokenResponse {
   access: string;
   refresh: string;
+}
+
+export interface IFetchSignupResponse {
+  email: string;
+  first_name: string;
+  id: number;
+  last_name: string;
+  phone_number: string;
 }
