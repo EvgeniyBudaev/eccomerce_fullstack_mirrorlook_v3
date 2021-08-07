@@ -55,7 +55,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     last_logout = models.DateTimeField(null=True, blank=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
 
     objects = UserAccountManager()
 

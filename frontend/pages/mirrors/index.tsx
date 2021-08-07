@@ -45,13 +45,19 @@ export default function MirrorsPage(
 // };
 
 export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
-  query: { page = 1, category = "", form = "", ordering = "" },
+  query: {
+    page = 1,
+    category = "",
+    form = "",
+    frame_color = "",
+    ordering = "",
+  },
 }) => {
   // console.log("[PAGE]", page);
   // console.log("[category]", category);
   // console.log("[form]", form);
   const url = encodeURI(
-    `http://127.0.0.1:8000/api/v1/mirrors/?category=${category}&form=${form}&ordering=${ordering}&page=${page}`
+    `http://127.0.0.1:8000/api/v1/mirrors/?category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
   );
 
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(

@@ -7,6 +7,7 @@ import styles from "./LayoutMirrorsAside.module.scss";
 interface ICheckedMirrors {
   category: string[];
   form: string[];
+  frame_color: string[];
 }
 
 interface LayoutMirrorsAsideProps {
@@ -20,6 +21,7 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
     category: [],
     form: [],
+    frame_color: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -47,7 +49,16 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
 
   const asideMirrorsOptions = {
     category: ["Венецианские зеркала", "Напольные зеркала"],
-    form: ["Круглая", "Прямоугольная"],
+    form: ["Круглая", "Овальная", "Прямоугольная", "Фигурная"],
+    frame_color: [
+      "Античное золото",
+      "Античное серебро",
+      "Бронза",
+      "Золото",
+      "Латунь",
+      "Серебро",
+      "Хром",
+    ],
   };
 
   useEffect(() => {
@@ -110,6 +121,21 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
               checkedBox={checkedMirrors}
               key={index}
               nameGroup="form"
+              onClick={(event, nameGroup) =>
+                handleChangeCheckedBox(event, nameGroup)
+              }
+            />
+          ))}
+        </Accordion>
+        <Accordion title="Цвет рамы" active={true}>
+          {asideMirrorsOptions.frame_color.map((label, index) => (
+            <Checkbox
+              className={styles.CheckboxItem}
+              id={index.toString() + label}
+              label={label}
+              checkedBox={checkedMirrors}
+              key={index}
+              nameGroup="frame_color"
               onClick={(event, nameGroup) =>
                 handleChangeCheckedBox(event, nameGroup)
               }
