@@ -76,9 +76,9 @@ button {
 .slick-slide img {
   max-width: 100%;
   width: 100%;
-  //height: auto;
   max-height: 500px;
   margin: 0 auto;
+  border-radius: 24px;
   outline: transparent;
 }
 
@@ -93,45 +93,37 @@ button {
   bottom: -45px;
 
   & li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0 5px;
+    width: 30px;
     cursor: pointer;
 
     & button {
+      padding: 0;
       font-size: 0;
-      width: 15px;
-      height: 15px;
+      max-width: 100%;
+      width: 30px;
+      height: 3px;
       background-color: $color-gray;
       border: none;
-      outline: none;
+      outline: transparent;
+      transition: all 0.15s;
+    }
+
+    & button:hover {
+      background-color: $color-dark-gray;
     }
   }
   & li.slick-active button {
-    background-color: $color-beige;
+    background-color: $color-text;
     outline: transparent;
   }
 
   li button:before,
   li.slick-active button:before {
     color: transparent;
-  }
-}
-
-
-// Стрелки слайдера на главной странице
-.SliderSimple {
-  .slick-prev,
-  .slick-next {
-    position: absolute;
-    top: 50%;
-    z-index: 1;
-  }
-
-  .slick-prev {
-    left: 25px;
-  }
-
-  .slick-next {
-    right: 25px;
   }
 }
 

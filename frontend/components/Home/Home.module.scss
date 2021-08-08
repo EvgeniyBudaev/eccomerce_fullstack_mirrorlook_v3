@@ -1,5 +1,24 @@
 .Home {}
 
+.MainSliders {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MainSlider {
+  height: 360px;
+  width: 900px;
+}
+
+.MainSliderNextArrow {
+  right: 25px !important;
+}
+
+.ProductSlider {
+  height: 360px;
+  width: 260px;
+}
+
 .Catalog {
   display: grid;
   gap: 30px;
@@ -11,5 +30,17 @@
     max-width: 585px;
     width: 100%;
     height: auto;
+    border-radius: 24px;
+    overflow: hidden;
+
+    & img {
+      object-fit: cover;
+      border-radius: 24px;
+      transition: all 0.5s;
+    }
+
+    & img:hover {
+      transform: scale(1.1);
+    }
   }
 }

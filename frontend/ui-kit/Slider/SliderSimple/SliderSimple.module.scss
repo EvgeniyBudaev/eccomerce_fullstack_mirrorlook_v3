@@ -1,5 +1,8 @@
 @import "styles";
 
-.Slider {}
-
-.Item {}
+.Item {
+  width: 100%;
+  & > div {
+    width: 100%;
+  }
+}

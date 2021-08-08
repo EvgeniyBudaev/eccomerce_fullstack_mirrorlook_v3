@@ -1,49 +1,64 @@
 import Image from "next/image";
-import React, { Component } from "react";
+import React from "react";
 import Slider from "react-slick";
+import classNames from "classnames";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./SliderSimple.module.scss";
 
-import slide1 from "ui-kit/assets/images/slide-home-1.jpg";
-import slide2 from "ui-kit/assets/images/slide-home-2.jpg";
-import slide3 from "ui-kit/assets/images/slide-home-3.jpg";
-import slide4 from "ui-kit/assets/images/slide-home-4.jpg";
-import slide5 from "ui-kit/assets/images/slide-home-5.jpg";
-import slide6 from "ui-kit/assets/images/slide-home-6.jpg";
-import slide7 from "ui-kit/assets/images/slide-home-7.jpg";
-import slide8 from "ui-kit/assets/images/slide-home-8.jpg";
-
-class SliderSimple extends Component {
-  render() {
-    const settings = {
-      arrows: true,
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      className: "SliderSimple",
-    };
-    return (
-      <div className={styles.Slider}>
-        <Slider {...settings}>
-          <div className={styles.Item}>
-            <Image src={slide5} alt="" width="1200" height="780" />
-          </div>
-          <div className={styles.Item}>
-            <Image src={slide6} alt="" width="1200" height="780" />
-          </div>
-          <div className={styles.Item}>
-            <Image src={slide7} alt="" width="1200" height="780" />
-          </div>
-          <div className={styles.Item}>
-            <Image src={slide8} alt="" width="1200" height="780" />
-          </div>
-        </Slider>
-      </div>
-    );
-  }
+export interface ISliderSimpleProps {
+  className?: string;
+  alt?: string;
+  arrows?: boolean;
+  dots?: boolean;
+  images?: StaticImageData[];
+  infinite?: boolean;
+  height?: string;
+  slidesToShow?: number;
+  slidesToScroll?: number;
+  speed?: number;
+  width?: string;
+  nextArrow?: JSX.Element;
+  prevArrow?: JSX.Element;
 }
 
-export { SliderSimple };
+export const SliderSimple: React.FC<ISliderSimpleProps> = ({
+  className,
+  alt = "",
+  arrows,
+  dots,
+  images,
+  infinite,
+  height,
+  slidesToShow,
+  slidesToScroll,
+  speed,
+  width,
+  nextArrow,
+  prevArrow,
+}) => {
+  const settings = {
+    arrows: arrows,
+    className: classNames(className),
+    dots: dots,
+    infinite: infinite,
+    speed: speed,
+    slidesToShow: slidesToShow,
+    slidesToScroll: slidesToScroll,
+    nextArrow: nextArrow,
+    prevArrow: prevArrow,
+  };
+
+  return (
+    <Slider {...settings}>
+      {images &&
+        images.map((image, index) => {
+          return (
+            <div className={styles.Item} key={index}>
+              <Image src={image} alt={alt} height={height} width={width} />
+            </div>
+          );
+        })}
+    </Slider>
+  );
+};
