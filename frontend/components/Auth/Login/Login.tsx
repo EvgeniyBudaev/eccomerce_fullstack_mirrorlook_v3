@@ -67,6 +67,12 @@ export const Login: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setUnhandledClearError());
+    };
+  }, [dispatch]);
+
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused({ ...isFocused, [event.target.name]: true });
   };
@@ -78,12 +84,6 @@ export const Login: React.FC = () => {
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
-
-  useEffect(() => {
-    return () => {
-      dispatch(setUnhandledClearError());
-    };
-  }, [dispatch]);
 
   if (isLoading) return <Spinner />;
 

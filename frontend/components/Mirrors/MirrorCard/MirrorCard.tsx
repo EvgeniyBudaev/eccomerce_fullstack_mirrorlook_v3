@@ -10,6 +10,7 @@ export interface IMirrorCardProps {
 }
 
 export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
+  console.log("[card][mirror]", mirror);
   const handleAddToBasket = () => {
     console.log("Click");
   };

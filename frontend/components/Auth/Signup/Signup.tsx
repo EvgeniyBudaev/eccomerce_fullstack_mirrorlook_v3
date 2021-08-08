@@ -89,7 +89,6 @@ export const Signup: React.FC = () => {
       setIsAccountCreated(true);
     } else {
       setIsPasswordMatch(false);
-      console.log("пароли не совпадают");
     }
   };
 
@@ -99,6 +98,12 @@ export const Signup: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAccountCreated]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setUnhandledClearError());
+    };
+  }, [dispatch]);
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused({ ...isFocused, [event.target.name]: true });
@@ -111,12 +116,6 @@ export const Signup: React.FC = () => {
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
-
-  useEffect(() => {
-    return () => {
-      dispatch(setUnhandledClearError());
-    };
-  }, [dispatch]);
 
   if (isLoading) return <Spinner />;
 
