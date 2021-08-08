@@ -30,8 +30,8 @@ export const Home: React.FC = () => {
           slidesToScroll={1}
           speed={500}
           width="900"
-          nextArrow={<SliderNextArrow styles={{ right: "25px" }} />}
-          prevArrow={<SliderPrevArrow styles={{ left: "25px" }} />}
+          nextArrow={<SliderNextArrow styles={{ right: "5px" }} />}
+          prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}
         />
         <SliderSimple
           className={styles.ProductSlider}

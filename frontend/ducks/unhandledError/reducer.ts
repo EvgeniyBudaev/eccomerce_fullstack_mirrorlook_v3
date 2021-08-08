@@ -16,6 +16,8 @@ export const reducer: Reducer<IUnhandledErrorState, UnhandledErrorActionsType> =
     switch (action.type) {
       case actionTypes.SET_UNHANDLED_ERROR:
         return { ...state, error: action.payload };
+      case actionTypes.SET_UNHANDLED_CLEAR_ERROR:
+        return { ...state, error: null };
       default:
         return state;
     }

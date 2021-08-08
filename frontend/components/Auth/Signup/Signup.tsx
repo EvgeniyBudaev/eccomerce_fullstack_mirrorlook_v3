@@ -10,6 +10,7 @@ import { SIGNUP } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
+import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./Signup.module.scss";
 
 export interface ISignupForm {
@@ -111,6 +112,12 @@ export const Signup: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(setUnhandledClearError());
+    };
+  }, [dispatch]);
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -164,6 +171,7 @@ export const Signup: React.FC = () => {
                   (errors.email && errors.email.message) ||
                   (!errors.email &&
                     error &&
+                    error.response.data.email &&
                     error.response.data.email[0] ===
                       "user account с таким email уже существует.")
                     ? "Пользователь с таким email уже существует"

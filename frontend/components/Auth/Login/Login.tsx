@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { LOGIN } from "ducks/account";
+import { setUnhandledClearError } from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import styles from "./Login.module.scss";
@@ -77,6 +78,12 @@ export const Login: React.FC = () => {
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setUnhandledClearError());
+    };
+  }, [dispatch]);
 
   if (isLoading) return <Spinner />;
 
