@@ -1,11 +1,26 @@
 from rest_framework import serializers
 
-from store.models import Mirror, Console
+from store.models import Mirror, Console, Catalog, Category
+
+
+class CatalogSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Catalog
+        fields = ('id', 'title')
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ('id', 'title')
 
 
 class MirrorSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField(source='category.title',
                                               many=False, read_only=True)
+    catalog_slug = serializers.SerializerMethodField()
 
     class Meta:
         model = Mirror
@@ -15,8 +30,11 @@ class MirrorSerializer(serializers.ModelSerializer):
                   'brand', 'weight', 'mirror_material', 'frame_material',
                   'frame_color', 'height_with_frame', 'width_with_frame',
                   'height_without_frame', 'width_without_frame', 'is_faced',
-                  'user', 'category')
+                  'user', 'category', 'catalog_slug')
         lookup_field = 'product_slug'
+
+    def get_catalog_slug(self, obj):
+        pass
 
 
 class ConsoleSerializer(serializers.ModelSerializer):

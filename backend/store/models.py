@@ -64,8 +64,6 @@ class Product(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                              verbose_name='Пользователь')
-    category = models.ForeignKey(Category, verbose_name='Категория',
-                                 on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True,
                              verbose_name='Наименование товара')
     product_slug = models.SlugField(max_length=255, unique=True,
@@ -134,6 +132,9 @@ class Mirror(Product):
         ('Хром', 'Хром'),
     )
 
+    category = models.ForeignKey(Category, verbose_name='Категория',
+                                 related_name='mirrors',
+                                 on_delete=models.CASCADE)
     form = models.CharField(max_length=64, null=True, blank=True,
                             verbose_name='Форма зеркала', choices=FORM_TYPES)
     mirror_material = models.CharField(max_length=64, null=True, blank=True,
@@ -171,6 +172,9 @@ class Mirror(Product):
 
 class Console(Product):
     """Модель консоли."""
+    category = models.ForeignKey(Category, verbose_name='Категория',
+                                 related_name='consoles',
+                                 on_delete=models.CASCADE)
     color = models.CharField(max_length=255, null=True, blank=True,
                              verbose_name='Цвет')
 
