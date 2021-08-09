@@ -1,5 +1,6 @@
+import Basket from "./Basket";
 import Home from "./Home";
 import { Layout, LayoutMirrors } from "./Layout";
 import Logo from "./Logo";
 
-export { Home, Layout, LayoutMirrors, Logo };
+export { Basket, Home, Layout, LayoutMirrors, Logo };

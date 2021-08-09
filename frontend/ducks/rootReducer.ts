@@ -5,6 +5,7 @@ import {
   reducer as consoles,
   ConsolesActionsType,
 } from "ducks/products/consoles";
+import { reducer as basket } from "ducks/products/mirrors";
 import { reducer as loading, LoadingActionsType } from "ducks/loading";
 import {
   reducer as unhandledError,
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   account,
   mirrors,
   consoles,
+  basket,
   loading,
   unhandledError,
 });

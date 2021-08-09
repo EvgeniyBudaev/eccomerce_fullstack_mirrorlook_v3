@@ -23,7 +23,6 @@ const initialState = {
 };
 
 export const reducer: Reducer<IAccount> = (state = initialState, action) => {
-  console.log("action", action);
   switch (action.type) {
     case AUTHENTICATED_SUCCESS:
       return {
