@@ -8,13 +8,17 @@ const initialState = {
 
 export const reducer: Reducer<IBasket> = (state = initialState, action) => {
   const item = action.payload;
-  const existItem = state.entities.find(x => x.id === item.id);
+  const existItem = state.entities.find(
+    x => x.product_slug === item.product_slug
+  );
   switch (action.type) {
     case BASKET_ADD_ITEM:
       if (existItem) {
         return {
           ...state,
-          entities: state.entities.map(x => (x.id === existItem.id ? item : x)),
+          entities: state.entities.map(x =>
+            x.product_slug === existItem.product_slug ? item : x
+          ),
         };
       } else {
         return {

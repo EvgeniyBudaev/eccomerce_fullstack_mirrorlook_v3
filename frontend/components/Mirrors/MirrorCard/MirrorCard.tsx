@@ -17,7 +17,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
 
   const handleAddToBasket = () => {
     console.log("Click");
-    dispatch(addToBasket(mirror.id, mirror.product_slug));
+    dispatch(addToBasket(mirror.product_slug, "mirrors"));
   };
 
   return (

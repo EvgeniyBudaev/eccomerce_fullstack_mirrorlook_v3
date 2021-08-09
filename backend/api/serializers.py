@@ -34,15 +34,21 @@ class MirrorSerializer(serializers.ModelSerializer):
         lookup_field = 'product_slug'
 
     def get_catalog_slug(self, obj):
-        pass
+        return obj.category.catalog.catalog_slug
 
 
 class ConsoleSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField(source='category.title',
+                                              many=False, read_only=True)
+    catalog_slug = serializers.SerializerMethodField()
 
     class Meta:
         model = Console
         fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
                   'product_photo2', 'product_photo3', 'product_photo4', 'price',
                   'count_in_stock', 'description', 'rating', 'created', 'color',
-                  'brand', 'weight', 'user', 'category')
+                  'brand', 'weight', 'user', 'category', 'catalog_slug')
         lookup_field = 'product_slug'
+
+    def get_catalog_slug(self, obj):
+        return obj.category.catalog.catalog_slug
