@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'accounts.apps.AccountsConfig',
+    'api.apps.ApiConfig',
     'store.apps.StoreConfig'
 ]
 

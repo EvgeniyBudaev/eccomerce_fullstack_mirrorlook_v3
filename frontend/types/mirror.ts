@@ -4,6 +4,7 @@ export interface IMirrors {
 
 export interface IMirror {
   brand: string;
+  catalog_slug: string;
   category_id: number;
   count_in_stock: number;
   created: string;

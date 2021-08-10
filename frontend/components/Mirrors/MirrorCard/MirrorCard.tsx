@@ -4,7 +4,7 @@ import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
-import { addToBasket } from "ducks/basket/actionCreators";
+import { FETCH_BASKET_ADD_ITEM } from "ducks/basket";
 import styles from "./MirrorCard.module.scss";
 
 export interface IMirrorCardProps {
@@ -17,7 +17,13 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
 
   const handleAddToBasket = () => {
     console.log("Click");
-    dispatch(addToBasket(mirror.product_slug, "mirrors"));
+    dispatch({
+      type: FETCH_BASKET_ADD_ITEM,
+      payload: {
+        product_slug: mirror.product_slug,
+        catalog_slug: mirror.catalog_slug,
+      },
+    });
   };
 
   return (

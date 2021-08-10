@@ -5,7 +5,7 @@ import {
   reducer as consoles,
   ConsolesActionsType,
 } from "ducks/products/consoles";
-import { reducer as basket } from "ducks/products/mirrors";
+import { reducer as basket, BasketActionsType } from "ducks/basket";
 import { reducer as loading, LoadingActionsType } from "ducks/loading";
 import {
   reducer as unhandledError,
@@ -27,5 +27,6 @@ export type ActionsType =
   | AccountActionsType
   | MirrorsActionsType
   | ConsolesActionsType
+  | BasketActionsType
   | LoadingActionsType
   | UnhandledErrorActionsType;

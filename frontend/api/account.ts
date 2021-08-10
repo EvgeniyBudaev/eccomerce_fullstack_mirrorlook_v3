@@ -3,7 +3,7 @@ import { IFetchUserSignupPayload } from "ducks/account";
 import {
   IFetchUserResponse,
   IFetchTokenResponse,
-  IFetchSignupResponse
+  IFetchSignupResponse,
 } from "./types/account";
 
 export const fetchToken = async (
