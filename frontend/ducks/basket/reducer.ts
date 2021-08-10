@@ -16,10 +16,10 @@ export const reducer: Reducer<IBasket, BasketActionsType> = (
   action
 ) => {
   console.log("[basket][action]", action);
-  const newItem = action.payload;
-  const existItem = state.entities.find(
-    item => item.product_slug === newItem.product_slug
-  );
+  // const newItem = action.payload;
+  // const existItem = state.entities.find(
+  //   item => item.product_slug === newItem.product_slug
+  // );
   switch (action.type) {
     case BASKET_ADD_ITEM:
       return state;
