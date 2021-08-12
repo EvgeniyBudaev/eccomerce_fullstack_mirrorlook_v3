@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { LOGIN } from "ducks/account";
+import { ActionTypes } from "ducks/account";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
@@ -52,7 +52,7 @@ export const Login: React.FC = () => {
 
   const onSubmit = (data: ILoginForm) => {
     dispatch({
-      type: LOGIN,
+      type: ActionTypes.LOGIN,
       payload: {
         email: data.email,
         password: data.password,

@@ -150,14 +150,14 @@ class Mirror(Product):
                                             null=True, blank=True,
                                             verbose_name="Высота с рамой")
     width_with_frame = models.DecimalField(max_digits=7, decimal_places=2,
-                                            null=True, blank=True,
-                                            verbose_name="Ширина с рамой")
+                                           null=True, blank=True,
+                                           verbose_name="Ширина с рамой")
     height_without_frame = models.DecimalField(max_digits=7, decimal_places=2,
                                                null=True, blank=True,
                                                verbose_name="Высота без рамы")
     width_without_frame = models.DecimalField(max_digits=7, decimal_places=2,
-                                               null=True, blank=True,
-                                               verbose_name="Ширина без рамы")
+                                              null=True, blank=True,
+                                              verbose_name="Ширина без рамы")
     is_faced = models.BooleanField(default=True, null=True, blank=True,
                                    verbose_name='Наличие фацета')
 
@@ -185,6 +185,67 @@ class Console(Product):
 
     def __str__(self):
         return self.color
+
+
+class CartProduct(models.Model):
+    """Модель продукта корзины."""
+    user = models.ForeignKey(User, verbose_name='Покупатель',
+                             on_delete=models.CASCADE)
+    cart = models.ForeignKey('Cart', verbose_name='Корзина',
+                             on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
+                                     verbose_name='Тип продукта')
+    object_id = models.PositiveIntegerField('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
+    qty = models.PositiveIntegerField(default=1,
+                                      verbose_name='Количество товара')
+    final_price = models.DecimalField(max_digits=9, decimal_places=2,
+                                      verbose_name='Итоговая цена')
+
+    def __str__(self):
+        return f'Продукт: {self.content_object.name} (для корзины)'
+
+    def save(self, *args, **kwargs):
+        self.final_price = self.qty * self.content_object.price
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Продукт корзины'
+        verbose_name_plural = 'Продукты корзины'
+
+
+class Cart(models.Model):
+    """Модель корзины."""
+    id = models.AutoField(primary_key=True, editable=False)
+    owner = models.ForeignKey(User, verbose_name='Покупатель',
+                              on_delete=models.CASCADE)
+    products = models.ManyToManyField('CartProduct', verbose_name='Продукты',
+                                      blank=True, related_name='related_cart')
+    total_products = models.PositiveIntegerField(default=0,
+                                                 verbose_name='Общее кол-во')
+    final_price = models.DecimalField(max_digits=9, decimal_places=2, default=0,
+                                      verbose_name='Итоговая цена')
+    in_order = models.BooleanField(default=False, help_text='Является ли '
+                                                            'корзина частью '
+                                                            'какого-либо '
+                                                            'заказа?')
+    for_anonymous_user = models.BooleanField(default=False,
+                                             verbose_name='Анонимный '
+                                                          'пользователь?')
+
+    def __str__(self):
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        if self.id:
+            self.total_products = self.products.count()
+            self.final_price = sum([cproduct.final_price for cproduct in
+                                    self.products.all()])
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
 
 
 class Review(models.Model):
@@ -242,8 +303,8 @@ class Order(models.Model):
 
     class Meta:
         ordering = ['created']
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'Корзина'
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
     def __str__(self):
         return str(self.created)
@@ -270,8 +331,8 @@ class OrderItem(models.Model):
 
     class Meta:
         ordering = ['order']
-        verbose_name = 'Заказ'
-        verbose_name_plural = 'Заказы'
+        verbose_name = 'Детали заказа'
+        verbose_name_plural = 'Детали заказов'
 
     def __str__(self):
         return str(self.title)

@@ -16,6 +16,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   mirror,
   isClickedDisplayLine,
 }) => {
+  console.log("[mirror.product_photo1]", mirror.product_photo1);
   return (
     <li
       className={classNames(styles.MirrorsListItem, {

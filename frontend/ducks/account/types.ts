@@ -1,14 +1,15 @@
 import { InferValueTypes } from "types/common";
 import * as actions from "ducks/account/actionCreators";
+import { ActionTypes } from "./actionTypes";
 
 export type AccountActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
-export interface IActionSetUserTokenType {
+export interface IPayloadSetUserToken {
   access: string;
   refresh: string;
 }
 
-export interface IActionSetUserType {
+export interface IPayloadSetUser {
   email: string;
   first_name: string;
   id: number;
@@ -16,7 +17,7 @@ export interface IActionSetUserType {
   phone_number: string;
 }
 
-export interface IActionSignupType {
+export interface IPayloadSignup {
   email: string;
   first_name: string;
   id: number;
@@ -24,17 +25,32 @@ export interface IActionSignupType {
   phone_number: string;
 }
 
-export interface IFetchUserTokenPayload {
+export interface IActionSetUserToken {
+  type: ActionTypes.SET_USER_TOKEN;
+  payload: IPayloadSetUserToken;
+}
+
+export interface IActionSetUser {
+  type: ActionTypes.SET_USER;
+  payload: IPayloadSetUser;
+}
+
+export interface IActionUserSignup {
+  type: ActionTypes.SIGNUP_USER;
+  payload: IPayloadSignup;
+}
+
+export interface ISagaUserTokenPayload {
   email: string;
   password: string;
 }
 
-export interface IFetchUserTokenProps {
-  payload: IFetchUserTokenPayload;
+export interface ISagaUserTokenProps {
+  payload: ISagaUserTokenPayload;
   type: string;
 }
 
-export interface IFetchUserSignupPayload {
+export interface ISagaUserSignupPayload {
   first_name: string;
   last_name: string;
   phone_number: string;
@@ -43,7 +59,7 @@ export interface IFetchUserSignupPayload {
   re_password: string;
 }
 
-export interface IFetchUserSignupProps {
-  payload: IFetchUserSignupPayload;
+export interface ISagaUserSignupProps {
+  payload: ISagaUserSignupPayload;
   type: string;
 }

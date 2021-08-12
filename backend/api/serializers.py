@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from store.models import Mirror, Console, Catalog, Category
+from store.models import (Mirror, Console, Catalog, Category, CartProduct, Cart)
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -52,3 +52,11 @@ class ConsoleSerializer(serializers.ModelSerializer):
 
     def get_catalog_slug(self, obj):
         return obj.category.catalog.catalog_slug
+
+
+class CartProductSerializer(serializers.ModelSerializer):
+    pass
+
+
+class CartSerializer(serializers.ModelSerializer):
+    pass

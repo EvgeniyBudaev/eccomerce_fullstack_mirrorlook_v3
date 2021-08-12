@@ -1,11 +1,25 @@
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
-import slide5 from "ui-kit/assets/images/slide-home-5.jpg";
-import slide6 from "ui-kit/assets/images/slide-home-6.jpg";
-import slide7 from "ui-kit/assets/images/slide-home-7.jpg";
+import styles from "../SliderSimple/SliderSimple.module.scss";
 
-const SliderAsNavFor: React.FC = () => {
+interface ISliderAsNavForProps {
+  alt?: string;
+  images?: string[];
+  heightNav?: string;
+  heightFor?: string;
+  widthNav?: string;
+  widthFor?: string;
+}
+
+const SliderAsNavFor: React.FC<ISliderAsNavForProps> = ({
+  alt = "",
+  images,
+  heightNav,
+  heightFor,
+  widthNav,
+  widthFor,
+}) => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const slider1 = useRef(null);
@@ -51,18 +65,19 @@ const SliderAsNavFor: React.FC = () => {
   return (
     <>
       <Slider asNavFor={nav2} ref={slider1} {...settingsFor}>
-        <div>
-          <Image src={slide5} alt="" width="400" height="400" />
-        </div>
-        <div>
-          <Image src={slide6} alt="" width="400" height="400" />
-        </div>
-        <div>
-          <Image src={slide7} alt="" width="400" height="400" />
-        </div>
-        <div>
-          <Image src={slide5} alt="" width="400" height="400" />
-        </div>
+        {images &&
+          images.map((image, index) => {
+            return (
+              <div key={index + "Nav"}>
+                <Image
+                  src={image}
+                  alt={alt}
+                  height={heightNav}
+                  width={widthNav}
+                />
+              </div>
+            );
+          })}
       </Slider>
 
       <Slider
@@ -73,42 +88,19 @@ const SliderAsNavFor: React.FC = () => {
         focusOnSelect={true}
         {...settingsNav}
       >
-        <div>
-          <Image
-            className="ItemImageNav"
-            src={slide5}
-            alt=""
-            width="60"
-            height="60"
-          />
-        </div>
-        <div>
-          <Image
-            className="ItemImageNav"
-            src={slide6}
-            alt=""
-            width="60"
-            height="60"
-          />
-        </div>
-        <div>
-          <Image
-            className="ItemImageNav"
-            src={slide7}
-            alt=""
-            width="60"
-            height="60"
-          />
-        </div>
-        <div>
-          <Image
-            className="ItemImageNav"
-            src={slide5}
-            alt=""
-            width="60"
-            height="60"
-          />
-        </div>
+        {images &&
+          images.map((image, index) => {
+            return (
+              <div key={index + "For"}>
+                <Image
+                  src={image}
+                  alt={alt}
+                  height={heightFor}
+                  width={widthFor}
+                />
+              </div>
+            );
+          })}
       </Slider>
     </>
   );

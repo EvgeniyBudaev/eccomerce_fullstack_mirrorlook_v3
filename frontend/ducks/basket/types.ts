@@ -2,11 +2,18 @@ import * as actions from "ducks/basket/actionCreators";
 import { InferValueTypes } from "types/common";
 import { IMirror } from "types/mirror";
 import { IConsole } from "types/console";
+import { ActionTypes } from "ducks/basket";
 
 export type BasketActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
-export interface IActionAddToBasketType {
-  item: IMirror | IConsole;
+// export interface IPayloadAddToBasket {
+//   item: IMirror | IConsole;
+// }
+export type IPayloadAddToBasket = IMirror | IConsole;
+
+export interface IActionAddToBasket {
+  type: ActionTypes.BASKET_ADD_ITEM;
+  payload: IPayloadAddToBasket;
 }
 
 export interface IFetchAddToBasketPayload {

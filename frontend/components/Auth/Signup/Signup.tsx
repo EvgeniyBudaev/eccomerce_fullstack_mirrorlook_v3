@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { SIGNUP } from "ducks/account";
+import { ActionTypes } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
@@ -76,7 +76,7 @@ export const Signup: React.FC = () => {
     if (data.password === data.re_password) {
       setIsPasswordMatch(true);
       dispatch({
-        type: SIGNUP,
+        type: ActionTypes.SIGNUP,
         payload: {
           first_name: data.first_name,
           last_name: data.last_name,

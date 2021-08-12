@@ -7,35 +7,33 @@ import {
   PASSWORD_RESET_FAIL,
   PASSWORD_RESET_CONFIRM_SUCCESS,
   PASSWORD_RESET_CONFIRM_FAIL,
-  SET_USER,
-  SIGNUP_USER,
-  ACTIVATION_SUCCESS,
-  ACTIVATION_FAIL,
-  SET_USER_TOKEN,
+  ActionTypes,
 } from "./actionTypes";
 import {
-  IActionSetUserTokenType,
-  IActionSetUserType,
-  IActionSignupType,
+  IPayloadSetUserToken,
+  IPayloadSetUser,
+  IActionSetUserToken,
+  IActionSetUser,
+  IPayloadSignup,
+  IActionUserSignup,
 } from "./types";
 
-export const setUserToken = (payload: IActionSetUserTokenType) =>
-  ({
-    type: SET_USER_TOKEN,
-    payload,
-  } as const);
+export const setUserToken = (
+  payload: IPayloadSetUserToken
+): IActionSetUserToken => ({
+  type: ActionTypes.SET_USER_TOKEN,
+  payload,
+});
 
-export const setUser = (payload: IActionSetUserType) =>
-  ({
-    type: SET_USER,
-    payload,
-  } as const);
+export const setUser = (payload: IPayloadSetUser): IActionSetUser => ({
+  type: ActionTypes.SET_USER,
+  payload,
+});
 
-export const signup = (payload: IActionSignupType) =>
-  ({
-    type: SIGNUP_USER,
-    payload,
-  } as const);
+export const signup = (payload: IPayloadSignup): IActionUserSignup => ({
+  type: ActionTypes.SIGNUP_USER,
+  payload,
+});
 
 export const verify = (uid, token: string) => async dispatch => {
   const config = {
@@ -51,12 +49,12 @@ export const verify = (uid, token: string) => async dispatch => {
       config
     );
     dispatch({
-      type: ACTIVATION_SUCCESS,
+      type: ActionTypes.ACTIVATION_SUCCESS,
       payload: response.data,
     });
   } catch (error) {
     dispatch({
-      type: ACTIVATION_FAIL,
+      type: ActionTypes.ACTIVATION_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

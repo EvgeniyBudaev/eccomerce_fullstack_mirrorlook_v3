@@ -10,7 +10,7 @@ import { Layout } from "components";
 import { MirrorCard } from "components/Mirrors/MirrorCard";
 
 export default function MirrorDetail(props: IMirror): JSX.Element {
-  console.log("[MirrorDetail][props]", props);
+  //console.log("[MirrorDetail][props]", props);
   return (
     <Layout>
       <MirrorCard mirror={props} />

@@ -1,29 +1,34 @@
 import { Reducer } from "redux";
 import { IBasket } from "api/types/basket";
-import { BASKET_ADD_ITEM, BASKET_REMOVE_ITEM } from "./actionTypes";
-import { BasketActionsType } from "./types";
-
-export interface IBasketState {
-  entities: IBasket | [];
-}
+import { ActionTypes } from "./actionTypes";
+import { IActionAddToBasket } from "./types";
 
 const initialState = {
-  entities: [],
+  entities: null,
 };
 
-export const reducer: Reducer<IBasket, BasketActionsType> = (
+type IAction = IActionAddToBasket;
+
+export const reducer: Reducer<any> = (
   state = initialState,
-  action
+  action: IAction
 ) => {
-  console.log("[basket][action]", action);
-  // const newItem = action.payload;
+  console.log("[action.payload]", action.payload);
+  const { payload } = action;
+  const newItem = action.payload;
   // const existItem = state.entities.find(
   //   item => item.product_slug === newItem.product_slug
   // );
+
   switch (action.type) {
-    case BASKET_ADD_ITEM:
-      return state;
-    // case BASKET_ADD_ITEM:
+    case ActionTypes.BASKET_ADD_ITEM:
+      // return {
+      //   ...state,
+      //   entities: newItem,
+      // };
+      return { ...state, [payload.id]: (state[payload.id] || 0) + 1 };
+
+    // case ActionTypes.BASKET_ADD_ITEM:
     //   if (existItem) {
     //     return {
     //       ...state,

@@ -1,8 +1,9 @@
-import { BASKET_ADD_ITEM } from "./actionTypes";
-import { IActionAddToBasketType } from "./types";
+import { ActionTypes } from "./actionTypes";
+import { IActionAddToBasket, IPayloadAddToBasket } from "./types";
 
-export const addToBasket = (payload: IActionAddToBasketType) =>
-  ({
-    type: BASKET_ADD_ITEM,
-    payload,
-  } as const);
+export const addToBasket = (
+  payload: IPayloadAddToBasket
+): IActionAddToBasket => ({
+  type: ActionTypes.BASKET_ADD_ITEM,
+  payload,
+});

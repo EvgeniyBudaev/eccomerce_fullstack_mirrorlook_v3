@@ -1,4 +1,12 @@
-import { all, takeLatest, takeLeading, call, put } from "redux-saga/effects";
+import {
+  all,
+  takeLatest,
+  takeLeading,
+  call,
+  put,
+  AllEffect,
+  ForkEffect,
+} from "redux-saga/effects";
 import * as accountApi from "api/account";
 import { setLoading, unsetLoading } from "ducks/loading";
 import { setUnhandledError } from "ducks/unhandledError";
@@ -8,14 +16,13 @@ import {
   IFetchTokenResponse,
 } from "api/types/account";
 import {
-  IFetchUserSignupProps,
-  IFetchUserTokenProps,
-  LOGIN,
-  SIGNUP,
+  ActionTypes,
+  ISagaUserSignupProps,
+  ISagaUserTokenProps,
 } from "ducks/account";
 import * as actionCreators from "./actionCreators";
 
-function* fetchUserToken({ payload }: IFetchUserTokenProps) {
+function* fetchUserToken({ payload }: ISagaUserTokenProps) {
   const { email, password } = payload;
   yield put(setUnhandledError(null));
   yield put(setLoading());
@@ -40,7 +47,7 @@ function* fetchUserToken({ payload }: IFetchUserTokenProps) {
   }
 }
 
-function* fetchUserSignup({ payload }: IFetchUserSignupProps) {
+function* fetchUserSignup({ payload }: ISagaUserSignupProps) {
   yield put(setUnhandledError(null));
   yield put(setLoading());
   try {
@@ -57,8 +64,11 @@ function* fetchUserSignup({ payload }: IFetchUserSignupProps) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function* watch() {
-  yield all([takeLatest(LOGIN, fetchUserToken)]);
-  yield all([takeLatest(SIGNUP, fetchUserSignup)]);
+export function* watch(): Generator<
+  AllEffect<ForkEffect<never>>,
+  void,
+  unknown
+> {
+  yield all([takeLatest(ActionTypes.LOGIN, fetchUserToken)]);
+  yield all([takeLatest(ActionTypes.SIGNUP, fetchUserSignup)]);
 }
