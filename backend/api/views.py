@@ -6,8 +6,6 @@ from accounts.serializers import UserSerializer
 from .serializers import ProductSerializer, ProductCreateSerializer
 from .pagination import StorePagination
 # from .filters import MirrorFilter
-
-# from .permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly, ReadOnly
 from .permissions import IsAdminOrReadOnly
 
 
@@ -32,12 +30,3 @@ class ProductViewSet(viewsets.ModelViewSet):
         if self.action in ('create', 'partial_update'):
             return ProductCreateSerializer
         return ProductSerializer
-
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
-    #
-    # def get_permissions(self):
-    #     if self.action == 'retrieve':
-    #         return (ReadOnly(),)
-    #
-    #     return super().get_permissions()

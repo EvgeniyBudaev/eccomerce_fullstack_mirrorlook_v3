@@ -48,8 +48,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-    # category = serializers.StringRelatedField(source='category.title',
-    #                                           many=False, read_only=True)
     catalog_slug = serializers.SerializerMethodField()
     attributes = AttributeSerializer(many=True, required=False)
 
@@ -82,6 +80,18 @@ class ProductCreateSerializer(serializers.ModelSerializer):
                 ProductAttribute.objects.create(
                     attribute=current_attribute, product=product)
             return product
+
+    def update(self, instance, validated_data):
+        attributes = validated_data.pop('attributes')
+        for item in validated_data:
+            if Product._meta.get_field(item):
+                setattr(instance, item, validated_data[item])
+        Attribute.objects.filter(group=instance).delete()
+        for attribute in attributes:
+            d=dict(attribute)
+            Attribute.objects.create(group=instance, attribute=d['attribute'])
+        instance.save()
+        return instance
 
 
 # class CartProductSerializer(serializers.ModelSerializer):
