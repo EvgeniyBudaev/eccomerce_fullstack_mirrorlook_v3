@@ -1,2 +1,4 @@
 # eccomerce_fullstack_mirrorlook_v3
  eccomerce_fullstack_mirrorlook_v3
+
+Абстрактная модель продукта от которой наследуются модели
