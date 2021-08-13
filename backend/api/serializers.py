@@ -36,10 +36,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
-                  'product_photo2', 'product_photo3', 'product_photo4', 'price',
-                  'count_in_stock', 'description', 'rating', 'date_created',
-                  'user', 'category', 'catalog_slug', 'attributes')
+        fields = ('id', 'title', 'product_slug', 'brand', 'image',
+                  'product_photo1', 'product_photo2', 'product_photo3',
+                  'product_photo4', 'price', 'count_in_stock', 'description',
+                  'rating', 'date_created', 'user', 'category', 'catalog_slug',
+                  'attributes')
         read_only_fields = ('id',)
         lookup_field = 'product_slug'
 
@@ -53,10 +54,11 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
-                  'product_photo2', 'product_photo3', 'product_photo4', 'price',
-                  'count_in_stock', 'description', 'rating', 'date_created',
-                  'user', 'category', 'catalog_slug', 'attributes')
+        fields = ('id', 'title', 'product_slug', 'brand', 'image',
+                  'product_photo1', 'product_photo2', 'product_photo3',
+                  'product_photo4', 'price', 'count_in_stock', 'description',
+                  'rating', 'date_created', 'user', 'category', 'catalog_slug',
+                  'attributes')
         lookup_field = 'product_slug'
 
     def get_catalog_slug(self, obj):
@@ -82,16 +84,20 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             return product
 
     def update(self, instance, validated_data):
-        attributes = validated_data.pop('attributes')
-        for item in validated_data:
-            if Product._meta.get_field(item):
-                setattr(instance, item, validated_data[item])
-        Attribute.objects.filter(group=instance).delete()
-        for attribute in attributes:
-            d=dict(attribute)
-            Attribute.objects.create(group=instance, attribute=d['attribute'])
-        instance.save()
-        return instance
+        if 'attributes' not in self.initial_data:
+            instance = self._update_attributes(instance, **validated_data)
+            return instance
+        else:
+            attributes = validated_data.pop('attributes')
+            instance = self._update_attributes(instance, **validated_data)
+            for attribute in attributes:
+                current_attribute, status = Attribute.objects.get_or_update(
+                    **attribute)
+                instance = self._update_attributes(instance, **attribute)
+
+                ProductAttribute.objects.update(
+                    attribute=current_attribute, product=instance)
+            return instance
 
 
 # class CartProductSerializer(serializers.ModelSerializer):
