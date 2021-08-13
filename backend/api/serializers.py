@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from store.models import (Mirror, Console, Catalog, Category, CartProduct, Cart)
+from store.models import (Catalog, Category, Attribute, Product,
+                          ProductAttribute)
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -17,46 +18,75 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'title')
 
 
-class MirrorSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField(source='category.title',
-                                              many=False, read_only=True)
-    catalog_slug = serializers.SerializerMethodField()
+class AttributeSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Mirror
-        fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
-                  'product_photo2', 'product_photo3', 'product_photo4', 'price',
-                  'count_in_stock', 'description', 'rating', 'created', 'form',
-                  'brand', 'weight', 'mirror_material', 'frame_material',
+        model = Attribute
+        fields = ('id', 'form', 'mirror_material', 'frame_material',
                   'frame_color', 'height_with_frame', 'width_with_frame',
-                  'height_without_frame', 'width_without_frame', 'is_faced',
-                  'user', 'category', 'catalog_slug')
-        lookup_field = 'product_slug'
-
-    def get_catalog_slug(self, obj):
-        return obj.category.catalog.catalog_slug
+                  'height_without_frame', 'width_without_frame', 'weight',
+                  'is_faced')
 
 
-class ConsoleSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField(source='category.title',
                                               many=False, read_only=True)
     catalog_slug = serializers.SerializerMethodField()
+    attributes = AttributeSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Console
+        model = Product
         fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
                   'product_photo2', 'product_photo3', 'product_photo4', 'price',
-                  'count_in_stock', 'description', 'rating', 'created', 'color',
-                  'brand', 'weight', 'user', 'category', 'catalog_slug')
+                  'count_in_stock', 'description', 'rating', 'date_created',
+                  'user', 'category', 'catalog_slug', 'attributes')
+        read_only_fields = ('id',)
         lookup_field = 'product_slug'
 
     def get_catalog_slug(self, obj):
         return obj.category.catalog.catalog_slug
 
 
-class CartProductSerializer(serializers.ModelSerializer):
-    pass
+class ProductCreateSerializer(serializers.ModelSerializer):
+    # category = serializers.StringRelatedField(source='category.title',
+    #                                           many=False, read_only=True)
+    catalog_slug = serializers.SerializerMethodField()
+    attributes = AttributeSerializer(many=True, required=False)
+
+    class Meta:
+        model = Product
+        fields = ('id', 'title', 'product_slug', 'image', 'product_photo1',
+                  'product_photo2', 'product_photo3', 'product_photo4', 'price',
+                  'count_in_stock', 'description', 'rating', 'date_created',
+                  'user', 'category', 'catalog_slug', 'attributes')
+        lookup_field = 'product_slug'
+
+    def get_catalog_slug(self, obj):
+        return obj.category.catalog.catalog_slug
+
+    def create(self, validated_data):
+        # Если в исходном запросе не было поля attributes
+        if 'attributes' not in self.initial_data:
+            # То создаём запись о продукте без его атрибутов
+            product = Product.objects.create(**validated_data)
+            return product
+        else:
+            attributes = validated_data.pop('attributes')
+            # Иначе сначала добавляем продукт в БД
+            product = Product.objects.create(**validated_data)
+            # А потом добавляем атрибуты продукта в БД
+            for attribute in attributes:
+                current_attribute, status = Attribute.objects.get_or_create(
+                    **attribute)
+                # И связываем каждый атрибут с этим продуктом
+                ProductAttribute.objects.create(
+                    attribute=current_attribute, product=product)
+            return product
 
 
-class CartSerializer(serializers.ModelSerializer):
-    pass
+# class CartProductSerializer(serializers.ModelSerializer):
+#     pass
+
+
+# class CartSerializer(serializers.ModelSerializer):
+#     pass

@@ -1,12 +1,14 @@
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-from store.models import User, Mirror, Console
+from store.models import User, Product
 from accounts.serializers import UserSerializer
-from .serializers import MirrorSerializer, ConsoleSerializer
+from .serializers import ProductSerializer, ProductCreateSerializer
 from .pagination import StorePagination
-from .filters import MirrorFilter
-from .permissions import IsAuthorOrReadOnly, ReadOnly
+# from .filters import MirrorFilter
+
+# from .permissions import IsAdminOrReadOnly, IsAuthorOrReadOnly, ReadOnly
+from .permissions import IsAdminOrReadOnly
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -14,36 +16,28 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UserSerializer
 
 
-class MirrorViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Mirror.objects.all()
-    serializer_class = MirrorSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
+class ProductViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью продуктов."""
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (IsAdminOrReadOnly,)
     pagination_class = StorePagination
     lookup_field = 'product_slug'
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
-    filterset_class = MirrorFilter
+    # filterset_class = MirrorFilter
     ordering_fields = ('price',)
     ordering = ('price',)
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    def get_serializer_class(self):
+        if self.action in ('create', 'partial_update'):
+            return ProductCreateSerializer
+        return ProductSerializer
 
-    def get_permissions(self):
-        if self.action == 'retrieve':
-            return (ReadOnly(),)
-
-        return super().get_permissions()
-
-
-class ConsoleViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Console.objects.all()
-    serializer_class = ConsoleSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
-    pagination_class = StorePagination
-    lookup_field = 'product_slug'
-
-    def get_permissions(self):
-        if self.action == 'retrieve':
-            return (ReadOnly(),)
-
-        return super().get_permissions()
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+    #
+    # def get_permissions(self):
+    #     if self.action == 'retrieve':
+    #         return (ReadOnly(),)
+    #
+    #     return super().get_permissions()
