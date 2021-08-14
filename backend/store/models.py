@@ -18,7 +18,7 @@ class Catalog(models.Model):
                                     help_text='Задайте уникальный URL адрес '
                                               'названию каталога')
     date_created = models.DateTimeField(auto_now_add=True,
-                                   verbose_name='Дата создания')
+                                        verbose_name='Дата создания')
 
     class Meta:
         ordering = ['title']
@@ -45,7 +45,7 @@ class Category(models.Model):
                                      help_text='Задайте уникальный URL адрес '
                                                'категории')
     date_created = models.DateTimeField(auto_now_add=True,
-                                   verbose_name='Дата создания')
+                                        verbose_name='Дата создания')
 
     class Meta:
         ordering = ['title']
@@ -85,7 +85,7 @@ class Attribute(models.Model):
     )
 
     form = models.CharField(max_length=64, null=True, blank=True,
-                            verbose_name='Форма зеркала', choices=FORM_TYPES)
+                            verbose_name='Форма', choices=FORM_TYPES)
     mirror_material = models.CharField(max_length=64, null=True, blank=True,
                                        verbose_name='Материал зеркала',
                                        choices=MIRROR_MATERIAL)
@@ -128,6 +128,9 @@ class Product(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                              verbose_name='Пользователь')
+    catalog = models.ForeignKey(Catalog, verbose_name='Каталог',
+                                related_name='products',
+                                on_delete=models.CASCADE)
     category = models.ForeignKey(Category, verbose_name='Категория',
                                  related_name='products',
                                  on_delete=models.CASCADE)
@@ -184,83 +187,44 @@ class ProductAttribute(models.Model):
     def __str__(self):
         return f'{self.attribute} {self.product}'
 
-# class Console(Product):
-#     """Модель консоли."""
-#     category = models.ForeignKey(Category, verbose_name='Категория',
-#                                  related_name='consoles',
-#                                  on_delete=models.CASCADE)
-#     color = models.CharField(max_length=255, null=True, blank=True,
-#                              verbose_name='Цвет')
-#
-#     class Meta:
-#         # ordering = ['color']
-#         verbose_name = 'Консоль'
-#         verbose_name_plural = 'Консоли'
-#
-#     def __str__(self):
-#         return self.color
+
+class Cart(models.Model):
+    """Модель корзины."""
+    id = models.AutoField(primary_key=True, editable=False)
+    user = models.ForeignKey(User, verbose_name='Покупатель',
+                             on_delete=models.CASCADE)
+    products = models.ManyToManyField('CartItem', verbose_name='Продукты',
+                                      blank=True, null=True,
+                                      related_name='carts')
+    date_created = models.DateTimeField(auto_now_add=True, db_index=True,
+                                        verbose_name='Дата создания')
+
+    def __str__(self):
+        return str(self.date_created)
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
 
 
-# class CartProduct(models.Model):
-#     """Модель продукта корзины."""
-#     user = models.ForeignKey(User, verbose_name='Покупатель',
-#                              on_delete=models.CASCADE)
-#     cart = models.ForeignKey('Cart', verbose_name='Корзина',
-#                              on_delete=models.CASCADE)
-#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
-#                                      verbose_name='Тип продукта')
-#     object_id = models.PositiveIntegerField('content_type', 'object_id')
-#     content_object = GenericForeignKey('content_type', 'object_id')
-#     qty = models.PositiveIntegerField(default=1,
-#                                       verbose_name='Количество товара')
-#     final_price = models.DecimalField(max_digits=9, decimal_places=2,
-#                                       verbose_name='Итоговая цена')
-#
-#     def __str__(self):
-#         return f'Продукт: {self.content_object.name} (для корзины)'
-#
-#     def save(self, *args, **kwargs):
-#         self.final_price = self.qty * self.content_object.price
-#         super().save(*args, **kwargs)
-#
-#     class Meta:
-#         verbose_name = 'Продукт корзины'
-#         verbose_name_plural = 'Продукты корзины'
+class CartItem(models.Model):
+    """Модель продукта корзины."""
+    id = models.AutoField(primary_key=True, editable=False)
+    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, null=True,
+                             related_name='cartitems', verbose_name='Корзина')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True,
+                                verbose_name='Продукт')
+    quantity = models.PositiveIntegerField(blank=True, null=True, default=0,
+                                           verbose_name='Кол-во')
+    date_created = models.DateTimeField(auto_now_add=True, db_index=True,
+                                        verbose_name='Дата создания')
 
+    def __str__(self):
+        return str(self.date_created)
 
-# class Cart(models.Model):
-#     """Модель корзины."""
-#     id = models.AutoField(primary_key=True, editable=False)
-#     owner = models.ForeignKey(User, verbose_name='Покупатель',
-#                               on_delete=models.CASCADE)
-#     products = models.ManyToManyField('CartProduct', verbose_name='Продукты',
-#                                       blank=True, related_name='related_cart')
-#     total_products = models.PositiveIntegerField(default=0,
-#                                                  verbose_name='Общее кол-во')
-#     final_price = models.DecimalField(max_digits=9, decimal_places=2, default=0,
-#                                       verbose_name='Итоговая цена')
-#     in_order = models.BooleanField(default=False, help_text='Является ли '
-#                                                             'корзина частью '
-#                                                             'какого-либо '
-#                                                             'заказа?')
-#     for_anonymous_user = models.BooleanField(default=False,
-#                                              verbose_name='Анонимный '
-#                                                           'пользователь?')
-#
-#     def __str__(self):
-#         return str(self.id)
-#
-#     def save(self, *args, **kwargs):
-#         if self.id:
-#             self.total_products = self.products.count()
-#             self.final_price = sum([cproduct.final_price for cproduct in
-#                                     self.products.all()])
-#         super().save(*args, **kwargs)
-#
-#     class Meta:
-#         verbose_name = 'Корзина'
-#         verbose_name_plural = 'Корзины'
-
+    class Meta:
+        verbose_name = 'Продукт корзины'
+        verbose_name_plural = 'Продукты корзины'
 
 # class Review(models.Model):
 #     """Модель комментария."""

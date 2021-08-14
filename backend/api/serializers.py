@@ -1,25 +1,10 @@
 from rest_framework import serializers
 
 from store.models import (Catalog, Category, Attribute, Product,
-                          ProductAttribute)
-
-
-class CatalogSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Catalog
-        fields = ('id', 'title')
-
-
-class CategorySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Category
-        fields = ('id', 'title')
+                          ProductAttribute, CartItem, Cart)
 
 
 class AttributeSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Attribute
         fields = ('id', 'form', 'mirror_material', 'frame_material',
@@ -29,6 +14,8 @@ class AttributeSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    catalog = serializers.StringRelatedField(source='catalog.title',
+                                             many=False, read_only=True)
     category = serializers.StringRelatedField(source='category.title',
                                               many=False, read_only=True)
     catalog_slug = serializers.SerializerMethodField()
@@ -39,8 +26,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'product_slug', 'brand', 'image',
                   'product_photo1', 'product_photo2', 'product_photo3',
                   'product_photo4', 'price', 'count_in_stock', 'description',
-                  'rating', 'date_created', 'user', 'category', 'catalog_slug',
-                  'attributes')
+                  'rating', 'date_created', 'user', 'catalog', 'category',
+                  'catalog_slug', 'attributes')
         read_only_fields = ('id',)
         lookup_field = 'product_slug'
 
@@ -83,26 +70,52 @@ class ProductCreateSerializer(serializers.ModelSerializer):
                     attribute=current_attribute, product=product)
             return product
 
-    def update(self, instance, validated_data):
-        if 'attributes' not in self.initial_data:
-            instance = self._update_attributes(instance, **validated_data)
-            return instance
-        else:
-            attributes = validated_data.pop('attributes')
-            instance = self._update_attributes(instance, **validated_data)
-            for attribute in attributes:
-                current_attribute, status = Attribute.objects.get_or_update(
-                    **attribute)
-                instance = self._update_attributes(instance, **attribute)
-
-                ProductAttribute.objects.update(
-                    attribute=current_attribute, product=instance)
-            return instance
-
-
-# class CartProductSerializer(serializers.ModelSerializer):
-#     pass
+    # def update(self, instance, validated_data):
+    #     if 'attributes' not in self.initial_data:
+    #         instance = self._update_attributes(instance, **validated_data)
+    #         return instance
+    #     else:
+    #         attributes = validated_data.pop('attributes')
+    #         instance = self._update_attributes(instance, **validated_data)
+    #         for attribute in attributes:
+    #             current_attribute, status = Attribute.objects.get_or_update(
+    #                 **attribute)
+    #             instance = self._update_attributes(instance, **attribute)
+    #
+    #             ProductAttribute.objects.update(
+    #                 attribute=current_attribute, product=instance)
+    #         return instance
 
 
-# class CartSerializer(serializers.ModelSerializer):
-#     pass
+class CategorySerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = ('id', 'title', 'products')
+
+
+class CatalogSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+    categories = CategorySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Catalog
+        fields = ('id', 'title', 'image', 'catalog_slug', 'date_created',
+                  'categories', 'products')
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = CartItem
+        fields = ('id', 'cart', 'product', 'quantity', 'date_created')
+
+
+class CartSerializer(serializers.ModelSerializer):
+    #products = CartItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Cart
+        fields = ('id', 'user', 'date_created', 'products', 'cartitems')

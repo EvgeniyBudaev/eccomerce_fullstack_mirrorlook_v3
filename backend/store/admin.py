@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import (Catalog, Category, Product, Attribute, ProductAttribute)
+from .models import (Catalog, Category, Product, Attribute, ProductAttribute,
+                     CartItem, Cart)
 
 
 class CatalogAdmin(admin.ModelAdmin):
@@ -36,26 +37,18 @@ class ProductAttributeAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-# class ConsoleAdmin(admin.ModelAdmin):
-#     list_display = ('pk', 'title')
-#     search_fields = ('title',)
-#     list_filter = ('title',)
-#     empty_value_display = '-пусто-'
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'product', 'quantity', 'date_created')
+    search_fields = ('date_created',)
+    list_filter = ('date_created',)
+    empty_value_display = '-пусто-'
 
 
-# class CartProductAdmin(admin.ModelAdmin):
-#     list_display = ('pk', 'qty', 'final_price')
-#     search_fields = ('final_price',)
-#     list_filter = ('final_price',)
-#     empty_value_display = '-пусто-'
-
-
-# class CartAdmin(admin.ModelAdmin):
-#     list_display = ('pk', 'owner', 'total_products', 'final_price', 'in_order',
-#                     'for_anonymous_user')
-#     search_fields = ('final_price',)
-#     list_filter = ('final_price',)
-#     empty_value_display = '-пусто-'
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'user', 'date_created')
+    search_fields = ('date_created',)
+    list_filter = ('date_created',)
+    empty_value_display = '-пусто-'
 
 
 admin.site.register(Catalog, CatalogAdmin)
@@ -63,8 +56,8 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
-# admin.site.register(CartProduct, CartProductAdmin)
-# admin.site.register(Cart, CartAdmin)
+admin.site.register(CartItem, CartItemAdmin)
+admin.site.register(Cart, CartAdmin)
 # admin.site.register(Review)
 # admin.site.register(Order)
 # admin.site.register(OrderItem)

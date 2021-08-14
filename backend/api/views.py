@@ -1,17 +1,34 @@
-from rest_framework import viewsets, filters
+from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, filters, response
+from rest_framework.decorators import action
 
-from store.models import User, Product
+from store.models import User, Catalog, Product, CartItem, Cart
 from accounts.serializers import UserSerializer
-from .serializers import ProductSerializer, ProductCreateSerializer
+from .serializers import (CatalogSerializer, ProductSerializer,
+                          ProductCreateSerializer, CartItemSerializer,
+                          CartSerializer)
 from .pagination import StorePagination
-# from .filters import MirrorFilter
+from .filters import CatalogFilter, ProductFilter
 from .permissions import IsAdminOrReadOnly
 
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+User = get_user_model()
+
+
+# class UserViewSet(viewsets.ReadOnlyModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+
+
+class CatalogViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью каталога."""
+    queryset = Catalog.objects.all()
+    serializer_class = CatalogSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+    lookup_field = 'catalog_slug'
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = CatalogFilter
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -22,7 +39,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     pagination_class = StorePagination
     lookup_field = 'product_slug'
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
-    # filterset_class = MirrorFilter
+    filterset_class = ProductFilter
     ordering_fields = ('price',)
     ordering = ('price',)
 
@@ -30,3 +47,19 @@ class ProductViewSet(viewsets.ModelViewSet):
         if self.action in ('create', 'partial_update'):
             return ProductCreateSerializer
         return ProductSerializer
+
+
+class CartViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью корзины."""
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+    filter_backends = (DjangoFilterBackend,)
+
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью продукта корзины."""
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+    filter_backends = (DjangoFilterBackend,)

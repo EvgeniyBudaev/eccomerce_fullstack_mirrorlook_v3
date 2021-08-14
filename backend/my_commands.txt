@@ -39,7 +39,6 @@ python manage.py migrate support
 
 Создать супер пользователя
 python manage.py createsuperuser
-winpty python manage.py createsuperuser
 
 Fixture - выгрузка данных из БД (dump данных)
 python manage.py dumpdata support.Category > categories.json
