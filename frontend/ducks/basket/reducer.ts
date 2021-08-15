@@ -13,7 +13,6 @@ export const reducer: Reducer<any> = (
   state = initialState,
   action: IAction
 ) => {
-  console.log("[action.payload]", action.payload);
   const { payload } = action;
   const newItem = action.payload;
   // const existItem = state.entities.find(

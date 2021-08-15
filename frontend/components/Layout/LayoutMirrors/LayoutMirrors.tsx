@@ -91,8 +91,6 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
     setIsClickedDisplayLine(prev => !prev);
   };
 
-  console.log("[mirrorsResponse.entities]", mirrorsResponse.entities);
-
   return (
     <section className={styles.LayoutMirrors}>
       <div className={styles.Row}>

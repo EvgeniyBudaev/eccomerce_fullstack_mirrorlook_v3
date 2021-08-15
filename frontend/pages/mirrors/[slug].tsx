@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps<IMirror> = async ({
   const productSlug = params.slug;
 
   const { data: mirrorResponse } = await axios.get<IMirror>(
-    `http://localhost:8000/api/v1/mirrors/${productSlug}`
+    `http://localhost:8000/api/v1/products/${productSlug}`
   );
 
   if (!mirrorResponse) {
@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps<IMirror> = async ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
-    `http://localhost:8000/api/v1/mirrors`
+    `http://localhost:8000/api/v1/products`
   );
   const { entities } = mirrorsResponse;
   const slugs = entities.map(product => product.product_slug);

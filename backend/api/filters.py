@@ -43,21 +43,16 @@ class CatalogFilter(df_filters.FilterSet):
 class ProductFilter(df_filters.FilterSet):
     catalog = CharFilterInFilter(field_name='catalog__title',
                                  lookup_expr='in')
+    catalog_slug = CharFilterInFilter(field_name='catalog__catalog_slug',
+                                      lookup_expr='in')
     category = CharFilterInFilter(field_name='category__title',
                                   lookup_expr='in')
     price = df_filters.RangeFilter()
+    form = CharFilterInFilter(field_name='attributes__form', lookup_expr='in')
+    frame_color = CharFilterInFilter(field_name='attributes__frame_color',
+                                     lookup_expr='in')
 
     class Meta:
         model = Product
-        fields = ('catalog', 'category', 'price',)
-
-# class ProductFilter(df_filters.FilterSet):
-#     form = CharFilterInFilter(field_name='form', lookup_expr='in')
-#     frame_color = CharFilterInFilter(field_name='frame_color', lookup_expr='in')
-#     category = CharFilterInFilter(field_name='category__title',
-#                                   lookup_expr='in')
-#     price = df_filters.RangeFilter()
-#
-#     class Meta:
-#         model = Product
-#         fields = ('form', 'category', 'price', 'frame_color')
+        fields = ('catalog', 'catalog_slug', 'category', 'price', 'form',
+                  'frame_color')

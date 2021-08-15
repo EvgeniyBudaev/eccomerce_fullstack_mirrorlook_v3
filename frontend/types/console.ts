@@ -1,12 +1,16 @@
-export interface IConsoles {
-  entities: IConsole[];
+export interface IConsoleAttribute {
+  id: number;
+  form: string;
 }
 
 export interface IConsole {
-  category_id: number;
-  color: string;
-  count_legs: number;
-  created: string;
+  attributes: IConsoleAttribute[];
+  brand: string;
+  catalog: string;
+  catalog_slug: string;
+  category: string;
+  count_in_stock: number;
+  date_created: string;
   description: string;
   id: number;
   image: string;

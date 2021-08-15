@@ -16,7 +16,6 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   mirror,
   isClickedDisplayLine,
 }) => {
-  console.log("[mirror.product_photo1]", mirror.product_photo1);
   return (
     <li
       className={classNames(styles.MirrorsListItem, {
@@ -44,41 +43,53 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <li className={styles.ContentTitleLine}>{mirror.title}</li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Материал зеркала:</div>
-              <div className={styles.ValueLine}>{mirror.mirror_material}</div>
+              <div className={styles.ValueLine}>
+                {mirror.attributes[0].mirror_material}
+              </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Материал рамы:</div>
-              <div className={styles.ValueLine}>{mirror.frame_material}</div>
+              <div className={styles.ValueLine}>
+                {mirror.attributes[0].frame_material}
+              </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Цвет рамы:</div>
-              <div className={styles.ValueLine}>{mirror.frame_color}</div>
+              <div className={styles.ValueLine}>
+                {mirror.attributes[0].frame_color}
+              </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Размер внешний, с рамой:</div>
               <div className={styles.ValueLine}>
-                {mirror.height_with_frame} x {mirror.width_with_frame} см
+                {mirror.attributes[0].height_with_frame} x{" "}
+                {mirror.attributes[0].width_with_frame} см
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Размер зеркала без рамы:</div>
               <div className={styles.ValueLine}>
-                {mirror.height_without_frame} x {mirror.width_without_frame} см
+                {mirror.attributes[0].height_without_frame} x{" "}
+                {mirror.attributes[0].width_without_frame} см
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Вес:</div>
-              <div className={styles.ValueLine}>{mirror.weight} кг</div>
+              <div className={styles.ValueLine}>
+                {mirror.attributes[0].weight} кг
+              </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Наличие фацета:</div>
               <div className={styles.ValueLine}>
-                {mirror.is_faced ? "Да" : "Нет"}
+                {mirror.attributes[0].is_faced ? "Да" : "Нет"}
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Форма:</div>
-              <div className={styles.ValueLine}>{mirror.form}</div>
+              <div className={styles.ValueLine}>
+                {mirror.attributes[0].form}
+              </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Произоводитель:</div>
