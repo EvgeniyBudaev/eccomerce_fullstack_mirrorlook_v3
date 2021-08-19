@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters, response
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 
 from store.models import User, Catalog, Product, CartItem, Cart
 from accounts.serializers import UserSerializer
@@ -34,7 +35,7 @@ class CatalogViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     """API для работы с моделью продуктов."""
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = None
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = StorePagination
     lookup_field = 'product_slug'
@@ -53,7 +54,7 @@ class CartViewSet(viewsets.ModelViewSet):
     """API для работы с моделью корзины."""
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend,)
 
 
@@ -61,5 +62,5 @@ class CartItemViewSet(viewsets.ModelViewSet):
     """API для работы с моделью продукта корзины."""
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
-    permission_classes = (IsAdminOrReadOnly,)
+    permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend,)

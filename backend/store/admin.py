@@ -37,17 +37,17 @@ class ProductAttributeAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
-class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'product', 'quantity', 'date_created')
-    search_fields = ('date_created',)
-    list_filter = ('date_created',)
-    empty_value_display = '-пусто-'
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+    fk_name = 'cart'
+    extra = 1
 
 
 class CartAdmin(admin.ModelAdmin):
     list_display = ('pk', 'user', 'date_created')
     search_fields = ('date_created',)
     list_filter = ('date_created',)
+    inlines = [CartItemInline]
     empty_value_display = '-пусто-'
 
 
@@ -56,7 +56,6 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
-admin.site.register(CartItem, CartItemAdmin)
 admin.site.register(Cart, CartAdmin)
 # admin.site.register(Review)
 # admin.site.register(Order)

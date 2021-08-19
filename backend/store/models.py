@@ -31,7 +31,8 @@ class Catalog(models.Model):
 
 class Category(models.Model):
     """Модель категории (венецианские зеркала, напольные зеркала, ...)."""
-    catalog = models.ForeignKey(Catalog, null=True, verbose_name='Категория',
+    catalog = models.ForeignKey('store.Catalog', null=True,
+                                verbose_name='Категория',
                                 on_delete=models.CASCADE,
                                 related_name='categories',
                                 help_text='Пожалуйста, выберите  каталог')
@@ -128,13 +129,13 @@ class Product(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                              verbose_name='Пользователь')
-    catalog = models.ForeignKey(Catalog, verbose_name='Каталог',
+    catalog = models.ForeignKey('store.Catalog', verbose_name='Каталог',
                                 related_name='products',
                                 on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, verbose_name='Категория',
+    category = models.ForeignKey('store.Category', verbose_name='Категория',
                                  related_name='products',
                                  on_delete=models.CASCADE)
-    attributes = models.ManyToManyField(Attribute, verbose_name='Атрибуты',
+    attributes = models.ManyToManyField('store.Attribute', verbose_name='Атрибуты',
                                         through='ProductAttribute')
     title = models.CharField(max_length=200, null=True, blank=True,
                              verbose_name='Наименование товара')
@@ -177,8 +178,10 @@ class Product(models.Model):
 
 class ProductAttribute(models.Model):
     """Промежуточная модель продуктов и атрибутов."""
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    attribute = models.ForeignKey('store.Attribute', on_delete=models.CASCADE,
+                                  verbose_name='Атрибут')
+    product = models.ForeignKey('store.Product', on_delete=models.CASCADE,
+                                verbose_name='Продукт')
 
     class Meta:
         verbose_name = 'Продукт и атрибут'
@@ -190,12 +193,9 @@ class ProductAttribute(models.Model):
 
 class Cart(models.Model):
     """Модель корзины."""
-    id = models.AutoField(primary_key=True, editable=False)
-    user = models.ForeignKey(User, verbose_name='Покупатель',
-                             on_delete=models.CASCADE)
-    products = models.ManyToManyField('CartItem', verbose_name='Продукты',
-                                      blank=True, null=True,
-                                      related_name='carts')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             blank=True, null=True, default=None,
+                             verbose_name='Покупатель',)
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
 
@@ -209,12 +209,11 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     """Модель продукта корзины."""
-    id = models.AutoField(primary_key=True, editable=False)
-    cart = models.ForeignKey('Cart', on_delete=models.CASCADE, null=True,
+    cart = models.ForeignKey('store.Cart', on_delete=models.CASCADE,
                              related_name='cartitems', verbose_name='Корзина')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True,
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 verbose_name='Продукт')
-    quantity = models.PositiveIntegerField(blank=True, null=True, default=0,
+    quantity = models.PositiveIntegerField(blank=True, default=0,
                                            verbose_name='Кол-во')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')

@@ -52,6 +52,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         return obj.category.catalog.catalog_slug
 
     def create(self, validated_data):
+        validated_data['catalog'] = validated_data['category'].catalog
         # Если в исходном запросе не было поля attributes
         if 'attributes' not in self.initial_data:
             # То создаём запись о продукте без его атрибутов
@@ -69,22 +70,6 @@ class ProductCreateSerializer(serializers.ModelSerializer):
                 ProductAttribute.objects.create(
                     attribute=current_attribute, product=product)
             return product
-
-    # def update(self, instance, validated_data):
-    #     if 'attributes' not in self.initial_data:
-    #         instance = self._update_attributes(instance, **validated_data)
-    #         return instance
-    #     else:
-    #         attributes = validated_data.pop('attributes')
-    #         instance = self._update_attributes(instance, **validated_data)
-    #         for attribute in attributes:
-    #             current_attribute, status = Attribute.objects.get_or_update(
-    #                 **attribute)
-    #             instance = self._update_attributes(instance, **attribute)
-    #
-    #             ProductAttribute.objects.update(
-    #                 attribute=current_attribute, product=instance)
-    #         return instance
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -106,7 +91,7 @@ class CatalogSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(many=False, read_only=True)
+    # product = ProductSerializer(many=False, read_only=True)
 
     class Meta:
         model = CartItem
@@ -114,8 +99,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    #products = CartItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Cart
-        fields = ('id', 'user', 'date_created', 'products', 'cartitems')
+        fields = ('id', 'user', 'date_created')
