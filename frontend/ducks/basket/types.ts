@@ -6,9 +6,6 @@ import { ActionTypes } from "ducks/basket";
 
 export type BasketActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
-// export interface IPayloadAddToBasket {
-//   item: IMirror | IConsole;
-// }
 export type IPayloadAddToBasket = IMirror | IConsole;
 
 export interface IActionAddToBasket {

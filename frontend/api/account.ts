@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IFetchUserSignupPayload } from "ducks/account";
+import { ISagaUserSignupPayload } from "ducks/account";
 import {
   IFetchUserResponse,
   IFetchTokenResponse,
@@ -48,7 +48,7 @@ export const fetchUserSignup = async ({
   email,
   password,
   re_password,
-}: IFetchUserSignupPayload): Promise<IFetchSignupResponse> => {
+}: ISagaUserSignupPayload): Promise<IFetchSignupResponse> => {
   const config = {
     headers: {
       "Content-Type": "application/json",

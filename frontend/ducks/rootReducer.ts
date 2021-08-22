@@ -6,6 +6,7 @@ import {
   ConsolesActionsType,
 } from "ducks/products/consoles";
 import { reducer as basket, BasketActionsType } from "ducks/basket";
+import { reducer as cart, CartActionsType } from "ducks/cart";
 import { reducer as loading, LoadingActionsType } from "ducks/loading";
 import {
   reducer as unhandledError,
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   mirrors,
   consoles,
   basket,
+  cart,
   loading,
   unhandledError,
 });
@@ -28,5 +30,6 @@ export type ActionsType =
   | MirrorsActionsType
   | ConsolesActionsType
   | BasketActionsType
+  | CartActionsType
   | LoadingActionsType
   | UnhandledErrorActionsType;

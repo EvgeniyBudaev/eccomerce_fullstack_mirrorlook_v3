@@ -198,6 +198,8 @@ class Cart(models.Model):
                              verbose_name='Покупатель',)
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
+    date_updated = models.DateTimeField(auto_now=True, db_index=True,
+                                        verbose_name='Дата обновления')
 
     def __str__(self):
         return str(self.date_created)
@@ -217,6 +219,8 @@ class CartItem(models.Model):
                                            verbose_name='Кол-во')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
+    date_updated = models.DateTimeField(auto_now=True, db_index=True,
+                                        verbose_name='Дата обновления')
 
     def __str__(self):
         return str(self.date_created)

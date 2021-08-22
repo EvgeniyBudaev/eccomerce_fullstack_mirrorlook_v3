@@ -44,7 +44,7 @@ class CartItemInline(admin.TabularInline):
 
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'date_created')
+    list_display = ('pk', 'user', 'date_created', 'date_updated')
     search_fields = ('date_created',)
     list_filter = ('date_created',)
     inlines = [CartItemInline]

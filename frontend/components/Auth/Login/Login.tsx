@@ -126,6 +126,7 @@ export const Login: React.FC = () => {
                   (errors.password && errors.password.message) ||
                   ((!errors.password || !errors.email) &&
                   error &&
+                  error.response &&
                   error.response.data.detail ===
                     "No active account found with the given credentials"
                     ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"

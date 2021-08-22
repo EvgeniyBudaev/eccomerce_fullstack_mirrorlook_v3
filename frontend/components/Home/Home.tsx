@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { isEmpty } from "lodash";
 import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import mainSlider1 from "ui-kit/assets/images/slide-home-9.png";
 import mainSlider2 from "ui-kit/assets/images/slide-home-9.png";
@@ -10,12 +12,31 @@ import productSlider2 from "ui-kit/assets/images/slide-home-10.png";
 import productSlider3 from "ui-kit/assets/images/slide-home-10.png";
 import card1 from "ui-kit/assets/images/home-mirrors3.jpg";
 import card2 from "ui-kit/assets/images/home-consoles.jpg";
+import { ActionTypes } from "ducks/cart";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import styles from "./Home.module.scss";
 
 const mainSliderImages = [mainSlider1, mainSlider2, mainSlider3];
 const productSliderImages = [productSlider1, productSlider2, productSlider3];
 
 export const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const account = useTypedSelector(state => state.account);
+
+  useEffect(() => {
+    // dispatch({
+    //   type: ActionTypes.CART_CREATE,
+    //   payload: account.user ? account.user.id : null,
+    // });
+    if (isEmpty(localStorage.getItem("cart"))) {
+      dispatch({
+        type: ActionTypes.CART_CREATE,
+        payload: account.user && account.user.id,
+      });
+      localStorage.setItem("cart", "[]");
+    }
+  }, [account.user, dispatch]);
+
   return (
     <div className={styles.Home}>
       <section className={styles.MainSliders}>
