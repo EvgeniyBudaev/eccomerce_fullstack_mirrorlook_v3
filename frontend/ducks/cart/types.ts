@@ -16,7 +16,32 @@ export interface IActionCartCreate {
   payload: IPayloadCartCreate;
 }
 
+export type IPayloadCartAddItem = {
+  cart: number;
+  date_created: string;
+  date_updated: string;
+  id: number;
+  product: number;
+  quantity: number;
+};
+
+export interface IActionCartAddItem {
+  type: ActionTypes.CART_ADD_ITEM;
+  payload: IPayloadCartAddItem;
+}
+
 export interface IFetchCartCreateProps {
   payload: number;
+  type: string;
+}
+
+export interface IFetchCartAddItemPayload {
+  cart: number;
+  product: number;
+  quantity: number;
+}
+
+export interface IFetchCartAddItemProps {
+  payload: IFetchCartAddItemPayload;
   type: string;
 }

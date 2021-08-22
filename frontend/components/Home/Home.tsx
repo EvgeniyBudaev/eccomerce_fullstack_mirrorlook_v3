@@ -24,16 +24,15 @@ export const Home: React.FC = () => {
   const account = useTypedSelector(state => state.account);
 
   useEffect(() => {
-    // dispatch({
-    //   type: ActionTypes.CART_CREATE,
-    //   payload: account.user ? account.user.id : null,
-    // });
     if (isEmpty(localStorage.getItem("cart"))) {
       dispatch({
         type: ActionTypes.CART_CREATE,
         payload: account.user && account.user.id,
       });
-      localStorage.setItem("cart", "[]");
+    } else {
+      dispatch({
+        type: ActionTypes.CART_INIT,
+      });
     }
   }, [account.user, dispatch]);
 

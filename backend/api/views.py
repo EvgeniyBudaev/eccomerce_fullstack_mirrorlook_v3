@@ -8,7 +8,7 @@ from store.models import User, Catalog, Product, CartItem, Cart
 from accounts.serializers import UserSerializer
 from .serializers import (CatalogSerializer, ProductSerializer,
                           ProductCreateSerializer, CartItemSerializer,
-                          CartSerializer)
+                          CartItemCreateSerializer, CartSerializer)
 from .pagination import StorePagination
 from .filters import CatalogFilter, ProductFilter
 from .permissions import IsAdminOrReadOnly
@@ -61,6 +61,11 @@ class CartViewSet(viewsets.ModelViewSet):
 class CartItemViewSet(viewsets.ModelViewSet):
     """API для работы с моделью продукта корзины."""
     queryset = CartItem.objects.all()
-    serializer_class = CartItemSerializer
+    serializer_class = None
     permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend,)
+
+    def get_serializer_class(self):
+        if self.action in ('create', 'partial_update'):
+            return CartItemCreateSerializer
+        return CartItemSerializer

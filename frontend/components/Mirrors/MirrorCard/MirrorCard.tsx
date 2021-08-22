@@ -4,7 +4,7 @@ import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
-import { ActionTypes } from "ducks/basket";
+import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorCard.module.scss";
@@ -21,17 +21,19 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
     mirror.product_photo4,
   ];
   const dispatch = useDispatch();
+  const cart = useTypedSelector(state => state.cart);
   const loading = useTypedSelector(state => state.loading);
   const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
   const { error } = unhandledError;
 
-  const handleAddToBasket = () => {
+  const handleAddToCart = () => {
     dispatch({
-      type: ActionTypes.FETCH_BASKET_ADD_ITEM,
+      type: ActionTypes.FETCH_CART_ADD_ITEM,
       payload: {
-        product_slug: mirror.product_slug,
-        catalog_slug: mirror.catalog_slug,
+        cart: cart.id,
+        product: mirror.id,
+        quantity: 1,
       },
     });
   };
@@ -102,7 +104,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
           <Button
             className={styles.ProductAddToBasket}
             disabled={mirror.count_in_stock <= 0}
-            onClick={handleAddToBasket}
+            onClick={handleAddToCart}
           >
             Добавить в корзину
           </Button>
