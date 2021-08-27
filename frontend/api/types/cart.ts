@@ -1,3 +1,6 @@
+import { IConsole } from "types/console";
+import { IMirror } from "types/mirror";
+
 export interface IFetchCartCreateResponse {
   date_created: string;
   date_updated: string;
@@ -10,6 +13,6 @@ export interface IFetchAddItemToCartResponse {
   date_created: string;
   date_updated: string;
   id: number;
-  product: number;
+  product: IConsole | IMirror;
   quantity: number;
 }

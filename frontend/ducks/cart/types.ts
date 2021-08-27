@@ -1,5 +1,7 @@
 import * as actions from "ducks/cart/actionCreators";
 import { InferValueTypes } from "types/common";
+import { IConsole } from "types/console";
+import { IMirror } from "types/mirror";
 import { ActionTypes } from "./actionTypes";
 
 export type CartActionsType = ReturnType<InferValueTypes<typeof actions>>;
@@ -21,7 +23,7 @@ export type IPayloadCartAddItem = {
   date_created: string;
   date_updated: string;
   id: number;
-  product: number;
+  product: IConsole | IMirror;
   quantity: number;
 };
 

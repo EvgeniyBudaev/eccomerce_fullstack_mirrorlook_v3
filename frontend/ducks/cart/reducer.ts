@@ -1,6 +1,10 @@
 import { Reducer } from "redux";
 import { ActionTypes } from "./actionTypes";
-import { IActionCartAddItem, IActionCartCreate } from "./types";
+import {
+  IActionCartAddItem,
+  IActionCartCreate,
+  IPayloadCartAddItem,
+} from "./types";
 
 type IAction = IActionCartCreate | IActionCartAddItem;
 
@@ -8,7 +12,7 @@ interface IState {
   cart: number;
   date_created: string;
   date_updated: string;
-  entities: any;
+  entities: IPayloadCartAddItem[];
   id: number;
   user: number;
 }
@@ -36,10 +40,22 @@ export const reducer: Reducer<IState> = (
         user: action.payload.user,
       };
     case ActionTypes.CART_ADD_ITEM:
-      return {
-        ...state,
-        entities: state.entities.length === 0 ? action.payload : null,
-      };
+      if (state.entities.length !== 0) {
+        const existItem = state.entities.find(
+          x => x.product.id === action.payload.product.id
+        );
+        return {
+          ...state,
+          entities: state.entities.map(x =>
+            x.product.id === existItem.product.id ? action.payload : x
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          entities: [...state.entities, action.payload],
+        };
+      }
     default:
       return state;
   }
