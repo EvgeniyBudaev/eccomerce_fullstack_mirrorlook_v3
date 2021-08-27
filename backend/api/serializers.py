@@ -91,20 +91,20 @@ class CatalogSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(many=False, read_only=True)
+    # product = ProductSerializer(many=False, read_only=True)
+    # product__description = serializers.SerializerMethodField()
 
     class Meta:
         model = CartItem
         fields = ('id', 'cart', 'product', 'quantity', 'date_created',
                   'date_updated')
 
+    def to_representation(self, instance):
+        self.fields['product'] = ProductSerializer(read_only=True)
+        return super(CartItemSerializer, self).to_representation(instance)
 
-class CartItemCreateSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = CartItem
-        fields = ('id', 'cart', 'product', 'quantity', 'date_created',
-                  'date_updated')
+    def get_product__description(self, obj):
+        return obj.product.description
 
 
 class CartSerializer(serializers.ModelSerializer):
