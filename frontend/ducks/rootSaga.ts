@@ -1,11 +1,10 @@
 import { all, spawn, call } from "redux-saga/effects";
 import { saga as accountSaga } from "ducks/account";
-import { saga as basketSaga } from "ducks/basket";
 import { saga as cartSaga } from "ducks/cart";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function* rootSaga() {
-  const sagas = [accountSaga, basketSaga, cartSaga];
+  const sagas = [accountSaga, cartSaga];
 
   yield all(
     sagas.map(saga =>

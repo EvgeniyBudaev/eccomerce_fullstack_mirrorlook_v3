@@ -21,7 +21,7 @@ export const HeaderIconsList: React.FC = () => {
         </Link>
       </div>
       <div className={styles.HeaderIconListItem}>
-        <Link href={"/basket"}>
+        <Link href={"/cart"}>
           <a>
             <Icon className={styles.Icon} type={"Basket"} />
             <div className={styles.IconDescription}>Корзина</div>

@@ -2,8 +2,10 @@ import { ActionTypes } from "./actionTypes";
 import {
   IActionCartAddItem,
   IActionCartCreate,
-  IPayloadCartAddItem,
+  IActionCartItemIncrement,
+  IPayloadCartItem,
   IPayloadCartCreate,
+  IActionCartItemDecrement,
 } from "./types";
 
 export const cartCreate = (payload: IPayloadCartCreate): IActionCartCreate => ({
@@ -11,9 +13,21 @@ export const cartCreate = (payload: IPayloadCartCreate): IActionCartCreate => ({
   payload,
 });
 
-export const cartAddItem = (
-  payload: IPayloadCartAddItem
-): IActionCartAddItem => ({
+export const cartAddItem = (payload: IPayloadCartItem): IActionCartAddItem => ({
   type: ActionTypes.CART_ADD_ITEM,
+  payload,
+});
+
+export const cartItemIncrement = (
+  payload: IPayloadCartItem
+): IActionCartItemIncrement => ({
+  type: ActionTypes.CART_ITEM_INCREMENT,
+  payload,
+});
+
+export const cartItemDecrement = (
+  payload: IPayloadCartItem
+): IActionCartItemDecrement => ({
+  type: ActionTypes.CART_ITEM_DECREMENT,
   payload,
 });

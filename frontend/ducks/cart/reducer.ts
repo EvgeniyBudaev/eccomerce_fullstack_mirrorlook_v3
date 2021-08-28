@@ -3,22 +3,26 @@ import { ActionTypes } from "./actionTypes";
 import {
   IActionCartAddItem,
   IActionCartCreate,
-  IPayloadCartAddItem,
+  IActionCartItemDecrement,
+  IActionCartItemIncrement,
+  IPayloadCartItem,
 } from "./types";
 
-type IAction = IActionCartCreate | IActionCartAddItem;
+type IAction =
+  | IActionCartCreate
+  | IActionCartAddItem
+  | IActionCartItemDecrement
+  | IActionCartItemIncrement;
 
 interface IState {
-  cart: number;
   date_created: string;
   date_updated: string;
-  entities: IPayloadCartAddItem[];
+  entities: IPayloadCartItem[];
   id: number;
   user: number;
 }
 
 const initialState = {
-  cart: null,
   date_created: null,
   date_updated: null,
   entities: [],
@@ -40,6 +44,40 @@ export const reducer: Reducer<IState> = (
         user: action.payload.user,
       };
     case ActionTypes.CART_ADD_ITEM:
+      if (state.entities.length !== 0) {
+        const existItem = state.entities.find(
+          x => x.product.id === action.payload.product.id
+        );
+        return {
+          ...state,
+          entities: state.entities.map(x =>
+            x.product.id === existItem.product.id ? action.payload : x
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          entities: [...state.entities, action.payload],
+        };
+      }
+    case ActionTypes.CART_ITEM_INCREMENT:
+      if (state.entities.length !== 0) {
+        const existItem = state.entities.find(
+          x => x.product.id === action.payload.product.id
+        );
+        return {
+          ...state,
+          entities: state.entities.map(x =>
+            x.product.id === existItem.product.id ? action.payload : x
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          entities: [...state.entities, action.payload],
+        };
+      }
+    case ActionTypes.CART_ITEM_DECREMENT:
       if (state.entities.length !== 0) {
         const existItem = state.entities.find(
           x => x.product.id === action.payload.product.id
