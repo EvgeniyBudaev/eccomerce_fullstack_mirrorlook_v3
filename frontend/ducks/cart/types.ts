@@ -51,6 +51,15 @@ export interface IActionCartItemIncrement {
   payload: IPayloadCartItem;
 }
 
+export interface IPayloadCartItemDelete {
+  id: number;
+}
+
+export interface IActionCartItemDelete {
+  type: ActionTypes.CART_ITEM_DELETE;
+  payload: IPayloadCartItemDelete;
+}
+
 export interface IFetchCartCreateProps {
   payload: number;
   type: string;
@@ -84,5 +93,14 @@ export interface IFetchCartItemDecrementPayload {
 
 export interface IFetchCartItemDecrementProps {
   payload: IFetchCartItemDecrementPayload;
+  type: string;
+}
+
+export interface IFetchCartItemDeletePayload {
+  id: number;
+}
+
+export interface IFetchCartItemDeleteProps {
+  payload: IFetchCartItemDeletePayload;
   type: string;
 }

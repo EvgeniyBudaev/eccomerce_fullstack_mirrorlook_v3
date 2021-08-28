@@ -4,6 +4,7 @@ import {
   IActionCartAddItem,
   IActionCartCreate,
   IActionCartItemDecrement,
+  IActionCartItemDelete,
   IActionCartItemIncrement,
   IPayloadCartItem,
 } from "./types";
@@ -12,6 +13,7 @@ type IAction =
   | IActionCartCreate
   | IActionCartAddItem
   | IActionCartItemDecrement
+  | IActionCartItemDelete
   | IActionCartItemIncrement;
 
 interface IState {
@@ -43,15 +45,16 @@ export const reducer: Reducer<IState> = (
         id: action.payload.id,
         user: action.payload.user,
       };
+
     case ActionTypes.CART_ADD_ITEM:
       if (state.entities.length !== 0) {
         const existItem = state.entities.find(
-          x => x.product.id === action.payload.product.id
+          item => item.product.id === action.payload.product.id
         );
         return {
           ...state,
-          entities: state.entities.map(x =>
-            x.product.id === existItem.product.id ? action.payload : x
+          entities: state.entities.map(item =>
+            item.product.id === existItem.product.id ? action.payload : item
           ),
         };
       } else {
@@ -60,15 +63,16 @@ export const reducer: Reducer<IState> = (
           entities: [...state.entities, action.payload],
         };
       }
+
     case ActionTypes.CART_ITEM_INCREMENT:
       if (state.entities.length !== 0) {
         const existItem = state.entities.find(
-          x => x.product.id === action.payload.product.id
+          item => item.product.id === action.payload.product.id
         );
         return {
           ...state,
-          entities: state.entities.map(x =>
-            x.product.id === existItem.product.id ? action.payload : x
+          entities: state.entities.map(item =>
+            item.product.id === existItem.product.id ? action.payload : item
           ),
         };
       } else {
@@ -77,15 +81,16 @@ export const reducer: Reducer<IState> = (
           entities: [...state.entities, action.payload],
         };
       }
+
     case ActionTypes.CART_ITEM_DECREMENT:
       if (state.entities.length !== 0) {
         const existItem = state.entities.find(
-          x => x.product.id === action.payload.product.id
+          item => item.product.id === action.payload.product.id
         );
         return {
           ...state,
-          entities: state.entities.map(x =>
-            x.product.id === existItem.product.id ? action.payload : x
+          entities: state.entities.map(item =>
+            item.product.id === existItem.product.id ? action.payload : item
           ),
         };
       } else {
@@ -94,6 +99,13 @@ export const reducer: Reducer<IState> = (
           entities: [...state.entities, action.payload],
         };
       }
+
+    case ActionTypes.CART_ITEM_DELETE:
+      return {
+        ...state,
+        entities: state.entities.filter(item => item.id !== action.payload.id),
+      };
+
     default:
       return state;
   }

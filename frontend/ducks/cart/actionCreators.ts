@@ -6,6 +6,8 @@ import {
   IPayloadCartItem,
   IPayloadCartCreate,
   IActionCartItemDecrement,
+  IActionCartItemDelete,
+  IPayloadCartItemDelete,
 } from "./types";
 
 export const cartCreate = (payload: IPayloadCartCreate): IActionCartCreate => ({
@@ -29,5 +31,12 @@ export const cartItemDecrement = (
   payload: IPayloadCartItem
 ): IActionCartItemDecrement => ({
   type: ActionTypes.CART_ITEM_DECREMENT,
+  payload,
+});
+
+export const cartItemDelete = (
+  payload: IPayloadCartItemDelete
+): IActionCartItemDelete => ({
+  type: ActionTypes.CART_ITEM_DELETE,
   payload,
 });

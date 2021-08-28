@@ -12,6 +12,7 @@ import {
   IFetchCartCreateProps,
   IFetchCartItemDecrementProps,
   IFetchCartItemIncrementProps,
+  IFetchCartItemDeleteProps,
 } from "ducks/cart";
 import { setLoading, unsetLoading } from "ducks/loading";
 import { setUnhandledError } from "ducks/unhandledError";
@@ -19,6 +20,7 @@ import {
   IFetchAddItemToCartResponse,
   IFetchCartCreateResponse,
   IFetchCartItemDecrementResponse,
+  IFetchCartItemDeleteResponse,
   IFetchCartItemIncrementResponse,
 } from "api/types/cart";
 import * as actionCreators from "./actionCreators";
@@ -106,6 +108,23 @@ function* workerCartItemDecrement({ payload }: IFetchCartItemDecrementProps) {
   }
 }
 
+function* workerCartItemDelete({ payload }: IFetchCartItemDeleteProps) {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    const response = (yield call(
+      cartApi.fetchDeleteItemToCart,
+      payload
+    )) as IFetchCartItemDeleteResponse;
+    console.log("[saga][delete]", response);
+    yield put(actionCreators.cartItemDelete(response));
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
 export function* watch(): Generator<
   AllEffect<ForkEffect<never>>,
   void,
@@ -119,5 +138,8 @@ export function* watch(): Generator<
   ]);
   yield all([
     takeLatest(ActionTypes.FETCH_CART_ITEM_DECREMENT, workerCartItemDecrement),
+  ]);
+  yield all([
+    takeLatest(ActionTypes.FETCH_CART_ITEM_DELETE, workerCartItemDelete),
   ]);
 }

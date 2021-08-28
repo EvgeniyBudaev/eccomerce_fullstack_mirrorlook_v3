@@ -5,6 +5,8 @@ import {
   IFetchCartCreateResponse,
   IFetchCartItemDecrementRequest,
   IFetchCartItemDecrementResponse,
+  IFetchCartItemDeleteRequest,
+  IFetchCartItemDeleteResponse,
   IFetchCartItemIncrementRequest,
   IFetchCartItemIncrementResponse,
 } from "./types/cart";
@@ -91,4 +93,20 @@ export const fetchDecrementItemToCart = async ({
   );
 
   return response.data;
+};
+
+export const fetchDeleteItemToCart = async ({
+  id,
+}: IFetchCartItemDeleteRequest): Promise<IFetchCartItemDeleteResponse> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  await axios.delete<IFetchCartItemDeleteResponse>(
+    `http://127.0.0.1:8000/api/v1/cart-products/${id}/`,
+    config
+  );
+
+  return { id: id };
 };

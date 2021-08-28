@@ -50,3 +50,11 @@ export interface IFetchCartItemDecrementResponse {
   product: IConsole | IMirror;
   quantity: number;
 }
+
+export interface IFetchCartItemDeleteRequest {
+  id: number;
+}
+
+export interface IFetchCartItemDeleteResponse {
+  id: number;
+}

@@ -17,7 +17,6 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
 
   const handleDecrementItemToCart = () => {
     if (cartItem.quantity <= 1) return;
-
     dispatch({
       type: ActionTypes.FETCH_CART_ITEM_DECREMENT,
       payload: {
@@ -33,6 +32,15 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
       payload: {
         id: cartItem.id,
         quantity: cartItem.quantity + 1,
+      },
+    });
+  };
+
+  const handleDeleteItemToCart = () => {
+    dispatch({
+      type: ActionTypes.FETCH_CART_ITEM_DELETE,
+      payload: {
+        id: cartItem.id,
       },
     });
   };
@@ -64,7 +72,12 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
             </div>
           </div>
           <div className={styles.ProductActions}>
-            <div className={styles.ProductDelete}>Удалить</div>
+            <div
+              className={styles.ProductDelete}
+              onClick={handleDeleteItemToCart}
+            >
+              Удалить
+            </div>
             <div className={styles.ProductCounter}>
               <button
                 className={styles.ProductCounterMinus}
