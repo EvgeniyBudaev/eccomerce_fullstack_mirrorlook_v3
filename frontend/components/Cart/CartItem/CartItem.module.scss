@@ -52,25 +52,65 @@
   }
 
   &Counter {
+    display: flex;
+    align-items: center;
+
     &Minus,
     &Plus {
+      @include text-16-title;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 30px;
       height: 30px;
-      border: 3px solid $color-border;
+      background-color: $color-white;
+      border: 3px solid $color-moon-gray;
+
+      &:hover {
+        background-color: $color-pearl-white;
+      }
     }
 
-    &Minus {}
+    &Minus {
+      border-radius: 6px 0 0 6px;
+      border-width: 3px 0 3px 3px;
+    }
 
     &Plus {
-      border-radius: 0 .4rem .4rem 0;
-      border-width: .2rem .2rem .2rem 0;
+      border-radius: 0 6px 6px 0;
+      border-width: 3px 3px 3px 0;
     }
 
     &Count {
+      text-align: center;
       width: 30px;
       height: 30px;
-      background-color: $color-border;
-      border: 3px solid $color-border;
+      background-color: $color-moon-gray;
+      border: 3px solid $color-moon-gray;
+      outline: transparent;
+      transition: all 0.15s;
+
+      &:hover {
+        background-color: $color-white;
+        border-color: $color-shade-gray;
+      }
+
+      &:active,
+      &:focus {
+        background-color: $color-white;
+        border-color: $color-shade-gray;
+      }
+    }
+
+    &__disabled {
+      color: $color-shade-gray;
+      background-color: $color-moon-gray;
+      cursor: default;
+
+      &:hover {
+        color: $color-shade-gray;
+        background-color: $color-moon-gray;
+      }
     }
   }
 }

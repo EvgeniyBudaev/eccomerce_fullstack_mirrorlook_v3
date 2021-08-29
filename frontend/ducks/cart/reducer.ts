@@ -33,7 +33,11 @@ const initialState = {
 };
 
 export const reducer: Reducer<IState> = (
-  state = initialState,
+  state = typeof window !== "undefined"
+    ? localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : initialState
+    : initialState,
   action: IAction
 ) => {
   switch (action.type) {

@@ -3,11 +3,63 @@
 .Cart {}
 
 .Title {
-  @include text-24-title;
+  @include text-32-title;
   margin-bottom: 30px;
+}
+
+.Inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .List {
   max-width: 540px;
   width: 100%;
+}
+
+.Checkout {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+
+  &Inner {
+    position: fixed;
+    max-width: 300px;
+    width: 100%;
+  }
+}
+
+.OrdersList {
+  padding: 20px;
+  background-color: $color-pearl-white;
+  border-radius: 4px;
+}
+
+.CostLine {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &Text {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &Price {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &SubTotalPrice {
+    @include text-12-regular;
+    color: $color-shade-gray;
+    text-align: end;
+    text-decoration: line-through;
+  }
+
+  &PriceWithDiscount {
+    @include text-22-title;
+    line-height: 1;
+  }
 }

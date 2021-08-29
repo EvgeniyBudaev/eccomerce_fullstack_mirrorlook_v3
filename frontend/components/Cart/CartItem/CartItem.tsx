@@ -6,6 +6,8 @@ import classNames from "classnames";
 import { ICartItem } from "types/cart";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { ActionTypes } from "ducks/cart";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { Spinner } from "ui-kit";
 import styles from "./CartItem.module.scss";
 
 interface ICartItemProps {
@@ -14,6 +16,10 @@ interface ICartItemProps {
 
 export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
   const dispatch = useDispatch();
+  const loading = useTypedSelector(state => state.loading);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { isLoading } = loading;
+  const { error } = unhandledError;
 
   const handleDecrementItemToCart = () => {
     if (cartItem.quantity <= 1) return;
@@ -47,8 +53,10 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
 
   const handleChange = () => {};
 
+  if (isLoading) return <Spinner />;
+
   return (
-    <li className={styles.CartItem}>
+    <div className={styles.CartItem}>
       <div className={styles.Product}>
         <div className={styles.ProductImage}>
           <Link
@@ -80,18 +88,21 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
             </div>
             <div className={styles.ProductCounter}>
               <button
-                className={styles.ProductCounterMinus}
+                className={classNames(styles.ProductCounterMinus, {
+                  [styles.ProductCounter__disabled]: cartItem.quantity <= 1,
+                })}
                 onClick={handleDecrementItemToCart}
               >
                 -
               </button>
               <input
+                className={styles.ProductCounterCount}
                 type="text"
                 value={cartItem.quantity}
                 onChange={handleChange}
               />
               <button
-                className={styles.ProductCounterMinus}
+                className={classNames(styles.ProductCounterPlus)}
                 onClick={handleIncrementItemToCart}
               >
                 +
@@ -100,6 +111,6 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
           </div>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
