@@ -55,11 +55,14 @@ export const reducer: Reducer<IState> = (
         const existItem = state.entities.find(
           item => item.product.id === action.payload.product.id
         );
+        const cartItems = existItem
+          ? state.entities.map(item =>
+              item.product.id === existItem.product.id ? action.payload : item
+            )
+          : [...state.entities, action.payload];
         return {
           ...state,
-          entities: state.entities.map(item =>
-            item.product.id === existItem.product.id ? action.payload : item
-          ),
+          entities: cartItems,
         };
       } else {
         return {
