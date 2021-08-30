@@ -30,9 +30,6 @@ export const Cart: React.FC = () => {
           ) : (
             <div>В корзине нет товаров</div>
           )}
-          {/*{!isEmpty(cart.entities) && cart.entities.map(cartItem => (*/}
-          {/*  <CartItem key={cartItem.id} cartItem={cartItem} />*/}
-          {/*))}*/}
         </div>
         <div className={styles.Checkout}>
           <div className={styles.CheckoutInner}>
