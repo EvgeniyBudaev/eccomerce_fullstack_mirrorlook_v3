@@ -64,3 +64,4 @@ class CartItemViewSet(viewsets.ModelViewSet):
     serializer_class = CartItemSerializer
     permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ['cart']
