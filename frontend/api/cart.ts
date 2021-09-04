@@ -9,7 +9,6 @@ import {
   IFetchCartItemDeleteResponse,
   IFetchCartItemIncrementRequest,
   IFetchCartItemIncrementResponse,
-  IFetchCartUserSetRequest,
   IFetchCartUserSetResponse,
 } from "./types/cart";
 

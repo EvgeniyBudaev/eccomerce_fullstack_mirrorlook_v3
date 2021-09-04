@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { fetchConsoles } from "ducks/products/consoles";
 import { Layout } from "components";
-import { IConsole, IConsoles } from "types/console";
+import { IConsole } from "types/console";
 import { IFilter, IPaging } from "types/filter";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
@@ -26,9 +26,9 @@ export default function Mirrors(consolesResponse: IConsolesProps): JSX.Element {
   return <Layout>Страница с консолями</Layout>;
 }
 
-export const getServerSideProps: GetServerSideProps<IFilter<IConsoles>> =
+export const getServerSideProps: GetServerSideProps<IFilter<IConsole[]>> =
   async () => {
-    const { data: mirrorsResponse } = await axios.get<IFilter<IConsoles>>(
+    const { data: mirrorsResponse } = await axios.get<IFilter<IConsole[]>>(
       `http://localhost:8000/api/catalog/consoles/`
     );
     const { entities, paging } = mirrorsResponse;
