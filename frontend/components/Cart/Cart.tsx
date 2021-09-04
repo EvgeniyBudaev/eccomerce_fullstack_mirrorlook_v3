@@ -1,13 +1,20 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { isEmpty } from "lodash";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { getDeclination } from "utils/declinations";
+import { Button, Icon } from "ui-kit";
+import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
 import { CartItem } from "./CartItem/CartItem";
 import styles from "./Cart.module.scss";
 
 export const Cart: React.FC = () => {
+  const router = useRouter();
   const cart = useTypedSelector(state => state.cart);
+  const account = useTypedSelector(state => state.account);
+  const { isAuthenticated } = account;
   const countTotal = cart.entities.reduce(
     (acc, item) => acc + item.quantity,
     0
@@ -16,7 +23,13 @@ export const Cart: React.FC = () => {
     (acc, item) => acc + Number(item.product.price) * item.quantity,
     0
   );
-  const priceWithDiscount = priceSubTotal;
+  const priceWithDiscount = isAuthenticated
+    ? priceSubTotal * DISCOUNT_FOR_AUTHORIZATION
+    : priceSubTotal;
+
+  const handleBackToShopping = () => {
+    router.back();
+  };
 
   return (
     <section className={styles.Cart}>
@@ -47,6 +60,28 @@ export const Cart: React.FC = () => {
                   </div>
                 </div>
               </div>
+              <Button className={styles.ButtonGoToOrder} onClick={() => {}}>
+                Перейти к оформлению
+              </Button>
+            </div>
+            {!isAuthenticated && (
+              <div className={styles.OrdersList}>
+                <div className={styles.Inner}>
+                  <Icon className={styles.IconEnter} type="Enter" />
+                  <Link href={"/login"}>
+                    <a className={styles.TextEnter}>
+                      Авторизуйтесь/зарегистрируйтесь, чтобы получить 3% от
+                      стоимости заказа
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            )}
+            <div
+              className={styles.BackToShopping}
+              onClick={handleBackToShopping}
+            >
+              Вернуться к покупкам
             </div>
           </div>
         </div>

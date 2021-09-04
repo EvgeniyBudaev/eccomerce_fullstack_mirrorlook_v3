@@ -6,7 +6,8 @@ import {
   IActionCartItemDecrement,
   IActionCartItemDelete,
   IActionCartItemIncrement,
-  IPayloadCartItem,
+  IActionCartUserSet,
+  ICartState,
 } from "./types";
 
 type IAction =
@@ -14,15 +15,8 @@ type IAction =
   | IActionCartAddItem
   | IActionCartItemDecrement
   | IActionCartItemDelete
-  | IActionCartItemIncrement;
-
-interface IState {
-  date_created: string;
-  date_updated: string;
-  entities: IPayloadCartItem[];
-  id: number;
-  user: number;
-}
+  | IActionCartItemIncrement
+  | IActionCartUserSet;
 
 const initialState = {
   date_created: null,
@@ -32,7 +26,7 @@ const initialState = {
   user: null,
 };
 
-export const reducer: Reducer<IState> = (
+export const reducer: Reducer<ICartState> = (
   state = typeof window !== "undefined"
     ? localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
@@ -111,6 +105,11 @@ export const reducer: Reducer<IState> = (
       return {
         ...state,
         entities: state.entities.filter(item => item.id !== action.payload.id),
+      };
+    case ActionTypes.CART_USER_SET:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     default:

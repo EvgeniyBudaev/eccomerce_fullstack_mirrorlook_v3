@@ -30,17 +30,13 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
     ordering = "",
   },
 }) => {
-  // console.log("[PAGE]", page);
-  // console.log("[category]", category);
-  // console.log("[form]", form);
   const url = encodeURI(
     `http://127.0.0.1:8000/api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
   );
-
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
     url
   );
-
+  console.log("mirrorsResponse", mirrorsResponse);
   const { entities, pageItemsCount, totalItemsCount } = mirrorsResponse;
   const pagesCount = Math.max(Math.ceil(totalItemsCount / pageItemsCount), 1);
 

@@ -37,7 +37,6 @@ function* workerCartCreate({ payload }: IFetchCartCreateProps) {
     )) as IFetchCartCreateResponse;
     yield put(actionCreators.cartCreate(response));
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
-    console.log("[saga][cart create]", response);
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -52,7 +51,6 @@ function* workerCartInit() {
     const cart = localStorage.getItem("cart");
     const response = JSON.parse(cart) as IFetchCartCreateResponse;
     yield put(actionCreators.cartCreate(response));
-    console.log("[saga][cart init]", response);
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -68,7 +66,6 @@ function* workerCartAddItem({ payload }: IFetchCartAddItemProps) {
       cartApi.fetchAddItemToCart,
       payload
     )) as IFetchAddItemToCartResponse;
-    console.log("[saga][add product]", response);
     yield put(actionCreators.cartAddItem(response));
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     yield put(unsetLoading());
@@ -86,7 +83,6 @@ function* workerCartItemIncrement({ payload }: IFetchCartItemIncrementProps) {
       cartApi.fetchIncrementItemToCart,
       payload
     )) as IFetchCartItemIncrementResponse;
-    console.log("[saga][increment]", response);
     yield put(actionCreators.cartItemIncrement(response));
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     yield put(unsetLoading());
@@ -104,7 +100,6 @@ function* workerCartItemDecrement({ payload }: IFetchCartItemDecrementProps) {
       cartApi.fetchDecrementItemToCart,
       payload
     )) as IFetchCartItemDecrementResponse;
-    console.log("[saga][decrement]", response);
     yield put(actionCreators.cartItemDecrement(response));
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     yield put(unsetLoading());
@@ -122,7 +117,6 @@ function* workerCartItemDelete({ payload }: IFetchCartItemDeleteProps) {
       cartApi.fetchDeleteItemToCart,
       payload
     )) as IFetchCartItemDeleteResponse;
-    console.log("[saga][delete]", response);
     yield put(actionCreators.cartItemDelete(response));
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     yield put(unsetLoading());

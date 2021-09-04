@@ -9,6 +9,8 @@ import {
   IFetchCartItemDeleteResponse,
   IFetchCartItemIncrementRequest,
   IFetchCartItemIncrementResponse,
+  IFetchCartUserSetRequest,
+  IFetchCartUserSetResponse,
 } from "./types/cart";
 
 export const fetchCreateCart = async (
@@ -109,4 +111,23 @@ export const fetchDeleteItemToCart = async ({
   );
 
   return { id: id };
+};
+
+export const fetchSetUserToCart = async (
+  cartId: number,
+  userId: number
+): Promise<IFetchCartUserSetResponse> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ user: userId });
+  const response = await axios.patch<IFetchCartUserSetResponse>(
+    `http://127.0.0.1:8000/api/v1/cart/${cartId}/`,
+    body,
+    config
+  );
+
+  return response.data;
 };

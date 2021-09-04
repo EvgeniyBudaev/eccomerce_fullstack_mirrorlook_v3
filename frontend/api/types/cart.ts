@@ -1,6 +1,19 @@
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 
+export interface IFetchItemToCartResponse {
+  cart: number;
+  date_created: string;
+  date_updated: string;
+  id: number;
+  product: IConsole | IMirror;
+  quantity: number;
+}
+
+export interface IFetchItemsToCartResponse {
+  data: IFetchItemToCartResponse[];
+}
+
 export interface IFetchCartCreateResponse {
   date_created: string;
   date_updated: string;
@@ -57,4 +70,11 @@ export interface IFetchCartItemDeleteRequest {
 
 export interface IFetchCartItemDeleteResponse {
   id: number;
+}
+
+export interface IFetchCartUserSetResponse {
+  date_created: string;
+  date_updated: string;
+  id: number;
+  user: number;
 }

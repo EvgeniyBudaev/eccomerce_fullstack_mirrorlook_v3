@@ -20,17 +20,18 @@
 
 .Checkout {
   position: relative;
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
 
   &Inner {
     position: fixed;
-    max-width: 300px;
+    max-width: 320px;
     width: 100%;
   }
 }
 
 .OrdersList {
+  margin-bottom: 12px;
   padding: 20px;
   background-color: $color-pearl-white;
   border-radius: 4px;
@@ -61,5 +62,44 @@
   &PriceWithDiscount {
     @include text-22-title;
     line-height: 1;
+  }
+}
+
+.ButtonGoToOrder {
+  width: 100%;
+}
+
+.IconEnter {
+  width: 20px;
+  height: 20px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: $color-green;
+  }
+}
+
+.TextEnter {
+  margin-left: 8px;
+  color: $color-blue;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $color-beige;
+  }
+}
+
+.BackToShopping {
+  display: inline-block;
+  margin-left: 20px;
+  color: $color-blue;
+  border-bottom: 1px solid rgba(0, 141, 211, 0.3);
+  transition: all 0.15s;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-beige;
+    border-bottom: 1px solid rgba(176, 151, 106, 0.3);
   }
 }

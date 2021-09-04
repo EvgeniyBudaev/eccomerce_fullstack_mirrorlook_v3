@@ -32,15 +32,6 @@ export interface IActionCartAddItem {
   payload: IPayloadCartItem;
 }
 
-export interface IPayloadCartItemIDerement {
-  cart: number;
-  date_created: string;
-  date_updated: string;
-  id: number;
-  product: IConsole | IMirror;
-  quantity: number;
-}
-
 export interface IActionCartItemDecrement {
   type: ActionTypes.CART_ITEM_DECREMENT;
   payload: IPayloadCartItem;
@@ -58,6 +49,11 @@ export interface IPayloadCartItemDelete {
 export interface IActionCartItemDelete {
   type: ActionTypes.CART_ITEM_DELETE;
   payload: IPayloadCartItemDelete;
+}
+
+export interface IActionCartUserSet {
+  type: ActionTypes.CART_USER_SET;
+  payload: number;
 }
 
 export interface IFetchCartCreateProps {
@@ -103,4 +99,12 @@ export interface IFetchCartItemDeletePayload {
 export interface IFetchCartItemDeleteProps {
   payload: IFetchCartItemDeletePayload;
   type: string;
+}
+
+export interface ICartState {
+  date_created: string;
+  date_updated: string;
+  entities: IPayloadCartItem[];
+  id: number;
+  user: number;
 }

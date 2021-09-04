@@ -74,7 +74,13 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
         </div>
         <div className={styles.ProductContent}>
           <div className={styles.ProductHeader}>
-            <div className={styles.ProductTitle}>{cartItem.product.title}</div>
+            <div className={styles.ProductTitle}>
+              <Link
+                href={`/${cartItem.product.catalog_slug}/${cartItem.product.product_slug}`}
+              >
+                <a>{cartItem.product.title}</a>
+              </Link>
+            </div>
             <div className={styles.ProductPrice}>
               {numberWithSpaces(parseInt(cartItem.product.price))} ₽
             </div>

@@ -7,6 +7,7 @@ import Basket from "ui-kit/assets/icons/Basket.svg";
 import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
+import Enter from "ui-kit/assets/icons/Enter.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
 import User from "ui-kit/assets/icons/User.svg";
@@ -22,6 +23,7 @@ export type IconType =
   | "Checkbox"
   | "DisplayGrid"
   | "DisplayLine"
+  | "Enter"
   | "Filter"
   | "Spinner"
   | "User"
@@ -36,6 +38,7 @@ const iconTypes = new Map([
   ["Checkbox", <Checkbox key={Date.now()} />],
   ["DisplayGrid", <DisplayGrid key={Date.now()} />],
   ["DisplayLine", <DisplayLine key={Date.now()} />],
+  ["Enter", <Enter key={Date.now()} />],
   ["Filter", <Filter key={Date.now()} />],
   ["Spinner", <Spinner key={Date.now()} />],
   ["User", <User key={Date.now()} />],

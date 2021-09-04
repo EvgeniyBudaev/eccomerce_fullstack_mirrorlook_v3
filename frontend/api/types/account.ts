@@ -33,3 +33,10 @@ export interface IFetchSignupResponse {
   last_name: string;
   phone_number: string;
 }
+
+export interface IFetchCartUserSetResponse {
+  date_created: string;
+  date_updated: string;
+  in: number;
+  user: number;
+}

@@ -17,7 +17,11 @@ const initialState = {
 type IAction = IActionSetUserToken | IActionSetUser | IActionUserSignup;
 
 export const reducer: Reducer<IAccount> = (
-  state = initialState,
+  state = typeof window !== "undefined"
+    ? localStorage.getItem("account")
+      ? JSON.parse(localStorage.getItem("account"))
+      : initialState
+    : initialState,
   action: IAction
 ) => {
   switch (action.type) {
