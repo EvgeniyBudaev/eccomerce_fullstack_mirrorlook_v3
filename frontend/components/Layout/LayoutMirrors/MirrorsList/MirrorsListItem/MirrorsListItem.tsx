@@ -1,10 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
+import { isNull } from "lodash";
 import { IMirror } from "types/mirror";
-import { Button, IconButton } from "ui-kit";
+import { Button, IconButton, Spinner } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { ActionTypes, ICartState } from "ducks/cart";
+import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorsListItem.module.scss";
 
 export interface IMirrorsListItemProps {
@@ -16,6 +21,67 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   mirror,
   isClickedDisplayLine,
 }) => {
+  const [cartId, setCartId] = useState("");
+  const dispatch = useDispatch();
+  const cart = useTypedSelector(state => state.cart);
+  const loading = useTypedSelector(state => state.loading);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { isLoading } = loading;
+  const { error } = unhandledError;
+
+  const getCartId = (cart: ICartState) => {
+    return String(cart.id);
+  };
+
+  useEffect(() => {
+    async function fetchCartId(cart) {
+      const response = await getCartId(cart);
+      setCartId(response);
+    }
+    fetchCartId(cart);
+  }, [cart]);
+
+  const handleAddToCart = () => {
+    dispatch({
+      type: ActionTypes.FETCH_CART_ADD_ITEM,
+      payload: {
+        cart: cart.id,
+        product: mirror.id,
+        quantity: 1,
+      },
+    });
+  };
+
+  const renderButton = (mirror: IMirror) => {
+    const isProductAtCart = cart.entities.some(
+      item => item.product.id === mirror.id
+    );
+
+    return isProductAtCart ? (
+      !isNull(cartId) && (
+        <Link
+          href={{
+            pathname: `/cart/${cartId}`,
+          }}
+        >
+          <a className={styles.FooterGoAtCart}>В корзине</a>
+        </Link>
+      )
+    ) : (
+      <Button disabled={mirror.count_in_stock <= 0} onClick={handleAddToCart}>
+        В корзину
+      </Button>
+    );
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(setUnhandledClearError());
+    };
+  }, [dispatch]);
+
+  if (isLoading) return <Spinner />;
+
   return (
     <li
       className={classNames(styles.MirrorsListItem, {
@@ -100,7 +166,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
         <div className={styles.Footer}>
           <div className={styles.FooterTop}>
             <div className={styles.FooterBottomLabel}>Цена:</div>
-            <IconButton className={styles.FooterTopBasket} type={"Basket"} />
+            <IconButton className={styles.FooterTopCart} type={"Cart"} />
           </div>
           <div className={styles.FooterBottom}>
             <div className={styles.FooterBottomNum}>
@@ -109,8 +175,8 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <div className={styles.FooterBottomStatus}>
               {mirror.count_in_stock > 0 ? "В наличии" : "Товар отсутствует"}
             </div>
-            <div className={styles.FooterAddToBasketLine}>
-              <Button onClick={() => {}}>В корзину</Button>
+            <div className={styles.FooterAddToCartLine}>
+              {renderButton(mirror)}
             </div>
           </div>
         </div>

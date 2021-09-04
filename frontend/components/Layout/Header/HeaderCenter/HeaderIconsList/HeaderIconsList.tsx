@@ -58,7 +58,7 @@ export const HeaderIconsList: React.FC = () => {
               }}
             >
               <a>
-                <Icon className={styles.Icon} type={"Basket"} />
+                <Icon className={styles.Icon} type={"Cart"} />
                 <div className={styles.IconDescription}>Корзина</div>
               </a>
             </Link>

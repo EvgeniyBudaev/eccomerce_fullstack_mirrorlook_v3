@@ -54,7 +54,7 @@
       margin-bottom: 8px;
     }
 
-    .FooterTopBasket {
+    .FooterTopCart {
       cursor: pointer;
       border: none;
       background-color: transparent;
@@ -80,8 +80,26 @@
       color: $color-beige;
     }
 
-    .FooterAddToBasketLine {
+    .FooterAddToCartLine {
       display: none;
+    }
+
+    .FooterGoAtCart {
+      @include text-16-regular;
+      padding: 10px 30px;
+      height: max-content;
+      width: max-content;
+      color: $color-beige;
+      background-color: $color-white;
+      border: 1px solid $color-beige;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s;
+
+      &:hover {
+        color: $color-beige-hover;
+        border: 1px solid $color-beige-hover;
+      }
     }
   }
 
@@ -168,12 +186,12 @@
       margin-bottom: 26px;
     }
 
-    .FooterTopBasket,
+    .FooterTopCart,
     .FooterBottomLabel {
       display: none;
     }
 
-    .FooterAddToBasketLine {
+    .FooterAddToCartLine {
       display: block;
       margin-top: 26px;
     }

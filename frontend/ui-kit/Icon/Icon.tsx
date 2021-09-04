@@ -3,7 +3,7 @@ import classNames from "classnames";
 import ArrowDown from "ui-kit/assets/icons/ArrowDown.svg";
 import ArrowLeft from "ui-kit/assets/icons/ArrowLeft.svg";
 import ArrowRight from "ui-kit/assets/icons/ArrowRight.svg";
-import Basket from "ui-kit/assets/icons/Basket.svg";
+import Cart from "ui-kit/assets/icons/Cart.svg";
 import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
@@ -19,7 +19,7 @@ export type IconType =
   | "ArrowDown"
   | "ArrowLeft"
   | "ArrowRight"
-  | "Basket"
+  | "Cart"
   | "Checkbox"
   | "DisplayGrid"
   | "DisplayLine"
@@ -34,7 +34,7 @@ const iconTypes = new Map([
   ["ArrowDown", <ArrowDown key={Date.now()} />],
   ["ArrowLeft", <ArrowLeft key={Date.now()} />],
   ["ArrowRight", <ArrowRight key={Date.now()} />],
-  ["Basket", <Basket key={Date.now()} />],
+  ["Cart", <Cart key={Date.now()} />],
   ["Checkbox", <Checkbox key={Date.now()} />],
   ["DisplayGrid", <DisplayGrid key={Date.now()} />],
   ["DisplayLine", <DisplayLine key={Date.now()} />],
