@@ -3,7 +3,7 @@
 .MirrorsListItem {
   $this: &;
 
-  height: 360px;
+  height: 430px;
   max-width: 224px;
   width: 100%;
   border: 1px solid #e4e4e4;
@@ -22,7 +22,6 @@
   }
 
   .Content{
-    flex: 1 0 auto;
     position: relative;
 
     .ContentImg {
@@ -38,45 +37,30 @@
 
     .ContentTitle {
       margin: 8px 0;
+      text-align: center;
+      color: $color-text;
+      transition: all 0.15s;
+
+      &:hover {
+        color: $color-beige;
+      }
     }
   }
 
   .Footer {
-    min-height: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: center;
+    min-height: 50px;
 
-    .FooterTop {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
+    .FooterPrice{
+      @include text-24-label;
+      margin: 16px 0;
     }
 
-    .FooterTopCart {
-      cursor: pointer;
-      border: none;
-      background-color: transparent;
-      outline: none;
-
-      & svg {
-        cursor: pointer;
-      }
-    }
-
-    .FooterBottom {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .FooterBottomLabel {}
-
-    .FooterBottomNum {
-      font-weight: 700;
-    }
-
-    .FooterBottomStatus {
+    .FooterStatus {
+      margin-bottom: 16px;
       color: $color-beige;
     }
 
@@ -116,6 +100,7 @@
 
     .Content {
       display: flex;
+      flex: 1 0 auto;
     }
 
     .ContentImg {
@@ -169,25 +154,11 @@
       }
     }
 
-    .FooterTop {
-      display: none;
-    }
-
-    .FooterBottom {
-      flex-direction: column;
+    .Footer {
       justify-content: center;
-      align-items: center;
-      height: 100%;
-      margin-right: 100px;
     }
 
-    .FooterBottomNum {
-      font-size: 24px;
-      margin-bottom: 26px;
-    }
-
-    .FooterTopCart,
-    .FooterBottomLabel {
+    .FooterAddToCartGrid {
       display: none;
     }
 

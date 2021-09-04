@@ -103,10 +103,16 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             </Link>
           </div>
           <div className={styles.ContentDescription}>
-            <p className={styles.ContentTitle}>{mirror.title}</p>
+            <Link href={`/mirrors/${mirror.product_slug}`}>
+              <a className={styles.ContentTitle}>{mirror.title}</a>
+            </Link>
           </div>
           <ul className={styles.ContentDescriptionLine}>
-            <li className={styles.ContentTitleLine}>{mirror.title}</li>
+            <li className={styles.ContentTitleLine}>
+              <Link href={`/mirrors/${mirror.product_slug}`}>
+                <a className={styles.ContentTitle}>{mirror.title}</a>
+              </Link>
+            </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Материал зеркала:</div>
               <div className={styles.ValueLine}>
@@ -164,20 +170,17 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
           </ul>
         </div>
         <div className={styles.Footer}>
-          <div className={styles.FooterTop}>
-            <div className={styles.FooterBottomLabel}>Цена:</div>
-            <IconButton className={styles.FooterTopCart} type={"Cart"} />
+          <div className={styles.FooterPrice}>
+            {numberWithSpaces(parseInt(mirror.price))} ₽
           </div>
-          <div className={styles.FooterBottom}>
-            <div className={styles.FooterBottomNum}>
-              {numberWithSpaces(parseInt(mirror.price))} ₽
-            </div>
-            <div className={styles.FooterBottomStatus}>
-              {mirror.count_in_stock > 0 ? "В наличии" : "Товар отсутствует"}
-            </div>
-            <div className={styles.FooterAddToCartLine}>
-              {renderButton(mirror)}
-            </div>
+          <div className={styles.FooterStatus}>
+            {mirror.count_in_stock > 0 ? "В наличии" : "Товар отсутствует"}
+          </div>
+          <div className={styles.FooterAddToCartGrid}>
+            {renderButton(mirror)}
+          </div>
+          <div className={styles.FooterAddToCartLine}>
+            {renderButton(mirror)}
           </div>
         </div>
       </div>

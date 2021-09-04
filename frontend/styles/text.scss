@@ -73,6 +73,15 @@ $base-font-family : 'Roboto', sans-serif;
 }
 
 /* 24/Bold/Title */
+@mixin text-24-label {
+	font-family: $base-font-family;
+	font-size: 24px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 1.25;
+}
+
+/* 24/Bold/Title */
 @mixin text-24-title {
 	font-family: $base-font-family;
 	font-size: 24px;
