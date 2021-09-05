@@ -18,6 +18,15 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
+/* 14/Semibold */
+@mixin text-14-semibold {
+	font-family: $base-font-family;
+	font-size: 14px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 1.25;
+}
+
 /* 14/Bold */
 @mixin text-14-bold {
 	font-family: $base-font-family;

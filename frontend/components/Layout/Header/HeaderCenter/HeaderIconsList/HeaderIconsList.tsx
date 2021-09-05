@@ -57,9 +57,10 @@ export const HeaderIconsList: React.FC = () => {
                 pathname: `/cart/${cartId}`,
               }}
             >
-              <a>
+              <a className={styles.IconLink}>
                 <Icon className={styles.Icon} type={"Cart"} />
                 <div className={styles.IconDescription}>Корзина</div>
+                <div className={styles.CartItemsCount}>3</div>
               </a>
             </Link>
           </div>

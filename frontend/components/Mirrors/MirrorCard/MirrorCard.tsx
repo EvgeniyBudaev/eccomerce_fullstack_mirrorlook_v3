@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
-import { ActionTypes } from "ducks/cart";
+import {ActionTypes, ICartState} from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorCard.module.scss";
+import {isNull} from "lodash";
+import Link from "next/link";
 
 export interface IMirrorCardProps {
   mirror: IMirror;
@@ -20,6 +22,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
     mirror.product_photo3,
     mirror.product_photo4,
   ];
+  const [cartId, setCartId] = useState("");
   const dispatch = useDispatch();
   const cart = useTypedSelector(state => state.cart);
   const loading = useTypedSelector(state => state.loading);
@@ -36,6 +39,44 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
         quantity: 1,
       },
     });
+  };
+
+  const getCartId = (cart: ICartState) => {
+    return String(cart.id);
+  };
+
+  useEffect(() => {
+    async function fetchCartId(cart) {
+      const response = await getCartId(cart);
+      setCartId(response);
+    }
+    fetchCartId(cart);
+  }, [cart]);
+
+  const renderButton = (mirror: IMirror) => {
+    const isProductAtCart = cart.entities.some(
+      item => item.product.id === mirror.id
+    );
+
+    return isProductAtCart ? (
+      !isNull(cartId) && (
+        <Link
+          href={{
+            pathname: `/cart/${cartId}`,
+          }}
+        >
+          <a className={styles.ButtonGoAtCart}>Перейти в корзину</a>
+        </Link>
+      )
+    ) : (
+      <Button
+        className={styles.ProductAddToBasket}
+        disabled={mirror.count_in_stock <= 0}
+        onClick={handleAddToCart}
+      >
+        Добавить в корзину
+      </Button>
+    );
   };
 
   useEffect(() => {
@@ -101,13 +142,14 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
           <div className={styles.ProductPay}>
             Картой онлайн/курьеру, наличными
           </div>
-          <Button
-            className={styles.ProductAddToBasket}
-            disabled={mirror.count_in_stock <= 0}
-            onClick={handleAddToCart}
-          >
-            Добавить в корзину
-          </Button>
+          {renderButton(mirror)}
+          {/*<Button*/}
+          {/*  className={styles.ProductAddToBasket}*/}
+          {/*  disabled={mirror.count_in_stock <= 0}*/}
+          {/*  onClick={handleAddToCart}*/}
+          {/*>*/}
+          {/*  Добавить в корзину*/}
+          {/*</Button>*/}
         </div>
       </div>
     </div>

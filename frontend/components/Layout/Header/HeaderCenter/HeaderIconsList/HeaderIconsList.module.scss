@@ -39,4 +39,27 @@
   }
 }
 
-.IconDescription {}
+.IconDescription {
+  @include text-14-semibold;
+}
+
+.IconLink {
+  position: relative;
+}
+
+.CartItemsCount {
+  content: "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -50%;
+  transform: translateY(90%);
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  color: $color-white;
+  background-color: $color-beige;
+  border: 1px solid $color-beige;
+  border-radius: 50%;
+}
