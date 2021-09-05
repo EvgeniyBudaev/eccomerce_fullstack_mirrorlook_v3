@@ -15,7 +15,7 @@ export const Cart: React.FC = () => {
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
   const { isAuthenticated } = account;
-  const countTotal = cart.entities.reduce(
+  const cartItemsCountTotal = cart.entities.reduce(
     (acc, item) => acc + item.quantity,
     0
   );
@@ -26,6 +26,7 @@ export const Cart: React.FC = () => {
   const priceWithDiscount = isAuthenticated
     ? priceSubTotal * DISCOUNT_FOR_AUTHORIZATION
     : priceSubTotal;
+  const priceDifference = priceSubTotal - priceWithDiscount;
 
   const handleBackToShopping = () => {
     router.back();
@@ -49,7 +50,9 @@ export const Cart: React.FC = () => {
             <div className={styles.OrdersList}>
               <div className={styles.CostLine}>
                 <div className={styles.CostLineText}>
-                  В корзине {countTotal.toString()} {getDeclination(countTotal)}
+                  В корзине {cartItemsCountTotal.toString()}
+                  <> </>
+                  {getDeclination(cartItemsCountTotal)}
                 </div>
                 <div className={styles.CostLinePrice}>
                   <div className={styles.CostLineSubTotalPrice}>
@@ -64,7 +67,20 @@ export const Cart: React.FC = () => {
                 Перейти к оформлению
               </Button>
             </div>
-            {!isAuthenticated && (
+            {isAuthenticated ? (
+              <div className={styles.OrdersList}>
+                <div className={styles.Inner}>
+                  <Icon className={styles.IconLogoShort} type="LogoShort" />
+                  <div>
+                    <span>
+                      - {numberWithSpaces(parseInt(priceDifference.toString()))}
+                      <> </>
+                    </span>
+                    <span>рублей за заказ</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
               <div className={styles.OrdersList}>
                 <div className={styles.Inner}>
                   <Icon className={styles.IconEnter} type="Enter" />

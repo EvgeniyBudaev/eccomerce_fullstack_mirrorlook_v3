@@ -80,6 +80,17 @@
   }
 }
 
+.IconLogoShort {
+  width: 20px;
+  height: 20px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: $color-beige;
+  }
+}
+
 .TextEnter {
   margin-left: 8px;
   color: $color-blue;

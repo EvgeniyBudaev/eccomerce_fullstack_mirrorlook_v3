@@ -12,6 +12,10 @@ export const HeaderIconsList: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const account = useTypedSelector(state => state.account);
   const cart = useTypedSelector(state => state.cart);
+  const cartItemsCountTotal = cart.entities.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
 
   const getAccount = (account: IAccount) => {
     return account;
@@ -60,7 +64,9 @@ export const HeaderIconsList: React.FC = () => {
               <a className={styles.IconLink}>
                 <Icon className={styles.Icon} type={"Cart"} />
                 <div className={styles.IconDescription}>Корзина</div>
-                <div className={styles.CartItemsCount}>3</div>
+                <div className={styles.CartItemsCount}>
+                  {cartItemsCountTotal}
+                </div>
               </a>
             </Link>
           </div>

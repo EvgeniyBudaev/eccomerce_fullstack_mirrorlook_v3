@@ -9,6 +9,7 @@ import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Enter from "ui-kit/assets/icons/Enter.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
+import LogoShort from "ui-kit/assets/icons/LogoShort.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
 import User from "ui-kit/assets/icons/User.svg";
 import Visibility from "ui-kit/assets/icons/Visibility.svg";
@@ -25,6 +26,7 @@ export type IconType =
   | "DisplayLine"
   | "Enter"
   | "Filter"
+  | "LogoShort"
   | "Spinner"
   | "User"
   | "Visibility"
@@ -40,6 +42,7 @@ const iconTypes = new Map([
   ["DisplayLine", <DisplayLine key={Date.now()} />],
   ["Enter", <Enter key={Date.now()} />],
   ["Filter", <Filter key={Date.now()} />],
+  ["LogoShort", <LogoShort key={Date.now()} />],
   ["Spinner", <Spinner key={Date.now()} />],
   ["User", <User key={Date.now()} />],
   ["Visibility", <Visibility key={Date.now()} />],
