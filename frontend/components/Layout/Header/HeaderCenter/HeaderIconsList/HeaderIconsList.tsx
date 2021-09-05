@@ -9,13 +9,10 @@ import styles from "./HeaderIconsList.module.scss";
 
 export const HeaderIconsList: React.FC = () => {
   const [cartId, setCartId] = useState("");
+  const [cartItemsCountTotal, setCartItemsCountTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const account = useTypedSelector(state => state.account);
   const cart = useTypedSelector(state => state.cart);
-  const cartItemsCountTotal = cart.entities.reduce(
-    (acc, item) => acc + item.quantity,
-    0
-  );
 
   const getAccount = (account: IAccount) => {
     return account;
@@ -23,6 +20,10 @@ export const HeaderIconsList: React.FC = () => {
 
   const getCartId = (cart: ICartState) => {
     return String(cart.id);
+  };
+
+  const getCartItemsCountTotal = (cart: ICartState) => {
+    return cart.entities.reduce((acc, item) => acc + item.quantity, 0);
   };
 
   useEffect(() => {
@@ -38,7 +39,12 @@ export const HeaderIconsList: React.FC = () => {
       const response = await getCartId(cart);
       setCartId(response);
     }
+    async function fetchCartItemsCountTotal(cart) {
+      const response = await getCartItemsCountTotal(cart);
+      setCartItemsCountTotal(response);
+    }
     fetchCartId(cart);
+    fetchCartItemsCountTotal(cart);
   }, [cart]);
 
   return (

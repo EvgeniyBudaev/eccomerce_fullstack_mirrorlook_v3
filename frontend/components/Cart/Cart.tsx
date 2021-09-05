@@ -32,6 +32,10 @@ export const Cart: React.FC = () => {
     router.back();
   };
 
+  const handleProceedToCheckout = () => {
+    router.push("/shipping");
+  };
+
   return (
     <section className={styles.Cart}>
       <h1 className={styles.Title}>Моя корзина</h1>
@@ -63,7 +67,10 @@ export const Cart: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <Button className={styles.ButtonGoToOrder} onClick={() => {}}>
+              <Button
+                className={styles.ButtonGoToOrder}
+                onClick={handleProceedToCheckout}
+              >
                 Перейти к оформлению
               </Button>
             </div>
