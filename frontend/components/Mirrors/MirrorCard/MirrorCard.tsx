@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { isNull } from "lodash";
 import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
-import {ActionTypes, ICartState} from "ducks/cart";
+import { ActionTypes, ICartState } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorCard.module.scss";
-import {isNull} from "lodash";
-import Link from "next/link";
 
 export interface IMirrorCardProps {
   mirror: IMirror;
