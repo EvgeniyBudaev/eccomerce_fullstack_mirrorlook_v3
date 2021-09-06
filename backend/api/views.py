@@ -4,11 +4,13 @@ from rest_framework import viewsets, filters, response
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 
-from store.models import User, Catalog, Product, CartItem, Cart
+from store.models import (User, Catalog, Product, CartItem, Cart, Order,
+                          OrderItem, ShippingAddress)
 from accounts.serializers import UserSerializer
 from .serializers import (CatalogSerializer, ProductSerializer,
                           ProductCreateSerializer, CartItemSerializer,
-                          CartSerializer)
+                          CartSerializer, OrderSerializer, OrderItemSerializer,
+                          ShippingAddressSerializer)
 from .pagination import StorePagination
 from .filters import CatalogFilter, ProductFilter
 from .permissions import IsAdminOrReadOnly
@@ -65,3 +67,24 @@ class CartItemViewSet(viewsets.ModelViewSet):
     permission_classes = (AllowAny,)
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ['cart']
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью заказа."""
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = (AllowAny,)
+
+
+class OrderItemViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью продукта заказа."""
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+    permission_classes = (AllowAny,)
+
+
+class ShippingAddressViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью доставки."""
+    queryset = ShippingAddress.objects.all()
+    serializer_class = ShippingAddressSerializer
+    permission_classes = (AllowAny,)

@@ -7,26 +7,28 @@ import { numberWithSpaces } from "utils/numberWithSpaces";
 import { getDeclination } from "utils/declinations";
 import { Button, Icon } from "ui-kit";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
+import { useMounted } from "hooks/useMounted";
 import { CartItem } from "./CartItem/CartItem";
 import styles from "./Cart.module.scss";
 
 export const Cart: React.FC = () => {
+  const { hasMounted } = useMounted();
   const router = useRouter();
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
-  const { isAuthenticated } = account;
-  const cartItemsCountTotal = cart.entities.reduce(
-    (acc, item) => acc + item.quantity,
-    0
-  );
-  const priceSubTotal = cart.entities.reduce(
-    (acc, item) => acc + Number(item.product.price) * item.quantity,
-    0
-  );
-  const priceWithDiscount = isAuthenticated
+  const { isAuthenticated } = hasMounted && account;
+  const cartItemsCountTotal =
+    hasMounted && cart.entities.reduce((acc, item) => acc + item.quantity, 0);
+  const priceSubTotal =
+    hasMounted &&
+    cart.entities.reduce(
+      (acc, item) => acc + Number(item.product.price) * item.quantity,
+      0
+    );
+  const priceWithDiscountTotal = isAuthenticated
     ? priceSubTotal * DISCOUNT_FOR_AUTHORIZATION
     : priceSubTotal;
-  const priceDifference = priceSubTotal - priceWithDiscount;
+  const priceDifference = priceSubTotal - priceWithDiscountTotal;
 
   const handleBackToShopping = () => {
     router.back();
@@ -41,7 +43,8 @@ export const Cart: React.FC = () => {
       <h1 className={styles.Title}>Моя корзина</h1>
       <div className={styles.Inner}>
         <div className={styles.List}>
-          {!isEmpty(cart.entities) ? (
+          {hasMounted ? (
+            !isEmpty(cart.entities) &&
             cart.entities.map(cartItem => (
               <CartItem key={cartItem.id} cartItem={cartItem} />
             ))
@@ -63,7 +66,10 @@ export const Cart: React.FC = () => {
                     {numberWithSpaces(parseInt(priceSubTotal.toString()))}
                   </div>
                   <div className={styles.CostLinePriceWithDiscount}>
-                    {numberWithSpaces(parseInt(priceWithDiscount.toString()))} ₽
+                    {numberWithSpaces(
+                      parseInt(priceWithDiscountTotal.toString())
+                    )}
+                    <> </>₽
                   </div>
                 </div>
               </div>

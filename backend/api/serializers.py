@@ -1,7 +1,12 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from store.models import (Catalog, Category, Attribute, Product,
-                          ProductAttribute, CartItem, Cart)
+                          ProductAttribute, CartItem, Cart, Order, OrderItem,
+                          ShippingAddress)
+
+
+User = get_user_model()
 
 
 class AttributeSerializer(serializers.ModelSerializer):
@@ -112,3 +117,43 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ('id', 'user', 'date_created', 'date_updated')
+
+
+class ShippingAddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ShippingAddress
+        fields = '__all__'
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    orderItems = serializers.SerializerMethodField(read_only=True)
+    shippingAddress = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+
+    def get_order_items(self, obj):
+        items = obj.orderitem_set.all()
+        serializer = OrderItemSerializer(items, many=True)
+        return serializer.data
+
+    def get_shipping_address(self, obj):
+        try:
+            address = ShippingAddressSerializer(
+                obj.shippingaddress, many=False).data
+        except:
+            address = False
+        return address
+
+    def get_user(self):
+        return User

@@ -22,7 +22,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
     mirror.product_photo3,
     mirror.product_photo4,
   ];
-  const [cartId, setCartId] = useState("");
+  const [currentCart, setCurrentCart] = useState<ICartState>(null);
   const dispatch = useDispatch();
   const cart = useTypedSelector(state => state.cart);
   const loading = useTypedSelector(state => state.loading);
@@ -41,28 +41,28 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
     });
   };
 
-  const getCartId = (cart: ICartState) => {
-    return String(cart.id);
+  const getCart = (cart: ICartState) => {
+    return cart;
   };
 
   useEffect(() => {
-    async function fetchCartId(cart) {
-      const response = await getCartId(cart);
-      setCartId(response);
+    async function fetchCart(cart) {
+      const response = await getCart(cart);
+      setCurrentCart(response);
     }
-    fetchCartId(cart);
+    fetchCart(cart);
   }, [cart]);
 
   const renderButton = (mirror: IMirror) => {
-    const isProductAtCart = cart.entities.some(
-      item => item.product.id === mirror.id
-    );
+    const isProductAtCart =
+      !isNull(currentCart) &&
+      currentCart.entities.some(item => item.product.id === mirror.id);
 
     return isProductAtCart ? (
-      !isNull(cartId) && (
+      !isNull(currentCart.id) && (
         <Link
           href={{
-            pathname: `/cart/${cartId}`,
+            pathname: `/cart/${currentCart.id}`,
           }}
         >
           <a className={styles.ButtonGoAtCart}>Перейти в корзину</a>
@@ -124,7 +124,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
                 Наличие фацета: {mirror.attributes[0].is_faced ? "Да" : "Нет"}
               </li>
               <li>Форма: {mirror.attributes[0].form}</li>
-              <li>Произоводитель: {mirror.brand}</li>
+              <li>Производитель: {mirror.brand}</li>
             </ul>
             <div>{mirror.description}</div>
           </div>

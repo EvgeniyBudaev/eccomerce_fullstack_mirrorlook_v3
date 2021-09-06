@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { isNull } from "lodash";
 import { ActionTypes } from "ducks/order";
+import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import styles from "./Shipping.module.scss";
 
 export const Shipping: React.FC = () => {
   const order = useTypedSelector(state => state.order);
-  const { shippingAddress } = order;
+  const { hasMounted } = useMounted();
+  const { shippingAddress } = hasMounted && order;
   const [address, setAddress] = useState(
     shippingAddress ? shippingAddress : ""
   );
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -20,6 +25,12 @@ export const Shipping: React.FC = () => {
         address: address,
       },
     });
+    router.push("/order");
+  };
+
+  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setAddress(event.target.value);
   };
 
   return (
@@ -32,7 +43,7 @@ export const Shipping: React.FC = () => {
           type="text"
           name="address"
           value={address ? address : ""}
-          onChange={e => setAddress(e.target.value)}
+          onChange={handleAddressChange}
         />
         <button type="submit">Продолжить</button>
       </form>

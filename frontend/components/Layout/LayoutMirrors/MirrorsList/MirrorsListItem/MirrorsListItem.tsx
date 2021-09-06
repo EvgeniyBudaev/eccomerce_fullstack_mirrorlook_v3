@@ -21,7 +21,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   mirror,
   isClickedDisplayLine,
 }) => {
-  const [cartId, setCartId] = useState("");
+  const [currentCart, setCurrentCart] = useState<ICartState>(null);
   const dispatch = useDispatch();
   const cart = useTypedSelector(state => state.cart);
   const loading = useTypedSelector(state => state.loading);
@@ -29,16 +29,16 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   const { isLoading } = loading;
   const { error } = unhandledError;
 
-  const getCartId = (cart: ICartState) => {
-    return String(cart.id);
+  const getCart = (cart: ICartState) => {
+    return cart;
   };
 
   useEffect(() => {
-    async function fetchCartId(cart) {
-      const response = await getCartId(cart);
-      setCartId(response);
+    async function fetchCart(cart) {
+      const response = await getCart(cart);
+      setCurrentCart(response);
     }
-    fetchCartId(cart);
+    fetchCart(cart);
   }, [cart]);
 
   const handleAddToCart = () => {
@@ -53,15 +53,15 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   };
 
   const renderButton = (mirror: IMirror) => {
-    const isProductAtCart = cart.entities.some(
-      item => item.product.id === mirror.id
-    );
+    const isProductAtCart =
+      !isNull(currentCart) &&
+      currentCart.entities.some(item => item.product.id === mirror.id);
 
     return isProductAtCart ? (
-      !isNull(cartId) && (
+      !isNull(currentCart.id) && (
         <Link
           href={{
-            pathname: `/cart/${cartId}`,
+            pathname: `/cart/${currentCart.id}`,
           }}
         >
           <a className={styles.FooterGoAtCart}>В корзине</a>

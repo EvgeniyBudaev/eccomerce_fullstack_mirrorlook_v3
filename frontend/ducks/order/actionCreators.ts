@@ -10,3 +10,8 @@ export const orderShippingSave = (
   type: ActionTypes.ORDER_SHIPPING_ADDRESS_SAVE,
   payload,
 });
+
+export const orderCreate = (payload) => ({
+  type: ActionTypes.ORDER_CREATE,
+  payload,
+});

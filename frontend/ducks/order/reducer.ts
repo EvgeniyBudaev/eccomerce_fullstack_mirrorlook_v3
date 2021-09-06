@@ -3,6 +3,7 @@ import { ActionTypes } from "./actionTypes";
 
 const initialState = {
   shippingAddress: null,
+  order: null,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         shippingAddress: action.payload,
+      };
+    case ActionTypes.ORDER_CREATE:
+      return {
+        ...state,
+        order: action.payload,
       };
     default:
       return state;
