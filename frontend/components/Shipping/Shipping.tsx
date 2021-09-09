@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { isNull } from "lodash";
 import { ActionTypes } from "ducks/order";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";

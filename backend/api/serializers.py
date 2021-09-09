@@ -123,37 +123,52 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShippingAddress
-        fields = '__all__'
+        fields = ('id', 'order', 'address', 'apartment', 'floor', 'entrance',
+                  'intercom', 'postal_code', 'shipping_price', 'comment')
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = '__all__'
+        fields = ('id', 'order', 'product', 'title', 'quantity', 'price',
+                  'image')
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    orderItems = serializers.SerializerMethodField(read_only=True)
-    shippingAddress = serializers.SerializerMethodField(read_only=True)
+    order_items = OrderItemSerializer(read_only=True, many=True)
+    shipping_address = ShippingAddressSerializer(many=False)
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ('id', 'user', 'payment_method', 'tax_price', 'shipping_price',
+                  'total_price', 'is_paid', 'paid_at', 'is_delivered',
+                  'date_created', 'date_updated', 'order_items',
+                  'shipping_address')
 
+    def create(self, validated_data):
+        obj = ShippingAddress.objects.create(**validated_data)
+        obj.save(shipping_address=validated_data['shipping_address'])
+        return obj
 
-    def get_order_items(self, obj):
-        items = obj.orderitem_set.all()
-        serializer = OrderItemSerializer(items, many=True)
-        return serializer.data
+    # def create(self, validated_data):
+    #     # Уберем список адреса доставки из словаря validated_data и сохраним его
+    #     shipping_address = validated_data.pop('shipping_address')
+    #
+    #     # Создадим новый адрес доставки пока без полей, данных нам достаточно
+    #     address = ShippingAddress.objects.create(**validated_data)
+    #
+    #     # Для каждого адреса доставки из списка дрессов доставки
+    #     for shipping in shipping_address:
+    #         # Создадим новую запись или получим существующий экземпляр из БД
+    #         current_shipping, status = ShippingAddress.objects.get_or_create(
+    #             **shipping)
+    #         # Поместим ссылку на каждый адрес доставки во вспомогательную таблицу
+    #         # Не забыв указать к какому адресу доставки оно относится
+    #         ShippingAddress.objects.create(
+    #             shipping=current_shipping, address=address)
+    #     return address
 
-    def get_shipping_address(self, obj):
-        try:
-            address = ShippingAddressSerializer(
-                obj.shippingaddress, many=False).data
-        except:
-            address = False
-        return address
-
-    def get_user(self):
-        return User
+    # def to_representation(self, instance):
+    #     self.fields['shipping_address'] = ShippingAddressSerializer(read_only=True)
+    #     return super(OrderSerializer, self).to_representation(instance)

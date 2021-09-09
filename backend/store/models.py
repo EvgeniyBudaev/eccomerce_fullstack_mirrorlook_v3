@@ -251,7 +251,8 @@ class Order(models.Model):
                                    verbose_name='Дата оплаты')
     is_delivered = models.BooleanField(default=False,
                                        verbose_name='Статус доставки')
-    delivered_at = models.DateTimeField(auto_now_add=True,
+    delivered_at = models.DateTimeField(auto_now_add=False, null=True,
+                                        blank=True,
                                         verbose_name='Дата доставки')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
@@ -271,7 +272,7 @@ class OrderItem(models.Model):
     """Модель заказанного продукта."""
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True,
                               verbose_name='Заказ',
-                              related_name='orderItems')
+                              related_name='order_items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 verbose_name='Продукт')
     title = models.CharField(max_length=200, null=True, blank=True,
@@ -296,7 +297,7 @@ class ShippingAddress(models.Model):
     """Модель доставки."""
     order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True,
                                  blank=True, verbose_name='Заказ',
-                                 related_name='shippingAddresses')
+                                 related_name='shipping_address')
     address = models.CharField(max_length=200, null=True, blank=True,
                                verbose_name='Адрес')
     apartment = models.PositiveIntegerField(verbose_name='Номер квартиры',
