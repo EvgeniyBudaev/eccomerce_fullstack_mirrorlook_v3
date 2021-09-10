@@ -70,7 +70,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
       )
     ) : (
       <Button
-        className={styles.ProductAddToBasket}
+        className={styles.ProductAddToCart}
         disabled={mirror.count_in_stock <= 0}
         onClick={handleAddToCart}
       >
@@ -143,13 +143,6 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
             Картой онлайн/курьеру, наличными
           </div>
           {renderButton(mirror)}
-          {/*<Button*/}
-          {/*  className={styles.ProductAddToBasket}*/}
-          {/*  disabled={mirror.count_in_stock <= 0}*/}
-          {/*  onClick={handleAddToCart}*/}
-          {/*>*/}
-          {/*  Добавить в корзину*/}
-          {/*</Button>*/}
         </div>
       </div>
     </div>
