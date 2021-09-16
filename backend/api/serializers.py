@@ -151,24 +151,14 @@ class OrderSerializer(serializers.ModelSerializer):
         obj.save(shipping_address=validated_data['shipping_address'])
         return obj
 
-    # def create(self, validated_data):
-    #     # Уберем список адреса доставки из словаря validated_data и сохраним его
-    #     shipping_address = validated_data.pop('shipping_address')
-    #
-    #     # Создадим новый адрес доставки пока без полей, данных нам достаточно
-    #     address = ShippingAddress.objects.create(**validated_data)
-    #
-    #     # Для каждого адреса доставки из списка дрессов доставки
-    #     for shipping in shipping_address:
-    #         # Создадим новую запись или получим существующий экземпляр из БД
-    #         current_shipping, status = ShippingAddress.objects.get_or_create(
-    #             **shipping)
-    #         # Поместим ссылку на каждый адрес доставки во вспомогательную таблицу
-    #         # Не забыв указать к какому адресу доставки оно относится
-    #         ShippingAddress.objects.create(
-    #             shipping=current_shipping, address=address)
-    #     return address
+    def create(self, validated_data):
+        address_data = validated_data.pop('shipping_address', {})
+        address, _ = ShippingAddress.objects.get_or_create(**address_data)
+        validated_data['shipping_address'] = address
+        return super(OrderSerializer, self).create(validated_data)
 
-    # def to_representation(self, instance):
-    #     self.fields['shipping_address'] = ShippingAddressSerializer(read_only=True)
-    #     return super(OrderSerializer, self).to_representation(instance)
+    def update(self, instance, validated_data):
+        address_data = validated_data.pop('shipping_address', {})
+        address, _ = ShippingAddress.objects.get_or_create(**address_data)
+        validated_data['shipping_address'] = address
+        return super(OrderSerializer, self).update(instance, validated_data)
