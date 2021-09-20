@@ -1,6 +1,10 @@
 import React from "react";
-import { Shipping } from "components";
+import { Layout, Shipping } from "components";
 
 export default function ShippingPage(): JSX.Element {
-  return <Shipping />;
+  return (
+    <Layout>
+      <Shipping />
+    </Layout>
+  );
 }

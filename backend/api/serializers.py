@@ -125,6 +125,9 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
         model = ShippingAddress
         fields = ('id', 'order', 'address', 'apartment', 'floor', 'entrance',
                   'intercom', 'postal_code', 'shipping_price', 'comment')
+        extra_kwargs = {
+            'order': {'write_only': True},
+        }
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -133,11 +136,14 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ('id', 'order', 'product', 'title', 'quantity', 'price',
                   'image')
+        extra_kwargs = {
+            'order': {'write_only': True},
+        }
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    order_items = OrderItemSerializer(read_only=True, many=True)
-    shipping_address = ShippingAddressSerializer(many=False)
+    order_items = OrderItemSerializer(read_only=False, many=True)
+    shipping_address = ShippingAddressSerializer(read_only=False, many=False)
 
     class Meta:
         model = Order
@@ -147,18 +153,53 @@ class OrderSerializer(serializers.ModelSerializer):
                   'shipping_address')
 
     def create(self, validated_data):
-        obj = ShippingAddress.objects.create(**validated_data)
-        obj.save(shipping_address=validated_data['shipping_address'])
-        return obj
 
-    def create(self, validated_data):
+        items_data = validated_data.pop('order_items', [])
         address_data = validated_data.pop('shipping_address', {})
-        address, _ = ShippingAddress.objects.get_or_create(**address_data)
-        validated_data['shipping_address'] = address
-        return super(OrderSerializer, self).create(validated_data)
+
+        # Создаем детали заказа.
+        items = []
+        for item_data in items_data:
+            item = OrderItem.objects.create(**item_data)
+            items.append(item)
+
+        instance = super(OrderSerializer, self).create(validated_data)
+
+        # Создаем объект адреса доставки и соединяем с новым заказом.
+        address, _ = ShippingAddress.objects.get_or_create(order=instance, ** address_data)
+
+        # Соединяем детали заказа с самим только что созданным заказом.
+        for item in items:
+            item.order = instance
+            item.save()
+
+        return instance
 
     def update(self, instance, validated_data):
+        fields_to_filter = ('product', 'title')
+        fields_to_update = ('quantity', 'price')
+
         address_data = validated_data.pop('shipping_address', {})
-        address, _ = ShippingAddress.objects.get_or_create(**address_data)
-        validated_data['shipping_address'] = address
+        address, _ = ShippingAddress.objects.get_or_create(order=self.instance, **address_data)
+
+        # Тут логика обновления деталей заказа.
+        # Пример кода ниже обновляет кол-во и цену детали заказа (fields_to_update),
+        # если она найдена по связке заказ + продукт + название (поля из fields_to_filter + order).
+        # Если не найдена, то создается новая деталь заказа.
+        items = []
+        for item_data in validated_data.pop('order_items', []):
+            item_kwargs = {f: item_data[f] for f in fields_to_filter if f in item_data}
+            item = OrderItem.objects.filter(order=self.instance, **item_kwargs).first()
+            # Если такой детали заказа нет, то мы ее создаем.
+            if item is None:
+                item = OrderItem.objects.create(order=self.instance, **item_data)
+            # Если есть, то обновляем поля
+            else:
+                fields = set(item_data.keys()).intersection(set(fields_to_update))
+                for f in fields:
+                    setattr(item, f, item_data[f])
+                if fields:
+                    item.save()
+            items.append(item)
+
         return super(OrderSerializer, self).update(instance, validated_data)

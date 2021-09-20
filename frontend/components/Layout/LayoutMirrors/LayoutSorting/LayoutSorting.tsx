@@ -75,8 +75,8 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
               id="LayoutSorting-SelectPrice"
               instanceId="LayoutSorting-SelectPrice"
               value={selectedOption}
-              onChange={handleChange}
               options={options}
+              onChange={handleChange}
             />
           </div>
         </div>

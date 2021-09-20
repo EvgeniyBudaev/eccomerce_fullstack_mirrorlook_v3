@@ -6,6 +6,7 @@ import InputPhone from "../Input/InputPhone";
 import styles from "./FormField.module.scss";
 
 export interface IFormFieldProps {
+  className?: string;
   label?: string;
   name?: string;
   type?: InputType;
@@ -18,6 +19,7 @@ export interface IFormFieldProps {
 }
 
 export const FormField: React.FC<IFormFieldProps> = ({
+  className,
   label,
   name,
   type,
@@ -45,7 +47,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
 
   return (
     <div
-      className={classNames(styles.FormField, {
+      className={classNames(styles.FormField, className, {
         [styles.FormField__active]: isFocused,
       })}
     >
