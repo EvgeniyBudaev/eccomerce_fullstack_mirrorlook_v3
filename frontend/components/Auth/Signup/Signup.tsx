@@ -31,6 +31,9 @@ const schema = yup.object().shape({
     .string()
     .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
     .required("Укажите фамилию"),
+  phone_number: yup
+    .string()
+    .required("Укажите номер телефона"),
   email: yup
     .string()
     .required("Укажите Email")
@@ -137,6 +140,7 @@ export const Signup: React.FC = () => {
               <FormField
                 label="Имя"
                 name="first_name"
+                type="text"
                 register={register}
                 error={errors.first_name && errors.first_name.message}
                 isFocused={isFocused.first_name}
@@ -146,6 +150,7 @@ export const Signup: React.FC = () => {
               <FormField
                 label="Фамилия"
                 name="last_name"
+                type="text"
                 register={register}
                 error={errors.last_name && errors.last_name.message}
                 isFocused={isFocused.last_name}
@@ -165,6 +170,7 @@ export const Signup: React.FC = () => {
               <FormField
                 label="Электронная почта"
                 name="email"
+                type="text"
                 register={register}
                 error={
                   (errors.email && errors.email.message) ||

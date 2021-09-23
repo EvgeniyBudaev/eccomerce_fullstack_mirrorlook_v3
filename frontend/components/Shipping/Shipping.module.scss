@@ -17,11 +17,11 @@
 .FormFieldGroup {
   display: flex;
   justify-content: space-between;
-}
 
-.FormField {
-  max-width: 266px;
-  width: 100%;
+  &Item {
+    max-width: 266px;
+    width: 100%;
+  }
 }
 
 .TextField {}
@@ -37,4 +37,17 @@
 .ErrorResponse__error {
   display: block;
   color: $color-red;
+}
+
+.Map {
+  width: 100%;
+  height: auto;
+}
+
+ymaps[class*="search__suggest"] {
+  // styles for dropdown container
+}
+
+ymaps[class*="suggest-item"] {
+  // styles for dropdown item
 }

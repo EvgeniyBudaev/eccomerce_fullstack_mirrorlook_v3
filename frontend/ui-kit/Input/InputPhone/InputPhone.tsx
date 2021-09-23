@@ -116,7 +116,7 @@ export const InputPhone = forwardRef(
           onPaste={handlePhonePaste}
           {...rest}
         />
-        {error && <div className={styles.ErrorMessage}>{error}</div>}
+        {/*{error && <div className={styles.ErrorMessage}>{error}</div>}*/}
       </>
     );
   }

@@ -55,7 +55,9 @@
     background-color: $color-white;
 
     input:hover,
-    input {
+    input,
+    &textarea,
+    &textarea:hover {
       background-color: $color-white;
     }
   }

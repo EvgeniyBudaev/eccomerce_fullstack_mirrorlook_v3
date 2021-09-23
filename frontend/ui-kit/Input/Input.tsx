@@ -16,6 +16,7 @@ export interface IInputProps
     HTMLInputElement
   > {
   className?: string;
+  id?:string;
   name?: string;
   type?: string;
   error?: string;
@@ -23,7 +24,7 @@ export interface IInputProps
 
 export const Input = forwardRef(
   (
-    { className, name, type, error, ...rest }: IInputProps,
+    { className, id, name, type, error, ...rest }: IInputProps,
     ref: ForwardedRef<HTMLInputElement>
   ): JSX.Element => {
     return (
@@ -32,6 +33,7 @@ export const Input = forwardRef(
           className={classNames(className, styles.Input, {
             [styles.Input__error]: error,
           })}
+          id={id}
           name={name}
           type={type}
           ref={ref}

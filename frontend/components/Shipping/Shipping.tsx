@@ -1,6 +1,24 @@
+import { GetStaticProps } from "next";
+import getConfig from "next/config";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
+
+import * as ym from "react-yandex-maps";
+
+// import {
+//   GeoObject,
+//   GeolocationControl,
+//   FullscreenControl,
+//   YMaps,
+//   Map,
+//   SearchControl,
+//   Placemark,
+//   YMapsApi,
+//   ZoomControl,
+//   PlacemarkGeometry,
+// } from "react-yandex-maps";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,6 +27,9 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import styles from "./Shipping.module.scss";
+
+import { YandexGeocodingService } from "../YMap/scripts/geo/YandexGeocodingService";
+import YMap from "../YMap/YMap";
 
 export interface IShippingForm {
   address: string;
@@ -22,6 +43,8 @@ export interface IShippingForm {
 const schema = yup.object().shape({
   address: yup.string().required("Пожалуйста, укажите адрес"),
 });
+
+const { serverRuntimeConfig } = getConfig();
 
 export const Shipping: React.FC = () => {
   // const order = useTypedSelector(state => state.order);
@@ -51,6 +74,12 @@ export const Shipping: React.FC = () => {
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();
+
+  //const [ymaps, setYmaps] = useState<YMapsApi>(null);
+  const loadSuggest = (ymaps: ym.YMapsApi): void => {
+    console.log("ymaps", ymaps);
+    new ymaps.SuggestView("suggest");
+  };
 
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
@@ -98,8 +127,10 @@ export const Shipping: React.FC = () => {
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.FormFieldGroup}>
           <FormField
+            id="suggest"
             label="Адрес"
             name="address"
+            type="text"
             register={register}
             error={errors.address && errors.address.message}
             isFocused={isFocused.address}
@@ -109,9 +140,10 @@ export const Shipping: React.FC = () => {
         </div>
         <div className={styles.FormFieldGroup}>
           <FormField
-            className={styles.FormField}
+            className={styles.FormFieldGroupItem}
             label="Квартира"
             name="apartment"
+            type="text"
             register={register}
             error={errors.apartment && errors.apartment.message}
             isFocused={isFocused.apartment}
@@ -119,9 +151,10 @@ export const Shipping: React.FC = () => {
             onFocus={handleFocus}
           />
           <FormField
-            className={styles.FormField}
+            className={styles.FormFieldGroupItem}
             label="Этаж"
             name="floor"
+            type="text"
             register={register}
             error={errors.floor && errors.floor.message}
             isFocused={isFocused.floor}
@@ -131,9 +164,10 @@ export const Shipping: React.FC = () => {
         </div>
         <div className={styles.FormFieldGroup}>
           <FormField
-            className={styles.FormField}
+            className={styles.FormFieldGroupItem}
             label="Подъезд"
             name="entrance"
+            type="text"
             register={register}
             error={errors.entrance && errors.entrance.message}
             isFocused={isFocused.entrance}
@@ -141,9 +175,10 @@ export const Shipping: React.FC = () => {
             onFocus={handleFocus}
           />
           <FormField
-            className={styles.FormField}
+            className={styles.FormFieldGroupItem}
             label="Домофон"
-            name="floor"
+            name="intercom"
+            type="text"
             register={register}
             error={errors.intercom && errors.intercom.message}
             isFocused={isFocused.intercom}
@@ -157,6 +192,7 @@ export const Shipping: React.FC = () => {
             label="Комментарий для курьера"
             name="comment"
             register={register}
+            type="textarea"
             error={errors.comment && errors.comment.message}
             isFocused={isFocused.comment}
             onBlur={handleBlur}
@@ -170,16 +206,27 @@ export const Shipping: React.FC = () => {
         >
           Продолжить
         </Button>
-        {/*<label htmlFor="address">Адрес</label>*/}
-        {/*<input*/}
-        {/*  id="address"*/}
-        {/*  type="text"*/}
-        {/*  name="address"*/}
-        {/*  value={address ? address : ""}*/}
-        {/*  onChange={handleAddressChange}*/}
-        {/*/>*/}
-        {/*<button type="submit">Продолжить</button>*/}
       </form>
+
+      <div className={styles.Map}>
+        {/*<YMaps query={{ apikey: process.env.NEXT_PUBLIC_MAP_API_KEY }}>*/}
+        {/*  <Map*/}
+        {/*    defaultState={{*/}
+        {/*      center: [55.75, 37.57],*/}
+        {/*      zoom: 15,*/}
+        {/*    }}*/}
+        {/*    modules={["SuggestView"]}*/}
+        {/*    width="500px"*/}
+        {/*    height="500px"*/}
+        {/*    onLoad={loadSuggest}*/}
+        {/*  />*/}
+        {/*</YMaps>*/}
+
+        <ym.YMaps query={YandexGeocodingService.getDefaultQuery()}>
+          <YMap onLoadSuggest={loadSuggest} />
+        </ym.YMaps>
+
+      </div>
     </section>
   );
 };

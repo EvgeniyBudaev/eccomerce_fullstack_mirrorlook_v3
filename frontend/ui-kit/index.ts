@@ -11,6 +11,7 @@ import SliderNextArrow from "./Slider/SliderNextArrow";
 import SliderPrevArrow from "./Slider/SliderPrevArrow";
 import SliderSimple from "./Slider/SliderSimple";
 import Spinner from "./Spinner";
+import TextArea from "./TextArea";
 
 export type IconType = import("./Icon").IconType;
 export type InputType = import("./Input").InputType;
@@ -29,4 +30,5 @@ export {
   SliderPrevArrow,
   SliderSimple,
   Spinner,
+  TextArea,
 };
