@@ -55,11 +55,14 @@
     background-color: $color-white;
 
     input:hover,
-    input,
-    &textarea,
-    &textarea:hover {
+    input {
       background-color: $color-white;
     }
+  }
+
+  & textarea,
+  & textarea:hover {
+    background-color: $color-white;
   }
 
   .Input__active.Input__error {

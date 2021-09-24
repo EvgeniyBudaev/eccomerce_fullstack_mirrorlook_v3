@@ -26,6 +26,36 @@
 
 .TextField {}
 
+.Controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+
+  &Link {
+    @include text-18-medium;
+    display: flex;
+    align-items: center;
+    color: $color-dark-blue;
+    transition: all 0.15s;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: $color-dark-blue;
+      transition: all 0.15s;
+    }
+  }
+
+  &Link:hover {
+    color: $color-blue;
+
+    svg {
+      fill: $color-blue;
+    }
+  }
+}
+
 .Button {}
 
 .ErrorResponse {
@@ -40,8 +70,11 @@
 }
 
 .Map {
+  position: absolute;
+  opacity: 0;
   width: 100%;
-  height: auto;
+  height: 0;
+  //height: auto;
 }
 
 ymaps[class*="search__suggest"] {

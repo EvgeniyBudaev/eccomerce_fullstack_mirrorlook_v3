@@ -72,6 +72,15 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
+/* 18/Medium */
+@mixin text-18-medium {
+	font-family: $base-font-family;
+	font-size: 18px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 1.25;
+}
+
 /* 22/Bold/Title */
 @mixin text-22-title {
 	font-family: $base-font-family;

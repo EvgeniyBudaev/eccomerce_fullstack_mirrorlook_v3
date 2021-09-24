@@ -1,5 +1,6 @@
 import React, { DOMAttributes } from "react";
 import classNames from "classnames";
+import ArrowBack from "ui-kit/assets/icons/ArrowBack.svg";
 import ArrowDown from "ui-kit/assets/icons/ArrowDown.svg";
 import ArrowLeft from "ui-kit/assets/icons/ArrowLeft.svg";
 import ArrowRight from "ui-kit/assets/icons/ArrowRight.svg";
@@ -17,6 +18,7 @@ import VisibilityOff from "ui-kit/assets/icons/VisibilityOff.svg";
 import styles from "./Icon.module.scss";
 
 export type IconType =
+  | "ArrowBack"
   | "ArrowDown"
   | "ArrowLeft"
   | "ArrowRight"
@@ -33,6 +35,7 @@ export type IconType =
   | "VisibilityOff";
 
 const iconTypes = new Map([
+  ["ArrowBack", <ArrowBack key={Date.now()} />],
   ["ArrowDown", <ArrowDown key={Date.now()} />],
   ["ArrowLeft", <ArrowLeft key={Date.now()} />],
   ["ArrowRight", <ArrowRight key={Date.now()} />],

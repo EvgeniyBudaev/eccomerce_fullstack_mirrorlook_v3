@@ -9,6 +9,7 @@ import {
   GeolocationControl,
   ZoomControl,
 } from "react-yandex-maps";
+import { MapInput } from "./MapInput/MapInput";
 
 export interface IYMapProps {
   ymaps: ym.YMapsApi;
@@ -20,7 +21,13 @@ const YMap: React.FC<IYMapProps> = ({ ymaps, onLoadSuggest }) => {
   console.log("dp.inputValue", dp.inputValue);
 
   const handleLoadSuggest = (ymaps: ym.YMapsApi) => {
-    onLoadSuggest(ymaps);
+    //onLoadSuggest(ymaps);
+    loadSuggest(ymaps);
+  };
+
+  const loadSuggest = (ymaps: ym.YMapsApi): void => {
+    console.log("ymaps", ymaps);
+    new ymaps.SuggestView("suggest");
   };
 
   return (
@@ -47,6 +54,13 @@ const YMap: React.FC<IYMapProps> = ({ ymaps, onLoadSuggest }) => {
           <ZoomControl options={{ float: "left" }} />
         </ym.Map>
       </div>
+      <MapInput
+        id="suggest"
+        inputValue={dp.inputValue}
+        handleInput={dp.handleInput}
+        handleChange={dp.handleVariantChange}
+        items={dp.variants}
+      />
     </div>
   );
 };

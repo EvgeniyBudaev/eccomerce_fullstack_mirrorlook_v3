@@ -1,4 +1,5 @@
 import React, {
+  useState,
   DetailedHTMLProps,
   ForwardedRef,
   HTMLAttributes,
@@ -16,7 +17,7 @@ export interface IInputProps
     HTMLInputElement
   > {
   className?: string;
-  id?:string;
+  id?: string;
   name?: string;
   type?: string;
   error?: string;
