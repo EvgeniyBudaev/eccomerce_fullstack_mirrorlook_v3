@@ -37,7 +37,7 @@
   }
 
   &Price {
-    @include text-16-title;
+    @include roboto-16-bold;
   }
 
   &Delete {
@@ -59,7 +59,7 @@
 
     &Minus,
     &Plus {
-      @include text-16-title;
+      @include roboto-16-bold;
       display: flex;
       align-items: center;
       justify-content: center;

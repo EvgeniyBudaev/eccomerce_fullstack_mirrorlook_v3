@@ -3,7 +3,7 @@
 .Cart {}
 
 .Title {
-  @include text-32-title;
+  @include roboto-32-bold;
   margin-bottom: 30px;
 }
 
@@ -53,14 +53,14 @@
   }
 
   &SubTotalPrice {
-    @include text-12-regular;
+    @include roboto-12-regular;
     color: $color-shade-gray;
     text-align: end;
     text-decoration: line-through;
   }
 
   &PriceWithDiscount {
-    @include text-22-title;
+    @include roboto-22-bold;
     line-height: 1;
   }
 }

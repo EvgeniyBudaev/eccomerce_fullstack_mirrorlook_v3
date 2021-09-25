@@ -4,7 +4,7 @@
   box-shadow: none;
 
   .Header {
-    @include text-14-bold;
+    @include roboto-14-bold;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -2,8 +2,14 @@
 
 .Recipient {}
 
+.Step {
+  @include roboto-12-regular;
+  margin-left: 20px;
+  color: $color-suit-gray;
+}
+
 .Title {
-  @include  text-32-label;
+  @include roboto-32-medium;
   margin-bottom: 16px;
 }
 
@@ -36,12 +42,12 @@
   }
 
   &Title {
-    @include text-18-bold;
+    @include roboto-18-bold;
     margin-bottom: 4px;
   }
 
   &Description {
-    @include text-16-regular;
+    @include roboto-16-regular;
   }
 }
 
@@ -54,7 +60,7 @@
   width: 100%;
 
   &Link {
-    @include text-18-medium;
+    @include roboto-18-medium;
     display: flex;
     align-items: center;
     color: $color-dark-blue;

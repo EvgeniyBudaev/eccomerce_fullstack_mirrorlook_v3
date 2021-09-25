@@ -10,7 +10,7 @@
 }
 
 .FormField_Label {
-  @include text-14-regular;
+  @include roboto-14-regular;
   position: absolute;
   top: 20px;
   left: 12px;
@@ -41,7 +41,7 @@
   background-color: $color-white;
 
   .FormField_Label {
-    @include text-12-regular;
+    @include roboto-12-regular;
     top: -7px;
     padding: 0 5px;
     color: $color-text;
@@ -72,7 +72,7 @@
 }
 
 .ErrorMessage {
-  @include text-12-regular;
+  @include roboto-12-regular;
   display: block;
   padding-top: 5px;
   color: $color-red;

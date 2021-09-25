@@ -8,7 +8,7 @@
 }
 
 .Link {
-  @include text-14-semibold;
+  @include roboto-14-medium;
   text-transform: uppercase;
   color: $color-text;
   transition: all 0.15s;

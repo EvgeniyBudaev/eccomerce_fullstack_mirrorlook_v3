@@ -38,10 +38,10 @@
 .ProductGallery {}
 
 .ProductSpecification {
-  @include text-14-regular;
+  @include roboto-14-regular;
 
   &Title {
-    @include text-14-bold;
+    @include roboto-14-bold;
     margin-bottom: 16px;
   }
 
@@ -89,12 +89,12 @@
 }
 
 .ProductPay {
-  @include text-14-regular;
+  @include roboto-14-regular;
   margin: 8px 0 16px;
 }
 
 .ButtonGoAtCart {
-  @include text-16-regular;
+  @include roboto-16-regular;
   padding: 10px 30px;
   text-align: center;
   height: max-content;

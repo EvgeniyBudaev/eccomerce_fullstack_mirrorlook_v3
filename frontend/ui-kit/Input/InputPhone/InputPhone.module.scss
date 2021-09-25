@@ -26,7 +26,7 @@
 }
 
 .ErrorMessage {
-  @include text-12-regular;
+  @include roboto-12-regular;
   display: block;
   padding-top: 5px;
   color: $color-red;

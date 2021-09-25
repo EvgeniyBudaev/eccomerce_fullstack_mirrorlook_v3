@@ -1,7 +1,7 @@
 @import "styles/index";
 
 .Button {
-  @include text-16-regular;
+  @include roboto-16-regular;
   position: relative;
   padding: 10px 30px;
   height: max-content;

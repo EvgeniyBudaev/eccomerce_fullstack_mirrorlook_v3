@@ -6,7 +6,7 @@
     align-items: baseline;
 
     .Title {
-      @include text-32-title;
+      @include roboto-32-bold;
       margin-bottom: 30px;
     }
 

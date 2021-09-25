@@ -8,7 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, Spinner } from "ui-kit";
-import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { ROUTES } from "constants/routes";
 import styles from "./Recipient.module.scss";
@@ -114,6 +113,7 @@ export const Recipient: React.FC = () => {
 
   return (
     <section className={styles.Recipient}>
+      <div className={styles.Step}>Шаг 2 из 3</div>
       <h2 className={styles.Title}>Получатель</h2>
       <div className={styles.Inner}>
         <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>

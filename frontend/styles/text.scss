@@ -1,7 +1,7 @@
 $base-font-family : 'Roboto', sans-serif;
 
-/* 12/Regular */
-@mixin text-12-regular {
+/* Roboto/12/Regular */
+@mixin roboto-12-regular {
 	font-family: $base-font-family;
 	font-size: 12px;
 	font-weight: 400;
@@ -9,8 +9,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 14/Regular */
-@mixin text-14-regular {
+/* Roboto/14/Regular */
+@mixin roboto-14-regular {
 	font-family: $base-font-family;
 	font-size: 14px;
 	font-weight: 400;
@@ -18,8 +18,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 14/Semibold */
-@mixin text-14-semibold {
+/* Roboto/14/Medium */
+@mixin roboto-14-medium {
 	font-family: $base-font-family;
 	font-size: 14px;
 	font-weight: 500;
@@ -27,8 +27,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 14/Bold */
-@mixin text-14-bold {
+/* Roboto/14/Bold */
+@mixin roboto-14-bold {
 	font-family: $base-font-family;
 	font-size: 14px;
 	font-weight: 700;
@@ -36,17 +36,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 16/Light/Body */
-@mixin text-16-body {
-	font-family: $base-font-family;
-	font-size: 16px;
-	font-weight: 300;
-	font-style: normal;
-	line-height: 1.25;
-}
-
-/* 16/Regular */
-@mixin text-16-regular {
+/* Roboto/16/Regular */
+@mixin roboto-16-regular {
 	font-family: $base-font-family;
 	font-size: 16px;
 	font-weight: 400;
@@ -54,8 +45,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 16/Medium */
-@mixin text-16-medium {
+/* Roboto/16/Medium */
+@mixin roboto-16-medium {
 	font-family: $base-font-family;
 	font-size: 16px;
 	font-weight: 500;
@@ -63,8 +54,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 16/Bold/Title*/
-@mixin text-16-title {
+/* Roboto/16/Bold */
+@mixin roboto-16-bold {
 	font-family: $base-font-family;
 	font-size: 16px;
 	font-weight: 700;
@@ -72,8 +63,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 18/Medium */
-@mixin text-18-medium {
+/* Roboto/18/Medium */
+@mixin roboto-18-medium {
 	font-family: $base-font-family;
 	font-size: 18px;
 	font-weight: 500;
@@ -81,8 +72,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 18/Bold */
-@mixin text-18-bold {
+/* Roboto/18/Bold */
+@mixin roboto-18-bold {
 	font-family: $base-font-family;
 	font-size: 18px;
 	font-weight: 700;
@@ -90,8 +81,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 22/Bold/Title */
-@mixin text-22-title {
+/* Roboto/22/Bold */
+@mixin roboto-22-bold {
 	font-family: $base-font-family;
 	font-size: 22px;
 	font-weight: 700;
@@ -108,17 +99,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 24/Bold/Title */
-@mixin text-24-title {
-	font-family: $base-font-family;
-	font-size: 24px;
-	font-weight: 700;
-	font-style: normal;
-	line-height: 1.25;
-}
-
-/* 32/Medium/Title */
-@mixin text-32-label {
+/* Roboto/32/Medium */
+@mixin roboto-32-medium {
 	font-family: $base-font-family;
 	font-size: 32px;
 	font-weight: 500;
@@ -126,8 +108,8 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
-/* 32/Bold/Title */
-@mixin text-32-title {
+/* Roboto/32/Bold */
+@mixin roboto-32-bold {
 	font-family: $base-font-family;
 	font-size: 32px;
 	font-weight: 700;
