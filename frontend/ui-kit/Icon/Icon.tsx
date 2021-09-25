@@ -1,9 +1,11 @@
 import React, { DOMAttributes } from "react";
 import classNames from "classnames";
+import { newGuid } from "utils/guid";
 import ArrowBack from "ui-kit/assets/icons/ArrowBack.svg";
 import ArrowDown from "ui-kit/assets/icons/ArrowDown.svg";
 import ArrowLeft from "ui-kit/assets/icons/ArrowLeft.svg";
 import ArrowRight from "ui-kit/assets/icons/ArrowRight.svg";
+import Attention from "ui-kit/assets/icons/Attention.svg";
 import Cart from "ui-kit/assets/icons/Cart.svg";
 import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
@@ -22,6 +24,7 @@ export type IconType =
   | "ArrowDown"
   | "ArrowLeft"
   | "ArrowRight"
+  | "Attention"
   | "Cart"
   | "Checkbox"
   | "DisplayGrid"
@@ -35,21 +38,22 @@ export type IconType =
   | "VisibilityOff";
 
 const iconTypes = new Map([
-  ["ArrowBack", <ArrowBack key={Date.now()} />],
-  ["ArrowDown", <ArrowDown key={Date.now()} />],
-  ["ArrowLeft", <ArrowLeft key={Date.now()} />],
-  ["ArrowRight", <ArrowRight key={Date.now()} />],
-  ["Cart", <Cart key={Date.now()} />],
-  ["Checkbox", <Checkbox key={Date.now()} />],
-  ["DisplayGrid", <DisplayGrid key={Date.now()} />],
-  ["DisplayLine", <DisplayLine key={Date.now()} />],
-  ["Enter", <Enter key={Date.now()} />],
-  ["Filter", <Filter key={Date.now()} />],
-  ["LogoShort", <LogoShort key={Date.now()} />],
-  ["Spinner", <Spinner key={Date.now()} />],
-  ["User", <User key={Date.now()} />],
-  ["Visibility", <Visibility key={Date.now()} />],
-  ["VisibilityOff", <VisibilityOff key={Date.now()} />],
+  ["ArrowBack", <ArrowBack key={newGuid()} />],
+  ["ArrowDown", <ArrowDown key={newGuid()} />],
+  ["ArrowLeft", <ArrowLeft key={newGuid()} />],
+  ["ArrowRight", <ArrowRight key={newGuid()} />],
+  ["Attention", <Attention key={newGuid()} />],
+  ["Cart", <Cart key={newGuid()} />],
+  ["Checkbox", <Checkbox key={newGuid()} />],
+  ["DisplayGrid", <DisplayGrid key={newGuid()} />],
+  ["DisplayLine", <DisplayLine key={newGuid()} />],
+  ["Enter", <Enter key={newGuid()} />],
+  ["Filter", <Filter key={newGuid()} />],
+  ["LogoShort", <LogoShort key={newGuid()} />],
+  ["Spinner", <Spinner key={newGuid()} />],
+  ["User", <User key={newGuid()} />],
+  ["Visibility", <Visibility key={newGuid()} />],
+  ["VisibilityOff", <VisibilityOff key={newGuid()} />],
 ]);
 
 export interface IIconProps extends DOMAttributes<HTMLSpanElement> {

@@ -1,37 +1,57 @@
 @import "styles";
 
-.Shipping {
-  width: 100%;
-  height: 100%;
-}
+.Recipient {}
 
 .Title {
   @include  text-32-label;
   margin-bottom: 16px;
 }
 
+.Inner {
+  display: flex;
+  width: 100%;
+}
+
 .Form {
-  max-width: 550px;
+  max-width: 590px;
   width: 100%;
 }
 
 .FormFieldGroup {
-  display: flex;
-  justify-content: space-between;
-
   &Item {
-    max-width: 266px;
-    width: 100%;
   }
 }
 
-.TextField {}
+.Info {
+  display: flex;
+  margin-left: 46px;
+
+  &Icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &Text {
+    margin-left: 12px;
+  }
+
+  &Title {
+    @include text-18-bold;
+    margin-bottom: 4px;
+  }
+
+  &Description {
+    @include text-16-regular;
+  }
+}
 
 .Controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 25px;
+  max-width: 590px;
+  width: 100%;
 
   &Link {
     @include text-18-medium;
@@ -55,33 +75,10 @@
       fill: $color-blue;
     }
   }
+
+  &Text {
+    margin-left: 4px;
+  }
 }
 
 .Button {}
-
-.ErrorResponse {
-  position: absolute;
-  bottom: -35px;
-  display: none;
-}
-
-.ErrorResponse__error {
-  display: block;
-  color: $color-red;
-}
-
-.Map {
-  position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 0;
-  //height: auto;
-}
-
-ymaps[class*="search__suggest"] {
-  // styles for dropdown container
-}
-
-ymaps[class*="suggest-item"] {
-  // styles for dropdown item
-}

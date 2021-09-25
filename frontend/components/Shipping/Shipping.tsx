@@ -15,14 +15,15 @@ import {
   ZoomControl,
   PlacemarkGeometry,
 } from "react-yandex-maps";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, Spinner } from "ui-kit";
+import { ROUTES } from "constants/routes";
 import styles from "./Shipping.module.scss";
 
 export interface IShippingForm {
@@ -80,17 +81,18 @@ export const Shipping: React.FC = () => {
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
     console.log("address", address);
-    // dispatch({
-    //   type: ActionTypes.FETCH_ORDER_SHIPPING_ADDRESS_SAVE,
-    //   payload: {
-    //     address: address,
-    //     apartment: data.apartment,
-    //     floor: data.floor,
-    //     entrance: data.entrance,
-    //     intercom: data.intercom,
-    //     comment: data.comment,
-    //   },
-    // });
+    dispatch({
+      type: ActionTypes.FETCH_ORDER_SHIPPING_ADDRESS_SAVE,
+      payload: {
+        address: data.address,
+        apartment: data.apartment,
+        floor: data.floor,
+        entrance: data.entrance,
+        intercom: data.intercom,
+        comment: data.comment,
+      },
+    });
+    router.push(ROUTES.RECIPIENT);
   };
 
   useEffect(() => {
@@ -112,17 +114,6 @@ export const Shipping: React.FC = () => {
   };
 
   if (isLoading) return <Spinner />;
-
-  // const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   dispatch({
-  //     type: ActionTypes.FETCH_ORDER_SHIPPING_ADDRESS_SAVE,
-  //     payload: {
-  //       address: address,
-  //     },
-  //   });
-  //   router.push("/order");
-  // };
 
   // const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   event.preventDefault();

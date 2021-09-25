@@ -31,9 +31,7 @@ const schema = yup.object().shape({
     .string()
     .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
     .required("Укажите фамилию"),
-  phone_number: yup
-    .string()
-    .required("Укажите номер телефона"),
+  phone_number: yup.string().required("Укажите номер телефона"),
   email: yup
     .string()
     .required("Укажите Email")
