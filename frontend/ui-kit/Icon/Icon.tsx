@@ -6,8 +6,12 @@ import ArrowDown from "ui-kit/assets/icons/ArrowDown.svg";
 import ArrowLeft from "ui-kit/assets/icons/ArrowLeft.svg";
 import ArrowRight from "ui-kit/assets/icons/ArrowRight.svg";
 import Attention from "ui-kit/assets/icons/Attention.svg";
+import Card from "ui-kit/assets/icons/Card.svg";
 import Cart from "ui-kit/assets/icons/Cart.svg";
+import Cash from "ui-kit/assets/icons/Cash.svg";
 import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
+import Close from "ui-kit/assets/icons/Close.svg";
+import Defence from "ui-kit/assets/icons/Defence.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Enter from "ui-kit/assets/icons/Enter.svg";
@@ -27,8 +31,12 @@ export type IconType =
   | "ArrowLeft"
   | "ArrowRight"
   | "Attention"
+  | "Card"
   | "Cart"
+  | "Cash"
   | "Checkbox"
+  | "Close"
+  | "Defence"
   | "DisplayGrid"
   | "DisplayLine"
   | "Enter"
@@ -47,8 +55,12 @@ const iconTypes = new Map([
   ["ArrowLeft", <ArrowLeft key={newGuid()} />],
   ["ArrowRight", <ArrowRight key={newGuid()} />],
   ["Attention", <Attention key={newGuid()} />],
+  ["Card", <Card key={newGuid()} />],
   ["Cart", <Cart key={newGuid()} />],
+  ["Cash", <Cash key={newGuid()} />],
   ["Checkbox", <Checkbox key={newGuid()} />],
+  ["Close", <Close key={newGuid()} />],
+  ["Defence", <Defence key={newGuid()} />],
   ["DisplayGrid", <DisplayGrid key={newGuid()} />],
   ["DisplayLine", <DisplayLine key={newGuid()} />],
   ["Enter", <Enter key={newGuid()} />],

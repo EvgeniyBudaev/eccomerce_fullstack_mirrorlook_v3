@@ -127,7 +127,28 @@
 
 .Payment {
   .Inner {
+    display: flex;
+    align-items: center;
     margin-bottom: 16px;
+  }
+
+  &Info {
+    display: flex;
+    align-items: center;
+  }
+
+  &Icon {
+    margin-right: 8px;
+    width: 32px;
+    height: 24px;
+
+    rect {
+      stroke: $color-text;
+    }
+
+    path {
+      stroke: $color-text;
+    }
   }
 
   &Change {
@@ -143,5 +164,65 @@
 
   &Button {
     width: 100%;
+  }
+}
+
+.Modal {
+  &Title {}
+
+  &Defence {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+
+    &Icon {
+      margin-right: 8px;
+      width: 24px;
+      height: 24px;
+
+      path {
+        fill: $color-text;
+      }
+    }
+  }
+
+  &Content {
+    &Inner {}
+  }
+}
+
+.Controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  max-width: 590px;
+  width: 100%;
+
+  &Link {
+    @include roboto-18-medium;
+    display: flex;
+    align-items: center;
+    color: $color-dark-blue;
+    transition: all 0.15s;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: $color-dark-blue;
+      transition: all 0.15s;
+    }
+  }
+
+  &Link:hover {
+    color: $color-blue;
+
+    svg {
+      fill: $color-blue;
+    }
+  }
+
+  &Text {
+    margin-left: 4px;
   }
 }

@@ -6,6 +6,7 @@ import Input from "./Input";
 import Icon from "./Icon";
 import IconButton from "./Button/IconButton";
 import FormField from "./FormField";
+import Modal from "./Modal";
 import Pagination from "./Pagination";
 import Select from "./Select";
 import SliderNextArrow from "./Slider/SliderNextArrow";
@@ -26,6 +27,7 @@ export {
   Icon,
   IconButton,
   FormField,
+  Modal,
   Pagination,
   Select,
   SliderNextArrow,
