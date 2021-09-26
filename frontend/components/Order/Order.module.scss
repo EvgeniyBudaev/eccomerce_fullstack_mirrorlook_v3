@@ -1,1 +1,147 @@
+@import "styles";
+
 .Order {}
+
+.Title {
+  @include roboto-32-medium;
+  margin-bottom: 16px;
+}
+
+.SubTitle {
+  @include roboto-22-bold;
+  margin-bottom: 16px;
+}
+
+.Inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.BlockLeft {
+  max-width: 740px;
+  width: 100%;
+}
+
+.BlockRight {
+  max-width: 390px;
+  width: 100%;
+}
+
+.Payment,
+.Products,
+.Recipient,
+.Shipping,
+.Total,
+{
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid $color-light-gray;
+  border-radius: 4px;
+}
+
+.Address {
+  display: flex;
+  align-items: center;
+
+  &Icon {
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.Link {
+  @include roboto-14-medium;
+  display: flex;
+  align-items: center;
+  color: $color-dark-blue;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $color-blue;
+  }
+}
+
+.Product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &Info {
+    display: flex;
+    align-items: center;
+  }
+
+  &Title {
+    margin-left: 16px;
+  }
+
+  &Price {
+    text-align: end;
+  }
+}
+
+.Recipient {
+  &Info {
+    display: flex;
+  }
+
+  &InfoIcon {
+    display: flex;
+    align-items: flex-start;
+    margin-right: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &InfoText {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &InfoTitle {
+    margin-bottom: 4px;
+  }
+
+  &InfoSubTitle {
+    @include roboto-12-regular;
+    color: $color-dark-gray;
+  }
+}
+
+.Total {
+  .Inner:first-child {
+    border-bottom: 1px solid $color-light-gray;
+    margin-bottom: 16px;
+  }
+
+  .Inner:last-child {
+    margin-top: 8px;
+  }
+}
+
+.Payment {
+  .Inner {
+    margin-bottom: 16px;
+  }
+
+  &Change {
+    @include roboto-14-medium;
+    color: $color-dark-blue;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-blue;
+    }
+  }
+
+  &Button {
+    width: 100%;
+  }
+}

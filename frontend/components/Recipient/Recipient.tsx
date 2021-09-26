@@ -74,6 +74,7 @@ export const Recipient: React.FC = () => {
 
   const onSubmit = (data: IRecipientForm) => {
     console.log("[DATA]", data);
+    router.push(ROUTES.ORDER);
   };
 
   useEffect(() => {

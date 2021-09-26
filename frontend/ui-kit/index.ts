@@ -7,6 +7,7 @@ import Icon from "./Icon";
 import IconButton from "./Button/IconButton";
 import FormField from "./FormField";
 import Pagination from "./Pagination";
+import Select from "./Select";
 import SliderNextArrow from "./Slider/SliderNextArrow";
 import SliderPrevArrow from "./Slider/SliderPrevArrow";
 import SliderSimple from "./Slider/SliderSimple";
@@ -26,6 +27,7 @@ export {
   IconButton,
   FormField,
   Pagination,
+  Select,
   SliderNextArrow,
   SliderPrevArrow,
   SliderSimple,

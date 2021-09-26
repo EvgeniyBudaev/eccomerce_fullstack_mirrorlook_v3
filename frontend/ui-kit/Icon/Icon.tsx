@@ -12,9 +12,11 @@ import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Enter from "ui-kit/assets/icons/Enter.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
+import House from "ui-kit/assets/icons/House.svg";
 import LogoShort from "ui-kit/assets/icons/LogoShort.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
 import User from "ui-kit/assets/icons/User.svg";
+import User2 from "ui-kit/assets/icons/User2.svg";
 import Visibility from "ui-kit/assets/icons/Visibility.svg";
 import VisibilityOff from "ui-kit/assets/icons/VisibilityOff.svg";
 import styles from "./Icon.module.scss";
@@ -31,9 +33,11 @@ export type IconType =
   | "DisplayLine"
   | "Enter"
   | "Filter"
+  | "House"
   | "LogoShort"
   | "Spinner"
   | "User"
+  | "User2"
   | "Visibility"
   | "VisibilityOff";
 
@@ -49,9 +53,11 @@ const iconTypes = new Map([
   ["DisplayLine", <DisplayLine key={newGuid()} />],
   ["Enter", <Enter key={newGuid()} />],
   ["Filter", <Filter key={newGuid()} />],
+  ["House", <House key={newGuid()} />],
   ["LogoShort", <LogoShort key={newGuid()} />],
   ["Spinner", <Spinner key={newGuid()} />],
   ["User", <User key={newGuid()} />],
+  ["User2", <User2 key={newGuid()} />],
   ["Visibility", <Visibility key={newGuid()} />],
   ["VisibilityOff", <VisibilityOff key={newGuid()} />],
 ]);

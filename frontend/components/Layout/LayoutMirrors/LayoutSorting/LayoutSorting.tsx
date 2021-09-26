@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
 import classNames from "classnames";
-import { IconButton } from "ui-kit";
+import { isNull } from "lodash";
+import { IconButton, Select } from "ui-kit";
 import { LayoutSortingSelectStyles } from "./styles";
 import styles from "./LayoutSorting.module.scss";
 
@@ -28,7 +28,7 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
     { value: "price", label: PRICE_UP },
     { value: "-price", label: PRICE_DOWN },
   ];
-
+  const [isSelectOpened, setIsSelectOpened] = useState(false);
   const [selectedOption, setSelectedOption] = useState<ISorting>({
     value: "price",
     label: PRICE_UP,
@@ -43,8 +43,17 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
   };
 
   const handleChange = (selectedOption: ISorting) => {
+    if (isNull(selectedOption)) return;
     setSelectedOption(selectedOption);
     setIsSubmitting(prevState => !prevState);
+  };
+
+  const handleBlur = () => {
+    setIsSelectOpened(false);
+  };
+
+  const handleFocus = () => {
+    setIsSelectOpened(true);
   };
 
   useEffect(() => {
@@ -70,13 +79,15 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
           <div className={styles.SelectGroupItem}>
             <span className={styles.SelectGroupItemLabel}>Сортировать</span>
             <Select
-              className={styles.LayoutSortingSelectPrice}
-              styles={LayoutSortingSelectStyles}
-              id="LayoutSorting-SelectPrice"
-              instanceId="LayoutSorting-SelectPrice"
-              value={selectedOption}
+              className={classNames(styles.LayoutSortingSelectPrice, {
+                [styles.LayoutSortingSelectPrice__active]: isSelectOpened,
+              })}
               options={options}
+              styles={LayoutSortingSelectStyles}
+              value={selectedOption}
+              onBlur={handleBlur}
               onChange={handleChange}
+              onFocus={handleFocus}
             />
           </div>
         </div>

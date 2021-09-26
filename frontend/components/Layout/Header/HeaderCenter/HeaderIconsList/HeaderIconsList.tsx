@@ -5,6 +5,7 @@ import { Icon } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ICartState } from "ducks/cart";
 import { IAccount } from "api/types/account";
+import { ROUTES } from "constants/routes";
 import styles from "./HeaderIconsList.module.scss";
 
 export const HeaderIconsList: React.FC = () => {
@@ -64,7 +65,7 @@ export const HeaderIconsList: React.FC = () => {
           <div>
             <Link
               href={{
-                pathname: `/cart/${cartId}`,
+                pathname: `${ROUTES.CART}${cartId}`,
               }}
             >
               <a className={styles.IconLink}>

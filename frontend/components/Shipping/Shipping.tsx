@@ -122,6 +122,7 @@ export const Shipping: React.FC = () => {
 
   return (
     <section className={styles.Shipping}>
+      <div className={styles.Step}>Шаг 1 из 3</div>
       <h2 className={styles.Title}>Где Вы хотите получить заказ?</h2>
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.FormFieldGroup}>
