@@ -75,19 +75,3 @@
   display: block;
   color: $color-red;
 }
-
-.Map {
-  position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 0;
-  //height: auto;
-}
-
-ymaps[class*="search__suggest"] {
-  // styles for dropdown container
-}
-
-ymaps[class*="suggest-item"] {
-  // styles for dropdown item
-}

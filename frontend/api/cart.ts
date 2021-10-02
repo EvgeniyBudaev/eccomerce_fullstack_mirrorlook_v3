@@ -3,6 +3,8 @@ import {
   IFetchAddItemToCartRequest,
   IFetchAddItemToCartResponse,
   IFetchCartCreateResponse,
+  IFetchCartItemChangeRequest,
+  IFetchCartItemChangeResponse,
   IFetchCartItemDecrementRequest,
   IFetchCartItemDecrementResponse,
   IFetchCartItemDeleteRequest,
@@ -51,6 +53,25 @@ export const fetchAddItemToCart = async ({
   const body = JSON.stringify({ cart, product, quantity });
   const response = await axios.post<IFetchAddItemToCartResponse>(
     `http://127.0.0.1:8000/api/v1/cart-products/`,
+    body,
+    config
+  );
+
+  return response.data;
+};
+
+export const fetchChangeItemToCart = async ({
+  id,
+  quantity,
+}: IFetchCartItemChangeRequest): Promise<IFetchCartItemChangeResponse> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ quantity });
+  const response = await axios.patch<IFetchCartItemChangeResponse>(
+    `http://127.0.0.1:8000/api/v1/cart-products/${id}/`,
     body,
     config
   );

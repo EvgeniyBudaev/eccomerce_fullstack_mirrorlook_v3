@@ -145,10 +145,6 @@ dmypy.json
 
 .mypy_cache
 
-
-
-
-
 # Logs
 Logs
 npm-debug.log*
@@ -292,7 +288,5 @@ static
 .static
 /.static
 *.static
-yatube/.static
-yatube/static
 **.static
 */.static/*

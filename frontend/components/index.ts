@@ -5,5 +5,16 @@ import Logo from "./Logo";
 import Order from "./Order";
 import Recipient from "./Recipient";
 import Shipping from "./Shipping";
+import YMap from "./YMap";
 
-export { Cart, Home, Layout, LayoutMirrors, Logo, Order, Recipient, Shipping };
+export {
+  Cart,
+  Home,
+  Layout,
+  LayoutMirrors,
+  Logo,
+  Order,
+  Recipient,
+  Shipping,
+  YMap,
+};

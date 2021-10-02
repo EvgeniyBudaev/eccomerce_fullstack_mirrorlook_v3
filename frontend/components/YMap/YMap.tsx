@@ -1,68 +1,36 @@
-import React, { useState, useCallback, useMemo, useEffect } from "react";
-import * as ym from "react-yandex-maps";
-import cn from "classnames";
-import { useDataYMap } from "./useDataYMap";
-import styles from "./YMap.module.scss";
-import { Icon } from "../../ui-kit";
-import {
-  FullscreenControl,
-  GeolocationControl,
-  ZoomControl,
-} from "react-yandex-maps";
-import { MapInput } from "./MapInput/MapInput";
+import React, { useState } from "react";
+import { YMaps } from "react-yandex-maps";
+import Shipping from "../Shipping";
+import { emptyMapSearchState } from "./GeoSearch";
+import { PickMapState } from "./PickMap";
 
 export interface IYMapProps {
-  ymaps: ym.YMapsApi;
-  onLoadSuggest: (ymaps: ym.YMapsApi) => void;
+  onSearchAddress?: (addressYMap: string) => void;
+  children?: React.ReactNode;
 }
 
-const YMap: React.FC<IYMapProps> = ({ ymaps, onLoadSuggest }) => {
-  const dp = useDataYMap(ymaps);
-  console.log("dp.inputValue", dp.inputValue);
-
-  const handleLoadSuggest = (ymaps: ym.YMapsApi) => {
-    //onLoadSuggest(ymaps);
-    loadSuggest(ymaps);
-  };
-
-  const loadSuggest = (ymaps: ym.YMapsApi): void => {
-    console.log("ymaps", ymaps);
-    new ymaps.SuggestView("suggest");
-  };
+export const YMap: React.FC<IYMapProps> = ({ children }) => {
+  const query = "Москва, Россия";
+  const [searchState, setSearchState] = useState({
+    ...emptyMapSearchState(),
+    value: query,
+  });
+  const [mapState, setMapState] = useState<PickMapState>(query);
 
   return (
-    <div>
-      <div>
-        <Icon
-          className={cn(styles.YMapPoint, styles.YMapPointItem)}
-          type="ArrowDown"
-        />
-        <p className={cn(styles.YMapPointText, styles.YMapPointItem)}>
-          {dp.pinValue}
-        </p>
-
-        <ym.Map
-          state={{ center: dp.coords, zoom: 16 }}
-          width="100%"
-          height={400}
-          modules={["SuggestView"]}
-          onLoad={handleLoadSuggest}
-          onActiontick={dp.onMapMove}
-        >
-          <FullscreenControl options={{ float: "left" }} />
-          <GeolocationControl options={{ float: "left" }} />
-          <ZoomControl options={{ float: "left" }} />
-        </ym.Map>
-      </div>
-      <MapInput
-        id="suggest"
-        inputValue={dp.inputValue}
-        handleInput={dp.handleInput}
-        handleChange={dp.handleVariantChange}
-        items={dp.variants}
+    <YMaps
+      query={{
+        apikey: "5a50ba23-ce9a-45cd-be41-849e6f0c3f1e",
+        lang: "ru_RU",
+        mode: "release",
+      }}
+    >
+      <Shipping
+        searchState={searchState}
+        setSearchState={setSearchState}
+        mapState={mapState}
+        setMapState={setMapState}
       />
-    </div>
+    </YMaps>
   );
 };
-
-export default ym.withYMaps(YMap, true, ["suggest", "geocode"]);

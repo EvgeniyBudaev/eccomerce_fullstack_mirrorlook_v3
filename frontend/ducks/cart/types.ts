@@ -32,6 +32,11 @@ export interface IActionCartAddItem {
   payload: IPayloadCartItem;
 }
 
+export interface IActionCartItemChange {
+  type: ActionTypes.CART_ITEM_CHANGE;
+  payload: IPayloadCartItem;
+}
+
 export interface IActionCartItemDecrement {
   type: ActionTypes.CART_ITEM_DECREMENT;
   payload: IPayloadCartItem;
@@ -69,6 +74,16 @@ export interface IFetchCartAddItemPayload {
 
 export interface IFetchCartAddItemProps {
   payload: IFetchCartAddItemPayload;
+  type: string;
+}
+
+export interface IFetchCartItemChangePayload {
+  id: number;
+  quantity: number;
+}
+
+export interface IFetchCartItemChangeProps {
+  payload: IFetchCartItemChangePayload;
   type: string;
 }
 

@@ -13,12 +13,14 @@ import {
   IFetchCartItemDecrementProps,
   IFetchCartItemIncrementProps,
   IFetchCartItemDeleteProps,
+  IFetchCartItemChangeProps, cartItemChange,
 } from "ducks/cart";
 import { setLoading, unsetLoading } from "ducks/loading";
 import { setUnhandledError } from "ducks/unhandledError";
 import {
   IFetchAddItemToCartResponse,
   IFetchCartCreateResponse,
+  IFetchCartItemChangeResponse,
   IFetchCartItemDecrementResponse,
   IFetchCartItemDeleteResponse,
   IFetchCartItemIncrementResponse,
@@ -26,6 +28,7 @@ import {
 import { store } from "ducks/store";
 import * as actionCreators from "./actionCreators";
 import { ActionTypes } from "./actionTypes";
+import {fetchChangeItemToCart} from "api/cart";
 
 function* workerCartCreate({ payload }: IFetchCartCreateProps) {
   yield put(setUnhandledError(null));
@@ -67,6 +70,23 @@ function* workerCartAddItem({ payload }: IFetchCartAddItemProps) {
       payload
     )) as IFetchAddItemToCartResponse;
     yield put(actionCreators.cartAddItem(response));
+    localStorage.setItem("cart", JSON.stringify(store.getState().cart));
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
+function* workerCartItemChange({ payload }: IFetchCartItemChangeProps) {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    const response = (yield call(
+      cartApi.fetchChangeItemToCart,
+      payload
+    )) as IFetchCartItemChangeResponse;
+    yield put(actionCreators.cartItemChange(response));
     localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     yield put(unsetLoading());
   } catch (error) {
@@ -134,6 +154,9 @@ export function* watch(): Generator<
   yield all([takeLatest(ActionTypes.CART_CREATE, workerCartCreate)]);
   yield all([takeLatest(ActionTypes.CART_INIT, workerCartInit)]);
   yield all([takeLatest(ActionTypes.FETCH_CART_ADD_ITEM, workerCartAddItem)]);
+  yield all([
+    takeLatest(ActionTypes.FETCH_CART_ITEM_CHANGE, workerCartItemChange),
+  ]);
   yield all([
     takeLatest(ActionTypes.FETCH_CART_ITEM_INCREMENT, workerCartItemIncrement),
   ]);

@@ -36,8 +36,22 @@ export interface IFetchAddItemToCartResponse {
   quantity: number;
 }
 
+export interface IFetchCartItemChangeRequest {
+  id: number;
+  quantity: number;
+}
+
 export interface IFetchCartItemIncrementRequest {
   id: number;
+  quantity: number;
+}
+
+export interface IFetchCartItemChangeResponse {
+  cart: number;
+  date_created: string;
+  date_updated: string;
+  id: number;
+  product: IConsole | IMirror;
   quantity: number;
 }
 

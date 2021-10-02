@@ -40,12 +40,12 @@ export const Modal = ({
       };
       setStyles(_styles);
       document.body.classList.add("Modal__open");
-      // document.body.style.paddingRight = `${scrollbarWidth}px`;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
     return () => {
       setStyles({});
-      // document.body.style.removeProperty("padding-right");
+      document.body.style.removeProperty("padding-right");
       document.body.classList.remove("Modal__open");
     };
   }, [isOpen]);

@@ -2,18 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-// import * as ym from "react-yandex-maps";
 import {
-  GeoObject,
   GeolocationControl,
   FullscreenControl,
-  YMaps,
-  Map,
-  SearchControl,
-  Placemark,
-  YMapsApi,
   ZoomControl,
-  PlacemarkGeometry,
 } from "react-yandex-maps";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -24,7 +16,16 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, Spinner } from "ui-kit";
 import { ROUTES } from "constants/routes";
+import PickMap from "../YMap/PickMap";
+import GeoSearch from "../YMap/GeoSearch";
 import styles from "./Shipping.module.scss";
+
+export interface IShippingProps {
+  searchState?: any;
+  setSearchState?: any;
+  mapState?: any;
+  setMapState?: any;
+}
 
 export interface IShippingForm {
   address: string;
@@ -39,7 +40,12 @@ const schema = yup.object().shape({
   address: yup.string().required("Пожалуйста, укажите адрес"),
 });
 
-export const Shipping: React.FC = () => {
+export const Shipping: React.FC<IShippingProps> = ({
+  searchState,
+  setSearchState,
+  mapState,
+  setMapState,
+}) => {
   const order = useTypedSelector(state => state.order);
   const cart = useTypedSelector(state => state.cart);
   const { hasMounted } = useMounted();
@@ -69,14 +75,6 @@ export const Shipping: React.FC = () => {
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();
-
-  const loadSuggest = (ymaps: YMapsApi): void => {
-    const suggestView = new ymaps.SuggestView("suggest");
-    suggestView.events.add("select", function (event) {
-      console.log(event.get("item").value);
-      setAddress(event.get("item").value);
-    });
-  };
 
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
@@ -120,12 +118,24 @@ export const Shipping: React.FC = () => {
   //   setAddress(event.target.value);
   // };
 
+  const handleSearchAddress = (addressYMapSearched: string) => {
+    console.log("addressYMapSearched", addressYMapSearched);
+  };
+
   return (
     <section className={styles.Shipping}>
       <div className={styles.Step}>Шаг 1 из 3</div>
       <h2 className={styles.Title}>Где Вы хотите получить заказ?</h2>
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.FormFieldGroup}>
+          <GeoSearch
+            style={{
+              width: 400,
+            }}
+            state={searchState}
+            onStateChange={setSearchState}
+            onSearch={setMapState}
+          />
           <FormField
             id="suggest"
             label="Адрес"
@@ -219,24 +229,42 @@ export const Shipping: React.FC = () => {
           </Button>
         </div>
       </form>
-
       <div className={styles.Map}>
-        <YMaps query={{ apikey: process.env.NEXT_PUBLIC_MAP_API_KEY }}>
-          <Map
-            defaultState={{
-              center: [55.75, 37.57],
-              zoom: 15,
-            }}
-            modules={["SuggestView"]}
-            // width="500px"
-            // height="500px"
-            onLoad={loadSuggest}
-          />
-        </YMaps>
-
-        {/*<ym.YMaps query={YandexGeocodingService.getDefaultQuery()}>*/}
-        {/*  <YMap onLoadSuggest={loadSuggest} />*/}
-        {/*</ym.YMaps>*/}
+        <PickMap
+          defaultState={{
+            zoom: 9,
+            center: [55.725146, 37.64693],
+          }}
+          style={{
+            height: "95vh",
+            marginLeft: 20,
+            flexGrow: 1,
+          }}
+          state={mapState}
+          onStateChange={setMapState}
+          onPick={value => {
+            setSearchState({
+              value,
+              showSuggestions: false,
+              suggestions: [],
+            });
+          }}
+          searchZoom={15}
+          marker={
+            <div
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "red",
+              }}
+            />
+          }
+        >
+          <FullscreenControl options={{ float: "left" }} />
+          <GeolocationControl options={{ float: "left" }} />
+          <ZoomControl options={{ float: "left" }} />
+        </PickMap>
       </div>
     </section>
   );

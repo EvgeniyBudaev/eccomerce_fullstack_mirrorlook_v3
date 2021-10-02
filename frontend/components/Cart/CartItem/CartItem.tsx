@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { ICartItem } from "types/cart";
@@ -15,6 +15,7 @@ interface ICartItemProps {
 }
 
 export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
+  const [quantity, setQuantity] = useState(cartItem.quantity);
   const dispatch = useDispatch();
   const loading = useTypedSelector(state => state.loading);
   const unhandledError = useTypedSelector(state => state.unhandledError);
@@ -51,7 +52,16 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
     });
   };
 
-  const handleChange = () => {};
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(Number(event.target.value));
+    dispatch({
+      type: ActionTypes.FETCH_CART_ITEM_CHANGE,
+      payload: {
+        id: cartItem.id,
+        quantity: Number(event.target.value),
+      },
+    });
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -104,7 +114,7 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
               <input
                 className={styles.ProductCounterCount}
                 type="text"
-                value={cartItem.quantity}
+                value={quantity}
                 onChange={handleChange}
               />
               <button

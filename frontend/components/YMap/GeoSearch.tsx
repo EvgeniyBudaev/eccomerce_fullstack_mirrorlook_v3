@@ -1,0 +1,137 @@
+import React, { useCallback, useEffect, useRef } from "react";
+import { withYMaps } from "react-yandex-maps";
+import { useDebounce } from "use-debounce";
+import { v4 as uuidv4 } from "uuid";
+import { MapInput } from "./MapInput";
+
+export type GeoSearchProps = {
+  state: GeoSearchState;
+  onStateChange: (reducer: (state: GeoSearchState) => GeoSearchState) => void;
+  onSearch?: (query: string) => void;
+  suggestDebounce?: number;
+} & Omit<React.HTMLProps<HTMLInputElement>, "onChange" | "value">;
+
+export type GeoSearchState = {
+  value: string;
+  suggestions: GeoSearchSuggestion[];
+  showSuggestions: boolean;
+};
+
+export type GeoSearchSuggestion = {
+  uuid: string;
+  displayName: string;
+};
+
+export function emptyMapSearchState(): GeoSearchState {
+  return {
+    value: "",
+    suggestions: [],
+    showSuggestions: false,
+  };
+}
+
+export default withYMaps(
+  (props: GeoSearchProps) => {
+    const {
+      state,
+      onStateChange,
+      onSearch,
+      suggestDebounce,
+      style,
+      ...inputProps
+    } = props;
+    const { ymaps } = props as any;
+
+    const debounce = suggestDebounce ?? 1000;
+    const [debouncedValue] = useDebounce(state.value, debounce, {
+      maxWait: debounce,
+    });
+    const prevDebouncedValue = useRef<string | undefined>("");
+    const getSuggestions = useCallback(() => {
+      if (state.showSuggestions) {
+        return state.suggestions;
+      } else {
+        return [];
+      }
+    }, [state]);
+
+    useEffect(() => {
+      const trimmed = debouncedValue.trim();
+      let cancelled = false;
+
+      if (
+        trimmed.length &&
+        trimmed !== prevDebouncedValue.current &&
+        state.showSuggestions
+      ) {
+        prevDebouncedValue.current = trimmed;
+
+        ymaps.suggest(trimmed).then((newSuggestions: any[]) => {
+          if (!cancelled) {
+            onStateChange(state => ({
+              ...state,
+              suggestions: newSuggestions.map(suggestion => ({
+                uuid: uuidv4(),
+                displayName: suggestion.displayName,
+              })),
+            }));
+          }
+        });
+      } else {
+        onStateChange(state => ({
+          ...state,
+          suggestions: [],
+        }));
+      }
+
+      return () => void (cancelled = true);
+    }, [debouncedValue, ymaps, onStateChange, state.showSuggestions]);
+
+    useEffect(() => {
+      console.log("EFFECT", state.value);
+      //onSearchAddress();
+    }, [state.value]);
+
+    return (
+      <div style={style}>
+        <MapInput
+          type="text"
+          value={state.value}
+          style={{
+            width: "100%",
+          }}
+          onChange={event => {
+            const value = event.target.value;
+            onStateChange(state => ({
+              ...state,
+              value,
+              showSuggestions: true,
+            }));
+          }}
+          {...inputProps}
+        />
+        {getSuggestions().map(suggestion => (
+          <p
+            key={suggestion.uuid}
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              onStateChange(() => ({
+                value: suggestion.displayName,
+                showSuggestions: false,
+                suggestions: [],
+              }));
+
+              onSearch?.(suggestion.displayName);
+            }}
+          >
+            {suggestion.displayName}
+          </p>
+        ))}
+      </div>
+    );
+  },
+  true,
+  ["suggest"]
+);
