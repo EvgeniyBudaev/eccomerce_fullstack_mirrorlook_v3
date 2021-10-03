@@ -114,7 +114,7 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
               <input
                 className={styles.ProductCounterCount}
                 type="text"
-                value={quantity}
+                value={cartItem.quantity}
                 onChange={handleChange}
               />
               <button

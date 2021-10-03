@@ -9,26 +9,38 @@ import {
 } from "react-yandex-maps";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { isEmpty } from "lodash";
 import * as yup from "yup";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { Button, Icon, FormField, Spinner } from "ui-kit";
+import { Button, Icon, FormField, FormFieldYMap, Spinner } from "ui-kit";
 import { ROUTES } from "constants/routes";
-import PickMap from "../YMap/PickMap";
-import GeoSearch from "../YMap/GeoSearch";
+import { Marker } from "components";
+import PickMap, { PickMapState } from "../YMap/PickMap";
+import { GeoSearchSuggestion } from "../YMap/GeoSearch";
 import styles from "./Shipping.module.scss";
 
 export interface IShippingProps {
-  searchState?: any;
-  setSearchState?: any;
-  mapState?: any;
-  setMapState?: any;
+  searchState?: {
+    value: string;
+    suggestions: GeoSearchSuggestion[];
+    showSuggestions: boolean;
+  };
+  setSearchState?: React.Dispatch<
+    React.SetStateAction<{
+      value: string;
+      suggestions: GeoSearchSuggestion[];
+      showSuggestions: boolean;
+    }>
+  >;
+  mapState?: PickMapState;
+  setMapState?: React.Dispatch<React.SetStateAction<PickMapState>>;
 }
 
 export interface IShippingForm {
-  address: string;
+  address?: string;
   apartment?: number;
   floor?: number;
   entrance?: number;
@@ -55,7 +67,7 @@ export const Shipping: React.FC<IShippingProps> = ({
     shippingAddress ? shippingAddress : ""
   );
   const [isFocused, setIsFocused] = useState({
-    address: false,
+    address: true,
     apartment: false,
     floor: false,
     entrance: false,
@@ -67,7 +79,7 @@ export const Shipping: React.FC<IShippingProps> = ({
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<IShippingForm>({ resolver: yupResolver(schema) });
+  } = useForm<IShippingForm>();
   const dispatch = useDispatch();
   const router = useRouter();
   const loading = useTypedSelector(state => state.loading);
@@ -78,11 +90,11 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
-    console.log("address", address);
+    console.log("searchState.value", searchState.value);
     dispatch({
       type: ActionTypes.FETCH_ORDER_SHIPPING_ADDRESS_SAVE,
       payload: {
-        address: data.address,
+        address: searchState.value,
         apartment: data.apartment,
         floor: data.floor,
         entrance: data.entrance,
@@ -90,7 +102,7 @@ export const Shipping: React.FC<IShippingProps> = ({
         comment: data.comment,
       },
     });
-    router.push(ROUTES.RECIPIENT);
+    // router.push(ROUTES.RECIPIENT);
   };
 
   useEffect(() => {
@@ -104,7 +116,19 @@ export const Shipping: React.FC<IShippingProps> = ({
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (watchAllFields[event.target.name] !== "") {
+    if (!isEmpty(watchAllFields[event.target.name])) {
+      setIsFocused({ ...isFocused, [event.target.name]: true });
+    } else {
+      setIsFocused({ ...isFocused, [event.target.name]: false });
+    }
+  };
+
+  const handleFocusYMap = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused({ ...isFocused, [event.target.name]: true });
+  };
+
+  const handleBlurYMap = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (!isEmpty(searchState.value)) {
       setIsFocused({ ...isFocused, [event.target.name]: true });
     } else {
       setIsFocused({ ...isFocused, [event.target.name]: false });
@@ -113,60 +137,54 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   if (isLoading) return <Spinner />;
 
-  // const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   event.preventDefault();
-  //   setAddress(event.target.value);
-  // };
-
-  const handleSearchAddress = (addressYMapSearched: string) => {
-    console.log("addressYMapSearched", addressYMapSearched);
-  };
-
   return (
     <section className={styles.Shipping}>
       <div className={styles.Step}>Шаг 1 из 3</div>
       <h2 className={styles.Title}>Где Вы хотите получить заказ?</h2>
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.FormFieldGroup}>
-          <GeoSearch
-            style={{
-              width: 400,
-            }}
-            state={searchState}
+          <FormFieldYMap
+            error={errors.address && errors.address.message}
+            label="Адрес"
+            name="address"
+            searchState={searchState}
+            type="text"
+            isFocused={isFocused.address}
+            onBlur={handleBlurYMap}
+            onFocus={handleFocusYMap}
             onStateChange={setSearchState}
             onSearch={setMapState}
           />
-          <FormField
-            id="suggest"
-            label="Адрес"
-            name="address"
-            type="text"
-            register={register}
-            error={errors.address && errors.address.message}
-            isFocused={isFocused.address}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          />
+          {/*<FormField*/}
+          {/*  label="Адрес"*/}
+          {/*  name="address"*/}
+          {/*  type="text"*/}
+          {/*  register={register}*/}
+          {/*  error={errors.address && errors.address.message}*/}
+          {/*  isFocused={isFocused.address}*/}
+          {/*  onBlur={handleBlur}*/}
+          {/*  onFocus={handleFocus}*/}
+          {/*/>*/}
         </div>
         <div className={styles.FormFieldGroup}>
           <FormField
             className={styles.FormFieldGroupItem}
+            error={errors.apartment && errors.apartment.message}
             label="Квартира"
             name="apartment"
-            type="text"
             register={register}
-            error={errors.apartment && errors.apartment.message}
+            type="text"
             isFocused={isFocused.apartment}
             onBlur={handleBlur}
             onFocus={handleFocus}
           />
           <FormField
             className={styles.FormFieldGroupItem}
+            error={errors.floor && errors.floor.message}
             label="Этаж"
             name="floor"
-            type="text"
             register={register}
-            error={errors.floor && errors.floor.message}
+            type="text"
             isFocused={isFocused.floor}
             onBlur={handleBlur}
             onFocus={handleFocus}
@@ -175,22 +193,22 @@ export const Shipping: React.FC<IShippingProps> = ({
         <div className={styles.FormFieldGroup}>
           <FormField
             className={styles.FormFieldGroupItem}
+            error={errors.entrance && errors.entrance.message}
             label="Подъезд"
             name="entrance"
-            type="text"
             register={register}
-            error={errors.entrance && errors.entrance.message}
+            type="text"
             isFocused={isFocused.entrance}
             onBlur={handleBlur}
             onFocus={handleFocus}
           />
           <FormField
             className={styles.FormFieldGroupItem}
+            error={errors.intercom && errors.intercom.message}
             label="Домофон"
             name="intercom"
-            type="text"
             register={register}
-            error={errors.intercom && errors.intercom.message}
+            type="text"
             isFocused={isFocused.intercom}
             onBlur={handleBlur}
             onFocus={handleFocus}
@@ -199,11 +217,11 @@ export const Shipping: React.FC<IShippingProps> = ({
         <div className={styles.FormFieldGroup}>
           <FormField
             className={styles.TextField}
+            error={errors.comment && errors.comment.message}
             label="Комментарий для курьера"
             name="comment"
             register={register}
             type="textarea"
-            error={errors.comment && errors.comment.message}
             isFocused={isFocused.comment}
             onBlur={handleBlur}
             onFocus={handleFocus}
@@ -236,7 +254,7 @@ export const Shipping: React.FC<IShippingProps> = ({
             center: [55.725146, 37.64693],
           }}
           style={{
-            height: "95vh",
+            height: "85vh",
             marginLeft: 20,
             flexGrow: 1,
           }}
@@ -250,16 +268,7 @@ export const Shipping: React.FC<IShippingProps> = ({
             });
           }}
           searchZoom={15}
-          marker={
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "red",
-              }}
-            />
-          }
+          marker={<Marker onSearch={setMapState} />}
         >
           <FullscreenControl options={{ float: "left" }} />
           <GeolocationControl options={{ float: "left" }} />

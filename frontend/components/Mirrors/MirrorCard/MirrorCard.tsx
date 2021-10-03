@@ -95,9 +95,9 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
           <div className={styles.ProductGallery}>
             <SliderAsNavFor
               images={sliderImages}
-              heightNav="400"
+              heightNav="432"
               heightFor="60"
-              widthNav="400"
+              widthNav="328"
               widthFor="60"
             />
           </div>

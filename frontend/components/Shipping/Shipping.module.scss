@@ -1,6 +1,7 @@
 @import "styles";
 
 .Shipping {
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -74,4 +75,13 @@
 .ErrorResponse__error {
   display: block;
   color: $color-red;
+}
+
+.Map {
+  position: absolute;
+  left: 574px;
+  top: -30px;
+  padding-left: 46px;
+  width: 100%;
+  min-width: 340px;
 }

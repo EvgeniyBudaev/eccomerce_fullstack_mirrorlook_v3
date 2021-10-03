@@ -1,11 +1,28 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { withYMaps } from "react-yandex-maps";
+import classNames from "classnames";
+import { isEmpty } from "lodash";
 import { useDebounce } from "use-debounce";
 import { v4 as uuidv4 } from "uuid";
 import { MapInput } from "./MapInput";
+import styles from "./GeoSearch.module.scss";
 
 export type GeoSearchProps = {
+  className?: string;
+  error?: string;
+  name?: string;
   state: GeoSearchState;
+  isFocused?: boolean;
+  onBlur?: (
+    event:
+      | React.FocusEvent<HTMLInputElement>
+      | React.FocusEvent<HTMLTextAreaElement>
+  ) => void;
+  onFocus?: (
+    event:
+      | React.FocusEvent<HTMLInputElement>
+      | React.FocusEvent<HTMLTextAreaElement>
+  ) => void;
   onStateChange: (reducer: (state: GeoSearchState) => GeoSearchState) => void;
   onSearch?: (query: string) => void;
   suggestDebounce?: number;
@@ -33,8 +50,14 @@ export function emptyMapSearchState(): GeoSearchState {
 export default withYMaps(
   (props: GeoSearchProps) => {
     const {
+      className,
+      error,
+      name,
       state,
+      isFocused,
       onStateChange,
+      onBlur,
+      onFocus,
       onSearch,
       suggestDebounce,
       style,
@@ -87,19 +110,26 @@ export default withYMaps(
       return () => void (cancelled = true);
     }, [debouncedValue, ymaps, onStateChange, state.showSuggestions]);
 
-    useEffect(() => {
-      console.log("EFFECT", state.value);
-      //onSearchAddress();
-    }, [state.value]);
+    // useEffect(() => {
+    //   console.log("EFFECT", state.value);
+    // }, [state.value]);
 
     return (
-      <div style={style}>
+      <div className={classNames(styles.GeoSearch)} style={style}>
         <MapInput
+          className={classNames({
+            [styles.Input__active]: isFocused,
+            [styles.Input__error]: error,
+          })}
+          error={error}
+          name={name}
           type="text"
           value={state.value}
           style={{
             width: "100%",
           }}
+          onBlur={onBlur}
+          onFocus={onFocus}
           onChange={event => {
             const value = event.target.value;
             onStateChange(state => ({
@@ -110,25 +140,31 @@ export default withYMaps(
           }}
           {...inputProps}
         />
-        {getSuggestions().map(suggestion => (
-          <p
-            key={suggestion.uuid}
-            style={{
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              onStateChange(() => ({
-                value: suggestion.displayName,
-                showSuggestions: false,
-                suggestions: [],
-              }));
+        <div
+          className={classNames(styles.DropDown, {
+            [styles.DropDown__active]: !isEmpty(getSuggestions()),
+          })}
+        >
+          {getSuggestions().map(suggestion => (
+            <p
+              key={suggestion.uuid}
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                onStateChange(() => ({
+                  value: suggestion.displayName,
+                  showSuggestions: false,
+                  suggestions: [],
+                }));
 
-              onSearch?.(suggestion.displayName);
-            }}
-          >
-            {suggestion.displayName}
-          </p>
-        ))}
+                onSearch?.(suggestion.displayName);
+              }}
+            >
+              {suggestion.displayName}
+            </p>
+          ))}
+        </div>
       </div>
     );
   },

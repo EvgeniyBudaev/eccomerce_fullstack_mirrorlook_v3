@@ -6,6 +6,7 @@ import Input from "./Input";
 import Icon from "./Icon";
 import IconButton from "./Button/IconButton";
 import FormField from "./FormField";
+import FormFieldYMap from "./FormFieldYMap";
 import Modal from "./Modal";
 import Pagination from "./Pagination";
 import Select from "./Select";
@@ -27,6 +28,7 @@ export {
   Icon,
   IconButton,
   FormField,
+  FormFieldYMap,
   Modal,
   Pagination,
   Select,

@@ -9,7 +9,6 @@ export type FormFieldType = "text" | "password" | "tel" | "textarea";
 
 export interface IFormFieldProps {
   className?: string;
-  id?: string;
   label?: string;
   name?: string;
   type: FormFieldType;
@@ -31,7 +30,6 @@ export interface IFormFieldProps {
 
 export const FormField: React.FC<IFormFieldProps> = ({
   className,
-  id,
   label,
   name,
   type,
@@ -73,7 +71,6 @@ export const FormField: React.FC<IFormFieldProps> = ({
               [styles.Input__active]: isFocused,
               [styles.Input__error]: error,
             })}
-            id={id}
             name={name}
             type={handleType(type)}
             error={error}
