@@ -64,7 +64,7 @@ export const Shipping: React.FC<IShippingProps> = ({
   const { shippingAddress } = hasMounted && order;
   const { id } = hasMounted && cart;
   const [address, setAddress] = useState(
-    shippingAddress ? shippingAddress : ""
+    shippingAddress ? shippingAddress : searchState.value
   );
   const [isFocused, setIsFocused] = useState({
     address: true,
@@ -79,7 +79,7 @@ export const Shipping: React.FC<IShippingProps> = ({
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<IShippingForm>();
+  } = useForm<IShippingForm>({ resolver: yupResolver(schema) });
   const dispatch = useDispatch();
   const router = useRouter();
   const loading = useTypedSelector(state => state.loading);
@@ -87,6 +87,7 @@ export const Shipping: React.FC<IShippingProps> = ({
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();
+  console.log("address", address);
 
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
@@ -102,8 +103,12 @@ export const Shipping: React.FC<IShippingProps> = ({
         comment: data.comment,
       },
     });
-    // router.push(ROUTES.RECIPIENT);
+    router.push(ROUTES.RECIPIENT);
   };
+
+  useEffect(() => {
+    setAddress(searchState.value);
+  }, [searchState.value]);
 
   useEffect(() => {
     return () => {
@@ -144,7 +149,10 @@ export const Shipping: React.FC<IShippingProps> = ({
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.FormFieldGroup}>
           <FormFieldYMap
-            error={errors.address && errors.address.message}
+            error={
+              isEmpty(address) &&
+              "Пожалуйста, выберите адрес на карте или из выпадающего списка"
+            }
             label="Адрес"
             name="address"
             searchState={searchState}
@@ -155,16 +163,6 @@ export const Shipping: React.FC<IShippingProps> = ({
             onStateChange={setSearchState}
             onSearch={setMapState}
           />
-          {/*<FormField*/}
-          {/*  label="Адрес"*/}
-          {/*  name="address"*/}
-          {/*  type="text"*/}
-          {/*  register={register}*/}
-          {/*  error={errors.address && errors.address.message}*/}
-          {/*  isFocused={isFocused.address}*/}
-          {/*  onBlur={handleBlur}*/}
-          {/*  onFocus={handleFocus}*/}
-          {/*/>*/}
         </div>
         <div className={styles.FormFieldGroup}>
           <FormField
@@ -241,6 +239,7 @@ export const Shipping: React.FC<IShippingProps> = ({
           <Button
             className={styles.Button}
             typeButton="submit"
+            isDisabled={isEmpty(address)}
             onClick={() => {}}
           >
             Продолжить
@@ -268,7 +267,7 @@ export const Shipping: React.FC<IShippingProps> = ({
             });
           }}
           searchZoom={15}
-          marker={<Marker onSearch={setMapState} />}
+          marker={<Marker />}
         >
           <FullscreenControl options={{ float: "left" }} />
           <GeolocationControl options={{ float: "left" }} />

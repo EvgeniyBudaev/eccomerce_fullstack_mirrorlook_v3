@@ -115,7 +115,7 @@ export default withYMaps(
     // }, [state.value]);
 
     return (
-      <div className={classNames(styles.GeoSearch)} style={style}>
+      <div className={classNames(styles.GeoSearch, className)} style={style}>
         <MapInput
           className={classNames({
             [styles.Input__active]: isFocused,

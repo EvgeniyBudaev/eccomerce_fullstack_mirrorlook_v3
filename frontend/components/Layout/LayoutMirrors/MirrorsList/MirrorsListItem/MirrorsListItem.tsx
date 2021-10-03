@@ -68,7 +68,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
         </Link>
       )
     ) : (
-      <Button disabled={mirror.count_in_stock <= 0} onClick={handleAddToCart}>
+      <Button isDisabled={mirror.count_in_stock <= 0} onClick={handleAddToCart}>
         В корзину
       </Button>
     );

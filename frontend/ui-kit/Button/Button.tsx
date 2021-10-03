@@ -6,16 +6,16 @@ export type ButtonType = "button" | "submit";
 
 export interface IButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
-  disabled?: boolean;
   typeButton?: ButtonType;
+  isDisabled?: boolean;
   onClick?: (e?: React.MouseEvent) => void;
 }
 
 export const Button: React.FC<IButtonProps> = ({
   className,
   children,
-  disabled = false,
   typeButton = "button",
+  isDisabled = false,
   onClick,
   ...rest
 }) => {
@@ -40,9 +40,9 @@ export const Button: React.FC<IButtonProps> = ({
   return (
     <button
       className={classNames(styles.Button, className, {
-        [styles.Button__disabled]: disabled,
+        [styles.Button__disabled]: isDisabled,
       })}
-      disabled={disabled}
+      disabled={isDisabled}
       ref={buttonRef}
       type={typeButton}
       onClick={handleClick}

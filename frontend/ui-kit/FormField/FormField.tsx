@@ -9,12 +9,12 @@ export type FormFieldType = "text" | "password" | "tel" | "textarea";
 
 export interface IFormFieldProps {
   className?: string;
+  error?: string;
   label?: string;
   name?: string;
   type: FormFieldType;
   register?: (Ref, RegisterOptions?) => { onChange; onBlur; name; ref };
   // error?: FieldError;
-  error?: string;
   isFocused?: boolean;
   onBlur?: (
     event:

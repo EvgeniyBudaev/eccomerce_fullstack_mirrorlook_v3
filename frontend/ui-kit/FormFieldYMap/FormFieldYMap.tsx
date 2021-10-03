@@ -8,16 +8,16 @@ export type FormFieldYMapType = "text";
 
 export interface IFormFieldYMapProps {
   className?: string;
-  label?: string;
-  name?: string;
-  type: FormFieldYMapType;
   error?: string;
+  label?: string;
+  mapState?: PickMapState;
+  name?: string;
   searchState?: {
     value: string;
     suggestions: GeoSearchSuggestion[];
     showSuggestions: boolean;
   };
-  mapState?: PickMapState;
+  type: FormFieldYMapType;
   isFocused?: boolean;
   onBlur?: (
     event:
@@ -41,11 +41,11 @@ export interface IFormFieldYMapProps {
 
 export const FormFieldYMap: React.FC<IFormFieldYMapProps> = ({
   className,
+  error,
   label,
   name,
-  type,
-  error,
   searchState,
+  type,
   isFocused,
   onBlur,
   onFocus,

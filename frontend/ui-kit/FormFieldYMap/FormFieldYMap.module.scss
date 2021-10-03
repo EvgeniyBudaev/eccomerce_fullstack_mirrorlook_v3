@@ -51,6 +51,7 @@
   .Input__active {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.54);
+    border-radius: 4px;
     color: $color-text;
     background-color: $color-white;
 
@@ -67,6 +68,7 @@
 
   .Input__active.Input__error {
     border: 1px solid $color-red;
+    border-radius: 4px;
     background-color: $color-white;
   }
 }
@@ -74,7 +76,9 @@
 .ErrorMessage {
   @include roboto-12-regular;
   display: block;
+  position: relative;
   padding-top: 5px;
   color: $color-red;
+  z-index: 10;
   transition: all 0.3s;
 }
