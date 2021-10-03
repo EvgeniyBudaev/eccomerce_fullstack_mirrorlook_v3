@@ -2,8 +2,14 @@
 
 .Marker {
   position: relative;
+  top: 0;
   width: 48px;
   height: 80px;
+  transition: all 0.3s;
+
+  &__dragging {
+    top: -20px;
+  }
 }
 
 .Header {

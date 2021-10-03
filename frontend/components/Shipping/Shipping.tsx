@@ -48,10 +48,6 @@ export interface IShippingForm {
   comment?: string;
 }
 
-const schema = yup.object().shape({
-  address: yup.string().required("Пожалуйста, укажите адрес"),
-});
-
 export const Shipping: React.FC<IShippingProps> = ({
   searchState,
   setSearchState,
@@ -74,12 +70,13 @@ export const Shipping: React.FC<IShippingProps> = ({
     intercom: false,
     comment: false,
   });
+  const [isDragging, setDragging] = useState(false);
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<IShippingForm>({ resolver: yupResolver(schema) });
+  } = useForm<IShippingForm>();
   const dispatch = useDispatch();
   const router = useRouter();
   const loading = useTypedSelector(state => state.loading);
@@ -87,7 +84,6 @@ export const Shipping: React.FC<IShippingProps> = ({
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();
-  console.log("address", address);
 
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
@@ -108,6 +104,11 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   useEffect(() => {
     setAddress(searchState.value);
+    if (!isEmpty(searchState.value)) {
+      setIsFocused({ ...isFocused, ["address"]: true });
+    } else {
+      setIsFocused({ ...isFocused, ["address"]: false });
+    }
   }, [searchState.value]);
 
   useEffect(() => {
@@ -139,6 +140,10 @@ export const Shipping: React.FC<IShippingProps> = ({
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
+
+  useEffect(() => {
+    console.log("dragging", isDragging);
+  }, [isDragging]);
 
   if (isLoading) return <Spinner />;
 
@@ -266,8 +271,10 @@ export const Shipping: React.FC<IShippingProps> = ({
               suggestions: [],
             });
           }}
+          onDragStart={() => setDragging(true)}
+          onDragEnd={() => setDragging(false)}
           searchZoom={15}
-          marker={<Marker />}
+          marker={<Marker isDragging={isDragging} />}
         >
           <FullscreenControl options={{ float: "left" }} />
           <GeolocationControl options={{ float: "left" }} />

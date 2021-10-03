@@ -3,12 +3,14 @@ import { Map, MapProps, withYMaps } from "react-yandex-maps";
 import { useDebounce } from "use-debounce";
 
 export type PickMapProps = {
-  state: PickMapState;
-  onStateChange: (state: PickMapState) => void;
-  onPick?: (address: string) => void;
   debounce?: number;
-  searchZoom?: number;
   marker?: React.ReactNode;
+  searchZoom?: number;
+  state: PickMapState;
+  onDragEnd?: () => void;
+  onDragStart?: () => void;
+  onPick?: (address: string) => void;
+  onStateChange: (state: PickMapState) => void;
 } & Omit<MapProps, "state">;
 
 export type PickMapState = string | [number, number] | undefined;
@@ -17,17 +19,23 @@ export function emptyPickMapState(): PickMapState {
   return undefined;
 }
 
+const isUserInteractionEvent = (event: any) => {
+  return event?.originalEvent?.action?._tickFiring !== false;
+};
+
 export default withYMaps(
   (props: PickMapProps) => {
     const {
+      children,
+      debounce,
+      marker,
+      searchZoom,
       state,
+      ymaps,
+      onDragEnd,
+      onDragStart,
       onStateChange,
       onPick,
-      debounce,
-      searchZoom,
-      marker,
-      ymaps,
-      children,
       ...mapProps
     } = props;
 
@@ -111,8 +119,17 @@ export default withYMaps(
             (ref as any)?.events.add(
               ["multitouchend", "actionend"],
               (event: any) => {
-                if (event?.originalEvent?.action?._tickFiring !== false) {
+                if (isUserInteractionEvent(event)) {
                   onStateChange((ref as any).getCenter());
+                  onDragEnd?.();
+                }
+              }
+            );
+            (ref as any)?.events.add(
+              ["multitouchbegin", "actionbegin"],
+              (event: any) => {
+                if (isUserInteractionEvent(event)) {
+                  onDragStart?.();
                 }
               }
             );
