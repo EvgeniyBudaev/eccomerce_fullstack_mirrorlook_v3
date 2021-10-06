@@ -8,8 +8,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, Spinner } from "ui-kit";
+import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { ROUTES } from "constants/routes";
+import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Recipient.module.scss";
 
 export interface IRecipientForm {
@@ -74,6 +76,16 @@ export const Recipient: React.FC = () => {
 
   const onSubmit = (data: IRecipientForm) => {
     console.log("[DATA]", data);
+    const phone_number_normalize = normalizePhoneNumber(data.phone_number);
+    dispatch({
+      type: ActionTypes.FETCH_ORDER_RECIPIENT_SAVE,
+      payload: {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phone_number: phone_number_normalize,
+        email: data.email,
+      },
+    });
     router.push(ROUTES.ORDER);
   };
 

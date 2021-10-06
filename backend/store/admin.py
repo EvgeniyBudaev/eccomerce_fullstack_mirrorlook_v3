@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (Catalog, Category, Product, Attribute, ProductAttribute,
-                     CartItem, Cart, Order, OrderItem, ShippingAddress)
+                     CartItem, Cart, Order, OrderItem, ShippingAddress, OrderUser)
 
 
 class CatalogAdmin(admin.ModelAdmin):
@@ -63,11 +63,17 @@ class OderItemInline(admin.TabularInline):
     extra = 1
 
 
+class OrderUserInline(admin.TabularInline):
+    model = OrderUser
+    fk_name = 'order'
+    extra = 1
+
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('pk', 'user', 'date_created', 'date_updated')
     search_fields = ('date_created',)
     list_filter = ('date_created',)
-    inlines = [OderItemInline, ShippingAddressInline]
+    inlines = [OderItemInline, ShippingAddressInline, OrderUserInline]
     empty_value_display = '-пусто-'
 
 

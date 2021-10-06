@@ -8,9 +8,7 @@ import {
   ZoomControl,
 } from "react-yandex-maps";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { isEmpty } from "lodash";
-import * as yup from "yup";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
@@ -87,7 +85,6 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   const onSubmit = (data: IShippingForm) => {
     console.log("data: ", data);
-    console.log("searchState.value", searchState.value);
     dispatch({
       type: ActionTypes.FETCH_ORDER_SHIPPING_ADDRESS_SAVE,
       payload: {
@@ -109,6 +106,7 @@ export const Shipping: React.FC<IShippingProps> = ({
     } else {
       setIsFocused({ ...isFocused, ["address"]: false });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchState.value]);
 
   useEffect(() => {
@@ -140,10 +138,6 @@ export const Shipping: React.FC<IShippingProps> = ({
       setIsFocused({ ...isFocused, [event.target.name]: false });
     }
   };
-
-  useEffect(() => {
-    console.log("dragging", isDragging);
-  }, [isDragging]);
 
   if (isLoading) return <Spinner />;
 

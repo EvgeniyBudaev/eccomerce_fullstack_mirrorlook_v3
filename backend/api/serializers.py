@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from store.models import (Catalog, Category, Attribute, Product,
                           ProductAttribute, CartItem, Cart, Order, OrderItem,
-                          ShippingAddress)
+                          ShippingAddress, OrderUser)
 
 
 User = get_user_model()
@@ -141,18 +141,38 @@ class OrderItemSerializer(serializers.ModelSerializer):
         }
 
 
+class OrderUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderUser
+        fields = ('id', 'order', 'first_name', 'last_name', 'email', 'phone_number',)
+        extra_kwargs = {
+            'order': {'write_only': True},
+        }
+
+
 class OrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(read_only=False, many=True)
     shipping_address = ShippingAddressSerializer(read_only=False, many=False)
+    order_user = OrderUserSerializer(required=False)
 
     class Meta:
         model = Order
         fields = ('id', 'user', 'payment_method', 'tax_price', 'shipping_price',
                   'total_price', 'is_paid', 'paid_at', 'is_delivered',
                   'date_created', 'date_updated', 'order_items',
-                  'shipping_address')
+                  'shipping_address', 'order_user')
 
     def create(self, validated_data):
+
+        order_user_data = validated_data.pop('order_user')
+        order_user = None
+        if order_user_data:
+            order_user = OrderUserSerializer(data=order_user_data)
+            if order_user.is_valid():
+                order_user = order_user.save()
+            else:
+                raise TypeError('Не удалось сохранить `order_user`. Проверьте правильность введённых данных.')
 
         items_data = validated_data.pop('order_items', [])
         address_data = validated_data.pop('shipping_address', {})
@@ -164,6 +184,10 @@ class OrderSerializer(serializers.ModelSerializer):
             items.append(item)
 
         instance = super(OrderSerializer, self).create(validated_data)
+
+        if order_user:
+            order_user.order = instance
+            order_user.save()
 
         # Создаем объект адреса доставки и соединяем с новым заказом.
         address, _ = ShippingAddress.objects.get_or_create(order=instance, ** address_data)
@@ -201,5 +225,14 @@ class OrderSerializer(serializers.ModelSerializer):
                 if fields:
                     item.save()
             items.append(item)
+
+        order_user_data = validated_data.pop('order_user', {})
+        if order_user_data:
+            if getattr(self.instance, 'order_user', None):
+                for name, value in order_user_data.items():
+                    setattr(self.instance.order_user, name, value)
+                self.instance.order_user.save()
+            else:
+                OrderUser.objects.create(order=self.instance, **order_user_data)
 
         return super(OrderSerializer, self).update(instance, validated_data)

@@ -32,7 +32,7 @@ class Catalog(models.Model):
 class Category(models.Model):
     """Модель категории (венецианские зеркала, напольные зеркала, ...)."""
     catalog = models.ForeignKey('store.Catalog', null=True,
-                                verbose_name='Категория',
+                                verbose_name='Каталог',
                                 on_delete=models.CASCADE,
                                 related_name='categories',
                                 help_text='Пожалуйста, выберите  каталог')
@@ -349,3 +349,21 @@ class ShippingAddress(models.Model):
 #
 #     def __str__(self):
 #         return str(self.rating)
+
+
+class OrderUser(models.Model):
+
+    class Meta:
+        verbose_name = 'Данные получателя заказа'
+        verbose_name_plural = 'Данные получателей заказов'
+
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True,
+                                 related_name='order_user', verbose_name='Пользователь')
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    phone_number = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.email
