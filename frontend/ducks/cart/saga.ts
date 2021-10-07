@@ -13,7 +13,7 @@ import {
   IFetchCartItemDecrementProps,
   IFetchCartItemIncrementProps,
   IFetchCartItemDeleteProps,
-  IFetchCartItemChangeProps, cartItemChange,
+  IFetchCartItemChangeProps,
 } from "ducks/cart";
 import { setLoading, unsetLoading } from "ducks/loading";
 import { setUnhandledError } from "ducks/unhandledError";
@@ -28,7 +28,6 @@ import {
 import { store } from "ducks/store";
 import * as actionCreators from "./actionCreators";
 import { ActionTypes } from "./actionTypes";
-import {fetchChangeItemToCart} from "api/cart";
 
 function* workerCartCreate({ payload }: IFetchCartCreateProps) {
   yield put(setUnhandledError(null));

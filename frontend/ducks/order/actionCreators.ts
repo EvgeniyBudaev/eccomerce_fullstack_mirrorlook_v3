@@ -1,9 +1,11 @@
 import {
+  IActionOrderCreate,
   IActionOrderRecipientSave,
   IActionOrderShippingAddressSave,
   IPayloadOrderRecipientSave,
   IPayloadOrderShippingAddressSave,
 } from "ducks/order";
+import { IFetchOrderResponse } from "api/types/order";
 import { ActionTypes } from "./actionTypes";
 
 export const orderShippingSave = (
@@ -20,7 +22,9 @@ export const orderRecipientSave = (
   payload,
 });
 
-export const orderCreate = (payload) => ({
+export const orderCreate = (
+  payload: IFetchOrderResponse
+): IActionOrderCreate => ({
   type: ActionTypes.ORDER_CREATE,
   payload,
 });

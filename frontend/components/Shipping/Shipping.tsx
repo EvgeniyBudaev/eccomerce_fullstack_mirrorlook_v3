@@ -55,10 +55,10 @@ export const Shipping: React.FC<IShippingProps> = ({
   const order = useTypedSelector(state => state.order);
   const cart = useTypedSelector(state => state.cart);
   const { hasMounted } = useMounted();
-  const { shippingAddress } = hasMounted && order;
+  const { shipping_address } = hasMounted && order;
   const { id } = hasMounted && cart;
   const [address, setAddress] = useState(
-    shippingAddress ? shippingAddress : searchState.value
+    shipping_address ? shipping_address : searchState.value
   );
   const [isFocused, setIsFocused] = useState({
     address: true,

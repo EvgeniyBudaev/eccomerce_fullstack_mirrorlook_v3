@@ -1,17 +1,21 @@
 import { Reducer } from "redux";
 import { ActionTypes } from "./actionTypes";
 import {
+  IActionOrderCreate,
   IActionOrderRecipientSave,
   IActionOrderShippingAddressSave,
   IOrderState,
 } from "./types";
 
-type IAction = IActionOrderShippingAddressSave | IActionOrderRecipientSave;
+type IAction =
+  | IActionOrderShippingAddressSave
+  | IActionOrderRecipientSave
+  | IActionOrderCreate;
 
 const initialState = {
   order: null,
-  recipient: null,
-  shippingAddress: null,
+  order_user: null,
+  shipping_address: null,
 };
 
 export const reducer: Reducer<IOrderState> = (
@@ -22,18 +26,18 @@ export const reducer: Reducer<IOrderState> = (
     case ActionTypes.ORDER_SHIPPING_ADDRESS_SAVE:
       return {
         ...state,
-        shippingAddress: action.payload,
+        shipping_address: action.payload,
       };
     case ActionTypes.ORDER_RECIPIENT_SAVE:
       return {
         ...state,
-        recipient: action.payload,
+        order_user: action.payload,
       };
-    // case ActionTypes.ORDER_CREATE:
-    //   return {
-    //     ...state,
-    //     order: action.payload,
-    //   };
+    case ActionTypes.ORDER_CREATE:
+      return {
+        ...state,
+        order: action.payload,
+      };
     default:
       return state;
   }

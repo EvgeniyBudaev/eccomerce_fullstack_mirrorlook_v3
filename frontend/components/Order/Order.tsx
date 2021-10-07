@@ -29,6 +29,7 @@ export const Order: React.FC = () => {
   const { hasMounted } = useMounted();
   const router = useRouter();
   const { isAuthenticated, user } = hasMounted && account;
+  const { order_user, shipping_address } = hasMounted && order;
   const itemsCountTotal =
     hasMounted && cart.entities.reduce((acc, item) => acc + item.quantity, 0);
   const priceSubTotal =
@@ -46,20 +47,29 @@ export const Order: React.FC = () => {
   const priceTotal = Number(
     (priceWithDiscountTotal + shippingPrice).toFixed(2)
   );
+  const orderItems = cart.entities.map(item => ({
+    image: item.product.image,
+    price: item.product.price,
+    product: item.product.id,
+    title: item.product.title,
+    quantity: item.quantity,
+  }));
 
   const handleSubmit = () => {
-    // dispatch({
-    //   type: ActionTypes.FETCH_ORDER_CREATE,
-    //   payload: {
-    //     orderItems: cart.entities,
-    //     shippingAddress: order.shippingAddress,
-    //     paymentMethod: null,
-    //     itemsPrice: priceWithDiscountTotal,
-    //     shippingPrice: shippingPrice,
-    //     taxPrice: 0,
-    //     totalPrice: priceTotal,
-    //   },
-    // });
+    dispatch({
+      type: ActionTypes.FETCH_ORDER_CREATE,
+      payload: {
+        is_delivered: false,
+        is_paid: false,
+        order_items: orderItems,
+        order_user: order_user,
+        payment_method: paymentMethod,
+        shipping_address: shipping_address,
+        shipping_price: shippingPrice,
+        tax_price: 0,
+        total_price: priceTotal,
+      },
+    });
   };
 
   const handleOpenModal = () => {
@@ -98,7 +108,7 @@ export const Order: React.FC = () => {
             <div className={styles.Address}>
               <Icon className={styles.AddressIcon} type="House" />
               <div className={styles.AddressText}>
-                {order.shippingAddress && order.shippingAddress.address}
+                {shipping_address && shipping_address.address}
               </div>
             </div>
           </div>
@@ -166,13 +176,22 @@ export const Order: React.FC = () => {
               <Icon className={styles.RecipientInfoIcon} type="User2" />
               <div className={styles.RecipientInfoText}>
                 <div className={styles.RecipientInfoTitle}>
-                  {user && user.last_name}
+                  {isAuthenticated && user
+                    ? user.last_name
+                    : order_user && order_user.last_name}
                   <> </>
-                  {user && user.first_name}
+                  {isAuthenticated && user
+                    ? user.first_name
+                    : order_user && order_user.first_name}
                 </div>
                 <div className={styles.RecipientInfoSubTitle}>
-                  {user && user.email},<> </>
-                  {user && user.phone_number}
+                  {isAuthenticated && user
+                    ? user.email
+                    : order_user && order_user.email}
+                  <> </>
+                  {isAuthenticated && user
+                    ? user.phone_number
+                    : order_user && order_user.phone_number}
                 </div>
               </div>
             </div>

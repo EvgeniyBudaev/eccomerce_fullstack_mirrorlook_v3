@@ -1,6 +1,7 @@
 import * as actions from "ducks/order/actionCreators";
 import { InferValueTypes } from "types/common";
 import { ActionTypes } from "ducks/order";
+import { IFetchOrderResponse } from "api/types/order";
 
 export type OrderActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
@@ -44,6 +45,11 @@ export interface IActionOrderRecipientSave {
   payload: IPayloadOrderRecipientSave;
 }
 
+export interface IActionOrderCreate {
+  type: ActionTypes.ORDER_CREATE;
+  payload: IFetchOrderResponse;
+}
+
 export interface IFetchOrderRecipientSavePayload {
   email: string;
   first_name: string;
@@ -57,7 +63,32 @@ export interface IFetchOrderRecipientSaveProps {
 }
 
 export interface IOrderState {
-  order: null;
-  recipient: IPayloadOrderRecipientSave;
-  shippingAddress: IFetchOrderShippingAddressSavePayload;
+  order: IFetchOrderResponse;
+  order_user: IPayloadOrderRecipientSave;
+  shipping_address: IFetchOrderShippingAddressSavePayload;
+}
+
+export interface IOrderItem {
+  image: string;
+  price: number;
+  product: number;
+  title: string;
+  quantity: number;
+}
+
+export interface IOrderPayload {
+  is_delivered: boolean;
+  is_paid: boolean;
+  order_items: IOrderItem[];
+  order_user: IPayloadOrderRecipientSave;
+  payment_method: string;
+  shipping_address: IPayloadOrderShippingAddressSave;
+  shipping_price: number;
+  tax_price: number;
+  total_price: number;
+}
+
+export interface IFetchOrderProps {
+  payload: IOrderPayload;
+  type: string;
 }
