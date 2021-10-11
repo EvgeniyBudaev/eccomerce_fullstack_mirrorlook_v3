@@ -75,7 +75,6 @@ export const Recipient: React.FC = () => {
   const watchAllFields = watch();
 
   const onSubmit = (data: IRecipientForm) => {
-    console.log("[DATA]", data);
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     dispatch({
       type: ActionTypes.FETCH_ORDER_RECIPIENT_SAVE,

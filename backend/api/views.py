@@ -1,8 +1,13 @@
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, filters, response
-from rest_framework.decorators import action
+from rest_framework import viewsets, filters, status, response
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+# Отправка сообщений на email
+from django.core import mail
+from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import get_connection
 
 from store.models import (User, Catalog, Product, CartItem, Cart, Order,
                           OrderItem, ShippingAddress)
@@ -88,3 +93,43 @@ class ShippingAddressViewSet(viewsets.ModelViewSet):
     queryset = ShippingAddress.objects.all()
     serializer_class = ShippingAddressSerializer
     permission_classes = (AllowAny,)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def sending_confirm_order(request):
+    data = request.data
+    subject = data["subject"]
+    message = data["message"]
+    customer_email = data["customer_email"]
+    store_email = "budaev.e@gmail.com"
+
+    conn_params = dict(
+        host="smtp.gmail.com",
+        port=465,
+        username="budaev.e@gmail.com",
+        password=""
+    )
+
+    email_params = dict(
+        subject=subject,
+        body=message,
+        from_email=store_email,
+        to=[customer_email]
+    )
+
+    if subject and message and customer_email and store_email:
+        try:
+            with get_connection(**conn_params) as connection:
+                message = mail.EmailMessage(**email_params,
+                                            connection=connection)
+                message.send(fail_silently=False)
+            return Response("Приглашение успешно отправлено!")
+        except BadHeaderError:
+            message = {
+                'detail': 'Обнаружен недопустимый заголовок.'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        message = {
+            'detail': 'Убедитесь, что все поля введены и действительны.'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)

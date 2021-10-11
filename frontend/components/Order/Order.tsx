@@ -8,7 +8,7 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
 import { ROUTES } from "constants/routes";
-import { Button, Icon, Modal } from "ui-kit";
+import { Button, Icon, Modal, Spinner } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
 import styles from "./Order.module.scss";
@@ -25,6 +25,10 @@ export const Order: React.FC = () => {
   const order = useTypedSelector(state => state.order);
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
+  const loading = useTypedSelector(state => state.loading);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { isLoading } = loading;
+  const { error } = unhandledError;
   const dispatch = useDispatch();
   const { hasMounted } = useMounted();
   const router = useRouter();
@@ -68,6 +72,12 @@ export const Order: React.FC = () => {
         shipping_price: shippingPrice,
         tax_price: 0,
         total_price: priceTotal,
+        user: isAuthenticated ? user.id : null,
+      },
+      mail: {
+        customer_email: isAuthenticated ? user.email : order.order_user.email,
+        message: "Тело письма",
+        subject: "Заказ успешно оформлен",
       },
     });
   };
@@ -88,6 +98,8 @@ export const Order: React.FC = () => {
     setPaymentMethod(preliminaryPaymentMethod);
     setIsOpenModal(false);
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <section className={styles.Order}>

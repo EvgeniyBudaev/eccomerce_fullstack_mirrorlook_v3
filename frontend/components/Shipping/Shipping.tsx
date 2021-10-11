@@ -39,10 +39,10 @@ export interface IShippingProps {
 
 export interface IShippingForm {
   address?: string;
-  apartment?: number;
-  floor?: number;
-  entrance?: number;
-  intercom?: number;
+  apartment?: string;
+  floor?: string;
+  entrance?: string;
+  intercom?: string;
   comment?: string;
 }
 
@@ -74,7 +74,16 @@ export const Shipping: React.FC<IShippingProps> = ({
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<IShippingForm>();
+  } = useForm<IShippingForm>({
+    defaultValues: {
+      address: order.shipping_address.address ?? "",
+      apartment: order.shipping_address.apartment ?? "",
+      floor: order.shipping_address.floor ?? "",
+      entrance: order.shipping_address.entrance ?? "",
+      intercom: order.shipping_address.intercom ?? "",
+      comment: order.shipping_address.comment ?? "",
+    },
+  });
   const dispatch = useDispatch();
   const router = useRouter();
   const loading = useTypedSelector(state => state.loading);
@@ -84,7 +93,6 @@ export const Shipping: React.FC<IShippingProps> = ({
   const watchAllFields = watch();
 
   const onSubmit = (data: IShippingForm) => {
-    console.log("data: ", data);
     dispatch({
       type: ActionTypes.FETCH_ORDER_SHIPPING_ADDRESS_SAVE,
       payload: {
@@ -114,6 +122,21 @@ export const Shipping: React.FC<IShippingProps> = ({
       dispatch(setUnhandledClearError());
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    const keys = Object.keys(watchAllFields);
+    keys.forEach(key => handleInitSetFocused(key));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleInitSetFocused = (name: string) => {
+    if (!isEmpty(watchAllFields[name])) {
+      const newState = Object.assign(isFocused, { [name]: true });
+      setIsFocused(prevState => {
+        return { ...prevState, ...newState };
+      });
+    }
+  };
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused({ ...isFocused, [event.target.name]: true });

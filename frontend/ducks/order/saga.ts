@@ -7,8 +7,12 @@ import {
   ForkEffect,
 } from "redux-saga/effects";
 import * as orderApi from "api/order";
-import { IFetchOrderResponse } from "api/types/order";
+import {
+  IFetchOrderResponse,
+  IFetchSendingConfirmOrderResponse,
+} from "api/types/order";
 import { setLoading, unsetLoading } from "ducks/loading";
+import { store } from "ducks/store";
 import { setUnhandledError } from "ducks/unhandledError";
 import * as actionCreators from "./actionCreators";
 import { ActionTypes } from "./actionTypes";
@@ -23,6 +27,7 @@ function* workerShippingSave({ payload }: IFetchOrderShippingAddressSaveProps) {
   yield put(setLoading());
   try {
     yield put(actionCreators.orderShippingSave(payload));
+    localStorage.setItem("shipping", JSON.stringify(store.getState().order));
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -42,7 +47,7 @@ function* workerRecipientSave({ payload }: IFetchOrderRecipientSaveProps) {
   }
 }
 
-function* workerOrderCreateSave({ payload }: IFetchOrderProps) {
+function* workerOrderCreateSave({ payload, mail }: IFetchOrderProps) {
   yield put(setUnhandledError(null));
   yield put(setLoading());
   try {
@@ -50,9 +55,16 @@ function* workerOrderCreateSave({ payload }: IFetchOrderProps) {
       orderApi.fetchOrderCreate,
       payload
     )) as IFetchOrderResponse;
-    console.log("response", response);
+    if (response) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const responseSendingConfirmOrder = (yield call(
+        orderApi.fetchSendingConfirmOrder,
+        mail
+      )) as IFetchSendingConfirmOrderResponse;
+    }
     yield put(actionCreators.orderCreate(response));
-    // localStorage.setItem("order", JSON.stringify(store.getState().order));
+    localStorage.setItem("order", JSON.stringify(store.getState().order));
+    localStorage.setItem("shipping", JSON.stringify(store.getState().order));
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));

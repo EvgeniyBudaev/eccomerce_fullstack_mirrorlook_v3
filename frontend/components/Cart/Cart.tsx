@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { getDeclination } from "utils/declinations";
-import { Button, Icon } from "ui-kit";
+import { Button, Icon, Spinner } from "ui-kit";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
 import { useMounted } from "hooks/useMounted";
 import { CartItem } from "./CartItem/CartItem";
@@ -16,6 +16,10 @@ export const Cart: React.FC = () => {
   const router = useRouter();
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
+  const loading = useTypedSelector(state => state.loading);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { isLoading } = loading;
+  const { error } = unhandledError;
   const { isAuthenticated } = hasMounted && account;
   const cartItemsCountTotal =
     hasMounted && cart.entities.reduce((acc, item) => acc + item.quantity, 0);
@@ -37,6 +41,8 @@ export const Cart: React.FC = () => {
   const handleProceedToCheckout = () => {
     router.push("/shipping");
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <section className={styles.Cart}>

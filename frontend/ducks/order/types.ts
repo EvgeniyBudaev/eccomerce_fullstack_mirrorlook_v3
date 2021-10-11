@@ -1,17 +1,20 @@
 import * as actions from "ducks/order/actionCreators";
 import { InferValueTypes } from "types/common";
 import { ActionTypes } from "ducks/order";
-import { IFetchOrderResponse } from "api/types/order";
+import {
+  IFetchOrderResponse,
+  IFetchSendingConfirmOrderRequest,
+} from "api/types/order";
 
 export type OrderActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 export interface IPayloadOrderShippingAddressSave {
   address: string;
-  apartment?: number;
+  apartment?: string;
   comment?: string;
-  entrance?: number;
-  intercom?: number;
-  floor?: number;
+  entrance?: string;
+  intercom?: string;
+  floor?: string;
 }
 
 export interface IActionOrderShippingAddressSave {
@@ -21,11 +24,11 @@ export interface IActionOrderShippingAddressSave {
 
 export interface IFetchOrderShippingAddressSavePayload {
   address: string;
-  apartment?: number;
+  apartment?: string;
   comment?: string;
-  entrance?: number;
-  intercom?: number;
-  floor?: number;
+  entrance?: string;
+  intercom?: string;
+  floor?: string;
 }
 
 export interface IFetchOrderShippingAddressSaveProps {
@@ -86,9 +89,11 @@ export interface IOrderPayload {
   shipping_price: number;
   tax_price: number;
   total_price: number;
+  user?: string;
 }
 
 export interface IFetchOrderProps {
+  mail: IFetchSendingConfirmOrderRequest;
   payload: IOrderPayload;
   type: string;
 }

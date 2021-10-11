@@ -59,3 +59,13 @@ export interface IFetchOrderResponse {
   total_price: number;
   user: IFetchUserResponse | null;
 }
+
+export interface IFetchSendingConfirmOrderRequest {
+  customer_email: string;
+  message: string;
+  subject: string;
+}
+
+export interface IFetchSendingConfirmOrderResponse {
+  data: string;
+}

@@ -19,7 +19,11 @@ const initialState = {
 };
 
 export const reducer: Reducer<IOrderState> = (
-  state = initialState,
+  state = typeof window !== "undefined"
+    ? localStorage.getItem("shipping")
+      ? JSON.parse(localStorage.getItem("shipping"))
+      : initialState
+    : initialState,
   action: IAction
 ) => {
   switch (action.type) {

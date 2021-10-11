@@ -27,8 +27,7 @@ export const Checkbox: React.FC<ICheckbox> = ({
   children,
   onClick,
 }) => {
-  const handleChange = (event, nameGroup) => {
-    event.stopPropagation();
+  const handleChange = event => {
     onClick(event, nameGroup);
   };
 
@@ -40,8 +39,8 @@ export const Checkbox: React.FC<ICheckbox> = ({
         type="checkbox"
         name={label}
         value={label}
-        checked={checkedBox[label]}
-        onChange={() => handleChange(event, nameGroup)}
+        checked={checkedBox && checkedBox[nameGroup].includes(label)}
+        onChange={handleChange}
       />
       {label && (
         <label className={styles.Label} htmlFor={id}>
