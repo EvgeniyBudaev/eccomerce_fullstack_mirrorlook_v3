@@ -76,12 +76,12 @@ export const Shipping: React.FC<IShippingProps> = ({
     formState: { errors },
   } = useForm<IShippingForm>({
     defaultValues: {
-      address: order.shipping_address.address ?? "",
-      apartment: order.shipping_address.apartment ?? "",
-      floor: order.shipping_address.floor ?? "",
-      entrance: order.shipping_address.entrance ?? "",
-      intercom: order.shipping_address.intercom ?? "",
-      comment: order.shipping_address.comment ?? "",
+      address: order.shipping_address?.address ?? "",
+      apartment: order.shipping_address?.apartment ?? "",
+      floor: order.shipping_address?.floor ?? "",
+      entrance: order.shipping_address?.entrance ?? "",
+      intercom: order.shipping_address?.intercom ?? "",
+      comment: order.shipping_address?.comment ?? "",
     },
   });
   const dispatch = useDispatch();

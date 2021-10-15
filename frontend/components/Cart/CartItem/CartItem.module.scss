@@ -1,29 +1,44 @@
 @import "styles";
 
-.CartItem {}
+.CartItem {
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid $color-light-gray;
+  border-radius: 4px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
 
 .Product {
   display: flex;
-  margin-bottom: 40px;
 
   &Image {}
 
   &Content {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-left: 20px;
-    max-width: 420px;
+    max-width: 100%;
     width: 100%;
   }
 
   &Header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  &Bottom {
+    display: flex;
+    justify-content: flex-end;
   }
 
   &Actions {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
   }
 
@@ -36,7 +51,14 @@
     }
   }
 
-  &Price {
+  &ItemPrice {
+    @include roboto-14-bold;
+    position: relative;
+    top: 8px;
+    text-align: center;
+  }
+
+  &ItemTotalPrice {
     @include roboto-16-bold;
   }
 

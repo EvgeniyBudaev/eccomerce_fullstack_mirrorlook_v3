@@ -3,6 +3,7 @@ import { ActionTypes } from "./actionTypes";
 import {
   IActionCartAddItem,
   IActionCartCreate,
+  IActionCartItemChange,
   IActionCartItemDecrement,
   IActionCartItemDelete,
   IActionCartItemIncrement,
@@ -13,6 +14,7 @@ import {
 type IAction =
   | IActionCartCreate
   | IActionCartAddItem
+  | IActionCartItemChange
   | IActionCartItemDecrement
   | IActionCartItemDelete
   | IActionCartItemIncrement
@@ -84,6 +86,24 @@ export const reducer: Reducer<ICartState> = (
       }
 
     case ActionTypes.CART_ITEM_DECREMENT:
+      if (state.entities.length !== 0) {
+        const existItem = state.entities.find(
+          item => item.product.id === action.payload.product.id
+        );
+        return {
+          ...state,
+          entities: state.entities.map(item =>
+            item.product.id === existItem.product.id ? action.payload : item
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          entities: [...state.entities, action.payload],
+        };
+      }
+
+    case ActionTypes.CART_ITEM_CHANGE:
       if (state.entities.length !== 0) {
         const existItem = state.entities.find(
           item => item.product.id === action.payload.product.id

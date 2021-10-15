@@ -52,8 +52,7 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
     });
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(Number(event.target.value));
+  const handleBlurQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: ActionTypes.FETCH_CART_ITEM_CHANGE,
       payload: {
@@ -61,6 +60,24 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
         quantity: Number(event.target.value),
       },
     });
+  };
+
+  const handleChangeQuantity = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(Number(event.target.value));
+  };
+
+  const handleKeyPressQuantity = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      dispatch({
+        type: ActionTypes.FETCH_CART_ITEM_CHANGE,
+        payload: {
+          id: cartItem.id,
+          quantity: quantity,
+        },
+      });
+    }
   };
 
   if (isLoading) return <Spinner />;
@@ -91,38 +108,48 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
                 <a>{cartItem.product.title}</a>
               </Link>
             </div>
-            <div className={styles.ProductPrice}>
-              {numberWithSpaces(parseInt(cartItem.product.price))} ₽
+            <div className={styles.ProductActions}>
+              <div className={styles.ProductCounter}>
+                <button
+                  className={classNames(styles.ProductCounterMinus, {
+                    [styles.ProductCounter__disabled]: cartItem.quantity <= 1,
+                  })}
+                  onClick={handleDecrementItemToCart}
+                >
+                  -
+                </button>
+                <input
+                  className={styles.ProductCounterCount}
+                  type="text"
+                  value={quantity}
+                  onBlur={handleBlurQuantity}
+                  onChange={handleChangeQuantity}
+                  onKeyPress={handleKeyPressQuantity}
+                />
+                <button
+                  className={classNames(styles.ProductCounterPlus)}
+                  onClick={handleIncrementItemToCart}
+                >
+                  +
+                </button>
+              </div>
+              <div className={styles.ProductItemPrice}>
+                {numberWithSpaces(parseInt(cartItem.product.price))} ₽/шт.
+              </div>
+            </div>
+            <div className={styles.ProductItemTotalPrice}>
+              {numberWithSpaces(
+                cartItem.quantity * parseInt(cartItem.product.price)
+              )}{" "}
+              ₽
             </div>
           </div>
-          <div className={styles.ProductActions}>
+          <div className={styles.ProductBottom}>
             <div
               className={styles.ProductDelete}
               onClick={handleDeleteItemToCart}
             >
               Удалить
-            </div>
-            <div className={styles.ProductCounter}>
-              <button
-                className={classNames(styles.ProductCounterMinus, {
-                  [styles.ProductCounter__disabled]: cartItem.quantity <= 1,
-                })}
-                onClick={handleDecrementItemToCart}
-              >
-                -
-              </button>
-              <input
-                className={styles.ProductCounterCount}
-                type="text"
-                value={cartItem.quantity}
-                onChange={handleChange}
-              />
-              <button
-                className={classNames(styles.ProductCounterPlus)}
-                onClick={handleIncrementItemToCart}
-              >
-                +
-              </button>
             </div>
           </div>
         </div>
