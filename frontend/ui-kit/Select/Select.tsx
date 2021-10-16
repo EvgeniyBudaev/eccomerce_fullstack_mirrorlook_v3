@@ -16,6 +16,8 @@ export interface ISelectOption {
 
 export interface ISelectProps {
   className?: string;
+  id?: string;
+  instanceId?: string;
   options: ISelectOption[];
   styles?: Partial<Styles<ISelectOption, false, GroupTypeBase<ISelectOption>>>;
   value: ISelectOption;
@@ -35,6 +37,8 @@ export interface ISelectProps {
 
 export const Select: React.FC<ISelectProps> = ({
   className,
+  id,
+  instanceId,
   options,
   styles,
   value,
@@ -45,6 +49,8 @@ export const Select: React.FC<ISelectProps> = ({
   return (
     <ReactSelect
       className={classNames(classes.Select, className)}
+      id={id}
+      instanceId={instanceId}
       options={options}
       styles={styles}
       value={value}

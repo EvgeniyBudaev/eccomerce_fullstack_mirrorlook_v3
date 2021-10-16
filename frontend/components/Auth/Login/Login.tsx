@@ -85,6 +85,22 @@ export const Login: React.FC = () => {
     }
   };
 
+  const errorMessage = (
+    errorValidationMessage: string,
+    errorResponseMessage: string
+  ) => {
+    if (errorValidationMessage) {
+      return errorValidationMessage;
+    }
+    if (
+      !errorValidationMessage &&
+      errorResponseMessage ===
+        "No active account found with the given credentials"
+    ) {
+      return "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»";
+    }
+  };
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -107,7 +123,10 @@ export const Login: React.FC = () => {
                 name="email"
                 type="text"
                 register={register}
-                error={errors.email && errors.email.message}
+                error={errorMessage(
+                  errors.email?.message,
+                  error?.response.data?.detail
+                )}
                 isFocused={isFocused.email}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -122,16 +141,10 @@ export const Login: React.FC = () => {
                 name="password"
                 type="password"
                 register={register}
-                error={
-                  (errors.password && errors.password.message) ||
-                  ((!errors.password || !errors.email) &&
-                  error &&
-                  error.response &&
-                  error.response.data.detail ===
-                    "No active account found with the given credentials"
-                    ? "Неверный email или пароль. Для быстрого восстановления пароля нажмите на ссылку «Забыли пароль?»"
-                    : "")
-                }
+                error={errorMessage(
+                  errors.password?.message,
+                  error?.response.data?.detail
+                )}
                 isFocused={isFocused.password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}

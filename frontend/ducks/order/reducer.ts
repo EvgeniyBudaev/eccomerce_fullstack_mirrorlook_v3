@@ -13,17 +13,23 @@ type IAction =
   | IActionOrderCreate;
 
 const initialState = {
-  order: null,
-  order_user: null,
-  shipping_address: null,
+  order:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("order"))
+      : null,
+  order_user:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("order_user"))
+      : null,
+  shipping_address:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("shipping_address"))
+      : null,
+  isOrderConfirmed: false,
 };
 
 export const reducer: Reducer<IOrderState> = (
-  state = typeof window !== "undefined"
-    ? localStorage.getItem("shipping")
-      ? JSON.parse(localStorage.getItem("shipping"))
-      : initialState
-    : initialState,
+  state = initialState,
   action: IAction
 ) => {
   switch (action.type) {
@@ -41,6 +47,7 @@ export const reducer: Reducer<IOrderState> = (
       return {
         ...state,
         order: action.payload,
+        isOrderConfirmed: true,
       };
     default:
       return state;

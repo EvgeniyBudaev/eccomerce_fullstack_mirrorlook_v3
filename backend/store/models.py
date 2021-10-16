@@ -238,12 +238,12 @@ class Order(models.Model):
                              related_name='orders')
     payment_method = models.CharField(max_length=200, null=True, blank=True,
                                       verbose_name='Способ оплаты')
-    tax_price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+    tax_price = models.DecimalField(max_digits=15, decimal_places=2, null=True,
                                     blank=True, verbose_name='Налог')
-    shipping_price = models.DecimalField(max_digits=7, decimal_places=2,
+    shipping_price = models.DecimalField(max_digits=15, decimal_places=2,
                                          null=True, blank=True,
                                          verbose_name='Стоимость доставки')
-    total_price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+    total_price = models.DecimalField(max_digits=15, decimal_places=2, null=True,
                                       blank=True,
                                       verbose_name='Общая сумма заказа')
     is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
@@ -279,7 +279,7 @@ class OrderItem(models.Model):
                              verbose_name='Название товара')
     quantity = models.IntegerField(null=True, blank=True, default=0,
                                    verbose_name='Кол-во')
-    price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+    price = models.DecimalField(max_digits=15, decimal_places=2, null=True,
                                 blank=True, verbose_name='Цена')
     image = models.CharField(max_length=200, null=True, blank=True,
                              verbose_name='Фото')
@@ -358,7 +358,8 @@ class OrderUser(models.Model):
         verbose_name_plural = 'Данные получателей заказов'
 
     order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True,
-                                 related_name='order_user', verbose_name='Пользователь')
+                                 related_name='order_user',
+                                 verbose_name='Пользователь')
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)

@@ -48,17 +48,31 @@
     width: 20px;
     height: 20px;
   }
+
+  &Info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &InfoTitle {
+    margin-bottom: 4px;
+  }
+
+  &InfoSubTitle {
+    @include roboto-12-regular;
+    color: $color-dark-gray;
+  }
 }
 
 .Link {
   @include roboto-14-medium;
   display: flex;
   align-items: center;
-  color: $color-dark-blue;
+  color: $color-beige;
   transition: all 0.15s;
 
   &:hover {
-    color: $color-blue;
+    color: $color-beige-hover;
   }
 }
 
@@ -153,12 +167,12 @@
 
   &Change {
     @include roboto-14-medium;
-    color: $color-dark-blue;
+    color: $color-beige;
     cursor: pointer;
     transition: all 0.15s;
 
     &:hover {
-      color: $color-blue;
+      color: $color-beige-hover;
     }
   }
 
@@ -195,7 +209,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 106px;
   max-width: 590px;
   width: 100%;
 
@@ -203,22 +217,22 @@
     @include roboto-18-medium;
     display: flex;
     align-items: center;
-    color: $color-dark-blue;
+    color: $color-beige;
     transition: all 0.15s;
 
     svg {
       width: 30px;
       height: 30px;
-      fill: $color-dark-blue;
+      fill: $color-beige;
       transition: all 0.15s;
     }
   }
 
   &Link:hover {
-    color: $color-blue;
+    color: $color-beige-hover;
 
     svg {
-      fill: $color-blue;
+      fill: $color-beige-hover;
     }
   }
 

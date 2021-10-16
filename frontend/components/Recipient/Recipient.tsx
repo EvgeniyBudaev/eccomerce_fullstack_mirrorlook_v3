@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { isEmpty } from "lodash";
+import { isEmpty, isNull } from "lodash";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTypedSelector } from "hooks/useTypedSelector";
@@ -52,6 +52,7 @@ export const Recipient: React.FC = () => {
     email: false,
   });
   const account = useTypedSelector(state => state.account);
+  const order = useTypedSelector(state => state.order);
   const {
     register,
     watch,
@@ -59,10 +60,18 @@ export const Recipient: React.FC = () => {
     formState: { errors },
   } = useForm<IRecipientForm>({
     defaultValues: {
-      first_name: account.isAuthenticated ? account.user.first_name : "",
-      last_name: account.isAuthenticated ? account.user.last_name : "",
-      phone_number: account.isAuthenticated ? account.user.phone_number : "",
-      email: account.isAuthenticated ? account.user.email : "",
+      first_name: account.isAuthenticated
+        ? account.user.first_name
+        : order.order_user?.first_name ?? "",
+      last_name: account.isAuthenticated
+        ? account.user.last_name
+        : order.order_user?.last_name ?? "",
+      phone_number: account.isAuthenticated
+        ? account.user.phone_number
+        : order.order_user?.phone_number ?? "",
+      email: account.isAuthenticated
+        ? account.user.email
+        : order.order_user?.email ?? "",
     },
     resolver: yupResolver(schema),
   });
@@ -121,6 +130,22 @@ export const Recipient: React.FC = () => {
     }
   };
 
+  const errorEmailMessage = (errors, error) => {
+    if (!isEmpty(errors) && isNull(error)) {
+      return errors.email.message;
+    }
+    if (!isNull(error) && error.response.data.email) {
+      if (
+        error.response.data.email[0] ===
+        "user account с таким email уже существует."
+      ) {
+        return "Пользователь с таким email уже существует";
+      } else {
+        return error.response.data.email[0];
+      }
+    }
+  };
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -129,79 +154,74 @@ export const Recipient: React.FC = () => {
       <h2 className={styles.Title}>Получатель</h2>
       <div className={styles.Inner}>
         <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.FormFieldGroup}>
-            <FormField
-              className={styles.FormFieldGroupItem}
-              label="Имя"
-              name="first_name"
-              type="text"
-              register={register}
-              error={errors.first_name && errors.first_name.message}
-              isFocused={isFocused.first_name}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-            />
-            <FormField
-              className={styles.FormFieldGroupItem}
-              label="Фамилия"
-              name="last_name"
-              type="text"
-              register={register}
-              error={errors.last_name && errors.last_name.message}
-              isFocused={isFocused.last_name}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-            />
-            <FormField
-              className={styles.FormFieldGroupItem}
-              label="Мобильный телефон"
-              name="phone_number"
-              type="tel"
-              register={register}
-              error={errors.phone_number && errors.phone_number.message}
-              isFocused={isFocused.phone_number}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-            />
-            <FormField
-              className={styles.FormFieldGroupItem}
-              label="Электронная почта"
-              name="email"
-              type="text"
-              register={register}
-              error={
-                (errors.email && errors.email.message) ||
-                (!errors.email &&
-                  error &&
-                  error.response.data.email &&
-                  error.response.data.email[0] ===
-                    "user account с таким email уже существует.")
-                  ? "Пользователь с таким email уже существует"
-                  : ""
-              }
-              isFocused={isFocused.email}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-            />
+          <div className={styles.FormContent}>
+            <div className={styles.FormFieldGroup}>
+              <FormField
+                className={styles.FormFieldGroupItem}
+                label="Имя"
+                name="first_name"
+                type="text"
+                register={register}
+                error={errors.first_name && errors.first_name.message}
+                isFocused={isFocused.first_name}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <FormField
+                className={styles.FormFieldGroupItem}
+                label="Фамилия"
+                name="last_name"
+                type="text"
+                register={register}
+                error={errors.last_name && errors.last_name.message}
+                isFocused={isFocused.last_name}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <FormField
+                className={styles.FormFieldGroupItem}
+                label="Мобильный телефон"
+                name="phone_number"
+                type="tel"
+                register={register}
+                error={errors.phone_number && errors.phone_number.message}
+                isFocused={isFocused.phone_number}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              />
+              <FormField
+                className={styles.FormFieldGroupItem}
+                label="Электронная почта"
+                name="email"
+                type="text"
+                register={register}
+                error={errorEmailMessage(errors, error)}
+                isFocused={isFocused.email}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+            </div>
           </div>
-          <div className={styles.Controls}>
-            <Link
-              href={{
-                pathname: ROUTES.SHIPPING,
-              }}
-            >
-              <a className={styles.ControlsLink}>
-                <Icon type="ArrowBack" />
-                <div className={styles.ControlsText}>Назад</div>
-              </a>
-            </Link>
-            <Button
-              className={styles.Button}
-              typeButton="submit"
-              onClick={() => {}}
-            >
-              Продолжить
-            </Button>
+          <div className={styles.FormFooter}>
+            <div className={styles.Controls}>
+              <Link
+                href={{
+                  pathname: ROUTES.SHIPPING,
+                }}
+              >
+                <a className={styles.ControlsLink}>
+                  <Icon type="ArrowBack" />
+                  <div className={styles.ControlsText}>Назад</div>
+                </a>
+              </Link>
+              <Button
+                className={styles.Button}
+                typeButton="submit"
+                onClick={() => {}}
+              >
+                Продолжить
+              </Button>
+            </div>
           </div>
         </form>
         <div className={styles.Info}>

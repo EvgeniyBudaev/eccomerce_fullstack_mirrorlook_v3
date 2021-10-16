@@ -77,10 +77,10 @@ export const Shipping: React.FC<IShippingProps> = ({
   } = useForm<IShippingForm>({
     defaultValues: {
       address: order.shipping_address?.address ?? "",
-      apartment: order.shipping_address?.apartment ?? "",
-      floor: order.shipping_address?.floor ?? "",
-      entrance: order.shipping_address?.entrance ?? "",
-      intercom: order.shipping_address?.intercom ?? "",
+      apartment: order.shipping_address?.apartment ?? null,
+      floor: order.shipping_address?.floor ?? null,
+      entrance: order.shipping_address?.entrance ?? null,
+      intercom: order.shipping_address?.intercom ?? null,
       comment: order.shipping_address?.comment ?? "",
     },
   });
@@ -169,103 +169,107 @@ export const Shipping: React.FC<IShippingProps> = ({
       <div className={styles.Step}>Шаг 1 из 3</div>
       <h2 className={styles.Title}>Где Вы хотите получить заказ?</h2>
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.FormFieldGroup}>
-          <FormFieldYMap
-            error={
-              isEmpty(address) &&
-              "Пожалуйста, выберите адрес на карте или из выпадающего списка"
-            }
-            label="Адрес"
-            name="address"
-            searchState={searchState}
-            type="text"
-            isFocused={isFocused.address}
-            onBlur={handleBlurYMap}
-            onFocus={handleFocusYMap}
-            onStateChange={setSearchState}
-            onSearch={setMapState}
-          />
+        <div className={styles.FormContent}>
+          <div className={styles.FormFieldGroup}>
+            <FormFieldYMap
+              error={
+                isEmpty(address) &&
+                "Пожалуйста, выберите адрес на карте или из выпадающего списка"
+              }
+              label="Адрес"
+              name="address"
+              searchState={searchState}
+              type="text"
+              isFocused={isFocused.address}
+              onBlur={handleBlurYMap}
+              onFocus={handleFocusYMap}
+              onStateChange={setSearchState}
+              onSearch={setMapState}
+            />
+          </div>
+          <div className={styles.FormFieldGroup}>
+            <FormField
+              className={styles.FormFieldGroupItem}
+              error={errors.apartment && errors.apartment.message}
+              label="Квартира"
+              name="apartment"
+              register={register}
+              type="text"
+              isFocused={isFocused.apartment}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+            <FormField
+              className={styles.FormFieldGroupItem}
+              error={errors.floor && errors.floor.message}
+              label="Этаж"
+              name="floor"
+              register={register}
+              type="text"
+              isFocused={isFocused.floor}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+          </div>
+          <div className={styles.FormFieldGroup}>
+            <FormField
+              className={styles.FormFieldGroupItem}
+              error={errors.entrance && errors.entrance.message}
+              label="Подъезд"
+              name="entrance"
+              register={register}
+              type="text"
+              isFocused={isFocused.entrance}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+            <FormField
+              className={styles.FormFieldGroupItem}
+              error={errors.intercom && errors.intercom.message}
+              label="Домофон"
+              name="intercom"
+              register={register}
+              type="text"
+              isFocused={isFocused.intercom}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+          </div>
+          <div className={styles.FormFieldGroup}>
+            <FormField
+              className={styles.TextField}
+              error={errors.comment && errors.comment.message}
+              label="Комментарий для курьера"
+              name="comment"
+              register={register}
+              type="textarea"
+              isFocused={isFocused.comment}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+            />
+          </div>
         </div>
-        <div className={styles.FormFieldGroup}>
-          <FormField
-            className={styles.FormFieldGroupItem}
-            error={errors.apartment && errors.apartment.message}
-            label="Квартира"
-            name="apartment"
-            register={register}
-            type="text"
-            isFocused={isFocused.apartment}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          />
-          <FormField
-            className={styles.FormFieldGroupItem}
-            error={errors.floor && errors.floor.message}
-            label="Этаж"
-            name="floor"
-            register={register}
-            type="text"
-            isFocused={isFocused.floor}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          />
-        </div>
-        <div className={styles.FormFieldGroup}>
-          <FormField
-            className={styles.FormFieldGroupItem}
-            error={errors.entrance && errors.entrance.message}
-            label="Подъезд"
-            name="entrance"
-            register={register}
-            type="text"
-            isFocused={isFocused.entrance}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          />
-          <FormField
-            className={styles.FormFieldGroupItem}
-            error={errors.intercom && errors.intercom.message}
-            label="Домофон"
-            name="intercom"
-            register={register}
-            type="text"
-            isFocused={isFocused.intercom}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          />
-        </div>
-        <div className={styles.FormFieldGroup}>
-          <FormField
-            className={styles.TextField}
-            error={errors.comment && errors.comment.message}
-            label="Комментарий для курьера"
-            name="comment"
-            register={register}
-            type="textarea"
-            isFocused={isFocused.comment}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-          />
-        </div>
-        <div className={styles.Controls}>
-          <Link
-            href={{
-              pathname: `/cart/${id}`,
-            }}
-          >
-            <a className={styles.ControlsLink}>
-              <Icon type="ArrowBack" />
-              <div className={styles.ControlsText}>В корзину</div>
-            </a>
-          </Link>
-          <Button
-            className={styles.Button}
-            typeButton="submit"
-            isDisabled={isEmpty(address)}
-            onClick={() => {}}
-          >
-            Продолжить
-          </Button>
+        <div className={styles.FormFooter}>
+          <div className={styles.Controls}>
+            <Link
+              href={{
+                pathname: `/cart/${id}`,
+              }}
+            >
+              <a className={styles.ControlsLink}>
+                <Icon type="ArrowBack" />
+                <div className={styles.ControlsText}>В корзину</div>
+              </a>
+            </Link>
+            <Button
+              className={styles.Button}
+              typeButton="submit"
+              isDisabled={isEmpty(address)}
+              onClick={() => {}}
+            >
+              Продолжить
+            </Button>
+          </div>
         </div>
       </form>
       <div className={styles.Map}>

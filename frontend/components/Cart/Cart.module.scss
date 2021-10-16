@@ -1,6 +1,8 @@
 @import "styles";
 
-.Cart {}
+.Cart {
+  margin-top: 60px;
+}
 
 .Title {
   @include roboto-32-bold;

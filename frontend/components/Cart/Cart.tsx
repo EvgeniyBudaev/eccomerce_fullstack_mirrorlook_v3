@@ -69,7 +69,8 @@ export const Cart: React.FC = () => {
                 </div>
                 <div className={styles.CostLinePrice}>
                   <div className={styles.CostLineSubTotalPrice}>
-                    {numberWithSpaces(parseInt(priceSubTotal.toString()))}
+                    {isAuthenticated &&
+                      numberWithSpaces(parseInt(priceSubTotal.toString()))}
                   </div>
                   <div className={styles.CostLinePriceWithDiscount}>
                     {numberWithSpaces(

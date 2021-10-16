@@ -19,6 +19,7 @@ import { ActionTypes } from "./actionTypes";
 import {
   IFetchOrderProps,
   IFetchOrderRecipientSaveProps,
+  IFetchOrderSendToEmailProps,
   IFetchOrderShippingAddressSaveProps,
 } from "./types";
 
@@ -27,7 +28,10 @@ function* workerShippingSave({ payload }: IFetchOrderShippingAddressSaveProps) {
   yield put(setLoading());
   try {
     yield put(actionCreators.orderShippingSave(payload));
-    localStorage.setItem("shipping", JSON.stringify(store.getState().order));
+    localStorage.setItem(
+      "shipping_address",
+      JSON.stringify(store.getState().order.shipping_address)
+    );
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -40,6 +44,10 @@ function* workerRecipientSave({ payload }: IFetchOrderRecipientSaveProps) {
   yield put(setLoading());
   try {
     yield put(actionCreators.orderRecipientSave(payload));
+    localStorage.setItem(
+      "order_user",
+      JSON.stringify(store.getState().order.order_user)
+    );
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -47,7 +55,7 @@ function* workerRecipientSave({ payload }: IFetchOrderRecipientSaveProps) {
   }
 }
 
-function* workerOrderCreateSave({ payload, mail }: IFetchOrderProps) {
+function* workerOrderCreateSave({ payload }: IFetchOrderProps) {
   yield put(setUnhandledError(null));
   yield put(setLoading());
   try {
@@ -55,16 +63,28 @@ function* workerOrderCreateSave({ payload, mail }: IFetchOrderProps) {
       orderApi.fetchOrderCreate,
       payload
     )) as IFetchOrderResponse;
-    if (response) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const responseSendingConfirmOrder = (yield call(
-        orderApi.fetchSendingConfirmOrder,
-        mail
-      )) as IFetchSendingConfirmOrderResponse;
-    }
     yield put(actionCreators.orderCreate(response));
     localStorage.setItem("order", JSON.stringify(store.getState().order));
-    localStorage.setItem("shipping", JSON.stringify(store.getState().order));
+    localStorage.setItem(
+      "shipping_address",
+      JSON.stringify(store.getState().order.shipping_address)
+    );
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
+function* workerOrderSendToEmail({ payload }: IFetchOrderSendToEmailProps) {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const responseSendingConfirmOrder = (yield call(
+      orderApi.fetchSendingConfirmOrder,
+      payload
+    )) as IFetchSendingConfirmOrderResponse;
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -88,5 +108,8 @@ export function* watch(): Generator<
   ]);
   yield all([
     takeLatest(ActionTypes.FETCH_ORDER_CREATE, workerOrderCreateSave),
+  ]);
+  yield all([
+    takeLatest(ActionTypes.FETCH_ORDER_SEND_TO_EMAIL, workerOrderSendToEmail),
   ]);
 }

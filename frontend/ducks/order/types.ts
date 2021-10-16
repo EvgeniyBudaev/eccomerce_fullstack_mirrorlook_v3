@@ -66,6 +66,7 @@ export interface IFetchOrderRecipientSaveProps {
 }
 
 export interface IOrderState {
+  isOrderConfirmed: boolean;
   order: IFetchOrderResponse;
   order_user: IPayloadOrderRecipientSave;
   shipping_address: IFetchOrderShippingAddressSavePayload;
@@ -93,7 +94,11 @@ export interface IOrderPayload {
 }
 
 export interface IFetchOrderProps {
-  mail: IFetchSendingConfirmOrderRequest;
   payload: IOrderPayload;
+  type: string;
+}
+
+export interface IFetchOrderSendToEmailProps {
+  payload: IFetchSendingConfirmOrderRequest;
   type: string;
 }

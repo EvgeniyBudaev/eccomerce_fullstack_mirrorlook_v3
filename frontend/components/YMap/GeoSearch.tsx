@@ -79,32 +79,33 @@ export default withYMaps(
     }, [state]);
 
     useEffect(() => {
-      const trimmed = debouncedValue.trim();
       let cancelled = false;
+      if (debouncedValue) {
+        const trimmed = debouncedValue.trim();
+        if (
+          trimmed.length &&
+          trimmed !== prevDebouncedValue.current &&
+          state.showSuggestions
+        ) {
+          prevDebouncedValue.current = trimmed;
 
-      if (
-        trimmed.length &&
-        trimmed !== prevDebouncedValue.current &&
-        state.showSuggestions
-      ) {
-        prevDebouncedValue.current = trimmed;
-
-        ymaps.suggest(trimmed).then((newSuggestions: any[]) => {
-          if (!cancelled) {
-            onStateChange(state => ({
-              ...state,
-              suggestions: newSuggestions.map(suggestion => ({
-                uuid: uuidv4(),
-                displayName: suggestion.displayName,
-              })),
-            }));
-          }
-        });
-      } else {
-        onStateChange(state => ({
-          ...state,
-          suggestions: [],
-        }));
+          ymaps.suggest(trimmed).then((newSuggestions: any[]) => {
+            if (!cancelled) {
+              onStateChange(state => ({
+                ...state,
+                suggestions: newSuggestions.map(suggestion => ({
+                  uuid: uuidv4(),
+                  displayName: suggestion.displayName,
+                })),
+              }));
+            }
+          });
+        } else {
+          onStateChange(state => ({
+            ...state,
+            suggestions: [],
+          }));
+        }
       }
 
       return () => void (cancelled = true);

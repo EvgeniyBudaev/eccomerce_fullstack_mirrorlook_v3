@@ -96,8 +96,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
       <div className={styles.Row}>
         <h1 className={styles.Title}>Зеркала</h1>
         <span>
-          {productRange.startProduct}-{productRange.endProduct} из{" "}
-          {totalItemsCount} товаров
+          {productRange.endProduct} из {totalItemsCount} товаров
         </span>
       </div>
       <div className={styles.Inner}>
@@ -108,7 +107,6 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
             onDisplayLine={handleDisplayLine}
             onFirstPage={handleChangeOnFirstPage}
           />
-          {/*<MirrorsList mirrors={state.mirrors.mirrors} />*/}
           <MirrorsList
             mirrors={mirrorsResponse.entities}
             isClickedDisplayLine={isClickedDisplayLine}

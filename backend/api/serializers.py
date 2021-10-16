@@ -172,7 +172,8 @@ class OrderSerializer(serializers.ModelSerializer):
             if order_user.is_valid():
                 order_user = order_user.save()
             else:
-                raise TypeError('Не удалось сохранить `order_user`. Проверьте правильность введённых данных.')
+                raise TypeError('Не удалось сохранить `order_user`. Проверьте '
+                                'правильность введённых данных.')
 
         items_data = validated_data.pop('order_items', [])
         address_data = validated_data.pop('shipping_address', {})

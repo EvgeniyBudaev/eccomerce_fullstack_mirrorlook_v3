@@ -9,6 +9,7 @@ import {
 export const fetchOrderCreate = async (
   order: IFetchOrderRequest
 ): Promise<IFetchOrderResponse> => {
+  console.log("order", order);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +20,7 @@ export const fetchOrderCreate = async (
     order,
     config
   );
-
+  console.log("response.data", response.data);
   return response.data;
 };
 
@@ -39,4 +40,10 @@ export const fetchSendingConfirmOrder = async (
   console.log("response", response);
 
   return response.data;
+};
+
+export const fetchOrderSendToEmail = async (
+  isOrderResponse: boolean
+): Promise<boolean> => {
+  return isOrderResponse;
 };

@@ -134,7 +134,7 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
                 </button>
               </div>
               <div className={styles.ProductItemPrice}>
-                {numberWithSpaces(parseInt(cartItem.product.price))} ₽/шт.
+                {numberWithSpaces(parseInt(cartItem.product.price))} ₽/шт
               </div>
             </div>
             <div className={styles.ProductItemTotalPrice}>

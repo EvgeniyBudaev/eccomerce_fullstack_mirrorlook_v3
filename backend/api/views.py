@@ -115,7 +115,7 @@ def sending_confirm_order(request):
         subject=subject,
         body=message,
         from_email=store_email,
-        to=[customer_email]
+        to=[store_email, customer_email]
     )
 
     if subject and message and customer_email and store_email:
@@ -124,7 +124,7 @@ def sending_confirm_order(request):
                 message = mail.EmailMessage(**email_params,
                                             connection=connection)
                 message.send(fail_silently=False)
-            return Response("Приглашение успешно отправлено!")
+            return Response("Заказ успешно оформлен!")
         except BadHeaderError:
             message = {
                 'detail': 'Обнаружен недопустимый заголовок.'}

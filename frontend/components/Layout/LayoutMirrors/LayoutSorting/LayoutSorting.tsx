@@ -82,6 +82,8 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
               className={classNames(styles.LayoutSortingSelectPrice, {
                 [styles.LayoutSortingSelectPrice__active]: isSelectOpened,
               })}
+              id="1"
+              instanceId="1"
               options={options}
               styles={LayoutSortingSelectStyles}
               value={selectedOption}

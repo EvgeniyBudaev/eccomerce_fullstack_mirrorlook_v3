@@ -21,6 +21,15 @@
 .Form {
   max-width: 590px;
   width: 100%;
+
+  &Content {
+    margin-bottom: 232px;
+  }
+
+  &Footer {
+    padding-top: 24px;
+    border-top: 1px solid $color-light-gray;
+  }
 }
 
 .FormFieldGroup {
@@ -63,22 +72,22 @@
     @include roboto-18-medium;
     display: flex;
     align-items: center;
-    color: $color-dark-blue;
+    color: $color-beige;
     transition: all 0.15s;
 
     svg {
       width: 30px;
       height: 30px;
-      fill: $color-dark-blue;
+      fill: $color-beige;
       transition: all 0.15s;
     }
   }
 
   &Link:hover {
-    color: $color-blue;
+    color: $color-beige-hover;
 
     svg {
-      fill: $color-blue;
+      fill: $color-beige-hover;
     }
   }
 

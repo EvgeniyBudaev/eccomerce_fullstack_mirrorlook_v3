@@ -6,11 +6,13 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { isEmpty, isNull } from "lodash";
 import { ActionTypes } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import { setUnhandledClearError } from "ducks/unhandledError";
+import { useMounted } from "hooks/useMounted";
 import styles from "./Signup.module.scss";
 
 export interface ISignupForm {
@@ -47,8 +49,7 @@ const schema = yup.object().shape({
 });
 
 export const Signup: React.FC = () => {
-  const [isAccountCreated, setIsAccountCreated] = useState(false);
-  const [isPasswordMatch, setIsPasswordMatch] = useState(true);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const [isFocused, setIsFocused] = useState({
     first_name: false,
     last_name: false,
@@ -65,6 +66,9 @@ export const Signup: React.FC = () => {
   } = useForm<ISignupForm>({ resolver: yupResolver(schema) });
   const dispatch = useDispatch();
   const router = useRouter();
+  const { hasMounted } = useMounted();
+  const account = useTypedSelector(state => state.account);
+  const { isAuthenticated } = hasMounted && account;
   const loading = useTypedSelector(state => state.loading);
   const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
@@ -75,7 +79,7 @@ export const Signup: React.FC = () => {
     console.log("[DATA]", data);
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     if (data.password === data.re_password) {
-      setIsPasswordMatch(true);
+      setIsPasswordMatch(false);
       dispatch({
         type: ActionTypes.SIGNUP,
         payload: {
@@ -87,18 +91,17 @@ export const Signup: React.FC = () => {
           re_password: data.re_password,
         },
       });
-      setIsAccountCreated(true);
     } else {
-      setIsPasswordMatch(false);
+      setIsPasswordMatch(true);
     }
   };
 
   useEffect(() => {
-    if (isAccountCreated) {
+    if (!isNull(isAuthenticated) && isAuthenticated === false) {
       router.push("/activate");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAccountCreated]);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     return () => {
@@ -115,6 +118,31 @@ export const Signup: React.FC = () => {
       setIsFocused({ ...isFocused, [event.target.name]: true });
     } else {
       setIsFocused({ ...isFocused, [event.target.name]: false });
+    }
+  };
+
+  const errorEmailMessage = (
+    errorValidation: string,
+    errorResponse: string
+  ) => {
+    if (!isEmpty(errorValidation) && !errorResponse) {
+      return errorValidation;
+    }
+    if (!isNull(errorResponse) && !errors.email) {
+      if (errorResponse === "user account с таким email уже существует.") {
+        return "Пользователь с таким email уже существует";
+      } else {
+        return errorResponse;
+      }
+    }
+  };
+
+  const errorPasswordMessage = (message: string) => {
+    if (message) {
+      return message;
+    }
+    if (isPasswordMatch) {
+      return "Пароли не совпадают";
     }
   };
 
@@ -170,16 +198,10 @@ export const Signup: React.FC = () => {
                 name="email"
                 type="text"
                 register={register}
-                error={
-                  (errors.email && errors.email.message) ||
-                  (!errors.email &&
-                    error &&
-                    error.response.data.email &&
-                    error.response.data.email[0] ===
-                      "user account с таким email уже существует.")
-                    ? "Пользователь с таким email уже существует"
-                    : ""
-                }
+                error={errorEmailMessage(
+                  errors.email?.message,
+                  error?.response.data?.email[0]
+                )}
                 isFocused={isFocused.email}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -189,12 +211,7 @@ export const Signup: React.FC = () => {
                 name="password"
                 type="password"
                 register={register}
-                error={
-                  (errors.password && errors.password.message) ||
-                  (!errors.password && !isPasswordMatch)
-                    ? "Пароли не совпадают"
-                    : ""
-                }
+                error={errorPasswordMessage(errors.password?.message)}
                 isFocused={isFocused.password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -204,12 +221,7 @@ export const Signup: React.FC = () => {
                 name="re_password"
                 type="password"
                 register={register}
-                error={
-                  (errors.re_password && errors.re_password.message) ||
-                  (!errors.re_password && !isPasswordMatch)
-                    ? "Пароли не совпадают"
-                    : ""
-                }
+                error={errorPasswordMessage(errors.re_password?.message)}
                 isFocused={isFocused.re_password}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
