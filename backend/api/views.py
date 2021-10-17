@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters, status, response
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 from django.core import mail
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import get_connection
+from dotenv import load_dotenv
 
 from store.models import (User, Catalog, Product, CartItem, Cart, Order,
                           OrderItem, ShippingAddress)
@@ -21,6 +23,7 @@ from .filters import CatalogFilter, ProductFilter
 from .permissions import IsAdminOrReadOnly
 
 
+load_dotenv()
 User = get_user_model()
 
 
@@ -46,10 +49,12 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = StorePagination
     lookup_field = 'product_slug'
-    filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter,
+                       filters.SearchFilter)
     filterset_class = ProductFilter
     ordering_fields = ('price',)
     ordering = ('price',)
+    search_fields = ('title',)
 
     def get_serializer_class(self):
         if self.action in ('create', 'partial_update'):
@@ -108,14 +113,15 @@ def sending_confirm_order(request):
         host="smtp.gmail.com",
         port=465,
         username="budaev.e@gmail.com",
-        password=""
+        password=os.getenv('EMAIL_HOST_PASSWORD')
     )
 
     email_params = dict(
         subject=subject,
         body=message,
         from_email=store_email,
-        to=[store_email, customer_email]
+        to=[customer_email]
+        # to=[store_email, customer_email]
     )
 
     if subject and message and customer_email and store_email:
