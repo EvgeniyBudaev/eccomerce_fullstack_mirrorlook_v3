@@ -1,0 +1,18 @@
+@import "styles/index";
+
+.Header {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: $color-white;
+  opacity: 1;
+  overflow: hidden;
+  z-index: 102;
+
+  &Wrapper {
+    position: relative;
+    width: 100%;
+    height: max-content;
+    background-color: $color-white;
+  }
+}

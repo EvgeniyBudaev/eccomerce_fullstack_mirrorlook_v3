@@ -1,0 +1,21 @@
+@import "styles";
+
+.Overlay {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 100;
+  transition: opacity .9s ease-out,visibility .9s linear;
+  background-color: transparent;
+  opacity: 1;
+  visibility: hidden;
+
+  &__active {
+    background-color: #000;
+    opacity: 0.6;
+    visibility: visible;
+  }
+}

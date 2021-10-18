@@ -5,6 +5,12 @@
   padding: 5px 0;
   border-top: 1px solid $color-light-gray;
   box-shadow: 0 1rem 1.7rem rgba(0, 0, 0, 0.05);
+
+  &__catalogOpen {
+    .Link {
+      opacity: 0;
+    }
+  }
 }
 
 .Link {

@@ -72,7 +72,7 @@ button {
   transition-timing-function: ease !important;
 }
 
-// Резиновая главная картинка в слайдере
+/* ----- Резиновая главная картинка в слайдере ----- */
 .slick-slide img {
   max-width: 100%;
   width: 100%;
@@ -127,7 +127,7 @@ button {
   }
 }
 
-// Слайдер в карточке продукта
+/* ----- Слайдер в карточке продукта ----- */
 .SliderNav {
   .slick-prev:before,
   .slick-next:before {
@@ -148,7 +148,7 @@ button {
   }
 }
 
-// Общие свойства для всех слайдеров
+/* ----- Общие свойства для всех слайдеров ----- */
 .slick-list,
 .slick-track {
   touch-action: pan-y;
@@ -163,5 +163,32 @@ button {
   .nav.slick-initialized .slick-slide {
     display: flex;
     justify-content: center;
+  }
+}
+
+/* ----- Открытие/закрытие по кнопке "Каталог" ----- */
+$delayCatalogWindowToggle: 900ms;
+$positionCatalogWindow: -500px;
+
+.CatalogWindow {
+  &.enter {
+    opacity: 0;
+    transform: translateY($positionCatalogWindow);
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity $delayCatalogWindowToggle, transform $delayCatalogWindowToggle;
+  }
+
+  &.exit {
+    opacity: 1;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transform: translateY($positionCatalogWindow);
+    transition: opacity $delayCatalogWindowToggle, transform $delayCatalogWindowToggle;
   }
 }

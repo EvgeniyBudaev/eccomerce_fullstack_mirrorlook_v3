@@ -16,4 +16,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &Left {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ButtonCatalog {
+  margin-left: 32px;
+
+  span {
+    display: flex;
+  }
+
+  &Hamburger {}
+
+  &Text {
+    margin-left: 12px;
+  }
 }
