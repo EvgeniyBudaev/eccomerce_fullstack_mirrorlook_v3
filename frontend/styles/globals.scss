@@ -167,7 +167,7 @@ button {
 }
 
 /* ----- Открытие/закрытие по кнопке "Каталог" ----- */
-$delayCatalogWindowToggle: 900ms;
+$transition: 0.5s;
 $positionCatalogWindow: -500px;
 
 .CatalogWindow {
@@ -179,7 +179,7 @@ $positionCatalogWindow: -500px;
   &.enter-active {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity $delayCatalogWindowToggle, transform $delayCatalogWindowToggle;
+    transition: opacity $transition, transform $transition;
   }
 
   &.exit {
@@ -189,6 +189,45 @@ $positionCatalogWindow: -500px;
   &.exit-active {
     opacity: 0;
     transform: translateY($positionCatalogWindow);
-    transition: opacity $delayCatalogWindowToggle, transform $delayCatalogWindowToggle;
+    transition: opacity $transition, transform $transition;
+  }
+}
+
+/* ----- Компонент затемнения ----- */
+.Overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.6;
+  z-index: 100;
+  visibility: visible;
+  &.enter {
+    background: transparent;
+    opacity: 1;
+    visibility: hidden;
+  }
+
+  &.enter-active {
+    background-color: #000;
+    opacity: 0.6;
+    visibility: visible;
+    transition: all $transition;
+  }
+
+  &.exit {
+    background-color: #000;
+    opacity: 0.6;
+    visibility: visible;
+    transition: all $transition;
+  }
+
+  &.exit-active {
+    background: transparent;
+    opacity: 1;
+    visibility: hidden;
   }
 }

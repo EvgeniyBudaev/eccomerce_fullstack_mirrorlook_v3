@@ -8,6 +8,7 @@ import HeaderTop from "./HeaderTop";
 import styles from "./Header.module.scss";
 
 export const Header: React.FC = () => {
+  const TRANSITION = 500;
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const nodeRef = useRef(null);
 
@@ -29,12 +30,16 @@ export const Header: React.FC = () => {
         />
         <HeaderBottom isCatalogOpen={isCatalogOpen} />
       </header>
-      <Overlay onClick={handleCatalogClose} isActive={isCatalogOpen} />
+      <Overlay
+        timeout={TRANSITION}
+        onClick={handleCatalogClose}
+        isActive={isCatalogOpen}
+      />
       <CSSTransition
         className="CatalogWindow"
         in={isCatalogOpen}
         nodeRef={nodeRef}
-        timeout={900}
+        timeout={TRANSITION}
         unmountOnExit
       >
         <CatalogDropDown ref={nodeRef} />

@@ -25,12 +25,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-go*3wkm%d9yqr-w(60koo2h^idpi25viomo+nn1^v*4^ud($!i'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+
+def comma_separated_list(value: str) -> list:
+    return [x.strip() for x in value.split(',') if x.strip()]
+
+
+ALLOWED_HOSTS = comma_separated_list(os.getenv('ALLOWED_HOSTS', default=''))
 
 
 # Application definition

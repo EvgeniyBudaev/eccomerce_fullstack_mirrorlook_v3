@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
+import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
-import styles from "./Overlay.module.scss";
+// стили в global.scss
 
 export interface IOverlayProps {
   className?: string;
+  timeout?: number;
   isActive?: boolean;
   onClick?: (event: React.MouseEvent) => void;
 }
 
 export const Overlay: React.FC<IOverlayProps> = ({
   className,
-  isActive,
+  timeout,
+  isActive = false,
   onClick,
 }) => {
+  const nodeRef = useRef(null);
+
   return (
-    <div
-      className={classNames(styles.Overlay, className, {
-        [styles.Overlay__active]: isActive,
-      })}
+    <CSSTransition
+      className={classNames("Overlay", className)}
+      in={isActive}
+      nodeRef={nodeRef}
+      timeout={timeout}
+      unmountOnExit
       onClick={onClick}
-    />
+    >
+      <div ref={nodeRef} />
+    </CSSTransition>
   );
 };
