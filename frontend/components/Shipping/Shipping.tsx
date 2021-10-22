@@ -263,7 +263,7 @@ export const Shipping: React.FC<IShippingProps> = ({
             </Link>
             <Button
               className={styles.Button}
-              typeButton="submit"
+              type="submit"
               isDisabled={isEmpty(address)}
               onClick={() => {}}
             >

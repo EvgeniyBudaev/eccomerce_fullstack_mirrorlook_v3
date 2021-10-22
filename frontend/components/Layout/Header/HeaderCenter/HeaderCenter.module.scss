@@ -20,14 +20,18 @@
   &Left {
     display: flex;
     align-items: center;
+    width: 100%;
   }
 }
 
 .ButtonCatalog {
   margin-left: 32px;
+  margin-right: 12px;
+  height: 44px;
 
   span {
     display: flex;
+    justify-content: center;
   }
 
   &Hamburger {}
@@ -36,3 +40,5 @@
     margin-left: 12px;
   }
 }
+
+.SearchControls {}

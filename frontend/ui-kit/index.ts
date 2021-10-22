@@ -11,6 +11,7 @@ import Hamburger from "./Hamburger";
 import Modal from "./Modal";
 import Overlay from "./Overlay";
 import Pagination from "./Pagination";
+import Search from "./Search";
 import Select from "./Select";
 import SliderNextArrow from "./Slider/SliderNextArrow";
 import SliderPrevArrow from "./Slider/SliderPrevArrow";
@@ -35,6 +36,7 @@ export {
   Modal,
   Overlay,
   Pagination,
+  Search,
   Select,
   SliderNextArrow,
   SliderPrevArrow,

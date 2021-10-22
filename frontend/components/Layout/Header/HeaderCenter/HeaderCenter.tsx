@@ -1,6 +1,6 @@
 import React from "react";
 import { Logo } from "components";
-import { Button, Hamburger } from "ui-kit";
+import { Button, Hamburger, Search } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 
@@ -27,6 +27,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               />
               <div className={styles.ButtonCatalogText}>Каталог</div>
             </Button>
+            <Search className={styles.SearchControls} />
           </div>
           <HeaderIconsList />
         </div>

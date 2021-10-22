@@ -105,14 +105,14 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
                 className={classNames(styles.DisplayButton, {
                   [styles.DisplayButton__line]: isClickedDisplayLine,
                 })}
-                type="DisplayLine"
+                typeIcon="DisplayLine"
                 onClick={onDisplayLine}
               />
               <IconButton
                 className={classNames(styles.DisplayButton, {
                   [styles.DisplayButton__line]: !isClickedDisplayLine,
                 })}
-                type="DisplayGrid"
+                typeIcon="DisplayGrid"
                 onClick={onDisplayLine}
               />
             </div>

@@ -152,7 +152,7 @@ export const Login: React.FC = () => {
             </div>
             <Button
               className={styles.SectionCenter_Button}
-              typeButton="submit"
+              type="submit"
               onClick={() => {}}
             >
               Войти

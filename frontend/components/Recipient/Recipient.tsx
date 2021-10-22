@@ -216,7 +216,7 @@ export const Recipient: React.FC = () => {
               </Link>
               <Button
                 className={styles.Button}
-                typeButton="submit"
+                type="submit"
                 onClick={() => {}}
               >
                 Продолжить

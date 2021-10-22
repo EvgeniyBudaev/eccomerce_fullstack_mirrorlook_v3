@@ -2,11 +2,11 @@ import React, { DOMAttributes, useRef } from "react";
 import classNames from "classnames";
 import styles from "./Button.module.scss";
 
-export type ButtonType = "button" | "submit";
+export type ButtonType = "button" | "reset" | "submit";
 
 export interface IButtonProps extends DOMAttributes<HTMLButtonElement> {
   className?: string;
-  typeButton?: ButtonType;
+  type?: ButtonType;
   isDisabled?: boolean;
   onClick?: (e?: React.MouseEvent) => void;
 }
@@ -14,7 +14,7 @@ export interface IButtonProps extends DOMAttributes<HTMLButtonElement> {
 export const Button: React.FC<IButtonProps> = ({
   className,
   children,
-  typeButton = "button",
+  type = "button",
   isDisabled = false,
   onClick,
   ...rest
@@ -44,7 +44,7 @@ export const Button: React.FC<IButtonProps> = ({
       })}
       disabled={isDisabled}
       ref={buttonRef}
-      type={typeButton}
+      type={type}
       onClick={handleClick}
       {...rest}
     >

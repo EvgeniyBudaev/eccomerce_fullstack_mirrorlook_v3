@@ -229,7 +229,7 @@ export const Signup: React.FC = () => {
             </div>
             <Button
               className={styles.SectionCenter_Button}
-              typeButton="submit"
+              type="submit"
               onClick={() => {}}
             >
               Зарегистрироваться

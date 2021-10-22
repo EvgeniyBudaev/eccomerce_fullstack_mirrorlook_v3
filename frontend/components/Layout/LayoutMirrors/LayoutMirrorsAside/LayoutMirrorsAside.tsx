@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { isEmpty } from "lodash";
+import { isEmpty, isNil } from "lodash";
 import { Accordion, Button, Checkbox, IconButton } from "ui-kit";
 import styles from "./LayoutMirrorsAside.module.scss";
 
@@ -81,13 +81,15 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
     };
 
     async function fetchMirrorsFilter(request) {
-      await router.push({
+      const response = await router.push({
         href: "/mirrors",
         query: handleFilter(request),
       });
-      onFirstPage();
+      if (!isNil(response)) {
+        onFirstPage();
+        setIsSubmitting(prevState => !prevState);
+      }
     }
-    setIsSubmitting(prevState => !prevState);
 
     fetchMirrorsFilter(checkedMirrors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -95,7 +97,7 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
 
   return (
     <aside className={styles.LayoutMirrorsAside}>
-      <IconButton className={styles.FilterButton} type={"Filter"} />
+      <IconButton className={styles.FilterButton} typeIcon={"Filter"} />
       <form className={styles.AsideFilter} onSubmit={handleSubmit}>
         <Accordion title="Категория" active={true}>
           {asideMirrorsOptions.category.map((label, index) => (
@@ -144,7 +146,7 @@ export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
         </Accordion>
         <Button
           className={styles.LayoutMirrorsAsideButton}
-          typeButton="submit"
+          type="submit"
           onClick={() => {}}
         >
           Применить
