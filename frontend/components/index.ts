@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import Marker from "./YMap/Marker";
 import Order from "./Order";
 import Recipient from "./Recipient";
+import Search from "./Search";
 import Shipping from "./Shipping";
 import YMap from "./YMap";
 
@@ -17,6 +18,7 @@ export {
   Marker,
   Order,
   Recipient,
+  Search,
   Shipping,
   YMap,
 };

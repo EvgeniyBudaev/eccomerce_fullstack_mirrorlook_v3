@@ -1,6 +1,6 @@
 import React from "react";
-import { Logo } from "components";
-import { Button, Hamburger, Search } from "ui-kit";
+import { Logo, Search } from "components";
+import { Button, Hamburger } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 

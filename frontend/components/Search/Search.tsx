@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
-import { isEmpty } from "lodash";
-import { Button, Overlay } from "ui-kit";
+import { Button, Overlay } from "ui-kit/index";
 import * as searchApi from "api/search";
-import { IConsole } from "types/console";
-import { IMirror } from "types/mirror";
+import { SearchProductsType } from "api/types/search";
+import { SearchProductList } from "./SearchProductList";
 import styles from "./Search.module.scss";
 
 export interface ISearchProps {
@@ -12,14 +11,12 @@ export interface ISearchProps {
   transition?: number;
 }
 
-type SearchProductList = IMirror[] | IConsole[];
-
 export const Search: React.FC<ISearchProps> = ({
   className,
   transition = 500,
 }) => {
   const [isActive, setIsActive] = useState(false);
-  const [productList, setProductList] = useState<SearchProductList>([]);
+  const [productList, setProductList] = useState<SearchProductsType>([]);
   const [requestIndicator, setRequestIndicator] = useState(0);
   const [searchedKeyword, setSearchedKeyword] = useState("");
   console.log("productList", productList);
@@ -47,9 +44,8 @@ export const Search: React.FC<ISearchProps> = ({
   const fetchSearchItems = useCallback(
     (searchedKeyword: string) => {
       searchApi
-        .fetchSearch({ searchedKeyword })
+        .fetchLiveProductsSearch({ searchedKeyword })
         .then(response => {
-          console.log("data", response);
           setProductList(response.entities);
         })
         .catch(error => {
@@ -93,13 +89,7 @@ export const Search: React.FC<ISearchProps> = ({
           </Button>
         </form>
         <div className={styles.SearchDropDown}>
-          <ul className={styles.SearchProductList}>
-            {/*{productList.map(product => (*/}
-            {/*    <li className={styles.SearchProductItem} key={product.id}>*/}
-            {/*      {product.title}*/}
-            {/*    </li>*/}
-            {/*  ))}*/}
-          </ul>
+          <SearchProductList productList={productList} />
         </div>
       </div>
       <Overlay
