@@ -257,3 +257,38 @@ $searchOverlayOpacity: 0.2;
     opacity: $searchOverlayOpacity;
   }
 }
+
+$maxWidth: 700px;
+$heightDropDown: 335px;
+
+.SearchDropDownWindow {
+    content: "";
+    position: absolute;
+    top: 90px;
+    max-width: $maxWidth;
+    width: 100%;
+    height: $heightDropDown;
+    background-color: $color-white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    z-index: 101;
+
+  &.enter {
+    opacity: 0;
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transition: opacity $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+    transition: opacity $transition;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transition: opacity $transition;
+  }
+}

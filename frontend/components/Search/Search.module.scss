@@ -1,6 +1,7 @@
 @import "styles";
 
 $maxWidth: 700px;
+$heightDropDown: 335px;
 
 .Search {
   $this: &;
@@ -15,6 +16,7 @@ $maxWidth: 700px;
   .Form {
     display: flex;
     align-items: center;
+    position: relative;
     width: 100%;
   }
 
@@ -23,14 +25,13 @@ $maxWidth: 700px;
     width: 100%;
     background-color: $color-white;
     border: 2px solid $color-beige;
-    border-right-width: 0;
-    border-radius: 4px 0 0 4px;
+    border-radius: 4px;
   }
 
   &Input {
     @include roboto-16-regular;
     margin: 0;
-    padding: 0 36px 0 16px;
+    padding: 0 50px 0 16px;
     width: 100%;
     height: 40px;
     color: $color-text;
@@ -39,10 +40,15 @@ $maxWidth: 700px;
     outline: transparent;
   }
 
-  &Button {
-    height: 44px;
-    border-radius: 0 4px 4px 0;
-    box-shadow: none;
+  &Icon {
+    position: absolute;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+
+    svg {
+      fill: $color-beige;
+    }
   }
 
   &__active {
@@ -65,8 +71,8 @@ $maxWidth: 700px;
     top: 90px;
     max-width: $maxWidth;
     width: 100%;
-    height: 300px;
-    background-color: $color-light-gray;
+    height: $heightDropDown;
+    background-color: $color-white;
     border: 1px solid transparent;
     border-radius: 4px;
     z-index: 101;

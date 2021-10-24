@@ -1,8 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
-import { Button, Overlay } from "ui-kit/index";
+import { Icon, Overlay } from "ui-kit";
 import * as searchApi from "api/search";
 import { SearchProductsType } from "api/types/search";
+import * as loadingActionCreators from "ducks/loading";
 import { SearchProductList } from "./SearchProductList";
 import styles from "./Search.module.scss";
 
@@ -19,7 +22,9 @@ export const Search: React.FC<ISearchProps> = ({
   const [productList, setProductList] = useState<SearchProductsType>([]);
   const [requestIndicator, setRequestIndicator] = useState(0);
   const [searchedKeyword, setSearchedKeyword] = useState("");
-  console.log("productList", productList);
+  const dispatch = useDispatch();
+  const nodeRef = useRef(null);
+
   const handleIndicatorIncrease = () => {
     setRequestIndicator(requestIndicator => requestIndicator + 1);
   };
@@ -43,13 +48,16 @@ export const Search: React.FC<ISearchProps> = ({
 
   const fetchSearchItems = useCallback(
     (searchedKeyword: string) => {
+      dispatch(loadingActionCreators.setLoading());
       searchApi
         .fetchLiveProductsSearch({ searchedKeyword })
         .then(response => {
           setProductList(response.entities);
+          dispatch(loadingActionCreators.unsetLoading());
         })
         .catch(error => {
           console.log("Ошибка", error);
+          dispatch(loadingActionCreators.unsetLoading());
         });
     },
     // eslint-disable-next-line
@@ -72,25 +80,29 @@ export const Search: React.FC<ISearchProps> = ({
           <div className={styles.SearchInputWrapper}>
             <input
               className={styles.SearchInput}
-              type="text"
+              autoComplete="off"
+              name="search"
               placeholder="Искать товары"
+              type="text"
               value={searchedKeyword}
               onBlur={handleBlur}
               onChange={handleChange}
               onFocus={handleFocus}
             />
           </div>
-          <Button
-            className={styles.SearchButton}
-            type="submit"
-            onClick={() => {}}
-          >
-            Найти
-          </Button>
+          <Icon className={styles.SearchIcon} type="Search" />
         </form>
-        <div className={styles.SearchDropDown}>
-          <SearchProductList productList={productList} />
-        </div>
+        <CSSTransition
+          className="SearchDropDownWindow"
+          in={isActive}
+          nodeRef={nodeRef}
+          timeout={transition}
+          unmountOnExit
+        >
+          <div className={styles.SearchDropDown} ref={nodeRef}>
+            <SearchProductList productList={productList} />
+          </div>
+        </CSSTransition>
       </div>
       <Overlay
         className="SearchOverlay"
