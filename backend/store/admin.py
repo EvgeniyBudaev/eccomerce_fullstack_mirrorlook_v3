@@ -1,7 +1,15 @@
 from django.contrib import admin
 
-from .models import (Catalog, Category, Product, Attribute, ProductAttribute,
-                     CartItem, Cart, Order, OrderItem, ShippingAddress, OrderUser)
+from .models import (Attribute, Cart, CartItem, Catalog, Category, Comment,
+                     Order, OrderItem, OrderUser, Product,  ProductAttribute,
+                     Review, ShippingAddress)
+
+
+class AttributeAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'form')
+    search_fields = ('form',)
+    list_filter = ('form',)
+    empty_value_display = '-пусто-'
 
 
 class CatalogAdmin(admin.ModelAdmin):
@@ -22,13 +30,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('pk', 'title')
     search_fields = ('title',)
     list_filter = ('title',)
-    empty_value_display = '-пусто-'
-
-
-class AttributeAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'form')
-    search_fields = ('form',)
-    list_filter = ('form',)
     empty_value_display = '-пусто-'
 
 
@@ -77,6 +78,20 @@ class OrderAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'title')
+    search_fields = ('title',)
+    list_filter = ('title',)
+    empty_value_display = '-пусто-'
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'author',)
+    search_fields = ('author',)
+    list_filter = ('author',)
+    empty_value_display = '-пусто-'
+
+
 admin.site.register(Catalog, CatalogAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
@@ -84,4 +99,5 @@ admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(ProductAttribute, ProductAttributeAdmin)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(Order, OrderAdmin)
-# admin.site.register(Review)
+admin.site.register(Review, ReviewAdmin)
+admin.site.register(Comment, CommentAdmin)

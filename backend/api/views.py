@@ -9,18 +9,22 @@ from rest_framework.response import Response
 from django.core import mail
 from django.core.mail import send_mail, BadHeaderError
 from django.core.mail import get_connection
+from django.shortcuts import get_object_or_404
 from dotenv import load_dotenv
 
-from store.models import (User, Catalog, Product, CartItem, Cart, Order,
-                          OrderItem, ShippingAddress)
+from store.models import (Cart, CartItem, Catalog, Comment, Order, OrderItem,
+                          Product, Review, ShippingAddress, User)
 from accounts.serializers import UserSerializer
-from .serializers import (CatalogSerializer, ProductSerializer,
-                          ProductCreateSerializer, CartItemSerializer,
-                          CartSerializer, OrderSerializer, OrderItemSerializer,
+from .serializers import (CartSerializer, CartItemSerializer, CatalogSerializer,
+                          CommentSerializer, OrderSerializer,
+                          OrderItemSerializer, ProductSerializer,
+                          ProductCreateSerializer, ReviewSerializer,
                           ShippingAddressSerializer)
+
+
 from .pagination import StorePagination
 from .filters import CatalogFilter, ProductFilter
-from .permissions import IsAdminOrReadOnly
+from .permissions import IsAdminOrReadOnly, IsAuthorOrAdministratorOrReadOnly
 
 
 load_dotenv()
@@ -139,3 +143,19 @@ def sending_confirm_order(request):
         message = {
             'detail': 'Убедитесь, что все поля введены и действительны.'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью отзывов по продукту."""
+    """POST для всех авторизованных, PATCH для модеров, админов и автора."""
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = (IsAuthorOrAdministratorOrReadOnly,)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """API для работы с моделью комментариев к отзыву по продукту."""
+    """POST для всех авторизованных, PATCH для модеров, админов и автора."""
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = (IsAuthorOrAdministratorOrReadOnly,)

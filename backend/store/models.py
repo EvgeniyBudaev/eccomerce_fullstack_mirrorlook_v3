@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 User = get_user_model()
 
@@ -243,7 +244,8 @@ class Order(models.Model):
     shipping_price = models.DecimalField(max_digits=15, decimal_places=2,
                                          null=True, blank=True,
                                          verbose_name='Стоимость доставки')
-    total_price = models.DecimalField(max_digits=15, decimal_places=2, null=True,
+    total_price = models.DecimalField(max_digits=15, decimal_places=2,
+                                      null=True,
                                       blank=True,
                                       verbose_name='Общая сумма заказа')
     is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
@@ -323,36 +325,8 @@ class ShippingAddress(models.Model):
     def __str__(self):
         return str(self.address)
 
-# class Review(models.Model):
-#     """Модель комментария."""
-#     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
-#                                      null=True, verbose_name='Тип продукта',
-#                                      related_name='reviews')
-#     object_id = models.PositiveIntegerField('content_type', 'object_id')
-#     content_object = GenericForeignKey()
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
-#                              verbose_name='Пользователь',
-#                              related_name='reviews')
-#     title = models.CharField(max_length=200, null=True, blank=True,
-#                              verbose_name='Заголовок')
-#     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,
-#                                  blank=True, verbose_name='Рейтинг')
-#     comment = models.TextField(null=True, blank=True,
-#                                verbose_name='Комментарий')
-#     created = models.DateTimeField(auto_now_add=True,
-#                                    verbose_name='Дата публикации')
-#
-#     class Meta:
-#         ordering = ['created']
-#         verbose_name = 'Комментарий'
-#         verbose_name_plural = 'Комментарии'
-#
-#     def __str__(self):
-#         return str(self.rating)
-
 
 class OrderUser(models.Model):
-
     class Meta:
         verbose_name = 'Данные получателя заказа'
         verbose_name_plural = 'Данные получателей заказов'
@@ -368,3 +342,78 @@ class OrderUser(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Review(models.Model):
+    """Модель отзыва на продукт."""
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,
+                                verbose_name='Тип продукта',
+                                related_name='reviews')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+                               verbose_name='Покупатель',
+                               related_name='reviews')
+    title = models.CharField(max_length=200, null=True, blank=True,
+                             verbose_name='Заголовок')
+    rating = models.PositiveSmallIntegerField(null=True, blank=True,
+                                              verbose_name='Рейтинг',
+                                              validators=[MinValueValidator(1),
+                                                          MaxValueValidator(5)])
+    text = models.TextField(null=True, blank=True,
+                            verbose_name='Текст отзыва')
+    date_created = models.DateTimeField(auto_now_add=True, db_index=True,
+                                        verbose_name='Дата создания')
+    date_updated = models.DateTimeField(auto_now=True, db_index=True,
+                                        verbose_name='Дата обновления')
+
+    class Meta:
+        ordering = ['-date_created']
+        constraints = [
+            models.UniqueConstraint(fields=['title', 'author'],
+                                    name='unique review')
+        ]
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return str(self.title)
+
+
+class ReviewUser(models.Model):
+    class Meta:
+        verbose_name = 'Данные пользователя, который оставил отзыв'
+        verbose_name_plural = 'Данные пользователей, которые оставили отзывы'
+
+    review = models.OneToOneField(Review, on_delete=models.CASCADE, null=True,
+                                  related_name='review_user',
+                                  verbose_name='Пользователь')
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    phone_number = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.email
+
+
+class Comment(models.Model):
+    """Модель комментария к отзыву на продукт."""
+    review = models.ForeignKey(Review, on_delete=models.CASCADE,
+                               verbose_name='Отзыв',
+                               related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               verbose_name='Автор комментария')
+    text = models.TextField(verbose_name='Комментарий к отзыву',
+                            help_text='Введите текст комментария')
+    date_created = models.DateTimeField(auto_now_add=True, db_index=True,
+                                        verbose_name='Дата создания')
+    date_updated = models.DateTimeField(auto_now=True, db_index=True,
+                                        verbose_name='Дата обновления')
+
+    class Meta:
+        ordering = ('-date_created',)
+        verbose_name = 'Комментарий к отзыву'
+        verbose_name_plural = 'Комментарии к отзыву'
+
+    def __str__(self):
+        return str(self.author)

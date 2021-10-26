@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.relations import SlugRelatedField
 
-from store.models import (Catalog, Category, Attribute, Product,
-                          ProductAttribute, CartItem, Cart, Order, OrderItem,
-                          ShippingAddress, OrderUser)
+from store.models import (Attribute, Cart, CartItem, Catalog, Category, Comment,
+                          Order, OrderItem, OrderUser, Product,
+                          ProductAttribute, Review, ReviewUser, ShippingAddress)
 
 
 User = get_user_model()
@@ -145,7 +146,8 @@ class OrderUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderUser
-        fields = ('id', 'order', 'first_name', 'last_name', 'email', 'phone_number',)
+        fields = ('id', 'order', 'first_name', 'last_name', 'email',
+                  'phone_number',)
         extra_kwargs = {
             'order': {'write_only': True},
         }
@@ -237,3 +239,31 @@ class OrderSerializer(serializers.ModelSerializer):
                 OrderUser.objects.create(order=self.instance, **order_user_data)
 
         return super(OrderSerializer, self).update(instance, validated_data)
+
+
+class ReviewUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReviewUser
+        fields = ('id', 'review', 'first_name', 'last_name', 'email',
+                  'phone_number',)
+        extra_kwargs = {
+            'review': {'write_only': True},
+        }
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    author = ReviewUserSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ('id', 'product', 'author', 'title', 'text', 'rating',
+                  'date_created', 'date_updated')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = ReviewUserSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'text', 'author', 'date_created', 'date_updated')
