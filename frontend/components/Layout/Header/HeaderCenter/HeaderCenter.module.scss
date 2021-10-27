@@ -41,4 +41,20 @@
   }
 }
 
-.SearchControls {}
+@media (max-width: 1000px) {
+  .ButtonCatalogText {
+    display: none;
+    padding: 10px 26px;
+    width: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ButtonCatalog {
+    display: none;
+  }
+
+  .SearchControlsDesktop {
+    display: none;
+  }
+}

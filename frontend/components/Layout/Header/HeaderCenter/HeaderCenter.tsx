@@ -27,7 +27,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               />
               <div className={styles.ButtonCatalogText}>Каталог</div>
             </Button>
-            <Search className={styles.SearchControls} />
+            <Search className={styles.SearchControlsDesktop} />
           </div>
           <HeaderIconsList />
         </div>

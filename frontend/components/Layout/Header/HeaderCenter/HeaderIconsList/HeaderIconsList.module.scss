@@ -63,3 +63,17 @@
   border: 1px solid $color-beige;
   border-radius: 50%;
 }
+
+@media (max-width: 768px) {
+  .HeaderIconsList {
+    justify-content: flex-end;
+  }
+
+  .HeaderIconListItemDesktop {
+    display: none;
+  }
+
+  .ButtonCatalog {
+    display: none;
+  }
+}

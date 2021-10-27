@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import classNames from "classnames";
+import { Search } from "components";
 import styles from "./HeaderBottom.module.scss";
 
 export interface IHeaderBottomProps {
@@ -19,12 +20,15 @@ export const HeaderBottom: React.FC<IHeaderBottomProps> = ({
       })}
     >
       <div className={styles.Container}>
-        <Link href={`/mirrors/`}>
-          <a className={styles.Link}>Зеркала</a>
-        </Link>
-        <Link href={`/consoles/`}>
-          <a className={styles.Link}>Консоли</a>
-        </Link>
+        <div className={styles.Desktop}>
+          <Link href={`/mirrors/`}>
+            <a className={styles.Link}>Зеркала</a>
+          </Link>
+          <Link href={`/consoles/`}>
+            <a className={styles.Link}>Консоли</a>
+          </Link>
+        </div>
+        <Search className={styles.SearchControlsMobile} />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import classNames from "classnames";
 import { isNull } from "lodash";
 import { Icon } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
@@ -50,7 +51,12 @@ export const HeaderIconsList: React.FC = () => {
 
   return (
     <div className={styles.HeaderIconsList}>
-      <div className={styles.HeaderIconListItem}>
+      <div
+        className={classNames(
+          styles.HeaderIconListItem,
+          styles.HeaderIconListItemDesktop
+        )}
+      >
         <Link href={"/login"}>
           <a>
             <Icon className={styles.Icon} type={"User"} />

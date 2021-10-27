@@ -16,6 +16,7 @@
 }
 
 .List {
+  margin-right: 50px;
   max-width: 780px;
   width: 100%;
 }
@@ -94,7 +95,7 @@
 }
 
 .TextEnter {
-  margin-left: 8px;
+  margin-left: 16px;
   color: $color-blue;
   transition: all 0.15s;
 
@@ -114,5 +115,24 @@
   &:hover {
     color: $color-beige;
     border-bottom: 1px solid rgba(176, 151, 106, 0.3);
+  }
+}
+
+
+@media (max-width: 1000px) {
+  .Inner {
+    flex-direction: column;
+  }
+
+  .List {
+    margin-bottom: 24px;
+  }
+
+  .CheckoutInner {
+    position: static;
+  }
+
+  .OrdersList .Inner {
+    flex-direction: row;
   }
 }
