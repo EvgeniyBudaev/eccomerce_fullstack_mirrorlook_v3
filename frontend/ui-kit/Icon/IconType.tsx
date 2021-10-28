@@ -19,6 +19,7 @@ import House from "ui-kit/assets/icons/House.svg";
 import LogoShort from "ui-kit/assets/icons/LogoShort.svg";
 import Search from "ui-kit/assets/icons/Search.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
+import Trash from "ui-kit/assets/icons/Trash.svg";
 import User from "ui-kit/assets/icons/User.svg";
 import User2 from "ui-kit/assets/icons/User2.svg";
 import Visibility from "ui-kit/assets/icons/Visibility.svg";
@@ -44,6 +45,7 @@ export type IconType =
   | "LogoShort"
   | "Search"
   | "Spinner"
+  | "Trash"
   | "User"
   | "User2"
   | "Visibility"
@@ -69,6 +71,7 @@ export const iconTypes = new Map([
   ["LogoShort", <LogoShort key={newGuid()} />],
   ["Search", <Search key={newGuid()} />],
   ["Spinner", <Spinner key={newGuid()} />],
+  ["Trash", <Trash key={newGuid()} />],
   ["User", <User key={newGuid()} />],
   ["User2", <User2 key={newGuid()} />],
   ["Visibility", <Visibility key={newGuid()} />],

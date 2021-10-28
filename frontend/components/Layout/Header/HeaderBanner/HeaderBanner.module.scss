@@ -1,0 +1,36 @@
+.HeaderBanner {
+  background-color: #FFDD9B;
+
+  & .Mobile {
+    display: none;
+  }
+}
+
+.Container {
+  /*ширина контейнера чистая 1200px*/
+  max-width: 1230px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  $heightMobile: 20px;
+
+  .HeaderBanner {
+    height: $heightMobile;
+
+    & .Container {
+      height: $heightMobile;
+    }
+
+    & .Desktop {
+      display: none;
+    }
+
+    & .Mobile {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

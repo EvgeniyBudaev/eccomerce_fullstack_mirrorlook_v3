@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Overlay } from "ui-kit";
 import { CatalogDropDown } from "components/Layout";
+import HeaderBanner from "./HeaderBanner";
 import HeaderBottom from "./HeaderBottom";
 import HeaderCenter from "./HeaderCenter";
 import HeaderTop from "./HeaderTop";
@@ -23,6 +24,7 @@ export const Header: React.FC = () => {
   return (
     <div className={styles.HeaderWrapper}>
       <header className={styles.Header}>
+        <HeaderBanner />
         <HeaderTop />
         <HeaderCenter
           isCatalogOpen={isCatalogOpen}

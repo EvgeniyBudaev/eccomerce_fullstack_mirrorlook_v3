@@ -7,7 +7,7 @@ import { ICartItem } from "types/cart";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { Spinner } from "ui-kit";
+import { IconButton, Spinner } from "ui-kit";
 import styles from "./CartItem.module.scss";
 
 interface ICartItemProps {
@@ -145,6 +145,11 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
             </div>
           </div>
           <div className={styles.ProductBottom}>
+            <IconButton
+              className={styles.ButtonProductDeleteMobile}
+              typeIcon="Trash"
+              onClick={handleDeleteItemToCart}
+            />
             <div
               className={styles.ProductDelete}
               onClick={handleDeleteItemToCart}

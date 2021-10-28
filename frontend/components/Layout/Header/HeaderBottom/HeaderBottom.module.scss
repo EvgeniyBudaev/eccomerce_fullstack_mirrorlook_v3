@@ -11,6 +11,11 @@
       opacity: 0;
     }
   }
+
+  & .SearchControlsMobile {
+    display: none;
+    max-width: 100%;
+  }
 }
 
 .Link {
@@ -38,10 +43,6 @@
 
 .Desktop {
   display: block;
-
-  & .SearchControlsMobile {
-    display: none;
-  }
 }
 
 @media (max-width: 768px) {
@@ -52,10 +53,10 @@
   .HeaderBottom {
     border-top: 1px solid transparent;
     padding-bottom: 16px;
-  }
 
-  .SearchControlsMobile {
-    display: none;
-    max-width: 100%;
+    & .SearchControlsMobile {
+      display: block;
+      max-width: 100%;
+    }
   }
 }

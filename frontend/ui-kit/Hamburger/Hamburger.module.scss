@@ -49,11 +49,11 @@
   }
 
   &::before {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
   }
 
   &::after {
-    transform: translateY(4px);
+    transform: translateY(5px);
   }
 
   &__open {
@@ -67,6 +67,21 @@
 
     &::after {
       transform: rotate(-45deg) translate(10px, 10px);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Hamburger {
+    width: 18px;
+    height: 18px;
+  }
+
+  .Burger {
+    width: 16px;
+    &::before,
+    &::after {
+      width: 16px;
     }
   }
 }

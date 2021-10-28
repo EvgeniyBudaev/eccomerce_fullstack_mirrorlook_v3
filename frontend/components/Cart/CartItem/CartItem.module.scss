@@ -143,4 +143,67 @@
       }
     }
   }
+
+  &ProductDeleteMobile {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .CartItem {
+    margin-bottom: 0;
+    padding: 15px;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    border-right: 0;
+  }
+
+  .ProductHeader {
+    flex-direction: column;
+  }
+
+  .ProductItemTotalPrice {
+    @include roboto-14-bold;
+    order: 1;
+    margin-bottom: 16px;
+  }
+
+  .ProductTitle {
+    order: 2;
+    margin-right: 0;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .ProductActions {
+    order: 3;
+    margin-right: 0;
+  }
+
+  .ProductItemPrice {
+    @include roboto-12-bold;
+  }
+
+  .ProductDelete {
+    display: none;
+  }
+
+  .ButtonProductDeleteMobile {
+    display: block;
+
+    svg {
+      fill: $color-suit-gray;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .ProductHeader {
+    align-items: flex-start;
+  }
+
+  .ProductTitle {
+    text-align: start;
+  }
 }

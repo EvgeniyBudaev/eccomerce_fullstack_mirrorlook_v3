@@ -1,6 +1,8 @@
 @import "styles";
 
-.HeaderTop {}
+.HeaderTop {
+  display: block;
+}
 
 .Info {
   padding: 5px 0;
@@ -39,4 +41,10 @@
   width: 100%;
   padding: 0 15px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .HeaderTop {
+    display: none;
+  }
 }

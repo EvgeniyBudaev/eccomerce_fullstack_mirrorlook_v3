@@ -92,3 +92,9 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .Button {
+    @include roboto-14-regular;
+  }
+}

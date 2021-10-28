@@ -292,3 +292,13 @@ $heightDropDown: 335px;
     transition: opacity $transition;
   }
 }
+
+@media (max-width: 768px) {
+  body {
+    @include roboto-12-regular;
+  }
+
+  section {
+    margin: 20px 0;
+  }
+}

@@ -17,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
 
-  &Left {
+  &Desktop {
     display: flex;
     align-items: center;
     width: 100%;
@@ -41,6 +41,15 @@
   }
 }
 
+.ButtonSidebar {
+  padding: 10px;
+}
+
+.Mobile {
+  display: none;
+  width: 100%;
+}
+
 @media (max-width: 1000px) {
   .ButtonCatalogText {
     display: none;
@@ -50,11 +59,39 @@
 }
 
 @media (max-width: 768px) {
-  .ButtonCatalog {
+  .InnerDesktop {
     display: none;
   }
 
-  .SearchControlsDesktop {
+  .Desktop {
     display: none;
+  }
+
+  .Mobile {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .HeaderCenter {
+    & .SearchControlsDesktop {
+      display: none;
+    }
+
+    & .LogoMobile {
+      max-width: max-content;
+
+      & svg {
+        max-width: max-content;
+      }
+    }
+
+    & .HeaderIconsListMobile {
+      max-width: max-content;
+    }
+
+    & .ButtonSidebar {
+      background-color: $color-white;
+      box-shadow: none;
+    }
   }
 }

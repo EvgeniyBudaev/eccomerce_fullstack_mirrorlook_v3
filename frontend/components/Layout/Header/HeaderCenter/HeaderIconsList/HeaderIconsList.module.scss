@@ -76,4 +76,21 @@
   .ButtonCatalog {
     display: none;
   }
+
+  .IconDescription {
+    display: none;
+  }
+
+  .CartItemsCount {
+    width: 12px;
+    height: 12px;
+    transform: translateY(25%);
+  }
+
+  .Icon {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
 }

@@ -136,3 +136,29 @@
     flex-direction: row;
   }
 }
+
+@media (max-width: 768px) {
+  .Cart {
+    margin-top: 20px;
+  }
+
+  .Title {
+    @include roboto-20-bold;
+  }
+
+  .CostLinePriceWithDiscount {
+    @include roboto-20-bold;
+  }
+}
+
+@media (max-width: 500px) {
+  .Cart {
+    & .Checkout {
+      max-width: 100%;
+    }
+
+    & .CheckoutInner {
+      margin: 0 auto;
+    }
+  }
+}

@@ -78,3 +78,17 @@ $heightDropDown: 335px;
     z-index: 101;
   }
 }
+
+@media (max-width: 768px) {
+  .Search {
+    &Input {
+      @include roboto-14-regular;
+      height: 32px;
+    }
+
+    &Icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

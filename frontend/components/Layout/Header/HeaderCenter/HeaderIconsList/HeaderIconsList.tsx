@@ -9,7 +9,13 @@ import { IAccount } from "api/types/account";
 import { ROUTES } from "constants/routes";
 import styles from "./HeaderIconsList.module.scss";
 
-export const HeaderIconsList: React.FC = () => {
+export interface IHeaderIconsListProps {
+  className?: string;
+}
+
+export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
+  className,
+}) => {
   const [cartId, setCartId] = useState("");
   const [cartItemsCountTotal, setCartItemsCountTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,7 +56,7 @@ export const HeaderIconsList: React.FC = () => {
   }, [cart]);
 
   return (
-    <div className={styles.HeaderIconsList}>
+    <div className={classNames(styles.HeaderIconsList, className)}>
       <div
         className={classNames(
           styles.HeaderIconListItem,

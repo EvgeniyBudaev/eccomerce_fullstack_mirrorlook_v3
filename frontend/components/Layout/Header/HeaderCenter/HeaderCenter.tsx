@@ -17,7 +17,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
     <div className={styles.HeaderCenter}>
       <div className={styles.Container}>
         <div className={styles.Inner}>
-          <div className={styles.InnerLeft}>
+          <div className={styles.InnerDesktop}>
             <Logo />
             <Button className={styles.ButtonCatalog} onClick={onCatalogToggle}>
               <Hamburger
@@ -29,7 +29,18 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
             </Button>
             <Search className={styles.SearchControlsDesktop} />
           </div>
-          <HeaderIconsList />
+          <HeaderIconsList className={styles.Desktop} />
+          <div className={styles.Mobile}>
+            <Button className={styles.ButtonSidebar} onClick={() => {}}>
+              <Hamburger
+                className={styles.HamburgerSidebar}
+                color="black"
+                isOpen={false}
+              />
+            </Button>
+            <Logo className={styles.LogoMobile} />
+            <HeaderIconsList className={styles.HeaderIconsListMobile} />
+          </div>
         </div>
       </div>
     </div>
