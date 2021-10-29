@@ -258,13 +258,13 @@ $searchOverlayOpacity: 0.2;
   }
 }
 
-$maxWidth: 700px;
+$maxWidth: 620px;
 $heightDropDown: 335px;
 
 .SearchDropDownWindow {
     content: "";
     position: absolute;
-    top: 90px;
+    top: 145px;
     max-width: $maxWidth;
     width: 100%;
     height: $heightDropDown;
@@ -290,6 +290,43 @@ $heightDropDown: 335px;
   &.exit-active {
     opacity: 0;
     transition: opacity $transition;
+  }
+}
+
+.SidebarWindow {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    max-width: 80vw;
+    width: 100%;
+    height: 100vh;
+    background-color: $color-white;
+    z-index: 101;
+
+  &.enter {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity $transition, transform $transition;
   }
 }
 

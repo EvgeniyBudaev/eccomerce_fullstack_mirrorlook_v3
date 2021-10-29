@@ -146,7 +146,7 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
           </div>
           <div className={styles.ProductBottom}>
             <IconButton
-              className={styles.ButtonProductDeleteMobile}
+              className={styles.ProductDeleteMobile}
               typeIcon="Trash"
               onClick={handleDeleteItemToCart}
             />

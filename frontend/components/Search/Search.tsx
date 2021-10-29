@@ -23,7 +23,7 @@ export const Search: React.FC<ISearchProps> = ({
   const [requestIndicator, setRequestIndicator] = useState(0);
   const [searchedKeyword, setSearchedKeyword] = useState("");
   const dispatch = useDispatch();
-  const nodeRef = useRef(null);
+  const nodeRef = useRef<HTMLDivElement>(null);
 
   const handleIndicatorIncrease = () => {
     setRequestIndicator(requestIndicator => requestIndicator + 1);
@@ -99,7 +99,7 @@ export const Search: React.FC<ISearchProps> = ({
           timeout={transition}
           unmountOnExit
         >
-          <div className={styles.SearchDropDown} ref={nodeRef}>
+          <div ref={nodeRef}>
             <SearchProductList productList={productList} />
           </div>
         </CSSTransition>
