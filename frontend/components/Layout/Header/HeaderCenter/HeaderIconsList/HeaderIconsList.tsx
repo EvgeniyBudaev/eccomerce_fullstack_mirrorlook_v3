@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { isNull } from "lodash";
-import { Icon } from "ui-kit";
+import { Avatar, Icon } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ICartState } from "ducks/cart";
 import { IAccount } from "api/types/account";
@@ -63,14 +63,16 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
           styles.HeaderIconListItemDesktop
         )}
       >
-        <Link href={"/login"}>
-          <a>
-            <Icon className={styles.Icon} type={"User"} />
-            <div className={styles.IconDescription}>
-              {isAuthenticated ? account.user.first_name : "Войти"}
-            </div>
-          </a>
-        </Link>
+        {isAuthenticated ? (
+          <Avatar title={account.user.first_name[0]} />
+        ) : (
+          <Link href={"/login"}>
+            <a>
+              <Icon className={styles.Icon} type={"User"} />
+              <div className={styles.IconDescription}>Войти</div>
+            </a>
+          </Link>
+        )}
       </div>
       <div className={styles.HeaderIconListItem}>
         {!isNull(cartId) && (

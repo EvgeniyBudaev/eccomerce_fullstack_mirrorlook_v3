@@ -16,7 +16,9 @@ export const Sidebar = forwardRef(
   ): JSX.Element => {
     return (
       <div className={classNames(styles.Sidebar, className)} ref={ref}>
-        <h2>Sidebar</h2>
+        <ul>
+          <li></li>
+        </ul>
       </div>
     );
   }

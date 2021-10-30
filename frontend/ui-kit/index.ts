@@ -1,5 +1,6 @@
 import Accordion from "./Accordion";
 import AccordionGroup from "./Accordion/AccordionGroup";
+import Avatar from "./Avatar";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Input from "./Input";
@@ -18,12 +19,13 @@ import SliderSimple from "./Slider/SliderSimple";
 import Spinner from "./Spinner";
 import TextArea from "./TextArea";
 
-export type IconType = import("./Icon").IconType;
+export type IconType = import("./Icon/IconType").IconType;
 export type InputType = import("./Input").InputType;
 
 export {
   Accordion,
   AccordionGroup,
+  Avatar,
   Button,
   Checkbox,
   Input,

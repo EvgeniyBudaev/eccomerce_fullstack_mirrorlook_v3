@@ -7,8 +7,12 @@
   box-shadow: 0 1rem 1.7rem rgba(0, 0, 0, 0.05);
 
   &__catalogOpen {
+    height: 28px;
+    border-top: 1px solid white;
+    box-shadow: none;
+
     .Link {
-      opacity: 0;
+      display: none;
     }
   }
 
