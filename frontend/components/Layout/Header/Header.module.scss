@@ -9,9 +9,10 @@
   z-index: 102;
 
   &Wrapper {
-    position: relative;
+    position: fixed;
     width: 100%;
     height: max-content;
     background-color: $color-white;
+    z-index: 102;
   }
 }

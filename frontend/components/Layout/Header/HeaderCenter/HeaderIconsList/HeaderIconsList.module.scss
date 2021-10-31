@@ -82,9 +82,11 @@
   }
 
   .CartItemsCount {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     transform: translateY(25%);
+    font-size: 10px;
+    line-height: 0;
   }
 
   .Icon {
@@ -92,5 +94,10 @@
       width: 18px;
       height: 18px;
     }
+  }
+
+  .IconLink {
+    display: flex;
+    align-items: center;
   }
 }

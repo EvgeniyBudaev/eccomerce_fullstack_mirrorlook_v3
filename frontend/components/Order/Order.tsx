@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
+import classNames from "classnames";
 import { isNull } from "lodash";
 import { ActionTypes, IPayloadOrderRecipientSave } from "ducks/order";
 import { useMounted } from "hooks/useMounted";
@@ -155,7 +156,7 @@ export const Order: React.FC = () => {
   return (
     <section className={styles.Order}>
       <h2 className={styles.Title}>Оформление заказа</h2>
-      <div className={styles.Inner}>
+      <div className={classNames(styles.Inner, styles.OrderInnerMobile)}>
         <div className={styles.BlockLeft}>
           <div className={styles.Shipping}>
             <div className={styles.Inner}>
@@ -344,8 +345,12 @@ export const Order: React.FC = () => {
           </a>
         </Link>
       </div>
-      <Modal isOpen={isOpenModal} onCloseModal={handleCloseModal}>
-        <Modal.Header>
+      <Modal
+        className={styles.OrderModal}
+        isOpen={isOpenModal}
+        onCloseModal={handleCloseModal}
+      >
+        <Modal.Header className={styles.OrderModalHeaderMobile}>
           <h2>Способы оплаты</h2>
           <div className={styles.ModalDefence}>
             <Icon className={styles.ModalDefenceIcon} type="Defence" />
@@ -353,14 +358,16 @@ export const Order: React.FC = () => {
           </div>
         </Modal.Header>
         <Modal.Content>
-          <div className={styles.Inner}>
+          <div className={classNames(styles.Inner, styles.OrderInnerMobile)}>
             <RadioCardPaymentMethod
+              className={styles.OrderRadioCardPaymentMethodMobile}
               name={CARD}
               value={CARD_TEXT}
               isActive={preliminaryPaymentMethod === CARD}
               onChoice={handleChoicePaymentMethod}
             />
             <RadioCardPaymentMethod
+              className={styles.OrderRadioCardPaymentMethodMobile}
               name={CASH}
               value={CASH_TEXT}
               isActive={preliminaryPaymentMethod === CASH}

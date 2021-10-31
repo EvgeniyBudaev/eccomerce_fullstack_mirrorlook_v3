@@ -5,6 +5,7 @@ import styles from "./Avatar.module.scss";
 
 export interface IAvatarProps {
   className?: string;
+  classNameSmallCircle?: string;
   image?: StaticImageData;
   size?: number;
   title?: string;
@@ -12,12 +13,14 @@ export interface IAvatarProps {
 
 export const Avatar: React.FC<IAvatarProps> = ({
   className,
+  classNameSmallCircle,
   image,
-  size = 48,
+  size = 46,
   title,
 }) => {
   const sizeBox = `${size - 4}px`;
   const sizeInner = `${size - 8}px`;
+  const sizeTitle = `${size / 2}px`;
   const sizeWrapper = `${size}px`;
 
   return (
@@ -26,8 +29,11 @@ export const Avatar: React.FC<IAvatarProps> = ({
       style={{ width: sizeInner, height: sizeInner }}
     >
       <div
-        className={styles.AvatarInner}
-        style={{ width: sizeInner, height: sizeInner }}
+        className={classNames(styles.AvatarInner, classNameSmallCircle)}
+        style={{
+          width: sizeInner,
+          height: sizeInner,
+        }}
       >
         {image && (
           <Image
@@ -38,7 +44,11 @@ export const Avatar: React.FC<IAvatarProps> = ({
             height={sizeInner}
           />
         )}
-        {title && <div className={styles.AvatarFace}>{title}</div>}
+        {title && (
+          <div className={styles.AvatarFace} style={{ fontSize: sizeTitle }}>
+            {title}
+          </div>
+        )}
       </div>
       <div
         className={styles.AvatarBorder}

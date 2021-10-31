@@ -64,7 +64,7 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
         )}
       >
         {isAuthenticated ? (
-          <Avatar title={account.user.first_name[0]} />
+          <Avatar size={46} title={account.user.first_name[0]} />
         ) : (
           <Link href={"/login"}>
             <a>

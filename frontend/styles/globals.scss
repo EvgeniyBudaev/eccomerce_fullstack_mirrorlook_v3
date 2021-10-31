@@ -258,6 +258,8 @@ $searchOverlayOpacity: 0.2;
   }
 }
 
+/* ----- Выпадающее окно в поиске ----- */
+
 $maxWidth: 620px;
 $heightDropDown: 335px;
 
@@ -292,6 +294,8 @@ $heightDropDown: 335px;
     transition: opacity $transition;
   }
 }
+
+/* ----- Sidebar окно ----- */
 
 .SidebarWindow {
     content: "";
@@ -330,12 +334,26 @@ $heightDropDown: 335px;
   }
 }
 
+/* ----- Модальное окно по центру адаптировано ----- */
+
+.react-responsive-modal-root .react-responsive-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
   body {
-    @include roboto-12-regular;
+    @include roboto-14-regular;
   }
 
   section {
     margin: 20px 0;
+  }
+}
+
+@media (max-width: 500px) {
+  section {
+    margin: 10px 0;
   }
 }

@@ -143,12 +143,14 @@
   }
 
   .Title {
-    @include roboto-20-bold;
+    @include roboto-22-bold;
   }
 
   .CostLinePriceWithDiscount {
-    @include roboto-20-bold;
+    @include roboto-22-bold;
   }
+
+
 }
 
 @media (max-width: 500px) {

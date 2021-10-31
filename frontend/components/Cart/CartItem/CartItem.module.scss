@@ -164,7 +164,7 @@
   }
 
   .ProductItemTotalPrice {
-    @include roboto-14-bold;
+    @include roboto-16-bold;
     order: 1;
     margin-bottom: 16px;
   }
@@ -182,7 +182,7 @@
   }
 
   .ProductItemPrice {
-    @include roboto-12-bold;
+    @include roboto-14-bold;
   }
 
   .ProductDelete {

@@ -64,3 +64,10 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .HeaderBottom {
+    padding-bottom: 8px;
+    margin-top: -10px;
+  }
+}

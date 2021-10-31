@@ -11,6 +11,7 @@ export interface IModalProps {
   className?: string;
   children?: React.ReactNode;
   size?: IModalSize;
+  isCenter?: boolean;
   isOpen?: boolean;
   onCloseModal?: () => void;
 }
@@ -19,15 +20,15 @@ export const Modal = ({
   className,
   children,
   size = "medium",
+  isCenter = true,
   isOpen,
   onCloseModal,
 }: IModalProps): JSX.Element => {
   const defaultClassNames = {
-    modal: classNames(classes.ModalDefault, {
+    modal: classNames(classes.ModalDefault, className, {
       [classes.ModalDefault__medium]: size === "medium",
     }),
     closeButton: classNames(classes.ModalDefaultCloseButton),
-    className,
   };
   const [styles, setStyles] = useState({});
 
@@ -53,7 +54,7 @@ export const Modal = ({
   return (
     <ReactModal
       classNames={defaultClassNames}
-      center
+      center={isCenter}
       closeIcon={<Icon type="Close" />}
       styles={styles}
       open={isOpen}

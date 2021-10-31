@@ -9,15 +9,16 @@
 
 .SubTitle {
   @include roboto-22-bold;
-  margin-bottom: 16px;
 }
 
 .Inner {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .BlockLeft {
+  margin-right: 20px;
   max-width: 740px;
   width: 100%;
 }
@@ -44,9 +45,13 @@
   align-items: center;
 
   &Icon {
-    margin-right: 8px;
-    width: 20px;
-    height: 20px;
+    margin-right: 16px;
+
+    svg {
+      max-width: 20px;
+      width: 100%;
+      height: 20px;
+    }
   }
 
   &Info {
@@ -96,7 +101,9 @@
   }
 
   &Price {
+    margin-left: 16px;
     text-align: end;
+    white-space: nowrap;
   }
 }
 
@@ -191,8 +198,11 @@
 
     &Icon {
       margin-right: 8px;
-      width: 24px;
-      height: 24px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
 
       path {
         fill: $color-text;
@@ -238,5 +248,73 @@
 
   &Text {
     margin-left: 4px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .OrderInnerMobile {
+    flex-direction: column;
+  }
+
+  .BlockLeft {
+    margin-right: 0;
+  }
+
+  .OrderRadioCardPaymentMethodMobile {
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .Title {
+    @include roboto-22-bold;
+  }
+
+  .SubTitle {
+    @include roboto-16-bold;
+  }
+
+  .Controls {
+    margin-top: 0;
+  }
+
+  .ControlsLink {
+    @include roboto-14-medium;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .OrderModalHeaderMobile {
+    h2 {
+      @include roboto-22-bold;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .Product {
+    flex-direction: column;
+  }
+
+  .ProductInfo {
+    flex-direction: column;
+  }
+
+  .ProductTitle {
+    margin: 8px 0;
+  }
+
+  .AddressIcon {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
   }
 }

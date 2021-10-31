@@ -8,6 +8,7 @@ import {
   ZoomControl,
 } from "react-yandex-maps";
 import { useForm } from "react-hook-form";
+import classNames from "classnames";
 import { isEmpty } from "lodash";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
@@ -187,7 +188,12 @@ export const Shipping: React.FC<IShippingProps> = ({
               onSearch={setMapState}
             />
           </div>
-          <div className={styles.FormFieldGroup}>
+          <div
+            className={classNames(
+              styles.FormFieldGroup,
+              styles.FormFieldCouple
+            )}
+          >
             <FormField
               className={styles.FormFieldGroupItem}
               error={errors.apartment && errors.apartment.message}
@@ -211,7 +217,12 @@ export const Shipping: React.FC<IShippingProps> = ({
               onFocus={handleFocus}
             />
           </div>
-          <div className={styles.FormFieldGroup}>
+          <div
+            className={classNames(
+              styles.FormFieldGroup,
+              styles.FormFieldCouple
+            )}
+          >
             <FormField
               className={styles.FormFieldGroupItem}
               error={errors.entrance && errors.entrance.message}

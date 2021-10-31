@@ -39,7 +39,19 @@
     max-width: 266px;
     width: 100%;
   }
+
+  &.FormFieldCouple {
+    justify-content: flex-start;
+    margin-left: -20px;
+
+    .FormFieldGroupItem {
+      margin-left: 20px;
+      flex-basis: calc(50% - 20px);
+    }
+  }
 }
+
+
 
 .TextField {
   height: 126px;
@@ -99,4 +111,39 @@
   padding-left: 46px;
   width: 100%;
   min-width: 340px;
+}
+
+@media (max-width: 1230px) {
+  .Map {
+    display: none;
+  }
+
+  .FormContent {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .Shipping {
+    & input {
+      @include roboto-14-regular;
+    }
+  }
+
+  .Step {
+    margin-left: 0;
+  }
+
+  .Title {
+    @include roboto-22-bold;
+  }
+
+  .ControlsLink {
+    @include roboto-14-medium;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }

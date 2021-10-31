@@ -6,7 +6,7 @@
   width: 364px;
 
   svg {
-    max-width: 364px;
+    max-width: 193px;
     width: 100%;
     height: 48px;
     fill: $color-beige;
@@ -15,5 +15,21 @@
     &:hover {
       fill: $color-beige-hover;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .Logo {
+    width: 150px;
+
+    svg {
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .Logo {
+    width: 120px;
   }
 }

@@ -10,6 +10,7 @@ import Cart from "ui-kit/assets/icons/Cart.svg";
 import Cash from "ui-kit/assets/icons/Cash.svg";
 import Checkbox from "ui-kit/assets/icons/Checkbox.svg";
 import Close from "ui-kit/assets/icons/Close.svg";
+import Console from "ui-kit/assets/icons/Console.svg";
 import Defence from "ui-kit/assets/icons/Defence.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
@@ -17,6 +18,7 @@ import Enter from "ui-kit/assets/icons/Enter.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
 import House from "ui-kit/assets/icons/House.svg";
 import LogoShort from "ui-kit/assets/icons/LogoShort.svg";
+import Mirror from "ui-kit/assets/icons/Mirror.svg";
 import Search from "ui-kit/assets/icons/Search.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
 import Trash from "ui-kit/assets/icons/Trash.svg";
@@ -36,6 +38,7 @@ export type IconType =
   | "Cash"
   | "Checkbox"
   | "Close"
+  | "Console"
   | "Defence"
   | "DisplayGrid"
   | "DisplayLine"
@@ -43,6 +46,7 @@ export type IconType =
   | "Filter"
   | "House"
   | "LogoShort"
+  | "Mirror"
   | "Search"
   | "Spinner"
   | "Trash"
@@ -62,6 +66,7 @@ export const iconTypes = new Map([
   ["Cash", <Cash key={newGuid()} />],
   ["Checkbox", <Checkbox key={newGuid()} />],
   ["Close", <Close key={newGuid()} />],
+  ["Console", <Console key={newGuid()} />],
   ["Defence", <Defence key={newGuid()} />],
   ["DisplayGrid", <DisplayGrid key={newGuid()} />],
   ["DisplayLine", <DisplayLine key={newGuid()} />],
@@ -69,6 +74,7 @@ export const iconTypes = new Map([
   ["Filter", <Filter key={newGuid()} />],
   ["House", <House key={newGuid()} />],
   ["LogoShort", <LogoShort key={newGuid()} />],
+  ["Mirror", <Mirror key={newGuid()} />],
   ["Search", <Search key={newGuid()} />],
   ["Spinner", <Spinner key={newGuid()} />],
   ["Trash", <Trash key={newGuid()} />],
