@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { isEmpty, isNil } from "lodash";
 import { Accordion, Button, Checkbox, IconButton } from "ui-kit";
-import styles from "./LayoutMirrorsAside.module.scss";
+import styles from "./MirrorsAside.module.scss";
 
 interface ICheckedMirrors {
   category: string[];
@@ -10,13 +10,11 @@ interface ICheckedMirrors {
   frame_color: string[];
 }
 
-interface LayoutMirrorsAsideProps {
+interface MirrorsAsideProps {
   onFirstPage: () => void;
 }
 
-export const LayoutMirrorsAside: React.FC<LayoutMirrorsAsideProps> = ({
-  onFirstPage,
-}) => {
+export const MirrorsAside: React.FC<MirrorsAsideProps> = ({ onFirstPage }) => {
   const router = useRouter();
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
     category: [],

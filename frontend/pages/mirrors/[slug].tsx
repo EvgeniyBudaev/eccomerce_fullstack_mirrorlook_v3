@@ -7,7 +7,7 @@ import { IMirror } from "types/mirror";
 import { IFilter } from "types/filter";
 import { IFilterResponse } from "api/types";
 import { Layout } from "components";
-import { MirrorCard } from "components/Mirrors/MirrorCard";
+import { MirrorCard } from "components/Catalog/Mirrors/MirrorCard";
 
 export default function MirrorDetail(props: IMirror): JSX.Element {
   //console.log("[MirrorDetail][props]", props);

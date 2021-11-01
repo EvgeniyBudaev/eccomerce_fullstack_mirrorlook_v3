@@ -4,9 +4,9 @@ import { Pagination } from "ui-kit";
 import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
 import { MirrorsList } from "./MirrorsList";
-import { LayoutMirrorsAside } from "./LayoutMirrorsAside/LayoutMirrorsAside";
+import { MirrorsAside } from "./MirrorsAside/MirrorsAside";
 import { LayoutSorting } from "./LayoutSorting/LayoutSorting";
-import styles from "./LayoutMirrors.module.scss";
+import styles from "./Mirrors.module.scss";
 
 export interface IProductRange {
   startProduct: number;
@@ -18,13 +18,11 @@ interface ILayoutMirrors {
   paging: IPaging;
 }
 
-interface ILayoutMirrorsProps {
+interface IMirrorsProps {
   mirrorsResponse: ILayoutMirrors;
 }
 
-export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
-  mirrorsResponse,
-}) => {
+export const Mirrors: React.FC<IMirrorsProps> = ({ mirrorsResponse }) => {
   const [productRange, setProductRange] = useState<IProductRange>({
     startProduct: 0,
     endProduct: 0,
@@ -100,7 +98,7 @@ export const LayoutMirrors: React.FC<ILayoutMirrorsProps> = ({
         </span>
       </div>
       <div className={styles.Inner}>
-        <LayoutMirrorsAside onFirstPage={handleChangeOnFirstPage} />
+        <MirrorsAside onFirstPage={handleChangeOnFirstPage} />
         <div className={styles.Wrapper}>
           <LayoutSorting
             isClickedDisplayLine={isClickedDisplayLine}
