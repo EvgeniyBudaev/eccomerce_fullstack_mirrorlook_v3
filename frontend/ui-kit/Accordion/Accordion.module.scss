@@ -1,4 +1,4 @@
-@import "styles/index";
+@import "styles";
 
 .Accordion {
   box-shadow: none;
@@ -9,7 +9,7 @@
     justify-content: space-between;
     align-items: center;
     height: 32px;
-    padding: 7px 15px 7px 0;
+    padding: 7px 0;
     color: $color-text;
     background-color: $color-white;
     border-bottom: 1px solid $color-border;

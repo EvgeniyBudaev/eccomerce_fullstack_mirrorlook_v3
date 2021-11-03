@@ -20,6 +20,10 @@
   }
 }
 
+.Inner {
+  position: relative;
+}
+
 .Inner,
 .SelectGroup {
   display: flex;
@@ -102,5 +106,63 @@
   &__line {
     left: 2px;
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 1100px) {
+  .ListingViewSwitcherPointer {
+    width: 44px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .ListingViewSwitcherPointer {
+    width: 42px;
+  }
+}
+
+@media (max-width: 900px) {
+  .ListingViewSwitcherPointer {
+    width: 40px;
+  }
+}
+
+@media (max-width: 800px) {
+  .ListingViewSwitcherPointer {
+    width: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .SelectGroupItemLabel {
+    margin-right: 8px;
+  }
+
+  .ListingViewSwitcherPointer {
+    width: 42px;
+  }
+}
+
+@media (max-width: 650px) {
+  .ListingViewSwitcherPointer {
+    width: 40px;
+  }
+}
+
+@media (max-width: 570px) {
+  .ListingViewSwitcherPointer {
+    width: 38px;
+  }
+}
+
+@media (max-width: 500px) {
+  .ListingViewSwitcher {
+    position: absolute;
+    top: -55px;
+    right: 0;
+  }
+
+  .ListingViewSwitcherPointer {
+    width: 56px;
   }
 }

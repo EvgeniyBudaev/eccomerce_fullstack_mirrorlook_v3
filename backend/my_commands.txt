@@ -62,3 +62,12 @@ python manage.py flush
 Удаление коммита с GitHub
 git reset --hard f5aa5273dd93f550bf0c95cdd7ccad3cc3a7750c
 git push --force
+
+ENV
+1. pip install python-dotenv
+2. В settings.py
+from dotenv import load_dotenv
+load_dotenv()
+SECRET_KEY = os.getenv('SECRET_KEY')
+3. Создать файл .env
+SECRET_KEY=wqwewqe

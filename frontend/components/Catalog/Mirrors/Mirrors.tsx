@@ -90,7 +90,7 @@ export const Mirrors: React.FC<IMirrorsProps> = ({ mirrorsResponse }) => {
   };
 
   return (
-    <section className={styles.LayoutMirrors}>
+    <section className={styles.Mirrors}>
       <div className={styles.Row}>
         <h1 className={styles.Title}>Зеркала</h1>
         <span>

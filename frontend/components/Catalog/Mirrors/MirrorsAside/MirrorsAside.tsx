@@ -1,31 +1,68 @@
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useMediaQuery } from "react-responsive";
+import { CSSTransition } from "react-transition-group";
 import { isEmpty, isNil } from "lodash";
-import { Accordion, Button, Checkbox, IconButton } from "ui-kit";
+import { Accordion, Button, Checkbox, IconButton, Overlay } from "ui-kit";
+import { TRANSITION } from "constants/transition";
+import { FilterBarMobile } from "components";
 import styles from "./MirrorsAside.module.scss";
 
-interface ICheckedMirrors {
+export interface ICheckedMirrors {
   category: string[];
   form: string[];
   frame_color: string[];
 }
 
-interface MirrorsAsideProps {
+interface IMirrorsAsideProps {
   onFirstPage: () => void;
 }
 
-export const MirrorsAside: React.FC<MirrorsAsideProps> = ({ onFirstPage }) => {
-  const router = useRouter();
+export interface IAsideOption {
+  option: {
+    optionNameRu: string;
+    optionNameOnBackend: string;
+  };
+  entities: string[];
+}
+
+export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
     category: [],
     form: [],
     frame_color: [],
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFilterBarMobile, setIsFilterBarMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const [needRequestIndicator, setNeedRequestIndicator] = useState(0);
+  const nodeRef = useRef(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const requestIndicator = useCallback(() => {
+    setNeedRequestIndicator(needRequestIndicator + 1);
+  }, [setNeedRequestIndicator, needRequestIndicator]);
+
+  const useDesktopMediaQuery = () =>
+    useMediaQuery({
+      minWidth: 769,
+    });
+
+  const handleFilterBarMobileOpen = () => {
+    setIsFilterBarMobile(true);
+  };
+
+  const handleFilterBarMobileClose = () => {
+    setIsFilterBarMobile(false);
+  };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(prevState => !prevState);
+    requestIndicator();
   };
 
   const handleChangeCheckedBox = (
@@ -45,105 +82,117 @@ export const MirrorsAside: React.FC<MirrorsAsideProps> = ({ onFirstPage }) => {
     }
   };
 
-  const asideMirrorsOptions = {
-    category: ["Венецианские зеркала", "Напольные зеркала"],
-    form: ["Круглая", "Овальная", "Прямоугольная", "Фигурная"],
-    frame_color: [
-      "Античное золото",
-      "Античное серебро",
-      "Бронза",
-      "Золото",
-      "Латунь",
-      "Серебро",
-      "Хром",
-    ],
+  const asideOptionsMirrors: IAsideOption[] = [
+    {
+      option: { optionNameRu: "Категория", optionNameOnBackend: "category" },
+      entities: ["Венецианские зеркала", "Напольные зеркала"],
+    },
+    {
+      option: { optionNameRu: "Форма", optionNameOnBackend: "form" },
+      entities: ["Круглая", "Овальная", "Прямоугольная", "Фигурная"],
+    },
+    {
+      option: { optionNameRu: "Цвет", optionNameOnBackend: "frame_color" },
+      entities: [
+        "Античное золото",
+        "Античное серебро",
+        "Бронза",
+        "Золото",
+        "Латунь",
+        "Серебро",
+        "Хром",
+      ],
+    },
+  ];
+
+  const handleFilter = (request: ICheckedMirrors) => {
+    const obj = {};
+    const entries = Object.entries(request);
+    entries.forEach(([key, value]) => {
+      if (!isEmpty(value)) {
+        obj[key] = value.join(",");
+      }
+    });
+    if (!isEmpty(router.query.ordering)) {
+      return { ...obj, ordering: router.query.ordering, page: 1 };
+    } else {
+      return { ...obj, page: 1 };
+    }
   };
 
-  useEffect(() => {
-    if (!isSubmitting) return;
-
-    const handleFilter = (request: ICheckedMirrors) => {
-      const obj = {};
-      const entries = Object.entries(request);
-      entries.forEach(([key, value]) => {
-        if (!isEmpty(value)) {
-          obj[key] = value.join(",");
-        }
-      });
-
-      if (!isEmpty(router.query.ordering)) {
-        return { ...obj, ordering: router.query.ordering, page: 1 };
-      } else {
-        return { ...obj, page: 1 };
-      }
-    };
-
-    async function fetchMirrorsFilter(request) {
-      const response = await router.push({
+  const fetchMirrorsFilter = useCallback(
+    request => {
+      const response = router.push({
         href: "/mirrors",
         query: handleFilter(request),
       });
       if (!isNil(response)) {
         onFirstPage();
-        setIsSubmitting(prevState => !prevState);
       }
-    }
+    },
+    [handleFilter, onFirstPage, router]
+  );
 
+  useEffect(() => {
     fetchMirrorsFilter(checkedMirrors);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitting, checkedMirrors, onFirstPage]);
+  }, [needRequestIndicator]);
 
   return (
-    <aside className={styles.LayoutMirrorsAside}>
-      <IconButton className={styles.FilterButton} typeIcon={"Filter"} />
-      <form className={styles.AsideFilter} onSubmit={handleSubmit}>
-        <Accordion title="Категория" active={true}>
-          {asideMirrorsOptions.category.map((label, index) => (
-            <Checkbox
-              className={styles.CheckboxItem}
-              id={index.toString() + label}
-              label={label}
-              checkedBox={checkedMirrors}
-              key={index}
-              nameGroup="category"
-              onClick={(event, nameGroup) =>
-                handleChangeCheckedBox(event, nameGroup)
-              }
-            />
-          ))}
-        </Accordion>
-        <Accordion title="Форма" active={true}>
-          {asideMirrorsOptions.form.map((label, index) => (
-            <Checkbox
-              className={styles.CheckboxItem}
-              id={index.toString() + label}
-              label={label}
-              checkedBox={checkedMirrors}
-              key={index}
-              nameGroup="form"
-              onClick={(event, nameGroup) =>
-                handleChangeCheckedBox(event, nameGroup)
-              }
-            />
-          ))}
-        </Accordion>
-        <Accordion title="Цвет рамы" active={true}>
-          {asideMirrorsOptions.frame_color.map((label, index) => (
-            <Checkbox
-              className={styles.CheckboxItem}
-              id={index.toString() + label}
-              label={label}
-              checkedBox={checkedMirrors}
-              key={index}
-              nameGroup="frame_color"
-              onClick={(event, nameGroup) =>
-                handleChangeCheckedBox(event, nameGroup)
-              }
-            />
-          ))}
-        </Accordion>
+    <aside className={styles.MirrorsAside}>
+      <div className={styles.FilterMobile}>
+        <div className={styles.FilterButtonLabelMobile}>Фильтры</div>
+        <IconButton
+          className={styles.FilterButtonMobile}
+          typeIcon={"Filter"}
+          onClick={handleFilterBarMobileOpen}
+        />
+      </div>
+      <Overlay
+        timeout={TRANSITION}
+        onClick={handleFilterBarMobileClose}
+        isActive={isFilterBarMobile}
+      />
+      <CSSTransition
+        className="SidebarWindow"
+        in={isFilterBarMobile}
+        nodeRef={nodeRef}
+        timeout={TRANSITION}
+        unmountOnExit
+      >
+        <FilterBarMobile
+          asideOptions={asideOptionsMirrors}
+          checked={checkedMirrors}
+          ref={nodeRef}
+          onChangeCheckedBox={handleChangeCheckedBox}
+          onClose={handleFilterBarMobileClose}
+          onSubmit={handleSubmit}
+        />
+      </CSSTransition>
+      <form className={styles.AsideFilterDesktop} onSubmit={handleSubmit}>
+        {asideOptionsMirrors.map(item => (
+          <Accordion
+            key={item.option.optionNameRu}
+            title={item.option.optionNameRu}
+            active={true}
+          >
+            {item.entities.map((label, index) => (
+              <Checkbox
+                className={styles.CheckboxItem}
+                id={index.toString() + label}
+                label={label}
+                checkedBox={checkedMirrors}
+                key={index}
+                nameGroup={item.option.optionNameOnBackend}
+                onClick={(event, nameGroup) =>
+                  handleChangeCheckedBox(event, nameGroup)
+                }
+              />
+            ))}
+          </Accordion>
+        ))}
         <Button
-          className={styles.LayoutMirrorsAsideButton}
+          className={styles.MirrorsAsideButton}
           type="submit"
           onClick={() => {}}
         >

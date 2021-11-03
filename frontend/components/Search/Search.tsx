@@ -16,7 +16,7 @@ export interface ISearchProps {
 
 export const Search: React.FC<ISearchProps> = ({
   className,
-  transition = 500,
+  transition = 300,
 }) => {
   const [isActive, setIsActive] = useState(false);
   const [productList, setProductList] = useState<SearchProductsType>([]);

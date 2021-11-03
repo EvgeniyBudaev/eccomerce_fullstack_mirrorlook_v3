@@ -19,7 +19,14 @@
 }
 
 @media (max-width: 500px) {
-  .MirrorsList  {
+  .MirrorsList:not(.MirrorsList__line) {
     margin-left: 0;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 450px)  {
+  .MirrorsList:not(.MirrorsList__line) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }

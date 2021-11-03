@@ -1,4 +1,4 @@
-@import "../../../../../styles/index";
+@import "styles";
 
 .MirrorsListItem {
   $this: &;
@@ -48,6 +48,21 @@
     }
   }
 
+  .ContentImageContainer {
+    width: 100%;
+
+    > div {
+      position: unset !important;
+    }
+
+    .ContentImage {
+      object-fit: contain;
+      width: 164px !important;
+      position: relative !important;
+      height: unset !important;
+    }
+  }
+
   .Footer {
     display: flex;
     flex-direction: column;
@@ -56,7 +71,7 @@
     min-height: 50px;
 
     .FooterPrice{
-      @include roboto-24-bold;
+      @include roboto-18-bold;
       margin: 16px 0;
     }
 
@@ -68,24 +83,6 @@
     .FooterAddToCartLine {
       display: none;
     }
-
-    .FooterGoAtCart {
-      @include roboto-16-regular;
-      padding: 10px 30px;
-      height: max-content;
-      width: max-content;
-      color: $color-beige;
-      background-color: $color-white;
-      border: 1px solid $color-beige;
-      border-radius: 4px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-      transition: all 0.3s;
-
-      &:hover {
-        color: $color-beige-hover;
-        border: 1px solid $color-beige-hover;
-      }
-    }
   }
 
   &.MirrorsListItem__line {
@@ -94,6 +91,7 @@
     border-left: transparent;
     border-right: transparent;
     border-bottom: transparent;
+    border-radius: 0;
 
     .Wrapper {
       flex-direction: row;
@@ -131,6 +129,22 @@
         max-width: 360px;
         width: 100%;
 
+        &Price {
+          @include roboto-18-bold;
+          display: none;
+        }
+
+        &Status {
+          display: none;
+          margin-top: 8px;
+          margin-bottom: 16px;
+          color: $color-suit-gray;
+        }
+
+        &AddToCartLine {
+          display: none;
+        }
+
         .ContentTitleLine {
           margin-bottom: 8px;
         }
@@ -147,6 +161,7 @@
           margin-right: 8px;
           font-size: 13px;
           color: $color-suit-gray;
+          white-space: nowrap;
         }
 
         .ValueLine {
@@ -167,5 +182,168 @@
       display: block;
       margin-top: 26px;
     }
+  }
+}
+
+.ButtonGoAtCart {
+  @include roboto-16-regular;
+  padding: 10px 30px;
+  height: 42px;
+  width: max-content;
+  color: $color-beige;
+  background-color: $color-white;
+  border: 1px solid $color-beige;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s;
+
+  &:hover {
+    color: $color-beige-hover;
+    border: 1px solid $color-beige-hover;
+  }
+}
+
+.ButtonAddToCart {
+  height: 42px;
+}
+
+@media (max-width: 1100px) {
+  .MirrorsListItem.MirrorsListItem__line {
+    max-height: max-content;
+
+    .ContentDescriptionLine {
+      &Price, &Status, &AddToCartLine {
+        display: block;
+      }
+    }
+
+    .Footer {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 920px) {
+  .MirrorsListItem.MirrorsListItem__line {
+    .ContentImg {
+      margin-left: 0;
+    }
+
+    .ContentDescriptionLine {
+      max-width: 320px;
+      margin-left: 15px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .MirrorsListItem {
+    max-height: max-content;
+    height: max-content;
+
+    .Footer {
+      & .FooterPrice {
+        @include roboto-16-bold;
+        margin: 8px 0;
+      }
+    }
+
+    .FooterAddToCartGrid {
+      margin-bottom: 8px;
+    }
+
+    .ButtonGoAtCart {
+      //@include roboto-14-regular;
+    }
+  }
+
+  .MirrorsListItem.MirrorsListItem__line {
+    .ContentTitle {
+      margin-bottom: 8px;
+    }
+
+    .ContentDescriptionLine {
+      max-width: 100%;
+
+      &Price {
+        @include roboto-16-bold;
+      }
+
+      &AddToCartLine {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .MirrorsListItem.MirrorsListItem__line {
+    .Content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ContentDescriptionLine {
+      margin-left: 0;
+      max-width: 290px;
+
+      &AddToCartLine {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    .ContentDescriptionLinePrice, .ContentTitleLine {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .MirrorsListItem {
+    .ContentImageContainer .ContentImage {
+      width: 144px !important;
+    }
+
+    .Content .ContentImg {
+      height: 190px;
+    }
+
+    .ButtonAddToCart,
+    .ButtonGoAtCart {
+      @include roboto-14-regular;
+      padding: 10px 20px;
+      height: 36px;
+    }
+  }
+}
+
+@media (max-width: 450px)  {
+  .MirrorsListItem {
+    .ContentImageContainer .ContentImage {
+      width: 124px !important;
+    }
+
+    .Content .ContentImg {
+      height: 170px;
+    }
+  }
+}
+
+@media (max-width: 400px)  {
+  .MirrorsListItem {
+    .ContentImageContainer .ContentImage {
+      width: 100px !important;
+    }
+
+    .Content .ContentImg {
+      height: 140px;
+    }
+  }
+}
+
+@media (max-width: 340px)  {
+  .MirrorsListItem {
+    margin: 0 auto;
   }
 }

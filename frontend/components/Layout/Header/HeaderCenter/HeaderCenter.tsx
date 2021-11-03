@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import { TRANSITION } from "constants/transition";
 import { Logo, Search, Sidebar } from "components";
 import { Button, Hamburger, Overlay } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
@@ -14,16 +15,15 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
   isCatalogOpen,
   onCatalogToggle,
 }) => {
-  const TRANSITION = 500;
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebar, setIsSidebar] = useState(false);
   const nodeRef = useRef(null);
 
   const handleSidebarOpen = () => {
-    setIsSidebarOpen(true);
+    setIsSidebar(true);
   };
 
   const handleSidebarClose = () => {
-    setIsSidebarOpen(false);
+    setIsSidebar(false);
   };
 
   return (
@@ -40,7 +40,10 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               />
               <div className={styles.ButtonCatalogText}>Каталог</div>
             </Button>
-            <Search className={styles.SearchControlsDesktop} />
+            <Search
+              className={styles.SearchControlsDesktop}
+              transition={TRANSITION}
+            />
           </div>
           <HeaderIconsList className={styles.Desktop} />
           <div className={styles.Mobile}>
@@ -51,7 +54,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               <Hamburger
                 className={styles.HamburgerSidebar}
                 color="black"
-                isOpen={isSidebarOpen}
+                isOpen={isSidebar}
               />
             </Button>
             <Logo className={styles.LogoMobile} />
@@ -59,11 +62,11 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
             <Overlay
               timeout={TRANSITION}
               onClick={handleSidebarClose}
-              isActive={isSidebarOpen}
+              isActive={isSidebar}
             />
             <CSSTransition
               className="SidebarWindow"
-              in={isSidebarOpen}
+              in={isSidebar}
               nodeRef={nodeRef}
               timeout={TRANSITION}
               unmountOnExit

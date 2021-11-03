@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Overlay } from "ui-kit";
+import { TRANSITION } from "constants/transition";
 import { CatalogDropDown } from "components/Layout";
 import HeaderBanner from "./HeaderBanner";
 import HeaderBottom from "./HeaderBottom";
@@ -9,7 +10,6 @@ import HeaderTop from "./HeaderTop";
 import styles from "./Header.module.scss";
 
 export const Header: React.FC = () => {
-  const TRANSITION = 500;
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const nodeRef = useRef(null);
 

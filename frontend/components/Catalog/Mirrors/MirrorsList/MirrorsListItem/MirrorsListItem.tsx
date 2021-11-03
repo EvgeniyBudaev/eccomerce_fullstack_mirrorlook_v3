@@ -64,11 +64,15 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             pathname: `/cart/${currentCart.id}`,
           }}
         >
-          <a className={styles.FooterGoAtCart}>В корзине</a>
+          <a className={styles.ButtonGoAtCart}>В корзине</a>
         </Link>
       )
     ) : (
-      <Button isDisabled={mirror.count_in_stock <= 0} onClick={handleAddToCart}>
+      <Button
+        className={styles.ButtonAddToCart}
+        isDisabled={mirror.count_in_stock <= 0}
+        onClick={handleAddToCart}
+      >
         В корзину
       </Button>
     );
@@ -93,12 +97,16 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
           <div className={styles.ContentImg}>
             <Link href={`/mirrors/${mirror.product_slug}`}>
               <a>
-                <Image
-                  src={mirror.product_photo1}
-                  alt=""
-                  width="164"
-                  height="216"
-                />
+                <div className={styles.ContentImageContainer}>
+                  <Image
+                    className={styles.ContentImage}
+                    src={mirror.product_photo1}
+                    alt=""
+                    layout="fill"
+                    // width="164"
+                    // height="216"
+                  />
+                </div>
               </a>
             </Link>
           </div>
@@ -108,6 +116,9 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             </Link>
           </div>
           <ul className={styles.ContentDescriptionLine}>
+            <li className={styles.ContentDescriptionLinePrice}>
+              {numberWithSpaces(parseInt(mirror.price))} ₽
+            </li>
             <li className={styles.ContentTitleLine}>
               <Link href={`/mirrors/${mirror.product_slug}`}>
                 <a className={styles.ContentTitle}>{mirror.title}</a>
@@ -166,6 +177,12 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Произоводитель:</div>
               <div className={styles.ValueLine}>{mirror.brand}</div>
+            </li>
+            <li className={styles.ContentDescriptionLineStatus}>
+              {mirror.count_in_stock > 0 ? "В наличии" : "Товар отсутствует"}
+            </li>
+            <li className={styles.ContentDescriptionLineAddToCartLine}>
+              {renderButton(mirror)}
             </li>
           </ul>
         </div>

@@ -97,7 +97,8 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
           <div className={styles.ListingViewSwitcherInner}>
             <div
               className={classNames(styles.ListingViewSwitcherPointer, {
-                [styles.ListingViewSwitcherPointer__line]: isClickedDisplayLine,
+                [styles.ListingViewSwitcherPointer__line]:
+                isClickedDisplayLine,
               })}
             />
             <div className={styles.DisplayButtons}>

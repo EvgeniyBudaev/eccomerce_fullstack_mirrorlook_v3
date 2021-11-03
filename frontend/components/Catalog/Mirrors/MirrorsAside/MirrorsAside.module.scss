@@ -1,20 +1,24 @@
-.LayoutMirrorsAside {
+@import "styles";
+
+.MirrorsAside {
   min-width: 224px;
   margin-right: 20px;
   margin-top: 47px;
 
-  .FilterButton {
+  .FilterMobile,
+  .FilterButtonLabelMobile,
+  .FilterButtonMobile {
     display: none;
   }
 
-  .AsideFilter {
+  .AsideFilterDesktop {
     display: flex;
     flex-direction: column;
     margin-top: -8px;
   }
 }
 
-.LayoutMirrorsAsideButton {
+.MirrorsAsideButton {
   margin-top: 18px;
 }
 
@@ -22,19 +26,41 @@
   margin-top: 15px;
 }
 
-@media (max-width: 980px) {
-  .LayoutMirrorsAside {
+@media (max-width: 768px) {
+  .MirrorsAside {
     margin-top: 0;
 
-    .FilterButton {
-      display: block;
-      padding: 0;
+    .FilterMobile {
+      display: flex;
+      align-items: center;
       margin-bottom: 20px;
+    }
 
-      & svg {
-        width: 30px;
+    .FilterButtonLabelMobile {
+      display: block;
+      margin-right: 8px;
+    }
+
+    .FilterButtonMobile {
+      display: flex;
+      align-items: center;
+      padding: 0;
+
+      span {
         height: 30px;
       }
+
+      & svg {
+        display: flex;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        stroke: $color-beige;
+      }
+    }
+
+    .AsideFilterDesktop {
+      display: none;
     }
   }
 }

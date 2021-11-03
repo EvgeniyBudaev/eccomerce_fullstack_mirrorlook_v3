@@ -16,6 +16,7 @@ import Select from "./Select";
 import SliderNextArrow from "./Slider/SliderNextArrow";
 import SliderPrevArrow from "./Slider/SliderPrevArrow";
 import SliderSimple from "./Slider/SliderSimple";
+import Spacer from "./Spacer";
 import Spinner from "./Spinner";
 import TextArea from "./TextArea";
 
@@ -41,6 +42,7 @@ export {
   SliderNextArrow,
   SliderPrevArrow,
   SliderSimple,
+  Spacer,
   Spinner,
   TextArea,
 };

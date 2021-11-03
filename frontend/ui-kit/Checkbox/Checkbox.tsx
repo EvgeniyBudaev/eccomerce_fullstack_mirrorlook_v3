@@ -15,7 +15,10 @@ interface ICheckbox {
   nameGroup: string;
   checkedBox: IValue;
   children?: ReactNode;
-  onClick: (event, nameGroup) => void;
+  onClick: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    nameGroup: string
+  ) => void;
 }
 
 export const Checkbox: React.FC<ICheckbox> = ({
@@ -27,7 +30,7 @@ export const Checkbox: React.FC<ICheckbox> = ({
   children,
   onClick,
 }) => {
-  const handleChange = event => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onClick(event, nameGroup);
   };
 
