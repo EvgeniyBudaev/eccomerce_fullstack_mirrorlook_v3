@@ -68,10 +68,12 @@ const SliderAsNavFor: React.FC<ISliderAsNavForProps> = ({
         {images &&
           images.map((image, index) => {
             return (
-              <div key={index + "Nav"}>
+              <div className={styles.ImageContainer} key={index + "Nav"}>
                 <Image
+                  className={styles.Image}
                   src={image}
                   alt={alt}
+                  // layout="fill"
                   height={heightNav}
                   width={widthNav}
                 />

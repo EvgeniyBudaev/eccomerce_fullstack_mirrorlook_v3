@@ -154,7 +154,7 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
         isActive={isFilterBarMobile}
       />
       <CSSTransition
-        className="SidebarWindow"
+        className="FilterBar"
         in={isFilterBarMobile}
         nodeRef={nodeRef}
         timeout={TRANSITION}

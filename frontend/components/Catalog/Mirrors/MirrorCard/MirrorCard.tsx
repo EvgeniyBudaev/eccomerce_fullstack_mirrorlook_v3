@@ -71,7 +71,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
     ) : (
       <Button
         className={styles.ProductAddToCart}
-        disabled={mirror.count_in_stock <= 0}
+        isDisabled={mirror.count_in_stock <= 0}
         onClick={handleAddToCart}
       >
         Добавить в корзину

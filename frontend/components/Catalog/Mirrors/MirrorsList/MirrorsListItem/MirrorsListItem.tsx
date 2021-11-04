@@ -175,7 +175,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
               </div>
             </li>
             <li className={styles.RowLine}>
-              <div className={styles.LabelLine}>Произоводитель:</div>
+              <div className={styles.LabelLine}>Производитель:</div>
               <div className={styles.ValueLine}>{mirror.brand}</div>
             </li>
             <li className={styles.ContentDescriptionLineStatus}>

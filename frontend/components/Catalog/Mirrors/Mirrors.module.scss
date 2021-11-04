@@ -27,6 +27,14 @@
 }
 
 @media (max-width: 768px) {
+  .Mirrors {
+    & .Row {
+      & .Title {
+        @include roboto-22-bold;
+      }
+    }
+  }
+
   .Inner {
     flex-direction: column;
   }

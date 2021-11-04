@@ -111,3 +111,45 @@
     border: 1px solid $color-beige-hover;
   }
 }
+
+@media (max-width: 1300px) {
+  .ProductMainInfo {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Title {
+    margin-top: 30px;
+    margin-bottom: 16px;
+  }
+
+  .ColMedia {
+    max-width: 200px;
+  }
+
+  .ColSpecification, .ColPrice {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Title {
+    @include roboto-22-bold;
+    margin-top: 30px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .ProductPrice {
+    @include roboto-16-bold;
+  }
+}
+
+@media (max-width: 500px) {
+  .Title {
+    @include roboto-22-bold;
+    margin-top: 0;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+}
