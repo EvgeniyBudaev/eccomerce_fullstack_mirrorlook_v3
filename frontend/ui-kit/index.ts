@@ -13,6 +13,7 @@ import Modal from "./Modal";
 import Overlay from "./Overlay";
 import Pagination from "./Pagination";
 import Select from "./Select";
+import Sidebar from "./Sidebar";
 import SliderNextArrow from "./Slider/SliderNextArrow";
 import SliderPrevArrow from "./Slider/SliderPrevArrow";
 import SliderSimple from "./Slider/SliderSimple";
@@ -39,6 +40,7 @@ export {
   Overlay,
   Pagination,
   Select,
+  Sidebar,
   SliderNextArrow,
   SliderPrevArrow,
   SliderSimple,

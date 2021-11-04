@@ -12,14 +12,14 @@ type HamburgerColorType = "black" | "white";
 export interface IHamburgerProps {
   className?: string;
   color?: HamburgerColorType;
-  isOpen?: boolean;
+  isActive?: boolean;
   onClick?: (event: React.MouseEvent) => void;
 }
 
 export const Hamburger: React.FC<IHamburgerProps> = ({
   className,
   color = HamburgerColor.BLACK,
-  isOpen = false,
+  isActive = false,
   onClick,
 }) => {
   return (
@@ -28,7 +28,7 @@ export const Hamburger: React.FC<IHamburgerProps> = ({
         className={classNames(styles.Burger, {
           [styles.Burger__black]: color === HamburgerColor.BLACK,
           [styles.Burger__white]: color === HamburgerColor.WHITE,
-          [styles.Burger__open]: isOpen,
+          [styles.Burger__active]: isActive,
         })}
       />
     </div>

@@ -1,12 +1,12 @@
 @import "styles";
 
 .SearchProductListItem {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  //overflow: hidden;
+  //white-space: nowrap;
+  //text-overflow: ellipsis;
   margin: 3px;
   border-radius: 4px;
-  height: 44px;
+  min-height: 44px;
 
   &Link {
     display: flex;
@@ -20,19 +20,21 @@
 
   &Images {
     margin-right: 10px;
+    height: 28px;
   }
 
   &Title {
     @include roboto-16-regular;
     margin-right: 10px;
     color: $color-text;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    //overflow: hidden;
+    //white-space: nowrap;
+    //text-overflow: ellipsis;
   }
 
   &Price {
     @include roboto-14-regular;
     color: $color-suit-gray;
+    white-space: nowrap;
   }
 }

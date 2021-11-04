@@ -8,7 +8,7 @@ import Order from "./Order";
 import Recipient from "./Recipient";
 import Search from "./Search";
 import Shipping from "./Shipping";
-import Sidebar from "./Sidebar";
+import SidebarMobile from "./SidebarMobile";
 import YMap from "./YMap";
 
 export {
@@ -23,6 +23,6 @@ export {
   Recipient,
   Search,
   Shipping,
-  Sidebar,
+  SidebarMobile,
   YMap,
 };

@@ -12,7 +12,7 @@ export interface IOverlayProps {
 
 export const Overlay: React.FC<IOverlayProps> = ({
   className,
-  timeout = 500,
+  timeout = 300,
   isActive = false,
   onClick,
 }) => {

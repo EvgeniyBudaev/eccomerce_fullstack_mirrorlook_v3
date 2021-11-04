@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import { CSSTransition } from "react-transition-group";
 import { TRANSITION } from "constants/transition";
-import { Logo, Search, Sidebar } from "components";
-import { Button, Hamburger, Overlay } from "ui-kit";
+import { Logo, Search, SidebarMobile } from "components";
+import { Button, Hamburger, Sidebar } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 
@@ -36,7 +35,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               <Hamburger
                 className={styles.ButtonCatalogHamburger}
                 color="white"
-                isOpen={isCatalogOpen}
+                isActive={isCatalogOpen}
               />
               <div className={styles.ButtonCatalogText}>Каталог</div>
             </Button>
@@ -54,25 +53,18 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               <Hamburger
                 className={styles.HamburgerSidebar}
                 color="black"
-                isOpen={isSidebar}
+                isActive={isSidebar}
               />
             </Button>
             <Logo className={styles.LogoMobile} />
             <HeaderIconsList className={styles.HeaderIconsListMobile} />
-            <Overlay
-              timeout={TRANSITION}
-              onClick={handleSidebarClose}
+            <Sidebar
+              ref={nodeRef}
               isActive={isSidebar}
-            />
-            <CSSTransition
-              className="SidebarWindow"
-              in={isSidebar}
-              nodeRef={nodeRef}
-              timeout={TRANSITION}
-              unmountOnExit
+              onClose={handleSidebarClose}
             >
-              <Sidebar ref={nodeRef} />
-            </CSSTransition>
+              <SidebarMobile />
+            </Sidebar>
           </div>
         </div>
       </div>
