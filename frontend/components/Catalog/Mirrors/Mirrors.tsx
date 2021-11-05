@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { LayoutSorting } from "components/Layout/LayoutSorting/LayoutSorting";
 import { Pagination } from "ui-kit";
 import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
 import { MirrorsList } from "./MirrorsList";
 import { MirrorsAside } from "./MirrorsAside/MirrorsAside";
-import { LayoutSorting } from "./LayoutSorting/LayoutSorting";
 import styles from "./Mirrors.module.scss";
 
 export interface IProductRange {
@@ -13,13 +13,13 @@ export interface IProductRange {
   endProduct: number;
 }
 
-interface ILayoutMirrors {
+interface IMirrors {
   entities: IMirror[];
   paging: IPaging;
 }
 
 interface IMirrorsProps {
-  mirrorsResponse: ILayoutMirrors;
+  mirrorsResponse: IMirrors;
 }
 
 export const Mirrors: React.FC<IMirrorsProps> = ({ mirrorsResponse }) => {

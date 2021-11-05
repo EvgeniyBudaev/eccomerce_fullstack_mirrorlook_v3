@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";

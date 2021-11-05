@@ -1,7 +1,8 @@
 import { GetServerSideProps } from "next";
 import React from "react";
 import axios from "axios";
-import { Layout, LayoutMirrors } from "components";
+import { Layout } from "components";
+import { Mirrors } from "components/Catalog";
 import { IMirror } from "types/mirror";
 import { IFilter, IPaging } from "types/filter";
 import { IFilterResponse } from "api/types";
@@ -16,7 +17,7 @@ export default function MirrorsPage(
 ): JSX.Element {
   return (
     <Layout>
-      <LayoutMirrors mirrorsResponse={mirrorsResponse} />
+      <Mirrors mirrorsResponse={mirrorsResponse} />
     </Layout>
   );
 }

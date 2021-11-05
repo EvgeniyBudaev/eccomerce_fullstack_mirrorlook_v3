@@ -55,7 +55,13 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
         images.map((image, index) => {
           return (
             <div className={styles.Item} key={index}>
-              <Image src={image} alt={alt} height={height} width={width} />
+              <Image
+                src={image}
+                alt={alt}
+                priority
+                height={height}
+                width={width}
+              />
             </div>
           );
         })}

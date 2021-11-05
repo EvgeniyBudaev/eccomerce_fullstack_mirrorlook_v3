@@ -119,8 +119,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
           [styles.PaginationArrowButton__disabled]:
             currentButton === FIRST_PAGE,
         })}
-        type="ArrowLeft"
-        disabled={currentButton === FIRST_PAGE}
+        typeIcon="ArrowLeft"
+        isDisabled={currentButton === FIRST_PAGE}
         onClick={handlePageGoBack}
       />
 
@@ -142,8 +142,8 @@ export const Pagination: React.FC<IPaginationProps> = ({
         className={classNames(styles.PaginationArrowButton, {
           [styles.PaginationArrowButton__disabled]: currentButton === pages,
         })}
-        type="ArrowRight"
-        disabled={currentButton === pages}
+        typeIcon="ArrowRight"
+        isDisabled={currentButton === pages}
         onClick={handlePageGoForward}
       />
     </div>

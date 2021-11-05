@@ -3,11 +3,9 @@
 .HeaderBottom {
   display: flex;
   padding: 5px 0;
-  border-top: 1px solid $color-light-gray;
-  box-shadow: 0 1rem 1.7rem rgba(0, 0, 0, 0.05);
+  height: 28px;
 
   &__catalogOpen {
-    height: 28px;
     border-top: 1px solid white;
     box-shadow: none;
 
@@ -23,8 +21,7 @@
 }
 
 .Link {
-  @include roboto-14-medium;
-  text-transform: uppercase;
+  @include roboto-14-regular;
   color: $color-text;
   transition: all 0.15s;
 
@@ -35,14 +32,6 @@
 
 .Link+.Link {
   margin-left: 25px;
-}
-
-.Container {
-  /*ширина контейнера чистая 1200px*/
-  max-width: 1230px;
-  width: 100%;
-  padding: 0 15px;
-  margin: 0 auto;
 }
 
 .Desktop {

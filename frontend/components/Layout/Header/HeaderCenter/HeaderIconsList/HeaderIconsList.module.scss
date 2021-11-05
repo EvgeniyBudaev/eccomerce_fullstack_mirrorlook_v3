@@ -40,7 +40,7 @@
 }
 
 .IconDescription {
-  @include roboto-14-medium;
+  @include roboto-12-regular;
 }
 
 .IconLink {
@@ -53,9 +53,9 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -50%;
+  top: -18px;
   transform: translateY(90%);
-  left: 50%;
+  right: 0;
   width: 20px;
   height: 20px;
   color: $color-white;

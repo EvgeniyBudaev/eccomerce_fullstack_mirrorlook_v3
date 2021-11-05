@@ -19,17 +19,15 @@ export const HeaderBottom: React.FC<IHeaderBottomProps> = ({
         [styles.HeaderBottom__catalogOpen]: isCatalogOpen,
       })}
     >
-      <div className={styles.Container}>
-        <div className={styles.Desktop}>
-          <Link href={`/mirrors/`}>
-            <a className={styles.Link}>Зеркала</a>
-          </Link>
-          <Link href={`/consoles/`}>
-            <a className={styles.Link}>Консоли</a>
-          </Link>
-        </div>
-        <Search className={styles.SearchControlsMobile} />
+      <div className={styles.Desktop}>
+        <Link href={`/mirrors`}>
+          <a className={styles.Link}>Зеркала</a>
+        </Link>
+        <Link href={`/consoles`}>
+          <a className={styles.Link}>Консоли</a>
+        </Link>
       </div>
+      <Search className={styles.SearchControlsMobile} />
     </div>
   );
 };

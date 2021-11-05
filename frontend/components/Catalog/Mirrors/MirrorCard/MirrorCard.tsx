@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { isNull } from "lodash";
+import isNull from "lodash/isNull";
 import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";

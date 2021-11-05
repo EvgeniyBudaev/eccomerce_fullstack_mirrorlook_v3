@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { ForwardedRef, forwardRef } from "react";
 import classNames from "classnames";
-import card1 from "ui-kit/assets/images/home-mirrors3.jpg";
-import card2 from "ui-kit/assets/images/home-consoles.jpg";
+import categories1 from "ui-kit/assets/images/categories-1.jpg";
+import { useMounted } from "hooks/useMounted";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import styles from "./CatalogDropDown.module.scss";
 
 export interface ICatalogDropDownProps {
@@ -16,21 +17,50 @@ export const CatalogDropDown = forwardRef(
     { className }: ICatalogDropDownProps,
     ref: ForwardedRef<HTMLInputElement>
   ): JSX.Element => {
+    const { hasMounted } = useMounted();
+    const scroll = useTypedSelector(state => state.scroll);
+    const { isScroll } = hasMounted && scroll;
+
     return (
-      <div className={classNames(styles.CatalogDropDown, className)} ref={ref}>
+      <div
+        className={classNames(styles.CatalogDropDown, className, {
+          [styles.CatalogDropDown__isScroll]: isScroll,
+        })}
+        ref={ref}
+      >
         <div className={styles.CatalogDropDownContainer}>
-          <div className={styles.CatalogDropDownImages}>
-            <div className={styles.CatalogDropDownImage}>
-              <Link href={`/mirrors/`}>
+          <div className={styles.CatalogDropDownList}>
+            <div className={styles.CatalogDropDownListItem}>
+              <Link href={`/mirrors`}>
                 <a>
-                  <Image src={card1} alt="" width="200" height="200" />
+                  <Image
+                    className={styles.CatalogDropDownListItemImage}
+                    alt=""
+                    priority
+                    src={categories1}
+                    width="157"
+                    height="85"
+                  />
+                  <div className={styles.CatalogDropDownListItemTitle}>
+                    Зеркала
+                  </div>
                 </a>
               </Link>
             </div>
-            <div className={styles.CatalogDropDownImage}>
-              <Link href={`/consoles/`}>
+            <div className={styles.CatalogDropDownListItem}>
+              <Link href={`/consoles`}>
                 <a>
-                  <Image src={card2} alt="" width="200" height="200" />
+                  <Image
+                    className={styles.CatalogDropDownListItemImage}
+                    alt=""
+                    priority
+                    src={categories1}
+                    width="157"
+                    height="85"
+                  />
+                  <div className={styles.CatalogDropDownListItemTitle}>
+                    Консоли
+                  </div>
                 </a>
               </Link>
             </div>

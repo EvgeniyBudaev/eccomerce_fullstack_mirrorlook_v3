@@ -1,33 +1,31 @@
+@import "styles";
+
 .Home {}
 
 .MainSliders {
   display: flex;
   justify-content: space-between;
+  margin-top: 0;
 }
 
 .MainSlider {
-  height: 360px;
-  width: 900px;
+  height: 300px;
+  width: 1440px;
 }
 
 .MainSliderNextArrow {
   right: 25px !important;
 }
 
-.ProductSlider {
-  height: 360px;
-  width: 260px;
-}
-
 .Catalog {
   display: grid;
   gap: 30px;
-  grid-template-columns: repeat(auto-fill, minmax(585px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   width: 100%;
-  margin: 75px 0 30px;
+  margin: 45px 0 30px;
 
   .CatalogImg {
-    max-width: 585px;
+    max-width: 160px;
     width: 100%;
     height: auto;
     border-radius: 24px;
@@ -41,6 +39,36 @@
 
     & img:hover {
       transform: scale(1.1);
+    }
+  }
+}
+
+$promotionWidth: 270px;
+
+.Promotions {
+  &Title {
+    @include roboto-26-medium;
+    margin-bottom: 20px;
+  }
+
+  &List {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax($promotionWidth, 1fr));
+    width: 100%;
+  }
+
+  &ListItem {
+    max-width: $promotionWidth;
+    width: 100%;
+
+    &Title {
+      @include roboto-16-bold;
+      margin: 8px 0;
+    }
+
+    &SubTitle {
+      @include roboto-14-regular;
     }
   }
 }

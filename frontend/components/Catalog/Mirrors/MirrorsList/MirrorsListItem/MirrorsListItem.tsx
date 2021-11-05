@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
-import { isNull } from "lodash";
+import isNull from "lodash/isNull";
 import { IMirror } from "types/mirror";
-import { Button, IconButton, Spinner } from "ui-kit";
+import { Button, Spinner } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ActionTypes, ICartState } from "ducks/cart";
@@ -28,6 +29,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
   const { error } = unhandledError;
+  const isMobileScreen = useMediaQuery({ query: "(max-width: 500px)" });
 
   const getCart = (cart: ICartState) => {
     return cart;
@@ -84,6 +86,22 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
     };
   }, [dispatch]);
 
+  const imageResponsiveSizeWidth = () => {
+    if (isMobileScreen) {
+      return "100px";
+    } else {
+      return "164px";
+    }
+  };
+
+  const imageResponsiveSizeHeight = () => {
+    if (isMobileScreen) {
+      return "140px";
+    } else {
+      return "216px";
+    }
+  };
+
   if (isLoading) return <Spinner />;
 
   return (
@@ -97,16 +115,14 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
           <div className={styles.ContentImg}>
             <Link href={`/mirrors/${mirror.product_slug}`}>
               <a>
-                <div className={styles.ContentImageContainer}>
-                  <Image
-                    className={styles.ContentImage}
-                    src={mirror.product_photo1}
-                    alt=""
-                    layout="fill"
-                    // width="164"
-                    // height="216"
-                  />
-                </div>
+                <Image
+                  className={styles.ContentImage}
+                  alt=""
+                  priority
+                  src={mirror.product_photo1}
+                  width={imageResponsiveSizeWidth()}
+                  height={imageResponsiveSizeHeight()}
+                />
               </a>
             </Link>
           </div>

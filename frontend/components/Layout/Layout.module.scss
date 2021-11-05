@@ -1,3 +1,5 @@
+@import "styles";
+
 .Layout {
   height: 100%;
 }
@@ -14,7 +16,11 @@
 }
 
 .Main {
-  padding-top: 180px;
+  padding-top: 0;
+
+  &__isScroll {
+    padding-top: 120px;
+  }
 }
 
 .Container {
@@ -25,8 +31,20 @@
   margin: 0 auto;
 }
 
+.ContainerHomePage {
+  /*ширина контейнера чистая 1440px*/
+  max-width: 1470px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .Main {
-    padding-top: 140px;
+    padding-top: 0;
+
+    &__isScroll {
+      padding-top: 140px;
+    }
   }
 }

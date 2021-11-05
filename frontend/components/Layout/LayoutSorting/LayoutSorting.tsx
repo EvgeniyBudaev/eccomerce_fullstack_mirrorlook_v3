@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
-import { isNull } from "lodash";
+import isNull from "lodash/isNull";
 import { IconButton, Select } from "ui-kit";
 import { LayoutSortingSelectStyles } from "./styles";
 import styles from "./LayoutSorting.module.scss";
@@ -59,7 +59,7 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
   useEffect(() => {
     if (!isSubmitting) return;
 
-    async function fetchMirrorsSorting(request) {
+    async function fetchSorting(request) {
       await router.push({
         href: path,
         query: handleSorting(request),
@@ -68,9 +68,9 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
     }
     setIsSubmitting(prevState => !prevState);
 
-    fetchMirrorsSorting(selectedOption);
+    fetchSorting(selectedOption);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitting, onFirstPage]);
+  }, [isSubmitting]);
 
   return (
     <div className={styles.LayoutSorting}>
@@ -97,8 +97,7 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
           <div className={styles.ListingViewSwitcherInner}>
             <div
               className={classNames(styles.ListingViewSwitcherPointer, {
-                [styles.ListingViewSwitcherPointer__line]:
-                isClickedDisplayLine,
+                [styles.ListingViewSwitcherPointer__line]: isClickedDisplayLine,
               })}
             />
             <div className={styles.DisplayButtons}>

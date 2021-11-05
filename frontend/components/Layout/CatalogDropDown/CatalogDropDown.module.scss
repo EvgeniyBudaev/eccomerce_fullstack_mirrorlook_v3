@@ -1,39 +1,75 @@
 @import "styles";
 
+$categoryWidth: 157px;
+
 .CatalogDropDown {
+  $this: &;
   position: absolute;
-  top: 170px;
+  top: 0;
+  left: 0;
+  padding: 16px 0;
   width: 100%;
   min-width: 100%;
   height: max-content;
+  //height: 100%;
   background-color: $color-white;
   z-index: 101;
 
+  &__isScroll {
+    #{$this}Container {
+      margin: 230px auto 0;
+    }
+  }
+
   &Container {
-    /*ширина контейнера чистая 1200px*/
-    max-width: 1230px;
+    max-width: 1440px;
     width: 100%;
-    padding: 30px 15px 15px 15px;
-    margin: 0 auto;
+    padding: 0 15px;
+    margin: 170px auto 0;
   }
 
-  &Images {
-    display: flex;
+  &List {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax($categoryWidth, 1fr));
+    width: 100%;
   }
 
-  &Image {
-    margin-right: 25px;
-    cursor: pointer;
-    transition: box-shadow 0.15s;
+  &ListItem {
+    padding: 16px 0;
+    max-width: $categoryWidth;
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 0, 0, .04);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.15s;
+
+    & img {
+      height: calc(100% - 48px);
+      object-fit: contain;
+      border-radius: 24px;
+    }
+
+    &Title {
+      @include roboto-16-bold;
+      margin-top: 8px;
+      text-align: center;
+      transition: all 0.55s;
+    }
 
     &:hover {
-      box-shadow: rgba(0, 0, 0, 0.3) 0 19px 38px, rgba(0, 0, 0, 0.22) 0 15px 12px;
+      background-color: rgba(0, 0, 0, .06);
+
+      #{$this}ListItemTitle {
+        color: $color-beige;
+      }
     }
   }
 }
 
-@media (max-width: 1004px) {
-  .CatalogDropDown {
-    top: 158px;
-  }
-}
+//@media (max-width: 1004px) {
+//  .CatalogDropDown {
+//    top: 158px;
+//  }
+//}

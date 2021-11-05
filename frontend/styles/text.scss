@@ -135,6 +135,15 @@ $base-font-family : 'Roboto', sans-serif;
 	line-height: 1.25;
 }
 
+/* Roboto/26/Medium */
+@mixin roboto-26-medium {
+	font-family: $base-font-family;
+	font-size: 26px;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 1.25;
+}
+
 /* Roboto/28/Medium */
 @mixin roboto-28-medium {
 	font-family: $base-font-family;

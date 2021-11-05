@@ -9,7 +9,7 @@ import {
 } from "react-yandex-maps";
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";

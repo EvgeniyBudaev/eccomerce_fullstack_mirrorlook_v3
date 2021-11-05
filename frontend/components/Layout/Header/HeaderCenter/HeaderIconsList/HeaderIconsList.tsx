@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import { isNull } from "lodash";
+import isNull from "lodash/isNull";
 import { Avatar, Icon } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ICartState } from "ducks/cart";
@@ -57,23 +57,6 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
 
   return (
     <div className={classNames(styles.HeaderIconsList, className)}>
-      <div
-        className={classNames(
-          styles.HeaderIconListItem,
-          styles.HeaderIconListItemDesktop
-        )}
-      >
-        {isAuthenticated ? (
-          <Avatar size={46} title={account.user.first_name[0]} />
-        ) : (
-          <Link href={"/login"}>
-            <a>
-              <Icon className={styles.Icon} type={"User"} />
-              <div className={styles.IconDescription}>Войти</div>
-            </a>
-          </Link>
-        )}
-      </div>
       <div className={styles.HeaderIconListItem}>
         {!isNull(cartId) && (
           <div>
@@ -91,6 +74,23 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
               </a>
             </Link>
           </div>
+        )}
+      </div>
+      <div
+        className={classNames(
+          styles.HeaderIconListItem,
+          styles.HeaderIconListItemDesktop
+        )}
+      >
+        {isAuthenticated ? (
+          <Avatar size={46} title={account.user.first_name[0]} />
+        ) : (
+          <Link href={"/login"}>
+            <a>
+              <Icon className={styles.Icon} type={"User"} />
+              <div className={styles.IconDescription}>Войти</div>
+            </a>
+          </Link>
         )}
       </div>
     </div>

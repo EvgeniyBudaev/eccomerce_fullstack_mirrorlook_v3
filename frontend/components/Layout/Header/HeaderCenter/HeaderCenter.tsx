@@ -27,45 +27,43 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
 
   return (
     <div className={styles.HeaderCenter}>
-      <div className={styles.Container}>
-        <div className={styles.Inner}>
-          <div className={styles.InnerDesktop}>
-            <Logo />
-            <Button className={styles.ButtonCatalog} onClick={onCatalogToggle}>
-              <Hamburger
-                className={styles.ButtonCatalogHamburger}
-                color="white"
-                isActive={isCatalogOpen}
-              />
-              <div className={styles.ButtonCatalogText}>Каталог</div>
-            </Button>
-            <Search
-              className={styles.SearchControlsDesktop}
-              transition={TRANSITION}
+      <div className={styles.Inner}>
+        <div className={styles.InnerDesktop}>
+          <Logo />
+          <Button className={styles.ButtonCatalog} onClick={onCatalogToggle}>
+            <Hamburger
+              className={styles.ButtonCatalogHamburger}
+              color="white"
+              isActive={isCatalogOpen}
             />
-          </div>
-          <HeaderIconsList className={styles.Desktop} />
-          <div className={styles.Mobile}>
-            <Button
-              className={styles.ButtonSidebar}
-              onClick={handleSidebarOpen}
-            >
-              <Hamburger
-                className={styles.HamburgerSidebar}
-                color="black"
-                isActive={isSidebar}
-              />
-            </Button>
-            <Logo className={styles.LogoMobile} />
-            <HeaderIconsList className={styles.HeaderIconsListMobile} />
-            <Sidebar
-              ref={nodeRef}
+            <div className={styles.ButtonCatalogText}>Каталог</div>
+          </Button>
+          <Search
+            className={styles.SearchControlsDesktop}
+            transition={TRANSITION}
+          />
+        </div>
+        <HeaderIconsList className={styles.Desktop} />
+        <div className={styles.Mobile}>
+          <Button
+            className={styles.ButtonSidebar}
+            onClick={handleSidebarOpen}
+          >
+            <Hamburger
+              className={styles.HamburgerSidebar}
+              color="black"
               isActive={isSidebar}
-              onClose={handleSidebarClose}
-            >
-              <SidebarMobile />
-            </Sidebar>
-          </div>
+            />
+          </Button>
+          <Logo className={styles.LogoMobile} />
+          <HeaderIconsList className={styles.HeaderIconsListMobile} />
+          <Sidebar
+            ref={nodeRef}
+            isActive={isSidebar}
+            onClose={handleSidebarClose}
+          >
+            <SidebarMobile />
+          </Sidebar>
         </div>
       </div>
     </div>

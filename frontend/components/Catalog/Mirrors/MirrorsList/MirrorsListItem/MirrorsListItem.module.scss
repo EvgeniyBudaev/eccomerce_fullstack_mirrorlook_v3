@@ -48,21 +48,6 @@
     }
   }
 
-  .ContentImageContainer {
-    width: 100%;
-
-    > div {
-      position: unset !important;
-    }
-
-    .ContentImage {
-      object-fit: contain;
-      width: 164px !important;
-      position: relative !important;
-      height: unset !important;
-    }
-  }
-
   .Footer {
     display: flex;
     flex-direction: column;
@@ -301,12 +286,8 @@
 
 @media (max-width: 500px) {
   .MirrorsListItem {
-    .ContentImageContainer .ContentImage {
-      width: 144px !important;
-    }
-
     .Content .ContentImg {
-      height: 190px;
+      height: 140px;
     }
 
     .ButtonAddToCart,
@@ -314,30 +295,6 @@
       @include roboto-14-regular;
       padding: 10px 20px;
       height: 36px;
-    }
-  }
-}
-
-@media (max-width: 450px)  {
-  .MirrorsListItem {
-    .ContentImageContainer .ContentImage {
-      width: 124px !important;
-    }
-
-    .Content .ContentImg {
-      height: 170px;
-    }
-  }
-}
-
-@media (max-width: 400px)  {
-  .MirrorsListItem {
-    .ContentImageContainer .ContentImage {
-      width: 100px !important;
-    }
-
-    .Content .ContentImg {
-      height: 140px;
     }
   }
 }

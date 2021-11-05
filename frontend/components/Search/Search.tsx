@@ -20,14 +20,9 @@ export const Search: React.FC<ISearchProps> = ({
 }) => {
   const [isActive, setIsActive] = useState(false);
   const [productList, setProductList] = useState<SearchProductsType>([]);
-  const [requestIndicator, setRequestIndicator] = useState(0);
   const [searchedKeyword, setSearchedKeyword] = useState("");
   const dispatch = useDispatch();
   const nodeRef = useRef<HTMLDivElement>(null);
-
-  const handleIndicatorIncrease = () => {
-    setRequestIndicator(requestIndicator => requestIndicator + 1);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchedKeyword(event.target.value);
@@ -39,11 +34,6 @@ export const Search: React.FC<ISearchProps> = ({
 
   const handleFocus = () => {
     setIsActive(true);
-  };
-
-  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    handleIndicatorIncrease();
   };
 
   const fetchSearchItems = useCallback(
@@ -66,8 +56,8 @@ export const Search: React.FC<ISearchProps> = ({
 
   useEffect(() => {
     fetchSearchItems(searchedKeyword);
-    // eslint-disable-next-line
-  }, [fetchSearchItems, requestIndicator, searchedKeyword]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchedKeyword]);
 
   return (
     <>
@@ -76,7 +66,7 @@ export const Search: React.FC<ISearchProps> = ({
           [styles.Search__active]: isActive,
         })}
       >
-        <form className={styles.Form} onSubmit={handleSubmit}>
+        <div className={styles.Form}>
           <div className={styles.SearchInputWrapper}>
             <input
               className={styles.SearchInput}
@@ -91,7 +81,7 @@ export const Search: React.FC<ISearchProps> = ({
             />
           </div>
           <Icon className={styles.SearchIcon} type="Search" />
-        </form>
+        </div>
         <CSSTransition
           className="SearchDropDownWindow"
           in={isActive}

@@ -1,5 +1,8 @@
-.HeaderBanner {
-  background-color: #FFDD9B;
+.Banner {
+  position: relative;
+  height: 60px;
+  background-color: #000;
+  z-index: 102;
 
   & .Mobile {
     display: none;
@@ -17,7 +20,7 @@
 @media (max-width: 768px) {
   $heightMobile: 20px;
 
-  .HeaderBanner {
+  .Banner {
     height: $heightMobile;
 
     & .Container {

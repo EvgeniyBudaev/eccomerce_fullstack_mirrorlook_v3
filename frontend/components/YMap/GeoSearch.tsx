@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { withYMaps } from "react-yandex-maps";
 import classNames from "classnames";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { useDebounce } from "use-debounce";
 import { v4 as uuidv4 } from "uuid";
 import { MapInput } from "./MapInput";

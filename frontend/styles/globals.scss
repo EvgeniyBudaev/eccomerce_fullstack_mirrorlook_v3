@@ -78,7 +78,7 @@ button {
   width: 100%;
   max-height: 500px;
   margin: 0 auto;
-  border-radius: 24px;
+  //border-radius: 24px;
   outline: transparent;
 }
 
@@ -157,6 +157,11 @@ button {
 .slick-slider .slick-track,
 .slick-slider .slick-list {
   touch-action: pan-y;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    opacity: 0 !important;
 }
 
 @media (max-width: 500px) {
@@ -392,7 +397,7 @@ $maxWidth: 620px;
 
 @media (max-width: 500px) {
   section {
-    margin: 0 0 15px;
+    margin: 20px 0;
   }
 
   .slick-slider {

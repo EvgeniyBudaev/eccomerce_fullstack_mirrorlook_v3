@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useMediaQuery } from "react-responsive";
 import { CSSTransition } from "react-transition-group";
-import { isEmpty, isNil } from "lodash";
+import isEmpty from "lodash/isEmpty";
+import isNil from "lodash/isNil";
 import { Accordion, Button, Checkbox, IconButton, Overlay } from "ui-kit";
 import { TRANSITION } from "constants/transition";
 import { FilterBarMobile } from "components";
@@ -33,24 +34,13 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
     frame_color: [],
   });
   const [isFilterBarMobile, setIsFilterBarMobile] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [needRequestIndicator, setNeedRequestIndicator] = useState(0);
   const nodeRef = useRef(null);
   const router = useRouter();
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const requestIndicator = useCallback(() => {
     setNeedRequestIndicator(needRequestIndicator + 1);
   }, [setNeedRequestIndicator, needRequestIndicator]);
-
-  const useDesktopMediaQuery = () =>
-    useMediaQuery({
-      minWidth: 769,
-    });
 
   const handleFilterBarMobileOpen = () => {
     setIsFilterBarMobile(true);
@@ -121,7 +111,7 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
   };
 
   const fetchMirrorsFilter = useCallback(
-    request => {
+    (request: ICheckedMirrors) => {
       const response = router.push({
         href: "/mirrors",
         query: handleFilter(request),

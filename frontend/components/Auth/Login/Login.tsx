@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
 import * as yup from "yup";
 import { ActionTypes } from "ducks/account";
 import { setUnhandledClearError } from "ducks/unhandledError";

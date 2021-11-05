@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { YMaps } from "react-yandex-maps";
-import { isNull } from "lodash";
+import isNull from "lodash/isNull";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import Shipping from "../Shipping";
 import { emptyMapSearchState } from "./GeoSearch";

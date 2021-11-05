@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { getDeclination } from "utils/declinations";

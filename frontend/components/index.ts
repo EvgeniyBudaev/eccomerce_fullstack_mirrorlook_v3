@@ -1,7 +1,7 @@
 import Cart from "./Cart";
 import FilterBarMobile from "./FilterBarMobile";
 import Home from "./Home";
-import { Layout, LayoutMirrors } from "./Layout";
+import { Layout } from "./Layout";
 import Logo from "./Logo";
 import Marker from "./YMap/Marker";
 import Order from "./Order";
@@ -16,7 +16,6 @@ export {
   FilterBarMobile,
   Home,
   Layout,
-  LayoutMirrors,
   Logo,
   Marker,
   Order,

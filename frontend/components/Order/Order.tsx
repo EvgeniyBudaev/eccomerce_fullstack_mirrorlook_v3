@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
-import { isNull } from "lodash";
+import isNull from "lodash/isNull";
 import { ActionTypes, IPayloadOrderRecipientSave } from "ducks/order";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
