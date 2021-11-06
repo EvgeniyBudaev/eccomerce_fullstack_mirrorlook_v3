@@ -33,6 +33,10 @@
 .Text {
   transition: all 0.15s;
 
+  &__isActive {
+    color: $color-beige;
+  }
+
   &:hover {
     color: $color-beige-hover;
   }

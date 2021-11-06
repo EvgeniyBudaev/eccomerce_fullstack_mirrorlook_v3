@@ -7,6 +7,7 @@ import Home from "./Home";
 import { Layout } from "./Layout";
 import Logo from "./Logo";
 import Marker from "./YMap/Marker";
+import NavLink from "./NavLink";
 import Order from "./Order";
 import Recipient from "./Recipient";
 import Search from "./Search";
@@ -24,6 +25,7 @@ export {
   Layout,
   Logo,
   Marker,
+  NavLink,
   Order,
   Recipient,
   Search,

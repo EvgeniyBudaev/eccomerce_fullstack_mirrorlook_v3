@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { NavLink } from "components";
 import styles from "./HeaderTop.module.scss";
 
 export const HeaderTop: React.FC = () => {
@@ -8,15 +9,15 @@ export const HeaderTop: React.FC = () => {
       <div className={styles.Info}>
         <div className={styles.InfoInner}>
           <div className={styles.InfoLeft}>
-            <Link href={"/about"}>
+            <NavLink href={"/about"} activeClassName={styles.Text__isActive}>
               <a className={styles.Text}>О компании</a>
-            </Link>
-            <Link href={"/help"}>
+            </NavLink>
+            <NavLink href={"/help"} activeClassName={styles.Text__isActive}>
               <a className={styles.Text}>Доставка и оплата</a>
-            </Link>
-            <Link href={"/contacts"}>
+            </NavLink>
+            <NavLink href={"/contacts"} activeClassName={styles.Text__isActive}>
               <a className={styles.Text}>Контакты</a>
-            </Link>
+            </NavLink>
           </div>
           <div className={styles.InfoRight}>
             <Link href={"mailto:mirrorlook@gmail.com"}>
