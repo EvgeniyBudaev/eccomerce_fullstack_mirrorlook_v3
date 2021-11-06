@@ -328,7 +328,7 @@ export const Order: React.FC = () => {
               </div>
             </div>
             <Button className={styles.PaymentButton} onClick={handleSubmit}>
-              Перейти к оплате
+              Оформить заказ
             </Button>
           </div>
         </div>

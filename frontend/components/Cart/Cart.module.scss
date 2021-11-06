@@ -1,152 +1,145 @@
 @import "styles";
 
 .Cart {
-  margin-top: 60px;
-}
-
-.Title {
-  @include roboto-32-bold;
-  margin-bottom: 30px;
-}
-
-.Inner {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.List {
-  margin-right: 50px;
-  max-width: 780px;
-  width: 100%;
-}
-
-.Checkout {
-  position: relative;
-  max-width: 320px;
-  width: 100%;
+  &Title {
+    @include roboto-32-bold;
+    margin-bottom: 30px;
+  }
 
   &Inner {
-    position: fixed;
-    max-width: 320px;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
   }
-}
 
-.OrdersList {
-  margin-bottom: 12px;
-  padding: 20px;
-  background-color: $color-pearl-white;
-  border-radius: 4px;
-}
+  &List {
+    margin-right: 50px;
+    max-width: 780px;
+    width: 100%;
+  }
 
-.CostLine {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  &Checkout {
+    position: relative;
+    max-width: 320px;
+    width: 100%;
 
-  &Text {
+    &Inner {
+      position: fixed;
+      max-width: 320px;
+      width: 100%;
+    }
+  }
+
+  &OrdersList {
+    margin-bottom: 12px;
+    padding: 20px;
+    background-color: $color-pearl-white;
+    border-radius: 4px;
+  }
+
+  &CostLine {
     display: flex;
-    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    &Text {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    &Price {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &SubTotalPrice {
+      @include roboto-12-regular;
+      color: $color-shade-gray;
+      text-align: end;
+      text-decoration: line-through;
+    }
+
+    &PriceWithDiscount {
+      @include roboto-22-bold;
+      line-height: 1;
+    }
   }
 
-  &Price {
-    display: flex;
-    flex-direction: column;
+  &ButtonGoToOrder {
+    width: 100%;
   }
 
-  &SubTotalPrice {
-    @include roboto-12-regular;
-    color: $color-shade-gray;
-    text-align: end;
-    text-decoration: line-through;
-  }
-
-  &PriceWithDiscount {
-    @include roboto-22-bold;
-    line-height: 1;
-  }
-}
-
-.ButtonGoToOrder {
-  width: 100%;
-}
-
-.IconEnter {
-  width: 20px;
-  height: 20px;
-
-  svg {
+  &IconEnter {
     width: 20px;
     height: 20px;
-    fill: $color-green;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: $color-green;
+    }
   }
-}
 
-.IconLogoShort {
-  width: 20px;
-  height: 20px;
-
-  svg {
+  &IconLogoShort {
     width: 20px;
     height: 20px;
-    fill: $color-beige;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: $color-beige;
+    }
+  }
+
+  &TextEnter {
+    margin-left: 16px;
+    color: $color-blue;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige;
+    }
+  }
+
+  &BackToShopping {
+    display: inline-block;
+    margin-left: 20px;
+    color: $color-blue;
+    border-bottom: 1px solid rgba(0, 141, 211, 0.3);
+    transition: all 0.15s;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-beige;
+      border-bottom: 1px solid rgba(176, 151, 106, 0.3);
+    }
   }
 }
-
-.TextEnter {
-  margin-left: 16px;
-  color: $color-blue;
-  transition: all 0.15s;
-
-  &:hover {
-    color: $color-beige;
-  }
-}
-
-.BackToShopping {
-  display: inline-block;
-  margin-left: 20px;
-  color: $color-blue;
-  border-bottom: 1px solid rgba(0, 141, 211, 0.3);
-  transition: all 0.15s;
-  cursor: pointer;
-
-  &:hover {
-    color: $color-beige;
-    border-bottom: 1px solid rgba(176, 151, 106, 0.3);
-  }
-}
-
 
 @media (max-width: 1000px) {
-  .Inner {
+  .CartInner {
     flex-direction: column;
   }
 
-  .List {
+  .CartList {
     margin-bottom: 24px;
   }
 
-  .CheckoutInner {
+  .CartCheckoutInner {
     position: static;
   }
 
-  .OrdersList .Inner {
+  .CartOrdersList .CartInner {
     flex-direction: row;
   }
 }
 
 @media (max-width: 768px) {
-  .Cart {
-    margin-top: 0;
-  }
-
-  .Title {
+  .CartTitle {
     @include roboto-22-bold;
   }
 
-  .CostLinePriceWithDiscount {
+  .CartCostLinePriceWithDiscount {
     @include roboto-22-bold;
   }
 
@@ -155,11 +148,11 @@
 
 @media (max-width: 500px) {
   .Cart {
-    & .Checkout {
+    & .CartCheckout {
       max-width: 100%;
     }
 
-    & .CheckoutInner {
+    & .CartCheckoutInner {
       margin: 0 auto;
     }
   }

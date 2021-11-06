@@ -8,11 +8,14 @@ export const HeaderTop: React.FC = () => {
       <div className={styles.Info}>
         <div className={styles.InfoInner}>
           <div className={styles.InfoLeft}>
-            <Link href={"/"}>
+            <Link href={"/about"}>
               <a className={styles.Text}>О компании</a>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/help"}>
               <a className={styles.Text}>Доставка и оплата</a>
+            </Link>
+            <Link href={"/contacts"}>
+              <a className={styles.Text}>Контакты</a>
             </Link>
           </div>
           <div className={styles.InfoRight}>

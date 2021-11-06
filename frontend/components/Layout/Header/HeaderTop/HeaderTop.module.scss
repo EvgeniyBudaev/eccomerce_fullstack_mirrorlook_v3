@@ -18,8 +18,12 @@
   display: flex;
 }
 
-.InfoLeft .Text:first-child {
+.InfoLeft .Text {
   margin-right: 25px;
+}
+
+.InfoLeft .Text:last-child {
+  margin-right: 0;
 }
 
 .InfoRight .Text:last-child {

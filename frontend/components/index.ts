@@ -1,5 +1,8 @@
+import About from "./About";
 import Cart from "./Cart";
+import Contacts from "./Contacts";
 import FilterBarMobile from "./FilterBarMobile";
+import Help from "./Help";
 import Home from "./Home";
 import { Layout } from "./Layout";
 import Logo from "./Logo";
@@ -12,8 +15,11 @@ import SidebarMobile from "./SidebarMobile";
 import YMap from "./YMap";
 
 export {
+  About,
   Cart,
+  Contacts,
   FilterBarMobile,
+  Help,
   Home,
   Layout,
   Logo,

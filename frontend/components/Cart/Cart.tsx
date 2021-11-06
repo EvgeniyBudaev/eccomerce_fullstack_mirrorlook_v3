@@ -46,9 +46,9 @@ export const Cart: React.FC = () => {
 
   return (
     <section className={styles.Cart}>
-      <h1 className={styles.Title}>Моя корзина</h1>
-      <div className={styles.Inner}>
-        <div className={styles.List}>
+      <h1 className={styles.CartTitle}>Моя корзина</h1>
+      <div className={styles.CartInner}>
+        <div className={styles.CartList}>
           {hasMounted ? (
             !isEmpty(cart.entities) &&
             cart.entities.map(cartItem => (
@@ -58,21 +58,21 @@ export const Cart: React.FC = () => {
             <div>В корзине нет товаров</div>
           )}
         </div>
-        <div className={styles.Checkout}>
-          <div className={styles.CheckoutInner}>
-            <div className={styles.OrdersList}>
-              <div className={styles.CostLine}>
-                <div className={styles.CostLineText}>
+        <div className={styles.CartCheckout}>
+          <div className={styles.CartCheckoutInner}>
+            <div className={styles.CartOrdersList}>
+              <div className={styles.CartCostLine}>
+                <div className={styles.CartCostLineText}>
                   В корзине {cartItemsCountTotal.toString()}
                   <> </>
                   {getDeclination(cartItemsCountTotal)}
                 </div>
-                <div className={styles.CostLinePrice}>
-                  <div className={styles.CostLineSubTotalPrice}>
+                <div className={styles.CartCostLinePrice}>
+                  <div className={styles.CartCostLineSubTotalPrice}>
                     {isAuthenticated &&
                       numberWithSpaces(parseInt(priceSubTotal.toString()))}
                   </div>
-                  <div className={styles.CostLinePriceWithDiscount}>
+                  <div className={styles.CartCostLinePriceWithDiscount}>
                     {numberWithSpaces(
                       parseInt(priceWithDiscountTotal.toString())
                     )}
@@ -81,16 +81,16 @@ export const Cart: React.FC = () => {
                 </div>
               </div>
               <Button
-                className={styles.ButtonGoToOrder}
+                className={styles.CartButtonGoToOrder}
                 onClick={handleProceedToCheckout}
               >
                 Перейти к оформлению
               </Button>
             </div>
             {isAuthenticated ? (
-              <div className={styles.OrdersList}>
-                <div className={styles.Inner}>
-                  <Icon className={styles.IconLogoShort} type="LogoShort" />
+              <div className={styles.CartOrdersList}>
+                <div className={styles.CartInner}>
+                  <Icon className={styles.CartIconLogoShort} type="LogoShort" />
                   <div>
                     <span>
                       - {numberWithSpaces(parseInt(priceDifference.toString()))}
@@ -101,11 +101,11 @@ export const Cart: React.FC = () => {
                 </div>
               </div>
             ) : (
-              <div className={styles.OrdersList}>
-                <div className={styles.Inner}>
-                  <Icon className={styles.IconEnter} type="Enter" />
+              <div className={styles.CartOrdersList}>
+                <div className={styles.CartInner}>
+                  <Icon className={styles.CartIconEnter} type="Enter" />
                   <Link href={"/login"}>
-                    <a className={styles.TextEnter}>
+                    <a className={styles.CartTextEnter}>
                       Авторизуйтесь/зарегистрируйтесь, чтобы получить 3% от
                       стоимости заказа
                     </a>
@@ -114,7 +114,7 @@ export const Cart: React.FC = () => {
               </div>
             )}
             <div
-              className={styles.BackToShopping}
+              className={styles.CartBackToShopping}
               onClick={handleBackToShopping}
             >
               Вернуться к покупкам
