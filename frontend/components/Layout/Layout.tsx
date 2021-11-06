@@ -22,7 +22,6 @@ export const Layout: React.FC<ILayoutProps> = ({
   const router = useRouter();
   const scroll = useTypedSelector(state => state.scroll);
   const { isScroll } = hasMounted && scroll;
-  console.log(router);
 
   return (
     <div className={styles.Layout}>

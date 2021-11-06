@@ -4,28 +4,27 @@ $categoryWidth: 157px;
 
 .CatalogDropDown {
   $this: &;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   padding: 16px 0;
   width: 100%;
   min-width: 100%;
   height: max-content;
-  //height: 100%;
   background-color: $color-white;
   z-index: 101;
-
-  &__isScroll {
-    #{$this}Container {
-      margin: 230px auto 0;
-    }
-  }
 
   &Container {
     max-width: 1440px;
     width: 100%;
     padding: 0 15px;
     margin: 170px auto 0;
+  }
+
+  &__isScroll {
+    #{$this}Container {
+      margin: 130px auto 0;
+    }
   }
 
   &List {

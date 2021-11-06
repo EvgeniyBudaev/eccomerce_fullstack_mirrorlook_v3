@@ -40,3 +40,13 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .HeaderWrapper {
+    height: 90px;
+
+    &__isScroll {
+      height: 100px;
+    }
+  }
+}

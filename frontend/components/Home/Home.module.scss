@@ -9,8 +9,9 @@
 }
 
 .MainSlider {
-  height: 300px;
-  width: 1440px;
+  max-width: 1440px;
+  width: 100%;
+  height: 100%;
 }
 
 .MainSliderNextArrow {
@@ -24,12 +25,22 @@
   width: 100%;
   margin: 45px 0 30px;
 
-  .CatalogImg {
+  .CatalogItem {
+    position: relative;
     max-width: 160px;
     width: 100%;
-    height: auto;
     border-radius: 24px;
+    object-fit: cover;
     overflow: hidden;
+
+    &Title {
+      @include roboto-18-bold;
+      position: absolute;
+      top: 17px;
+      left: 18px;
+      color: $color-white;
+      z-index: 1;
+    }
 
     & img {
       object-fit: cover;
@@ -37,8 +48,10 @@
       transition: all 0.5s;
     }
 
-    & img:hover {
-      transform: scale(1.1);
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
     }
   }
 }
@@ -70,5 +83,38 @@ $promotionWidth: 270px;
     &SubTitle {
       @include roboto-14-regular;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .MainSliders {
+    margin-top: 25px;
+  }
+
+  .Catalog {
+    grid-gap: 15px;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    margin: 30px 0 16px;
+  }
+
+  .Promotions {
+    &Title {
+      @include roboto-22-medium;
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  .Promotions {
+    &ListItem {
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .Catalog {
+    margin: 45px 0 16px;
   }
 }

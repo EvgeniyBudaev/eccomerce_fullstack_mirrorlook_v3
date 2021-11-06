@@ -9,4 +9,8 @@
   background-color: #DFD5C3;
   overflow-y: hidden;
   z-index: 1;
+
+  &Text {
+    color: $color-suit-gray;
+  }
 }

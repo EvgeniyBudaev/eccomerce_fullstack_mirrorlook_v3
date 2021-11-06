@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import isEmpty from "lodash/isEmpty";
 import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import mainSlider1 from "ui-kit/assets/images/slide-home-10.jpg";
@@ -24,6 +25,7 @@ export const Home: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const account = useTypedSelector(state => state.account);
+  const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
     if (isEmpty(localStorage.getItem("cart"))) {
@@ -37,6 +39,22 @@ export const Home: React.FC = () => {
       });
     }
   }, [account.user, dispatch]);
+
+  const imageResponsiveSizeWidth = () => {
+    if (isMobileScreen) {
+      return "100px";
+    } else {
+      return "160px";
+    }
+  };
+
+  const imageResponsiveSizeHeight = () => {
+    if (isMobileScreen) {
+      return "100px";
+    } else {
+      return "160px";
+    }
+  };
 
   return (
     <div className={styles.Home}>
@@ -57,25 +75,39 @@ export const Home: React.FC = () => {
         />
       </section>
       <section className={styles.Catalog}>
-        <div className={styles.CatalogImg}>
+        <div className={styles.CatalogItem}>
           <Link href={`/mirrors`}>
             <a>
-              <Image src={card1} alt="" priority width="160" height="160" />
+              <h4 className={styles.CatalogItemTitle}>Зеркала</h4>
+              <Image
+                src={card1}
+                alt=""
+                priority
+                width={imageResponsiveSizeWidth()}
+                height={imageResponsiveSizeHeight()}
+              />
             </a>
           </Link>
         </div>
-        <div className={styles.CatalogImg}>
+        <div className={styles.CatalogItem}>
           <Link href={`/consoles`}>
             <a>
-              <Image src={card2} alt="" priority width="160" height="160" />
+              <h4 className={styles.CatalogItemTitle}>Консоли</h4>
+              <Image
+                src={card2}
+                alt=""
+                priority
+                width={imageResponsiveSizeWidth()}
+                height={imageResponsiveSizeHeight()}
+              />
             </a>
           </Link>
         </div>
       </section>
       <section className={styles.Promotions}>
         <h3 className={styles.PromotionsTitle}>Выгодные акции</h3>
-        <div className={styles.PromotionsList}>
-          <div className={styles.PromotionsListItem}>
+        <ul className={styles.PromotionsList}>
+          <li className={styles.PromotionsListItem}>
             <Image
               className={styles.PromotionsListItemImage}
               alt=""
@@ -90,8 +122,8 @@ export const Home: React.FC = () => {
             <div className={styles.PromotionsListItemSybTitle}>
               Чтобы дома всего было с запасом
             </div>
-          </div>
-          <div className={styles.PromotionsListItem}>
+          </li>
+          <li className={styles.PromotionsListItem}>
             <Image
               className={styles.PromotionsListItemImage}
               alt=""
@@ -106,8 +138,8 @@ export const Home: React.FC = () => {
             <div className={styles.PromotionsListItemSybTitle}>
               Настройтесь зажигать
             </div>
-          </div>
-          <div className={styles.PromotionsListItem}>
+          </li>
+          <li className={styles.PromotionsListItem}>
             <Image
               className={styles.PromotionsListItemImage}
               alt=""
@@ -122,8 +154,8 @@ export const Home: React.FC = () => {
             <div className={styles.PromotionsListItemSybTitle}>
               Товары для тех, кому не терпиться
             </div>
-          </div>
-          <div className={styles.PromotionsListItem}>
+          </li>
+          <li className={styles.PromotionsListItem}>
             <Image
               className={styles.PromotionsListItemImage}
               alt=""
@@ -138,8 +170,8 @@ export const Home: React.FC = () => {
             <div className={styles.PromotionsListItemSybTitle}>
               Скидки на чистую воду
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </section>
     </div>
   );

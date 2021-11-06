@@ -124,8 +124,8 @@ def sending_confirm_order(request):
         subject=subject,
         body=message,
         from_email=store_email,
-        to=[customer_email]
-        # to=[store_email, customer_email]
+        # to=[customer_email]
+        to=[store_email, customer_email]
     )
 
     if subject and message and customer_email and store_email:

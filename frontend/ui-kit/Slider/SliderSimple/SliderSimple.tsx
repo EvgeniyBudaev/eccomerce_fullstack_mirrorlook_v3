@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 import Slider from "react-slick";
 import classNames from "classnames";
 import "slick-carousel/slick/slick.css";
@@ -48,6 +49,15 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
     nextArrow: nextArrow,
     prevArrow: prevArrow,
   };
+  const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
+
+  const imageResponsive = () => {
+    if (isMobileScreen) {
+      return "fill";
+    } else {
+      return "responsive";
+    }
+  };
 
   return (
     <Slider {...settings}>
@@ -55,13 +65,30 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
         images.map((image, index) => {
           return (
             <div className={styles.Item} key={index}>
-              <Image
-                src={image}
-                alt={alt}
-                priority
-                height={height}
-                width={width}
-              />
+              {isMobileScreen ? (
+                <Image
+                  className={styles.Image}
+                  src={image}
+                  alt={alt}
+                  priority
+                  layout="responsive"
+                  //layout={imageResponsive()}
+                  height="120px"
+                  width="470px"
+                />
+              ) : (
+                <Image
+                  className={styles.Image}
+                  src={image}
+                  alt={alt}
+                  priority
+                  layout="responsive"
+                  //layout={imageResponsive()}
+                  //objectFit="cover"
+                  height={height}
+                  width={width}
+                />
+              )}
             </div>
           );
         })}
