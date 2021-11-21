@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-
 from store.models import (Attribute, Cart, CartItem, Catalog, Category,
                           Comment, Order, OrderItem, OrderUser, Product,
                           ProductAttribute, Review, ReviewUser,

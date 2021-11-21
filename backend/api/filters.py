@@ -1,5 +1,4 @@
 from django_filters import rest_framework as df_filters
-
 from store.models import Catalog, Product
 
 # Вариант 1
