@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { MirrorsAside } from "components/Catalog/Mirrors";
 import { LayoutSorting } from "components/Layout/LayoutSorting/LayoutSorting";
+import { CatalogNames } from "constants/names";
 import { Pagination } from "ui-kit";
+import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
-import { MirrorsList } from "./MirrorsList";
-import { MirrorsAside } from "./MirrorsAside/MirrorsAside";
-import styles from "./Mirrors.module.scss";
+import { ProductsList } from "./ProductsList";
+import styles from "./Products.module.scss";
 
 export interface IProductRange {
   startProduct: number;
   endProduct: number;
 }
 
-interface IMirrors {
-  entities: IMirror[];
+interface IProducts {
+  catalogName: string;
+  entities: IConsole[] | IMirror[];
   paging: IPaging;
 }
 
-interface IMirrorsProps {
-  mirrorsResponse: IMirrors;
+interface IProductsProps {
+  productsResponse: IProducts;
 }
 
-export const Mirrors: React.FC<IMirrorsProps> = ({ mirrorsResponse }) => {
+export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
   const [productRange, setProductRange] = useState<IProductRange>({
     startProduct: 0,
     endProduct: 0,
@@ -31,7 +34,8 @@ export const Mirrors: React.FC<IMirrorsProps> = ({ mirrorsResponse }) => {
   const [isFirstPage, setIsFirstPage] = useState(false);
   const [isClickedDisplayLine, setIsClickedDisplayLine] = useState(false);
   const { pagesCount, pageItemsCount, totalItemsCount } =
-    mirrorsResponse.paging;
+    productsResponse.paging;
+  const { catalogName } = productsResponse;
   const router = useRouter();
   const path = router.asPath;
 
@@ -90,23 +94,26 @@ export const Mirrors: React.FC<IMirrorsProps> = ({ mirrorsResponse }) => {
   };
 
   return (
-    <section className={styles.Mirrors}>
+    <section className={styles.Products}>
       <div className={styles.Row}>
-        <h1 className={styles.Title}>Зеркала</h1>
+        <h1 className={styles.Title}>{productsResponse.catalogName}</h1>
         <span>
           {productRange.endProduct} из {totalItemsCount} товаров
         </span>
       </div>
       <div className={styles.Inner}>
-        <MirrorsAside onFirstPage={handleChangeOnFirstPage} />
+        {catalogName === CatalogNames.MIRRORS && (
+          <MirrorsAside onFirstPage={handleChangeOnFirstPage} />
+        )}
         <div className={styles.Wrapper}>
           <LayoutSorting
             isClickedDisplayLine={isClickedDisplayLine}
             onDisplayLine={handleDisplayLine}
             onFirstPage={handleChangeOnFirstPage}
           />
-          <MirrorsList
-            mirrors={mirrorsResponse.entities}
+          <ProductsList
+            catalogName={productsResponse.catalogName}
+            products={productsResponse.entities}
             isClickedDisplayLine={isClickedDisplayLine}
           />
           <Pagination

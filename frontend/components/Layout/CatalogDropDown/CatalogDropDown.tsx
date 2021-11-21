@@ -47,23 +47,6 @@ export const CatalogDropDown = forwardRef(
                 </a>
               </Link>
             </div>
-            <div className={styles.CatalogDropDownListItem}>
-              <Link href={`/consoles`}>
-                <a>
-                  <Image
-                    className={styles.CatalogDropDownListItemImage}
-                    alt=""
-                    priority
-                    src={categories1}
-                    width="157"
-                    height="85"
-                  />
-                  <div className={styles.CatalogDropDownListItemTitle}>
-                    Консоли
-                  </div>
-                </a>
-              </Link>
-            </div>
           </div>
         </div>
       </div>

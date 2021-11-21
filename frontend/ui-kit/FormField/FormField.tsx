@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FieldError } from "react-hook-form";
 import classNames from "classnames";
 import { Icon, Input, TextArea } from "ui-kit";
 import InputPhone from "../Input/InputPhone";
@@ -14,8 +13,8 @@ export interface IFormFieldProps {
   name?: string;
   type: FormFieldType;
   register?: (Ref, RegisterOptions?) => { onChange; onBlur; name; ref };
-  // error?: FieldError;
   isFocused?: boolean;
+  isRequired?: boolean;
   onBlur?: (
     event:
       | React.FocusEvent<HTMLInputElement>
@@ -36,6 +35,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
   register,
   error,
   isFocused,
+  isRequired,
   onBlur,
   onFocus,
 }) => {
@@ -63,6 +63,9 @@ export const FormField: React.FC<IFormFieldProps> = ({
     >
       <label className={styles.FormField_Label} htmlFor={name}>
         {label}
+        {isRequired && (
+          <span className={styles.FormField_LabelRequired}> *</span>
+        )}
       </label>
       {type === "text" && (
         <>

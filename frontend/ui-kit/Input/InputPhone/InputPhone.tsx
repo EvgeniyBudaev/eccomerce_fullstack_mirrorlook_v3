@@ -5,7 +5,6 @@ import React, {
   forwardRef,
 } from "react";
 import classNames from "classnames";
-import { FieldError } from "react-hook-form";
 import { InputType } from "../Input";
 import styles from "./InputPhone.module.scss";
 

@@ -128,6 +128,7 @@ export const Login: React.FC = () => {
                   error?.response.data?.detail
                 )}
                 isFocused={isFocused.email}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
@@ -146,6 +147,7 @@ export const Login: React.FC = () => {
                   error?.response.data?.detail
                 )}
                 isFocused={isFocused.password}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />

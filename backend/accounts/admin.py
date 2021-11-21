@@ -13,7 +13,6 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
     list_filter = ()
-    fieldsets = ()
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {'fields': ('first_name', 'last_name',

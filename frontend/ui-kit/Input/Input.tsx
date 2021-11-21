@@ -1,15 +1,11 @@
 import React, {
-  useState,
   DetailedHTMLProps,
   ForwardedRef,
   HTMLAttributes,
   forwardRef,
 } from "react";
 import classNames from "classnames";
-import { FieldError } from "react-hook-form";
 import styles from "./Input.module.scss";
-
-export type InputType = "text" | "password" | "tel";
 
 export interface IInputProps
   extends DetailedHTMLProps<

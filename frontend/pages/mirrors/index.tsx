@@ -2,12 +2,14 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import axios from "axios";
 import { Layout } from "components";
-import { Mirrors } from "components/Catalog";
+import { Products } from "components/Catalog";
 import { IMirror } from "types/mirror";
 import { IFilter, IPaging } from "types/filter";
 import { IFilterResponse } from "api/types";
+import { CatalogNames } from "constants/names";
 
 interface IMirrorsProps {
+  catalogName: string;
   entities: IMirror[];
   paging: IPaging;
 }
@@ -17,7 +19,7 @@ export default function MirrorsPage(
 ): JSX.Element {
   return (
     <Layout>
-      <Mirrors mirrorsResponse={mirrorsResponse} />
+      <Products productsResponse={mirrorsResponse} />
     </Layout>
   );
 }
@@ -37,12 +39,12 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
     url
   );
-  console.log("mirrorsResponse", mirrorsResponse);
   const { entities, pageItemsCount, totalItemsCount } = mirrorsResponse;
   const pagesCount = Math.max(Math.ceil(totalItemsCount / pageItemsCount), 1);
 
   return {
     props: {
+      catalogName: entities[0] ? entities[0].catalog : CatalogNames.MIRRORS,
       entities: entities,
       paging: {
         pageItemsCount: pageItemsCount,

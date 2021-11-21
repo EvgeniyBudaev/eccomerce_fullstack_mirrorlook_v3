@@ -32,7 +32,7 @@ const schema = yup.object().shape({
     .required("Укажите имя"),
   last_name: yup
     .string()
-    .matches(/^([^0-9]*)$/, "Имя не должно содержать цифры")
+    .matches(/^([^0-9]*)$/, "Фамилия не должна содержать цифры")
     .required("Укажите фамилию"),
   phone_number: yup.string().required("Укажите номер телефона"),
   email: yup
@@ -171,6 +171,7 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errors.first_name && errors.first_name.message}
                 isFocused={isFocused.first_name}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
@@ -181,6 +182,7 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errors.last_name && errors.last_name.message}
                 isFocused={isFocused.last_name}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
@@ -191,6 +193,7 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errors.phone_number && errors.phone_number.message}
                 isFocused={isFocused.phone_number}
+                isRequired
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
@@ -204,6 +207,7 @@ export const Signup: React.FC = () => {
                   error?.response.data?.email[0]
                 )}
                 isFocused={isFocused.email}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
@@ -214,6 +218,7 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errorPasswordMessage(errors.password?.message)}
                 isFocused={isFocused.password}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />
@@ -224,6 +229,7 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errorPasswordMessage(errors.re_password?.message)}
                 isFocused={isFocused.re_password}
+                isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
               />

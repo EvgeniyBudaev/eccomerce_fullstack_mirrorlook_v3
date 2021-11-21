@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
@@ -10,7 +9,6 @@ import mainSlider1 from "ui-kit/assets/images/slide-home-10.jpg";
 import mainSlider2 from "ui-kit/assets/images/slide-home-11.jpg";
 import mainSlider3 from "ui-kit/assets/images/slide-home-9.jpg";
 import card1 from "ui-kit/assets/images/home-mirrors4.jpg";
-import card2 from "ui-kit/assets/images/home-mirrors5.jpg";
 import promotion1 from "ui-kit/assets/images/promotion-1.jpg";
 import promotion2 from "ui-kit/assets/images/promotion-2.jpg";
 import promotion3 from "ui-kit/assets/images/promotion-3.jpg";
@@ -23,7 +21,6 @@ const mainSliderImages = [mainSlider1, mainSlider2, mainSlider3];
 
 export const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const account = useTypedSelector(state => state.account);
   const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -81,20 +78,6 @@ export const Home: React.FC = () => {
               <h4 className={styles.CatalogItemTitle}>Зеркала</h4>
               <Image
                 src={card1}
-                alt=""
-                priority
-                width={imageResponsiveSizeWidth()}
-                height={imageResponsiveSizeHeight()}
-              />
-            </a>
-          </Link>
-        </div>
-        <div className={styles.CatalogItem}>
-          <Link href={`/consoles`}>
-            <a>
-              <h4 className={styles.CatalogItemTitle}>Консоли</h4>
-              <Image
-                src={card2}
                 alt=""
                 priority
                 width={imageResponsiveSizeWidth()}

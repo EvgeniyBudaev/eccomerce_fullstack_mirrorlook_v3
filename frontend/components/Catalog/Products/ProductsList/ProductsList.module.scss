@@ -1,4 +1,4 @@
-.MirrorsList {
+.ProductsList {
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
@@ -12,21 +12,21 @@
 }
 
 @media (max-width: 1200px) {
-  .MirrorsList  {
+  .ProductsList  {
     justify-content: space-around;
     flex-wrap: wrap;
   }
 }
 
 @media (max-width: 500px) {
-  .MirrorsList:not(.MirrorsList__line) {
+  .ProductsList:not(.ProductsList__line) {
     margin-left: 0;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
 @media (max-width: 450px)  {
-  .MirrorsList:not(.MirrorsList__line) {
+  .ProductsList:not(.ProductsList__line) {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
