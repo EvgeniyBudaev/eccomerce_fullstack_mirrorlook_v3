@@ -45,10 +45,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
         </div>
         <HeaderIconsList className={styles.Desktop} />
         <div className={styles.Mobile}>
-          <Button
-            className={styles.ButtonSidebar}
-            onClick={handleSidebarOpen}
-          >
+          <Button className={styles.ButtonSidebar} onClick={handleSidebarOpen}>
             <Hamburger
               className={styles.HamburgerSidebar}
               color="black"

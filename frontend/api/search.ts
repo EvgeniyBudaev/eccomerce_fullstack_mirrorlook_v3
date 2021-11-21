@@ -13,8 +13,9 @@ export const fetchLiveProductsSearch = async ({
     },
   };
 
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.get<IFetchLiveProductsSearchResponse>(
-    `http://127.0.0.1:8000/api/v1/products/?search=${searchedKeyword}`,
+    `${baseUrl}api/v1/products/?search=${searchedKeyword}`,
     config
   );
 

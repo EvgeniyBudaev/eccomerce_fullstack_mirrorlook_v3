@@ -15,8 +15,9 @@ export const fetchOrderCreate = async (
       "Content-Type": "application/json",
     },
   };
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchOrderResponse>(
-    `http://127.0.0.1:8000/api/v1/order/`,
+    `${baseUrl}api/v1/order/`,
     order,
     config
   );
@@ -32,8 +33,9 @@ export const fetchSendingConfirmOrder = async (
       "Content-Type": "application/json",
     },
   };
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchSendingConfirmOrderResponse>(
-    `http://127.0.0.1:8000/api/v1/sending-confirm-order/`,
+    `${baseUrl}api/v1/sending-confirm-order/`,
     data,
     config
   );

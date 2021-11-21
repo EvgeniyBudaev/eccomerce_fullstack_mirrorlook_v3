@@ -88,9 +88,9 @@ export const Shipping: React.FC<IShippingProps> = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  const { error } = unhandledError;
+  //const { error } = unhandledError;
   const watchAllFields = watch();
 
   const onSubmit = (data: IShippingForm) => {

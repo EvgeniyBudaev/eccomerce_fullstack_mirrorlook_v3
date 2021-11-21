@@ -5,7 +5,6 @@ import React, {
   forwardRef,
 } from "react";
 import classNames from "classnames";
-import { InputType } from "../Input";
 import styles from "./InputPhone.module.scss";
 
 export interface IInputPhoneProps
@@ -15,7 +14,7 @@ export interface IInputPhoneProps
   > {
   className?: string;
   name?: string;
-  type?: InputType;
+  type?: string;
   error?: string;
 }
 

@@ -22,7 +22,6 @@ import Spinner from "./Spinner";
 import TextArea from "./TextArea";
 
 export type IconType = import("./Icon/IconType").IconType;
-export type InputType = import("./Input").InputType;
 
 export {
   Accordion,

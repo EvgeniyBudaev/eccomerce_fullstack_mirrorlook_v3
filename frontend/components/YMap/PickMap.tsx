@@ -19,6 +19,7 @@ export function emptyPickMapState(): PickMapState {
   return undefined;
 }
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isUserInteractionEvent = (event: any) => {
   return event?.originalEvent?.action?._tickFiring !== false;
 };
@@ -42,6 +43,7 @@ export default withYMaps(
     const [debouncedState] = useDebounce(state, debounce ?? 0);
     const prevCoords = useRef<[number, number] | undefined>(undefined);
     const prevAddress = useRef<string | undefined>(undefined);
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     const map = useRef<any | undefined>(undefined);
 
     useEffect(() => {
@@ -58,6 +60,7 @@ export default withYMaps(
             provider: "yandex#map",
             results: 1,
           })
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           .then((response: any) => {
             if (!cancelled) {
               const address = response?.geoObjects?.get(0)?.getAddressLine();
@@ -88,6 +91,7 @@ export default withYMaps(
                 provider: "yandex#map",
               },
             })
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
             .then((response: any) => {
               if (!cancelled) {
                 const queryCoords = response?.geoObjects
@@ -116,17 +120,22 @@ export default withYMaps(
 
           if (map.current == null) {
             map.current = ref;
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
             (ref as any)?.events.add(
               ["multitouchend", "actionend"],
+              //eslint-disable-next-line @typescript-eslint/no-explicit-any
               (event: any) => {
                 if (isUserInteractionEvent(event)) {
+                  //eslint-disable-next-line @typescript-eslint/no-explicit-any
                   onStateChange((ref as any).getCenter());
                   onDragEnd?.();
                 }
               }
             );
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
             (ref as any)?.events.add(
               ["multitouchbegin", "actionbegin"],
+              //eslint-disable-next-line @typescript-eslint/no-explicit-any
               (event: any) => {
                 if (isUserInteractionEvent(event)) {
                   onDragStart?.();

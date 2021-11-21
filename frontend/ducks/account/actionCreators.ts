@@ -43,8 +43,9 @@ export const verify = (uid, token: string) => async dispatch => {
   };
   const body = JSON.stringify({ uid, token });
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
     const response = await axios.post(
-      `http://127.0.0.1:8000/api/v1/auth/users/activation/`,
+      `${baseUrl}api/v1/auth/users/activation/`,
       body,
       config
     );
@@ -79,8 +80,9 @@ export const checkAuthenticated = () => async dispatch => {
     };
     const body = JSON.stringify({ token: localStorage.getItem("access") });
     try {
+      const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/v1/auth/jwt/verify/`,
+        `${baseUrl}api/v1/auth/jwt/verify/`,
         body,
         config
       );
@@ -113,8 +115,9 @@ export const reset_password = (email: string) => async dispatch => {
   };
   const body = JSON.stringify({ email });
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
     await axios.post(
-      `http://127.0.0.1:8000/api/v1/auth/users/reset_password/`,
+      `${baseUrl}api/v1/auth/users/reset_password/`,
       body,
       config
     );
@@ -142,8 +145,9 @@ export const reset_password_confirm =
     };
     const body = JSON.stringify({ uid, token, new_password, re_new_password });
     try {
+      const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
       await axios.post(
-        `http://127.0.0.1:8000/api/v1/auth/users/reset_password_confirm/`,
+        `${baseUrl}api/v1/auth/users/reset_password_confirm/`,
         body,
         config
       );

@@ -18,9 +18,9 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const dispatch = useDispatch();
   const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  const { error } = unhandledError;
+  //const { error } = unhandledError;
 
   const handleDecrementItemToCart = () => {
     if (cartItem.quantity <= 1) return;

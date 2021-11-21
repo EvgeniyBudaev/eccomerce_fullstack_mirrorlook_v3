@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -31,12 +30,11 @@ export const Order: React.FC = () => {
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
   const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  const { error } = unhandledError;
+  //const { error } = unhandledError;
   const dispatch = useDispatch();
   const { hasMounted } = useMounted();
-  const router = useRouter();
   const { isAuthenticated, user } = hasMounted && account;
   const { isOrderConfirmed, order_user, shipping_address } =
     hasMounted && order;

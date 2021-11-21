@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { useMediaQuery } from "react-responsive";
 import { CSSTransition } from "react-transition-group";
 import isEmpty from "lodash/isEmpty";
 import isNil from "lodash/isNil";
@@ -95,6 +94,7 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
     },
   ];
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFilter = (request: ICheckedMirrors) => {
     const obj = {};
     const entries = Object.entries(request);

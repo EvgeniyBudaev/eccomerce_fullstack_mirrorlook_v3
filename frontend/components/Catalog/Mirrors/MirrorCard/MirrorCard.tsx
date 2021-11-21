@@ -26,9 +26,9 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
   const dispatch = useDispatch();
   const cart = useTypedSelector(state => state.cart);
   const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  const { error } = unhandledError;
+  //const { error } = unhandledError;
 
   const handleAddToCart = () => {
     dispatch({

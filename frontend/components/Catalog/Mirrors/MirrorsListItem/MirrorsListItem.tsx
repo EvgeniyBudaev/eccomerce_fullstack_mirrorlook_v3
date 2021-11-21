@@ -26,9 +26,9 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   const dispatch = useDispatch();
   const cart = useTypedSelector(state => state.cart);
   const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  const { error } = unhandledError;
+  //const { error } = unhandledError;
   const isMobileScreen = useMediaQuery({ query: "(max-width: 500px)" });
 
   const getCart = (cart: ICartState) => {

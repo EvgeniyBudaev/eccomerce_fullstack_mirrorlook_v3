@@ -63,6 +63,7 @@ export default withYMaps(
       style,
       ...inputProps
     } = props;
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ymaps } = props as any;
 
     const debounce = suggestDebounce ?? 1000;
@@ -89,6 +90,7 @@ export default withYMaps(
         ) {
           prevDebouncedValue.current = trimmed;
 
+          //eslint-disable-next-line @typescript-eslint/no-explicit-any
           ymaps.suggest(trimmed).then((newSuggestions: any[]) => {
             if (!cancelled) {
               onStateChange(state => ({

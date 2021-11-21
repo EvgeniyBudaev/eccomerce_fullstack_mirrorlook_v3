@@ -33,8 +33,9 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
     ordering = "",
   },
 }) => {
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const url = encodeURI(
-    `http://127.0.0.1:8000/api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
+    `${baseUrl}api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
   );
   const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
     url
