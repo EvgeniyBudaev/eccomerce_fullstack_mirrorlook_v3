@@ -1,39 +1,31 @@
 import os
+
 from django.contrib.auth import get_user_model
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, filters, status, response
-from rest_framework.decorators import api_view, permission_classes, action
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 # Отправка сообщений на email
 from django.core import mail
-from django.core.mail import send_mail, BadHeaderError
-from django.core.mail import get_connection
-from django.shortcuts import get_object_or_404
+from django.core.mail import BadHeaderError, get_connection
+from django_filters.rest_framework import DjangoFilterBackend
 from dotenv import load_dotenv
+from rest_framework import filters, status, viewsets
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from store.models import (Cart, CartItem, Catalog, Comment, Order, OrderItem,
-                          Product, Review, ShippingAddress, User)
-from accounts.serializers import UserSerializer
-from .serializers import (CartSerializer, CartItemSerializer, CatalogSerializer,
-                          CommentSerializer, OrderSerializer,
-                          OrderItemSerializer, ProductSerializer,
-                          ProductCreateSerializer, ReviewSerializer,
-                          ShippingAddressSerializer)
+                          Product, Review, ShippingAddress)
 
-
-from .pagination import StorePagination
 from .filters import CatalogFilter, ProductFilter
+from .pagination import StorePagination
 from .permissions import IsAdminOrReadOnly, IsAuthorOrAdministratorOrReadOnly
-
+from .serializers import (CartItemSerializer, CartSerializer,
+                          CatalogSerializer, CommentSerializer,
+                          OrderItemSerializer, OrderSerializer,
+                          ProductCreateSerializer, ProductSerializer,
+                          ReviewSerializer, ShippingAddressSerializer)
 
 load_dotenv()
+
 User = get_user_model()
-
-
-# class UserViewSet(viewsets.ReadOnlyModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
 
 
 class CatalogViewSet(viewsets.ModelViewSet):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (Attribute, Cart, CartItem, Catalog, Category, Comment,
-                     Order, OrderItem, OrderUser, Product,  ProductAttribute,
+                     Order, OrderItem, OrderUser, Product, ProductAttribute,
                      Review, ShippingAddress)
 
 

@@ -1,8 +1,6 @@
-from django.db import models
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 
 User = get_user_model()
 
@@ -354,10 +352,11 @@ class Review(models.Model):
                                related_name='reviews')
     title = models.CharField(max_length=200, null=True, blank=True,
                              verbose_name='Заголовок')
-    rating = models.PositiveSmallIntegerField(null=True, blank=True,
-                                              verbose_name='Рейтинг',
-                                              validators=[MinValueValidator(1),
-                                                          MaxValueValidator(5)])
+    rating = models.PositiveSmallIntegerField(
+        null=True, blank=True,
+        verbose_name='Рейтинг',
+        validators=[MinValueValidator(1),
+                    MaxValueValidator(5)])
     text = models.TextField(null=True, blank=True,
                             verbose_name='Текст отзыва')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,

@@ -1,9 +1,9 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (CartViewSet, CartItemViewSet, CatalogViewSet,
-                    CommentViewSet, OrderViewSet, OrderItemViewSet,
-                    ProductViewSet, ReviewViewSet, ShippingAddressViewSet,
+from .views import (CartItemViewSet, CartViewSet, CatalogViewSet,
+                    OrderItemViewSet, OrderViewSet, ProductViewSet,
+                    ReviewViewSet, ShippingAddressViewSet,
                     sending_confirm_order)
 
 router = DefaultRouter()

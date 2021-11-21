@@ -1,11 +1,10 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.relations import SlugRelatedField
 
-from store.models import (Attribute, Cart, CartItem, Catalog, Category, Comment,
-                          Order, OrderItem, OrderUser, Product,
-                          ProductAttribute, Review, ReviewUser, ShippingAddress)
-
+from store.models import (Attribute, Cart, CartItem, Catalog, Category,
+                          Comment, Order, OrderItem, OrderUser, Product,
+                          ProductAttribute, Review, ReviewUser,
+                          ShippingAddress)
 
 User = get_user_model()
 
@@ -62,8 +61,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         # Если в исходном запросе не было поля attributes
         if 'attributes' not in self.initial_data:
             # То создаём запись о продукте без его атрибутов
-            product = Product.objects.create(**validated_data)
-            return product
+            return Product.objects.create(**validated_data)
         else:
             attributes = validated_data.pop('attributes')
             # Иначе сначала добавляем продукт в БД
@@ -160,10 +158,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'user', 'payment_method', 'tax_price', 'shipping_price',
-                  'total_price', 'is_paid', 'paid_at', 'is_delivered',
-                  'date_created', 'date_updated', 'order_items',
-                  'shipping_address', 'order_user')
+        fields = ('id', 'user', 'payment_method', 'tax_price',
+                  'shipping_price', 'total_price', 'is_paid', 'paid_at',
+                  'is_delivered', 'date_created', 'date_updated',
+                  'order_items', 'shipping_address', 'order_user')
 
     def create(self, validated_data):
 
@@ -193,7 +191,8 @@ class OrderSerializer(serializers.ModelSerializer):
             order_user.save()
 
         # Создаем объект адреса доставки и соединяем с новым заказом.
-        address, _ = ShippingAddress.objects.get_or_create(order=instance, ** address_data)
+        address, _ = ShippingAddress.objects.get_or_create(order=instance,
+                                                           ** address_data)
 
         # Соединяем детали заказа с самим только что созданным заказом.
         for item in items:
@@ -207,22 +206,29 @@ class OrderSerializer(serializers.ModelSerializer):
         fields_to_update = ('quantity', 'price')
 
         address_data = validated_data.pop('shipping_address', {})
-        address, _ = ShippingAddress.objects.get_or_create(order=self.instance, **address_data)
+        address, _ = ShippingAddress.objects.get_or_create(order=self.instance,
+                                                           **address_data)
 
         # Тут логика обновления деталей заказа.
-        # Пример кода ниже обновляет кол-во и цену детали заказа (fields_to_update),
-        # если она найдена по связке заказ + продукт + название (поля из fields_to_filter + order).
+        # Пример кода ниже обновляет кол-во и цену детали заказа
+        # (fields_to_update),
+        # если она найдена по связке заказ + продукт + название
+        # (поля из fields_to_filter + order).
         # Если не найдена, то создается новая деталь заказа.
         items = []
         for item_data in validated_data.pop('order_items', []):
-            item_kwargs = {f: item_data[f] for f in fields_to_filter if f in item_data}
-            item = OrderItem.objects.filter(order=self.instance, **item_kwargs).first()
+            item_kwargs = {f: item_data[f] for f in fields_to_filter if f
+                           in item_data}
+            item = OrderItem.objects.filter(order=self.instance,
+                                            **item_kwargs).first()
             # Если такой детали заказа нет, то мы ее создаем.
             if item is None:
-                item = OrderItem.objects.create(order=self.instance, **item_data)
+                item = OrderItem.objects.create(order=self.instance,
+                                                **item_data)
             # Если есть, то обновляем поля
             else:
-                fields = set(item_data.keys()).intersection(set(fields_to_update))
+                fields = set(item_data.keys()).intersection(
+                    set(fields_to_update))
                 for f in fields:
                     setattr(item, f, item_data[f])
                 if fields:
@@ -236,7 +242,8 @@ class OrderSerializer(serializers.ModelSerializer):
                     setattr(self.instance.order_user, name, value)
                 self.instance.order_user.save()
             else:
-                OrderUser.objects.create(order=self.instance, **order_user_data)
+                OrderUser.objects.create(order=self.instance,
+                                         **order_user_data)
 
         return super(OrderSerializer, self).update(instance, validated_data)
 

@@ -1,10 +1,9 @@
 from django_filters import rest_framework as df_filters
-from django_filters.fields import CSVWidget, MultipleChoiceField
 
 from store.models import Catalog, Product
 
-
 # Вариант 1
+# from django_filters.fields import CSVWidget, MultipleChoiceField
 # class MultipleField(MultipleChoiceField):
 #
 #     def valid_value(self, value):
