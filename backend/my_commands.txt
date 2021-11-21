@@ -41,12 +41,12 @@ python manage.py migrate support
 python manage.py createsuperuser
 
 Fixture - выгрузка данных из БД (dump данных)
-python manage.py dumpdata support.Category > categories.json
-python manage.py dumpdata support.Product > products.json
+python manage.py dumpdata store.Catalog > catalogs.json
+python manage.py dumpdata store.Category > categories.json
+python manage.py dumpdata store.Product > products.json
 Загрузка данных в БД
-python manage.py loaddata support/fixtures/categories.json
-python manage.py loaddata support/fixtures/products.json
-python manage.py loaddata groups_fixture.json
+python manage.py loaddata store/fixtures/categories.json
+python manage.py loaddata store/fixtures/products.json
 SideNavPanel
 
 Авторизация
