@@ -6,4 +6,4 @@ ADD . .
 ENV NODE_ENV production
 RUN npm run build
 RUN npm prune --production
-CMD cp -r .next result_build
+CMD cp -r build result_build
