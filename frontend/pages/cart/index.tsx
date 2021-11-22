@@ -23,13 +23,21 @@ export const getServerSideProps: GetServerSideProps<ICartPageProps> =
     const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
     const url = encodeURI(`${baseUrl}api/v1/cart-products/`);
 
-    const { data: cartResponse } = await axios.get<IFetchItemToCartResponse[]>(
-      url
-    );
+    try {
+      const { data: cartResponse } = await axios.get<
+        IFetchItemToCartResponse[]
+      >(url);
 
-    return {
-      props: {
-        entities: cartResponse,
-      },
-    };
+      return {
+        props: {
+          entities: cartResponse,
+        },
+      };
+    } catch (error) {
+      return {
+        props: {
+          entities: [],
+        },
+      };
+    }
   };

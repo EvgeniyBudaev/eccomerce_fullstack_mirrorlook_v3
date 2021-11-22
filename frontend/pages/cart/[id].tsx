@@ -16,47 +16,19 @@ export default function CartDetailsPage(): JSX.Element {
   );
 }
 
-/* Вариант с getServerSideProps */
 export const getServerSideProps: GetServerSideProps<ICartDetailsProps> =
   async ({ params }) => {
     const cartId = params.id;
     const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
     const url = encodeURI(`${baseUrl}api/v1/cart-products/?cart=${cartId}`);
-    const { data } = await axios.get<IFetchItemToCartResponse[]>(url);
-
-    return {
-      props: { entities: data },
-    };
+    try {
+      const { data } = await axios.get<IFetchItemToCartResponse[]>(url);
+      return {
+        props: { entities: data },
+      };
+    } catch (error) {
+      return {
+        props: { entities: [] },
+      };
+    }
   };
-
-/* Вариант с getStaticProps */
-// export const getStaticProps: GetStaticProps<ICartDetailsProps> =
-//   async ({ params }: GetStaticPropsContext<ParsedUrlQuery>) => {
-//     const cartId = params.id;
-//     const url = encodeURI(
-//       `http://127.0.0.1:8000/api/v1/cart-products/?cart=${cartId}`
-//     );
-//     const { data } = await axios.get<IFetchItemToCartResponse[]>(url);
-//
-//     if (!data) {
-//       return { notFound: true };
-//     }
-//
-//     return {
-//       props: { entities: data },
-//     };
-//   };
-//
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const { data } = await axios.get<IFetchItemToCartResponse[]>(
-//     `http://localhost:8000/api/v1/cart-products/`
-//   );
-//
-//   const cartIds = data.map(cart => cart.cart.toString());
-//   const pathWithParams = cartIds.map(cartId => ({ params: { id: cartId } }));
-//
-//   return {
-//     paths: pathWithParams,
-//     fallback: "blocking",
-//   };
-// };

@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import isNull from "lodash/isNull";
+import { Error404 } from "components/Error";
 import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
@@ -86,6 +87,10 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
   }, [dispatch]);
 
   if (isLoading) return <Spinner />;
+
+  if (!mirror) {
+    return <Error404 />;
+  }
 
   return (
     <div className={styles.MirrorCard}>

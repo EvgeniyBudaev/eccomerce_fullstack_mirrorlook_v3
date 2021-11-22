@@ -82,6 +82,7 @@ export const Cart: React.FC = () => {
               </div>
               <Button
                 className={styles.CartButtonGoToOrder}
+                isDisabled={isEmpty(cart.entities)}
                 onClick={handleProceedToCheckout}
               >
                 Перейти к оформлению
