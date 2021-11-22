@@ -6,5 +6,5 @@ ADD . .
 ENV NODE_ENV production
 RUN npm run build
 RUN npm prune --production
-CMD cp -r build result_build
 CMD ["npm", "start"]
+EXPOSE 3000
