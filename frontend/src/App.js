@@ -7,7 +7,7 @@ function App() {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    const baseUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_DOMAIN : process.env.REACT_APP_DEV_DOMAIN;
+    const baseUrl = process.env.REACT_APP_PROD_DOMAIN;
     //const baseUrl = "http://62.84.119.86/";
     console.log("baseUrl: ", baseUrl);
     const response = await axios.get(`${baseUrl}api/v1/products/?catalog_slug=mirrors`);
