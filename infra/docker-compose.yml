@@ -29,8 +29,6 @@ services:
       - ../frontend/:/app/result_build/
     depends_on:
       - backend
-    environment:
-      - REACT_APP_PROD_DOMAIN='http://62.84.119.86/'
     env_file:
       - ./.env
 
