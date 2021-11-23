@@ -16,8 +16,9 @@ export const fetchToken = async (
     },
   };
   const body = JSON.stringify({ email, password });
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchTokenResponse>(
-    `api/v1/auth/jwt/create/`,
+    `${baseUrl}api/v1/auth/jwt/create/`,
     body,
     config
   );
@@ -34,8 +35,9 @@ export const fetchUser = async (
       Accept: "application/json",
     },
   };
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.get<IFetchUserResponse>(
-    `api/v1/auth/users/me/`,
+    `${baseUrl}api/v1/auth/users/me/`,
     config
   );
   return response.data;
@@ -62,8 +64,9 @@ export const fetchUserSignup = async ({
     password,
     re_password,
   });
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchSignupResponse>(
-    `api/v1/auth/users/`,
+    `${baseUrl}api/v1/auth/users/`,
     body,
     config
   );

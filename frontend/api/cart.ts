@@ -14,6 +14,8 @@ import {
   IFetchCartUserSetResponse,
 } from "./types/cart";
 
+const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
+
 export const fetchCreateCart = async (
   user: number | null
 ): Promise<IFetchCartCreateResponse> => {
@@ -25,7 +27,7 @@ export const fetchCreateCart = async (
     };
     const body = JSON.stringify({ user });
     const response = await axios.post<IFetchCartCreateResponse>(
-      `api/v1/cart/`,
+      `${baseUrl}api/v1/cart/`,
       body,
       config
     );
@@ -33,7 +35,7 @@ export const fetchCreateCart = async (
     return response.data;
   } else {
     const response = await axios.post<IFetchCartCreateResponse>(
-      `api/v1/cart/`
+      `${baseUrl}api/v1/cart/`
     );
 
     return response.data;
@@ -52,7 +54,7 @@ export const fetchAddItemToCart = async ({
   };
   const body = JSON.stringify({ cart, product, quantity });
   const response = await axios.post<IFetchAddItemToCartResponse>(
-    `api/v1/cart-products/`,
+    `${baseUrl}api/v1/cart-products/`,
     body,
     config
   );
@@ -71,7 +73,7 @@ export const fetchChangeItemToCart = async ({
   };
   const body = JSON.stringify({ quantity });
   const response = await axios.patch<IFetchCartItemChangeResponse>(
-    `api/v1/cart-products/${id}/`,
+    `${baseUrl}api/v1/cart-products/${id}/`,
     body,
     config
   );
@@ -90,7 +92,7 @@ export const fetchIncrementItemToCart = async ({
   };
   const body = JSON.stringify({ quantity });
   const response = await axios.patch<IFetchCartItemIncrementResponse>(
-    `api/v1/cart-products/${id}/`,
+    `${baseUrl}api/v1/cart-products/${id}/`,
     body,
     config
   );
@@ -109,7 +111,7 @@ export const fetchDecrementItemToCart = async ({
   };
   const body = JSON.stringify({ quantity });
   const response = await axios.patch<IFetchCartItemDecrementResponse>(
-    `api/v1/cart-products/${id}/`,
+    `${baseUrl}api/v1/cart-products/${id}/`,
     body,
     config
   );
@@ -126,7 +128,7 @@ export const fetchDeleteItemToCart = async ({
     },
   };
   await axios.delete<IFetchCartItemDeleteResponse>(
-    `api/v1/cart-products/${id}/`,
+    `${baseUrl}api/v1/cart-products/${id}/`,
     config
   );
 
@@ -144,7 +146,7 @@ export const fetchSetUserToCart = async (
   };
   const body = JSON.stringify({ user: userId });
   const response = await axios.patch<IFetchCartUserSetResponse>(
-    `api/v1/cart/${cartId}/`,
+    `${baseUrl}api/v1/cart/${cartId}/`,
     body,
     config
   );

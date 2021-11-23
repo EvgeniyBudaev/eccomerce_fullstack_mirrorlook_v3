@@ -12,9 +12,10 @@ export const fetchLiveProductsSearch = async ({
       "Content-Type": "application/json",
     },
   };
-  
+
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.get<IFetchLiveProductsSearchResponse>(
-    `api/v1/products/?search=${searchedKeyword}`,
+    `${baseUrl}api/v1/products/?search=${searchedKeyword}`,
     config
   );
 

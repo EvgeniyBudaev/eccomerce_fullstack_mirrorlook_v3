@@ -9,7 +9,8 @@ interface ICartPageProps {
 }
 
 export default function CartProductsPage(props: ICartPageProps): JSX.Element {
-  console.log("CartProductsPage", props);
+  console.log("[CartPage][props]", props);
+
   return (
     <Layout>
       <Cart />
@@ -19,7 +20,8 @@ export default function CartProductsPage(props: ICartPageProps): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps<ICartPageProps> =
   async () => {
-    const url = encodeURI(`api/v1/cart-products/`);
+    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
+    const url = encodeURI(`${baseUrl}api/v1/cart-products/`);
 
     try {
       const { data: cartResponse } = await axios.get<
