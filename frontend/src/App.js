@@ -10,7 +10,7 @@ function App() {
     const baseUrl = process.env.REACT_APP_PROD_DOMAIN;
     //const baseUrl = "http://62.84.119.86/";
     console.log("baseUrl: ", baseUrl);
-    const response = await axios.get(`${baseUrl}api/v1/products/?catalog_slug=mirrors`);
+    const response = await axios.get(`api/v1/products/?catalog_slug=mirrors`);
     console.log("response", response);
     return response.data;
   };
