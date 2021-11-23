@@ -5,5 +5,3 @@ RUN npm install
 ADD . .
 RUN npm run build
 CMD cp -r build result_build
-ENTRYPOINT ["npm", "start"]
-EXPOSE 80
