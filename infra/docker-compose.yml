@@ -25,8 +25,8 @@ services:
     image: ebudaev/mirror_frontend:v1
     container_name: mirror_frontend
     restart: always
-    ports:
-      - 80:80
+    volumes:
+      - ../frontend/:/app/result_build/
     depends_on:
       - backend
 
