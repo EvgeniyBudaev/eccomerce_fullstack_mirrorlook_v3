@@ -7,7 +7,8 @@ function App() {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    const response = await axios.get(`api/v1/products/?catalog_slug=mirrors`);
+    const response = await axios.get(`${process.env.REACT_APP_DOMAIN}api/v1/products/?catalog_slug=mirrors`);
+    console.log("response", response);
     return response.data;
   };
 
@@ -20,6 +21,7 @@ function App() {
         console.log(e);
       }
     };
+    void fetchProducts();
   }, []);
 
   return (
