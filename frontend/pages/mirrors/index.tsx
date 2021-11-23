@@ -38,7 +38,6 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
     ordering = "",
   },
 }) => {
-  const baseUrl = "http://62.84.119.86/";
   const url = encodeURI(
     `api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
   );

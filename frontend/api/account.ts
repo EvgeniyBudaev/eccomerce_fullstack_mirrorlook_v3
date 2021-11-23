@@ -16,7 +16,6 @@ export const fetchToken = async (
     },
   };
   const body = JSON.stringify({ email, password });
-  const baseUrl = "http://62.84.119.86/";
   const response = await axios.post<IFetchTokenResponse>(
     `api/v1/auth/jwt/create/`,
     body,
@@ -35,7 +34,6 @@ export const fetchUser = async (
       Accept: "application/json",
     },
   };
-  const baseUrl = "http://62.84.119.86/";
   const response = await axios.get<IFetchUserResponse>(
     `api/v1/auth/users/me/`,
     config
@@ -64,7 +62,6 @@ export const fetchUserSignup = async ({
     password,
     re_password,
   });
-  const baseUrl = "http://62.84.119.86/";
   const response = await axios.post<IFetchSignupResponse>(
     `api/v1/auth/users/`,
     body,

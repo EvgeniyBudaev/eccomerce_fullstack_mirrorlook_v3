@@ -14,8 +14,6 @@ import {
   IFetchCartUserSetResponse,
 } from "./types/cart";
 
-const baseUrl = "http://62.84.119.86/";
-
 export const fetchCreateCart = async (
   user: number | null
 ): Promise<IFetchCartCreateResponse> => {

@@ -9,8 +9,7 @@ interface ICartPageProps {
 }
 
 export default function CartProductsPage(props: ICartPageProps): JSX.Element {
-  console.log("[CartPage][props]", props);
-
+  console.log("CartProductsPage", props);
   return (
     <Layout>
       <Cart />
@@ -20,7 +19,6 @@ export default function CartProductsPage(props: ICartPageProps): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps<ICartPageProps> =
   async () => {
-    const baseUrl = "http://62.84.119.86/";
     const url = encodeURI(`api/v1/cart-products/`);
 
     try {

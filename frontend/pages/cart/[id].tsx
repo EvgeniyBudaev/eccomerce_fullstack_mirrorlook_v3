@@ -19,7 +19,6 @@ export default function CartDetailsPage(): JSX.Element {
 export const getServerSideProps: GetServerSideProps<ICartDetailsProps> =
   async ({ params }) => {
     const cartId = params.id;
-    const baseUrl = "http://62.84.119.86/";
     const url = encodeURI(`api/v1/cart-products/?cart=${cartId}`);
     try {
       const { data } = await axios.get<IFetchItemToCartResponse[]>(url);

@@ -12,8 +12,7 @@ export const fetchLiveProductsSearch = async ({
       "Content-Type": "application/json",
     },
   };
-
-  const baseUrl = "http://62.84.119.86/";
+  
   const response = await axios.get<IFetchLiveProductsSearchResponse>(
     `api/v1/products/?search=${searchedKeyword}`,
     config

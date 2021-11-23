@@ -6,8 +6,6 @@ import {
   IFetchSendingConfirmOrderResponse,
 } from "./types/order";
 
-const baseUrl = "http://62.84.119.86/";
-
 export const fetchOrderCreate = async (
   order: IFetchOrderRequest
 ): Promise<IFetchOrderResponse> => {

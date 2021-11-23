@@ -19,7 +19,6 @@ export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const productSlug = params.slug;
-  const baseUrl = "http://62.84.119.86/";
   try {
     const { data: mirrorResponse } = await axios.get<IMirror>(
       `api/v1/products/${productSlug}`
