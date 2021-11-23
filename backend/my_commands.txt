@@ -45,7 +45,9 @@ python manage.py dumpdata store.Catalog > catalogs.json
 python manage.py dumpdata store.Category > categories.json
 python manage.py dumpdata store.Product > products.json
 Загрузка данных в БД
-docker-compose exec backend python manage.py loaddata catalogs.json
+python manage.py loaddata store/fixtures/categories.json
+python manage.py loaddata store/fixtures/products.json
+SideNavPanel
 
 Авторизация
 pip install djangorestframework-simplejwt
