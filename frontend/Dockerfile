@@ -1,10 +1,9 @@
+# build env
 FROM node:13.12.0-alpine as build
 WORKDIR /app
-ADD package.json package.json
+COPY package*.json ./
 RUN npm install
-ADD . .
-ENV ENV production
+COPY . ./
 RUN npm run build
 RUN npm prune --production
-CMD ["npm", "start"]
-EXPOSE 80
+CMD cp -r build result_build
