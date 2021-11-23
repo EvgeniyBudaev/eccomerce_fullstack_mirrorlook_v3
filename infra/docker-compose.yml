@@ -24,6 +24,8 @@ services:
   frontend:
     image: ebudaev/mirror_frontend:v1
     container_name: mirror_frontend
+    build:
+      target: production
     restart: always
     volumes:
       - ../frontend/:/app/result_build/
