@@ -4,6 +4,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . ./
-ENV REACT_APP_PROD_DOMAIN='http://62.84.119.86/'
+ENV REACT_APP_PROD_DOMAIN=process.env.REACT_APP_PROD_DOMAIN
 RUN npm run build
 CMD cp -r build result_build
