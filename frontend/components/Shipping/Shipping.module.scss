@@ -1,0 +1,149 @@
+@import "styles";
+
+.Shipping {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.Step {
+  @include roboto-12-regular;
+  margin-left: 20px;
+  color: $color-suit-gray;
+}
+
+.Title {
+  @include roboto-32-medium;
+  margin-bottom: 16px;
+}
+
+.Form {
+  max-width: 550px;
+  width: 100%;
+
+  &Content {
+    margin-bottom: 157px;
+  }
+
+  &Footer {
+    padding-top: 24px;
+    border-top: 1px solid $color-light-gray;
+  }
+}
+
+.FormFieldGroup {
+  display: flex;
+  justify-content: space-between;
+
+  &Item {
+    max-width: 266px;
+    width: 100%;
+  }
+
+  &.FormFieldCouple {
+    justify-content: flex-start;
+    margin-left: -20px;
+
+    .FormFieldGroupItem {
+      margin-left: 20px;
+      flex-basis: calc(50% - 20px);
+    }
+  }
+}
+
+
+
+.TextField {
+  height: 126px;
+
+  & textarea {
+    height: 126px;
+    resize: none;
+  }
+}
+
+.Controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &Link {
+    @include roboto-18-medium;
+    display: flex;
+    align-items: center;
+    color: $color-beige;
+    transition: all 0.15s;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: $color-beige;
+      transition: all 0.15s;
+    }
+  }
+
+  &Link:hover {
+    color: $color-beige-hover;
+
+    svg {
+      fill: $color-beige-hover;
+    }
+  }
+}
+
+.Button {}
+
+.ErrorResponse {
+  position: absolute;
+  bottom: -35px;
+  display: none;
+}
+
+.ErrorResponse__error {
+  display: block;
+  color: $color-red;
+}
+
+.Map {
+  position: absolute;
+  left: 574px;
+  top: -30px;
+  padding-left: 46px;
+  width: 100%;
+  min-width: 340px;
+}
+
+@media (max-width: 1230px) {
+  .Map {
+    display: none;
+  }
+
+  .FormContent {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .Shipping {
+    & input {
+      @include roboto-14-regular;
+    }
+  }
+
+  .Step {
+    margin-left: 0;
+  }
+
+  .Title {
+    @include roboto-22-bold;
+  }
+
+  .ControlsLink {
+    @include roboto-14-medium;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

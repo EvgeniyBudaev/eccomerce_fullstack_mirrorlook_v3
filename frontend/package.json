@@ -1,45 +1,68 @@
 {
-  "name": "foodgram-project-react",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.24.0",
-    "classnames": "^2.2.6",
-    "cross-env": "^7.0.3",
-    "dotenv": "^10.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-meta-tags": "^1.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
-    "serve": "^13.0.2",
-    "web-vitals": "^1.0.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@hookform/resolvers": "^2.6.1",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@types/classnames": "^2.3.1",
+    "@types/react-redux": "^7.1.18",
+    "@types/react-slick": "^0.23.5",
+    "@types/react-transition-group": "^4.4.3",
+    "@types/yandex-maps": "^2.1.19",
+    "axios": "^0.21.4",
+    "classnames": "^2.3.1",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.1",
+    "lodash": "^4.17.21",
+    "next": "^12.0.2",
+    "next-redux-saga": "^4.1.2",
+    "next-redux-wrapper": "^7.0.4",
+    "normalize.css": "^8.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.12.2",
+    "react-redux": "^7.2.4",
+    "react-responsive": "^9.0.0-beta.4",
+    "react-responsive-modal": "^6.1.0",
+    "react-script": "^2.0.5",
+    "react-select": "^4.3.1",
+    "react-slick": "^0.28.1",
+    "react-slidedown": "^2.4.5",
+    "react-transition-group": "^4.4.2",
+    "react-yandex-maps": "^4.6.0",
+    "redux": "^4.1.0",
+    "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1",
+    "swr": "^0.5.6",
+    "use-debounce": "^7.0.0",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.9"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^15.12.5",
+    "@types/react": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "downshift": "^6.1.7",
+    "eslint": "^7.29.0",
+    "eslint-config-next": "11.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^2.3.2",
+    "redux-devtools-extension": "^2.13.9",
+    "sass-loader": "^12.0.0",
+    "typescript": "^4.3.4"
   }
 }

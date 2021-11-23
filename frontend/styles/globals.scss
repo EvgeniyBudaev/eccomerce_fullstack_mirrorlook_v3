@@ -1,0 +1,407 @@
+@import '~normalize.css';
+@import "styles";
+
+/* -------------------- Global Styles -------------------- */
+
+html {
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	@include roboto-14-regular;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	min-width: 320px;
+	color: $color-text;
+}
+
+#__next {
+  height: 100%;
+}
+
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	display: inline-block;
+	text-decoration: none;
+	color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
+section {
+	margin: 30px 0;
+}
+
+button {
+	cursor: pointer;
+	outline: transparent;
+}
+
+.react-slidedown {
+  transition-duration: 0.3s !important;
+  transition-timing-function: ease !important;
+}
+
+/* ----- Резиновая главная картинка в слайдере ----- */
+.slick-slide img {
+  max-width: 100%;
+  width: 100%;
+  max-height: 500px;
+  margin: 0 auto;
+  //border-radius: 24px;
+  outline: transparent;
+}
+
+.slick-slider {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.slick-slider .slick-dots {
+  display: flex !important;
+  justify-content: center;
+  bottom: -45px;
+
+  & li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    width: 30px;
+    cursor: pointer;
+
+    & button {
+      padding: 0;
+      font-size: 0;
+      max-width: 100%;
+      width: 30px;
+      height: 3px;
+      background-color: $color-gray;
+      border: none;
+      outline: transparent;
+      transition: all 0.15s;
+    }
+
+    & button:hover {
+      background-color: $color-dark-gray;
+    }
+  }
+  & li.slick-active button {
+    background-color: $color-text;
+    outline: transparent;
+  }
+
+  li button:before,
+  li.slick-active button:before {
+    color: transparent;
+  }
+}
+
+/* ----- Слайдер в карточке продукта ----- */
+.SliderNav {
+  .slick-prev:before,
+  .slick-next:before {
+    color: black;
+  }
+
+  .slick-slide {
+    img {
+      padding: 5px !important;
+    }
+  }
+
+  .slick-slide.slick-current {
+    img {
+      border: 1px solid $color-text !important;
+      border-radius: 4px !important;
+    }
+  }
+}
+
+/* ----- Общие свойства для всех слайдеров ----- */
+.slick-list,
+.slick-track {
+  touch-action: pan-y;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  touch-action: pan-y;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    opacity: 0 !important;
+}
+
+@media (max-width: 500px) {
+  .nav.slick-initialized .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* ----- Открытие/закрытие по кнопке "Каталог" ----- */
+$transition: 0.3s;
+$positionCatalogWindow: -500px;
+
+.CatalogWindow {
+  &.enter {
+    opacity: 0;
+    transform: translateY($positionCatalogWindow);
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transform: translateY($positionCatalogWindow);
+    transition: opacity $transition, transform $transition;
+  }
+}
+
+/* ----- Компонент затемнения ----- */
+$overlayOpacity: 0.6;
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-color: #000;
+  opacity: $overlayOpacity;
+  z-index: 100;
+  visibility: visible;
+
+  &.enter {
+    background: transparent;
+    opacity: $overlayOpacity;
+    visibility: hidden;
+  }
+
+  &.enter-active {
+    background-color: #000;
+    opacity: $overlayOpacity;
+    visibility: visible;
+    transition: all $transition;
+  }
+
+  &.exit {
+    background-color: #000;
+    opacity: $overlayOpacity;
+    visibility: visible;
+    transition: all $transition;
+  }
+
+  &.exit-active {
+    background: transparent;
+    opacity: $overlayOpacity;
+    visibility: hidden;
+  }
+}
+
+/* ----- Компонент затемнения в поиске ----- */
+$searchOverlayOpacity: 0.2;
+
+.SearchOverlay {
+  opacity: $searchOverlayOpacity;
+
+  &.enter {
+    opacity: $searchOverlayOpacity;
+  }
+
+  &.enter-active {
+    opacity: $searchOverlayOpacity;
+  }
+
+  &.exit {
+    opacity: $searchOverlayOpacity;
+  }
+
+  &.exit-active {
+    opacity: $searchOverlayOpacity;
+  }
+}
+
+/* ----- Выпадающее окно в поиске ----- */
+
+$maxWidth: 620px;
+
+.SearchDropDownWindow {
+    content: "";
+    position: absolute;
+    top: 50px;
+    max-width: $maxWidth;
+    width: 100%;
+    height: max-content;
+    background-color: $color-white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    z-index: 101;
+
+  &.enter {
+    opacity: 0;
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transition: opacity $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+    transition: opacity $transition;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transition: opacity $transition;
+  }
+}
+
+/* ----- Sidebar окно ----- */
+
+.Sidebar {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 80vw;
+    width: 100%;
+    height: 100vh;
+    background-color: $color-white;
+    overflow: auto;
+    z-index: 103;
+
+  &.enter {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity $transition, transform $transition;
+  }
+}
+
+/* ----- Sidebar окно ----- */
+
+.FilterBar {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 80vw;
+    width: 100%;
+    height: 100vh;
+    background-color: $color-white;
+    overflow: auto;
+    z-index: 103;
+
+  &.enter {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity $transition, transform $transition;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity $transition, transform $transition;
+  }
+}
+
+/* ----- Модальное окно по центру адаптировано ----- */
+
+.react-responsive-modal-root .react-responsive-modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  body {
+    @include roboto-14-regular;
+  }
+
+  section {
+    margin: 30px 0;
+  }
+}
+
+@media (max-width: 500px) {
+  section {
+    margin: 20px 0;
+  }
+
+  .slick-slider {
+    position: relative;
+    margin-bottom: 8px;
+  }
+}

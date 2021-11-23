@@ -1,0 +1,56 @@
+@import "styles";
+
+.SidebarMobile {
+  padding: 15px;
+
+  &Avatar {
+    margin-left: 4px;
+  }
+
+  &List {}
+
+  &ListItem {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &Link {
+    display: flex;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &LinkText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 15px;
+  }
+
+  &LinkTitle {
+    @include roboto-14-regular;
+
+    &.UserName {
+      @include roboto-14-bold;
+    }
+  }
+
+  &LinkSubTitle {
+    @include roboto-12-regular;
+    color: $color-suit-gray;
+  }
+}
+
+@media (max-width: 768px) {
+  .SidebarAvatarSmallCircle::before {
+    top: -6px;
+    width: 12px;
+    height: 12px;
+  }
+}

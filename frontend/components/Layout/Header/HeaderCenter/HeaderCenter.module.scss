@@ -1,0 +1,90 @@
+@import "styles";
+
+.HeaderCenter {
+  margin: 8px 0;
+}
+
+.Inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &Desktop {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.ButtonCatalog {
+  margin-left: 32px;
+  margin-right: 12px;
+  height: 44px;
+
+  span {
+    display: flex;
+    justify-content: center;
+  }
+
+  &Hamburger {}
+
+  &Text {
+    margin-left: 12px;
+  }
+}
+
+.ButtonSidebar {
+  padding: 10px;
+}
+
+.Mobile {
+  display: none;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .ButtonCatalogText {
+    display: none;
+    padding: 10px 26px;
+    width: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .InnerDesktop {
+    display: none;
+  }
+
+  .Desktop {
+    display: none;
+  }
+
+  .Mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .HeaderCenter {
+    & .SearchControlsDesktop {
+      display: none;
+    }
+
+    & .LogoMobile {
+      max-width: max-content;
+
+      & svg {
+        max-width: max-content;
+      }
+    }
+
+    & .HeaderIconsListMobile {
+      max-width: max-content;
+    }
+
+    & .ButtonSidebar {
+      background-color: $color-white;
+      box-shadow: none;
+    }
+  }
+}

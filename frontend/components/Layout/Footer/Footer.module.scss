@@ -1,0 +1,16 @@
+@import "styles";
+
+.Footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  width: 100%;
+  background-color: #DFD5C3;
+  overflow-y: hidden;
+  z-index: 1;
+
+  &Text {
+    color: $color-suit-gray;
+  }
+}

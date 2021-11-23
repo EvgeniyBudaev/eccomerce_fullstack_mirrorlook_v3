@@ -1,0 +1,38 @@
+@import "styles";
+
+.SliderArrow {
+  position: absolute !important;
+  top: 50% !important;
+  z-index: 1 !important;
+}
+
+.SliderArrowButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  z-index: 1;
+  height: 40px;
+  width: 40px;
+  background-color: $color-mercury-gray;
+  border: 1px solid $color-mercury-gray;
+  border-radius: 50%;
+  box-shadow: $shadow-sliderArrow;
+  opacity: 0.3;
+  transition: all 0.15s;
+
+  &:hover {
+    background-color: $color-alto-gray;
+    border: 1px solid $color-alto-gray;
+    opacity: 0.6;
+  }
+}
+
+.SliderArrowCustom {
+  svg {
+    fill: $color-beige;
+  }
+}

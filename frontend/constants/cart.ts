@@ -1,0 +1,1 @@
+export const DISCOUNT_FOR_AUTHORIZATION = 0.97;
