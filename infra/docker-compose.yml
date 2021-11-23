@@ -27,8 +27,8 @@ services:
     build:
       target: production
     restart: always
-    volumes:
-      - ../frontend/:/app/result_build/
+    ports:
+      - 80:80
     depends_on:
       - backend
 
