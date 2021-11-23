@@ -33,6 +33,11 @@ function App() {
       <div>
         <pre>{JSON.stringify(products, null, 2)}</pre>
       </div>
+      <h2>DEV</h2>
+      <div>{process.env.REACT_APP_DEV_DOMAIN}</div>
+      <hr />
+      <h2>PROD</h2>
+      <div>{process.env.REACT_APP_PROD_DOMAIN}</div>
     </div>
   )
 }
