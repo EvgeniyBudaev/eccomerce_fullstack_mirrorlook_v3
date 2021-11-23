@@ -6,5 +6,4 @@ RUN npm install
 COPY . ./
 ENV NODE_ENV production
 RUN npm run build
-COPY [".env.production", "./build/"]
 CMD cp -r build result_build
