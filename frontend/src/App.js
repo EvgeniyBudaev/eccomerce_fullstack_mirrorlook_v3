@@ -7,7 +7,9 @@ function App() {
   const [products, setProducts] = useState([]);
 
   const getProducts = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_DOMAIN}api/v1/products/?catalog_slug=mirrors`);
+    const baseUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_PROD_DOMAIN : process.env.REACT_APP_DEV_DOMAIN;
+    console.log("baseUrl: ", baseUrl);
+    const response = await axios.get(`${baseUrl}api/v1/products/?catalog_slug=mirrors`);
     console.log("response", response);
     return response.data;
   };
