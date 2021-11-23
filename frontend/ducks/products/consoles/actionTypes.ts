@@ -1,1 +1,0 @@
-export const CONSOLES_SUCCESS = "CONSOLES_SUCCESS";
