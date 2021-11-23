@@ -29,6 +29,8 @@ services:
       - ../frontend/:/app/result_build/
     depends_on:
       - backend
+    env_file:
+      - ./.env
 
   nginx:
     image: nginx:1.19.3
