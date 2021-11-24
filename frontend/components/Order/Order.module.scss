@@ -1,6 +1,7 @@
 @import "styles";
 
-.Order {}
+.Order {
+}
 
 .Title {
   @include roboto-32-medium;
@@ -32,8 +33,7 @@
 .Products,
 .Recipient,
 .Shipping,
-.Total,
-{
+.Total {
   margin-bottom: 24px;
   padding: 24px;
   border: 1px solid $color-light-gray;
@@ -189,7 +189,8 @@
 }
 
 .Modal {
-  &Title {}
+  &Title {
+  }
 
   &Defence {
     display: flex;
@@ -211,7 +212,8 @@
   }
 
   &Content {
-    &Inner {}
+    &Inner {
+    }
   }
 }
 

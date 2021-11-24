@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
 import { ActionTypes, IPayloadOrderRecipientSave } from "ducks/order";
@@ -13,6 +14,7 @@ import { Button, Icon, Modal, Spinner } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { IFetchOrderResponse } from "api/types/order";
 import { IUserAccount } from "api/types/account";
+import { AlertError } from "utils/alert";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
 import styles from "./Order.module.scss";
 
@@ -30,9 +32,9 @@ export const Order: React.FC = () => {
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
   const loading = useTypedSelector(state => state.loading);
-  //const unhandledError = useTypedSelector(state => state.unhandledError);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  //const { error } = unhandledError;
+  const { error } = unhandledError;
   const dispatch = useDispatch();
   const { hasMounted } = useMounted();
   const { isAuthenticated, user } = hasMounted && account;
@@ -67,6 +69,12 @@ export const Order: React.FC = () => {
   const requestOrderSendToEmail = useCallback(() => {
     setNeedRequestIndicator(needRequestIndicator + 1);
   }, [setNeedRequestIndicator, needRequestIndicator]);
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка оформления заказа!", error.message);
+    }
+  }, [error]);
 
   const handleSubmit = () => {
     dispatch({
@@ -153,6 +161,7 @@ export const Order: React.FC = () => {
 
   return (
     <section className={styles.Order}>
+      <AlertContainer />
       <h2 className={styles.Title}>Оформление заказа</h2>
       <div className={classNames(styles.Inner, styles.OrderInnerMobile)}>
         <div className={styles.BlockLeft}>

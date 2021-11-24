@@ -1,18 +1,28 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect } from "react";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
 import { Cart, Layout } from "components";
 import { IFetchItemToCartResponse } from "api/types/cart";
+import { AlertError } from "utils/alert";
 
 interface ICartPageProps {
   entities: IFetchItemToCartResponse[];
+  error?: string;
 }
 
 export default function CartProductsPage(props: ICartPageProps): JSX.Element {
-  console.log("[CartPage][props]", props);
+  const { error } = props;
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка в корзине товаров!", error);
+    }
+  }, [error]);
 
   return (
     <Layout>
+      <AlertContainer />
       <Cart />
     </Layout>
   );
@@ -37,6 +47,7 @@ export const getServerSideProps: GetServerSideProps<ICartPageProps> =
       return {
         props: {
           entities: [],
+          error: error.message,
         },
       };
     }

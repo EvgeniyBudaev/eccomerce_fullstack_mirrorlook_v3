@@ -1,6 +1,7 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.scss";
 import { store } from "ducks/store";
 

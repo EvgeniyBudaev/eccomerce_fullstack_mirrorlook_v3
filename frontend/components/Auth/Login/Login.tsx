@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
 import * as yup from "yup";
@@ -10,6 +11,7 @@ import { ActionTypes } from "ducks/account";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
+import { AlertError } from "utils/alert";
 import styles from "./Login.module.scss";
 
 interface ILoginForm {
@@ -49,6 +51,12 @@ export const Login: React.FC = () => {
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка авторизации!", error.message);
+    }
+  }, [error]);
 
   const onSubmit = (data: ILoginForm) => {
     dispatch({
@@ -105,6 +113,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className={styles.Login}>
+      <AlertContainer />
       <div className={styles.SectionLeft}>
         <Image
           src={"/images/login-left-background.png"}

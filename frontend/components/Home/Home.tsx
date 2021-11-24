@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import mainSlider1 from "ui-kit/assets/images/slide-home-10.jpg";
@@ -15,14 +16,23 @@ import promotion3 from "ui-kit/assets/images/promotion-3.jpg";
 import promotion4 from "ui-kit/assets/images/promotion-4.jpg";
 import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
+import { AlertError } from "utils/alert";
 import styles from "./Home.module.scss";
 
 const mainSliderImages = [mainSlider1, mainSlider2, mainSlider3];
 
 export const Home: React.FC = () => {
-  const dispatch = useDispatch();
   const account = useTypedSelector(state => state.account);
+  const dispatch = useDispatch();
   const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { error } = unhandledError;
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка создания корзины!", error.message);
+    }
+  }, [error]);
 
   useEffect(() => {
     if (isEmpty(localStorage.getItem("cart"))) {
@@ -55,6 +65,7 @@ export const Home: React.FC = () => {
 
   return (
     <div className={styles.Home}>
+      <AlertContainer />
       <section className={styles.MainSliders}>
         <SliderSimple
           className={styles.MainSlider}

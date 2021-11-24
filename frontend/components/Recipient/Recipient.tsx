@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import isNull from "lodash/isNull";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
@@ -12,6 +13,7 @@ import { Button, Icon, FormField, Spinner } from "ui-kit";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { ROUTES } from "constants/routes";
+import { AlertError } from "utils/alert";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Recipient.module.scss";
 
@@ -84,6 +86,12 @@ export const Recipient: React.FC = () => {
   const { error } = unhandledError;
   const watchAllFields = watch();
 
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка оформления получателя!", error.message);
+    }
+  }, [error]);
+
   const onSubmit = (data: IRecipientForm) => {
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     dispatch({
@@ -151,6 +159,7 @@ export const Recipient: React.FC = () => {
 
   return (
     <section className={styles.Recipient}>
+      <AlertContainer />
       <div className={styles.Step}>Шаг 2 из 3</div>
       <h2 className={styles.Title}>Получатель</h2>
       <div className={styles.Inner}>

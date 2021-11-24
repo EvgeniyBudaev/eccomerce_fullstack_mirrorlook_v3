@@ -27,7 +27,7 @@
 }
 
 @media (max-width: 768px) {
-  .Products{
+  .Products {
     & .Row {
       & .Title {
         @include roboto-22-bold;

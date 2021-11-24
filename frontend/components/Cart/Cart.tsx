@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { numberWithSpaces } from "utils/numberWithSpaces";
@@ -8,6 +9,7 @@ import { getDeclination } from "utils/declinations";
 import { Button, Icon, Spinner } from "ui-kit";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
 import { useMounted } from "hooks/useMounted";
+import { AlertError } from "utils/alert";
 import { CartItem } from "./CartItem/CartItem";
 import styles from "./Cart.module.scss";
 
@@ -17,9 +19,9 @@ export const Cart: React.FC = () => {
   const cart = useTypedSelector(state => state.cart);
   const account = useTypedSelector(state => state.account);
   const loading = useTypedSelector(state => state.loading);
-  //const unhandledError = useTypedSelector(state => state.unhandledError);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  //const { error } = unhandledError;
+  const { error } = unhandledError;
   const { isAuthenticated } = hasMounted && account;
   const cartItemsCountTotal =
     hasMounted && cart.entities.reduce((acc, item) => acc + item.quantity, 0);
@@ -34,6 +36,12 @@ export const Cart: React.FC = () => {
     : priceSubTotal;
   const priceDifference = priceSubTotal - priceWithDiscountTotal;
 
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка в корзине!", error.message);
+    }
+  }, [error]);
+
   const handleBackToShopping = () => {
     router.back();
   };
@@ -46,6 +54,7 @@ export const Cart: React.FC = () => {
 
   return (
     <section className={styles.Cart}>
+      <AlertContainer />
       <h1 className={styles.CartTitle}>Моя корзина</h1>
       <div className={styles.CartInner}>
         <div className={styles.CartList}>

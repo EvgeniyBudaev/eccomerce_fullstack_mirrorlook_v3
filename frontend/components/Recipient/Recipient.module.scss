@@ -1,6 +1,7 @@
 @import "styles";
 
-.Recipient {}
+.Recipient {
+}
 
 .Step {
   @include roboto-12-regular;
@@ -96,7 +97,8 @@
   }
 }
 
-.Button {}
+.Button {
+}
 
 @media (max-width: 1000px) {
   .Inner {

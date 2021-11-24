@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
 import { Icon, Overlay } from "ui-kit";
 import * as searchApi from "api/search";
 import { SearchProductsType } from "api/types/search";
 import * as loadingActionCreators from "ducks/loading";
+import { AlertError } from "utils/alert";
 import { SearchProductList } from "./SearchProductList";
 import styles from "./Search.module.scss";
 
@@ -46,8 +48,8 @@ export const Search: React.FC<ISearchProps> = ({
           dispatch(loadingActionCreators.unsetLoading());
         })
         .catch(error => {
-          console.log("Ошибка", error);
           dispatch(loadingActionCreators.unsetLoading());
+          AlertError("Ошибка поиска!", error.message);
         });
     },
     // eslint-disable-next-line
@@ -66,6 +68,7 @@ export const Search: React.FC<ISearchProps> = ({
           [styles.Search__active]: isActive,
         })}
       >
+        <AlertContainer />
         <div className={styles.Form}>
           <div className={styles.SearchInputWrapper}>
             <input

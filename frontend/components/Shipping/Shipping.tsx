@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import {
   GeolocationControl,
   FullscreenControl,
@@ -17,6 +18,7 @@ import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, FormFieldYMap, Spinner } from "ui-kit";
 import { ROUTES } from "constants/routes";
 import { Marker } from "components";
+import { AlertError } from "utils/alert";
 import PickMap, { PickMapState } from "../YMap/PickMap";
 import { GeoSearchSuggestion } from "../YMap/GeoSearch";
 import styles from "./Shipping.module.scss";
@@ -88,10 +90,16 @@ export const Shipping: React.FC<IShippingProps> = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const loading = useTypedSelector(state => state.loading);
-  //const unhandledError = useTypedSelector(state => state.unhandledError);
+  const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
-  //const { error } = unhandledError;
+  const { error } = unhandledError;
   const watchAllFields = watch();
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка оформления доставки!", error.message);
+    }
+  }, [error]);
 
   const onSubmit = (data: IShippingForm) => {
     dispatch({
@@ -167,6 +175,7 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   return (
     <section className={styles.Shipping}>
+      <AlertContainer />
       <div className={styles.Step}>Шаг 1 из 3</div>
       <h2 className={styles.Title}>Где Вы хотите получить заказ?</h2>
       <form className={styles.Form} onSubmit={handleSubmit(onSubmit)}>

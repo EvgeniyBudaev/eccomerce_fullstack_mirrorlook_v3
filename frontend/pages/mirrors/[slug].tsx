@@ -1,18 +1,34 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect } from "react";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
 import { IMirror } from "types/mirror";
 import { Layout } from "components";
 import { MirrorCard } from "components/Catalog/Mirrors/MirrorCard";
+import { AlertError } from "utils/alert";
 
 interface IMirrorDetailProps {
+  error?: string;
   mirrorResponse: IMirror;
 }
 
 export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
+  const { error } = props;
+
+  if (error) {
+    console.log("Ошибка! (frontend/pages/mirrors/[slug].tsx): ", error);
+  }
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка в карточки зеркала!", error);
+    }
+  }, [error]);
+
   return (
     <Layout>
-      <MirrorCard mirror={props.mirrorResponse} />
+      <AlertContainer />
+      {props.mirrorResponse && <MirrorCard mirror={props.mirrorResponse} />}
     </Layout>
   );
 }
@@ -29,7 +45,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   } catch (error) {
     return {
-      props: {},
+      props: {
+        error: error.message,
+      },
     };
   }
 };

@@ -22,7 +22,7 @@
     position: relative;
   }
 
-  .Content{
+  .Content {
     position: relative;
 
     .ContentImg {
@@ -55,7 +55,7 @@
     text-align: center;
     min-height: 50px;
 
-    .FooterPrice{
+    .FooterPrice {
       @include roboto-18-bold;
       margin: 16px 0;
     }
@@ -197,7 +197,9 @@
     max-height: max-content;
 
     .ContentDescriptionLine {
-      &Price, &Status, &AddToCartLine {
+      &Price,
+      &Status,
+      &AddToCartLine {
         display: block;
       }
     }
@@ -278,7 +280,8 @@
       }
     }
 
-    .ContentDescriptionLinePrice, .ContentTitleLine {
+    .ContentDescriptionLinePrice,
+    .ContentTitleLine {
       text-align: center;
     }
   }
@@ -299,7 +302,7 @@
   }
 }
 
-@media (max-width: 340px)  {
+@media (max-width: 340px) {
   .MirrorsListItem {
     margin: 0 auto;
   }

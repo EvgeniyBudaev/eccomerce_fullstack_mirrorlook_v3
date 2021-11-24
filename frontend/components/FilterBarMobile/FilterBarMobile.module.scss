@@ -1,6 +1,6 @@
 @import "styles";
 
-.FilterBarMobile{
+.FilterBarMobile {
   z-index: 102;
 
   &Header {
@@ -35,7 +35,7 @@
       margin-top: -8px;
     }
 
-    .CheckboxItem + .CheckboxItem  {
+    .CheckboxItem + .CheckboxItem {
       margin-top: 15px;
     }
 

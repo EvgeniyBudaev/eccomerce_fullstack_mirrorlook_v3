@@ -1,6 +1,7 @@
 @import "styles/index";
 
-.MirrorCard {}
+.MirrorCard {
+}
 
 .Title {
   @include roboto-24-bold;
@@ -8,7 +9,7 @@
   margin-bottom: 30px;
 }
 
-.ProductMainInfo{
+.ProductMainInfo {
   display: flex;
   justify-content: space-between;
 }
@@ -35,7 +36,8 @@
   }
 }
 
-.ProductGallery {}
+.ProductGallery {
+}
 
 .ProductSpecification {
   @include roboto-14-regular;
@@ -66,7 +68,7 @@
     }
   }
 
-  li+li {
+  li + li {
     margin-top: 8px;
   }
 }
@@ -127,7 +129,8 @@
     max-width: 200px;
   }
 
-  .ColSpecification, .ColPrice {
+  .ColSpecification,
+  .ColPrice {
     margin-bottom: 20px;
   }
 }

@@ -1,13 +1,14 @@
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect } from "react";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
 import { Layout } from "components";
 import { Products } from "components/Catalog";
-import { Error404 } from "components/Error";
 import { IMirror } from "types/mirror";
 import { IFilter, IPaging } from "types/filter";
 import { IFilterResponse } from "api/types";
 import { CatalogNames } from "constants/names";
+import { AlertError } from "utils/alert";
 
 interface IMirrorsProps {
   catalogName: string;
@@ -19,16 +20,20 @@ interface IMirrorsProps {
 export default function MirrorsPage(
   mirrorsResponse: IMirrorsProps
 ): JSX.Element {
-  if (mirrorsResponse.error) {
-    console.log("Ошибка получения продуктов Зеркала: ", mirrorsResponse.error);
+  const { error } = mirrorsResponse;
+  if (error) {
+    console.log("Ошибка! (frontend/pages/mirrors/index.tsx): ", error);
   }
 
-  if (!mirrorsResponse) {
-    return <Error404 />;
-  }
+  useEffect(() => {
+    if (error) {
+      AlertError("Ошибка на странице зеркал!", error);
+    }
+  }, [error]);
 
   return (
     <Layout>
+      <AlertContainer />
       <Products productsResponse={mirrorsResponse} />
     </Layout>
   );
