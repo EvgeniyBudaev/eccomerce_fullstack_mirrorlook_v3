@@ -20,7 +20,7 @@ export default function MirrorsPage(
   mirrorsResponse: IMirrorsProps
 ): JSX.Element {
   if (mirrorsResponse.error) {
-    console.log("Ошибка при получение продуктов Зеркала: ", mirrorsResponse.error);
+    console.log("Ошибка получения продуктов Зеркала: ", mirrorsResponse.error);
   }
 
   if (!mirrorsResponse) {
