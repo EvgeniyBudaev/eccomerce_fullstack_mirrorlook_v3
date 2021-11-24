@@ -30,6 +30,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   const { isLoading } = loading;
   //const { error } = unhandledError;
   const isMobileScreen = useMediaQuery({ query: "(max-width: 500px)" });
+  console.log("MirrorsListItem mirror", mirror);
 
   const getCart = (cart: ICartState) => {
     return cart;
