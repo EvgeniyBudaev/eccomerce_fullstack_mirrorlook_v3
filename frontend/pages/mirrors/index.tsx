@@ -8,6 +8,7 @@ import { IMirror } from "types/mirror";
 import { IFilter, IPaging } from "types/filter";
 import { IFilterResponse } from "api/types";
 import { CatalogNames } from "constants/names";
+import { backendBase } from "constants/paths";
 import { AlertError } from "utils/alert";
 
 interface IMirrorsProps {
@@ -48,9 +49,8 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
     ordering = "",
   },
 }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const url = encodeURI(
-    `${baseUrl}api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
+    `${backendBase}api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
   );
   try {
     const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(
