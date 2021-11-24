@@ -5,6 +5,7 @@ import axios from "axios";
 import { IMirror } from "types/mirror";
 import { Layout } from "components";
 import { MirrorCard } from "components/Catalog/Mirrors/MirrorCard";
+import { backendBase } from "constants/paths";
 import { AlertError } from "utils/alert";
 
 interface IMirrorDetailProps {
@@ -35,10 +36,9 @@ export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const productSlug = params.slug;
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   try {
     const { data: mirrorResponse } = await axios.get<IMirror>(
-      `${baseUrl}api/v1/products/${productSlug}`
+      `${backendBase}api/v1/products/${productSlug}`
     );
     return {
       props: { mirrorResponse },

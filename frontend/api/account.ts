@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendBase } from "constants/paths";
 import { ISagaUserSignupPayload } from "ducks/account";
 import {
   IFetchUserResponse,
@@ -16,9 +17,8 @@ export const fetchToken = async (
     },
   };
   const body = JSON.stringify({ email, password });
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchTokenResponse>(
-    `${baseUrl}api/v1/auth/jwt/create/`,
+    `${backendBase}api/v1/auth/jwt/create/`,
     body,
     config
   );
@@ -35,9 +35,8 @@ export const fetchUser = async (
       Accept: "application/json",
     },
   };
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.get<IFetchUserResponse>(
-    `${baseUrl}api/v1/auth/users/me/`,
+    `${backendBase}api/v1/auth/users/me/`,
     config
   );
   return response.data;
@@ -64,9 +63,8 @@ export const fetchUserSignup = async ({
     password,
     re_password,
   });
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchSignupResponse>(
-    `${baseUrl}api/v1/auth/users/`,
+    `${backendBase}api/v1/auth/users/`,
     body,
     config
   );

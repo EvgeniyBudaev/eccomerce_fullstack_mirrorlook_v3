@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
 import { Cart, Layout } from "components";
+import { backendBase } from "constants/paths";
 import { IFetchItemToCartResponse } from "api/types/cart";
 import { AlertError } from "utils/alert";
 
@@ -31,8 +32,7 @@ export default function CartDetailsPage(props: ICartDetailsProps): JSX.Element {
 export const getServerSideProps: GetServerSideProps<ICartDetailsProps> =
   async ({ params }) => {
     const cartId = params.id;
-    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
-    const url = encodeURI(`${baseUrl}api/v1/cart-products/?cart=${cartId}`);
+    const url = encodeURI(`${backendBase}api/v1/cart-products/?cart=${cartId}`);
     try {
       const { data } = await axios.get<IFetchItemToCartResponse[]>(url);
       return {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendBase } from "constants/paths";
 import {
   IFetchOrderRequest,
   IFetchOrderResponse,
@@ -15,9 +16,8 @@ export const fetchOrderCreate = async (
       "Content-Type": "application/json",
     },
   };
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchOrderResponse>(
-    `${baseUrl}api/v1/order/`,
+    `${backendBase}api/v1/order/`,
     order,
     config
   );
@@ -39,7 +39,7 @@ export const fetchSendingConfirmOrder = async (
     data,
     config
   );
-  console.log("response", response);
+  console.log("sending-confirm-order response", response);
 
   return response.data;
 };

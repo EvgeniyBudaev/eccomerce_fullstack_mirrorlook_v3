@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendBase } from "constants/paths";
 import {
   IFetchLiveProductsSearchResponse,
   ISearchedKeyword,
@@ -12,10 +13,8 @@ export const fetchLiveProductsSearch = async ({
       "Content-Type": "application/json",
     },
   };
-
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.get<IFetchLiveProductsSearchResponse>(
-    `${baseUrl}api/v1/products/?search=${searchedKeyword}`,
+    `${backendBase}api/v1/products/?search=${searchedKeyword}`,
     config
   );
 
