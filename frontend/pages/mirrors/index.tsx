@@ -12,12 +12,17 @@ import { CatalogNames } from "constants/names";
 interface IMirrorsProps {
   catalogName: string;
   entities: IMirror[];
+  error?: string;
   paging: IPaging;
 }
 
 export default function MirrorsPage(
   mirrorsResponse: IMirrorsProps
 ): JSX.Element {
+  if (mirrorsResponse.error) {
+    console.log("Ошибка при получение продуктов Зеркала: ", mirrorsResponse.error);
+  }
+
   if (!mirrorsResponse) {
     return <Error404 />;
   }
@@ -66,6 +71,7 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
       props: {
         catalogName: CatalogNames.MIRRORS,
         entities: [],
+        error: error.message,
         paging: {
           pageItemsCount: 0,
           pageNumber: 1,
