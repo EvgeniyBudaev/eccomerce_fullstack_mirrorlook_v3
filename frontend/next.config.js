@@ -8,6 +8,7 @@ module.exports = {
       "127.0.0.1",
       "backend",
       "backend:80",
+      "backend:8000",
     ],
   },
   webpack(config) {
