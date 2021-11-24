@@ -9,7 +9,7 @@ services:
       - ./.env
 
   backend:
-    image: ebudaev/mirror_backend:v1
+    build: ../backend
     container_name: mirror_backend
     restart: always
     volumes:
@@ -21,7 +21,7 @@ services:
       - ./.env
 
   frontend:
-    image: ebudaev/mirror_frontend:v1
+    build: ../frontend
     container_name: mirror_frontend
     restart: always
     depends_on:
