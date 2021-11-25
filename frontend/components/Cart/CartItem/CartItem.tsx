@@ -18,11 +18,9 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const dispatch = useDispatch();
-  console.log("imageUrl: ", imageUrl);
 
   useEffect(() => {
     const cartItemImageUrl = cartItem.product.image;
-    console.log("cartItemImageUrl: ", cartItemImageUrl);
     const newImageUrl = changeToBackendBaseUrl(cartItemImageUrl);
     setImageUrl(newImageUrl);
   }, [cartItem]);
