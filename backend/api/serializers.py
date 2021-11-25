@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from api.fields import Base64ImageField
 from store.models import (Attribute, Cart, CartItem, Catalog, Category,
                           Comment, Order, OrderItem, OrderUser, Product,
                           ProductAttribute, Review, ReviewUser,
@@ -23,6 +24,7 @@ class ProductSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField(source='category.title',
                                               many=False, read_only=True)
     catalog_slug = serializers.SerializerMethodField()
+    image = Base64ImageField()
     attributes = AttributeSerializer(many=True, read_only=True)
 
     class Meta:
@@ -86,6 +88,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class CatalogSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True, read_only=True)
     categories = CategorySerializer(many=True, read_only=True)
+    image = Base64ImageField()
 
     class Meta:
         model = Catalog

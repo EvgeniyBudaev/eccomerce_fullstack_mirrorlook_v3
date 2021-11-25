@@ -30,7 +30,7 @@ export const fetchCreateCart = async (
       body,
       config
     );
-    
+
     return response.data;
   } else {
     const response = await axios.post<IFetchCartCreateResponse>(

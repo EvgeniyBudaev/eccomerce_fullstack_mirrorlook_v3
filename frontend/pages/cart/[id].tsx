@@ -13,11 +13,12 @@ interface ICartDetailsProps {
 }
 
 export default function CartDetailsPage(props: ICartDetailsProps): JSX.Element {
+  console.log("CartDetailsPage", props.entities);
   const { error } = props;
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка в карточке корзины!", error);
+      AlertError("Ошибка в корзине!", error);
     }
   }, [error]);
 

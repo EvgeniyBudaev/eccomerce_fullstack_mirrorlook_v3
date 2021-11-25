@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { ICartItem } from "types/cart";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { ActionTypes } from "ducks/cart";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { IconButton, Spinner } from "ui-kit";
+import { IconButton } from "ui-kit";
+import { changeToBackendBaseUrl } from "utils/url";
 import styles from "./CartItem.module.scss";
 
 interface ICartItemProps {
@@ -15,13 +15,17 @@ interface ICartItemProps {
 }
 
 export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
+  const [imageUrl, setImageUrl] = useState("");
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const dispatch = useDispatch();
-  const loading = useTypedSelector(state => state.loading);
-  //const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { isLoading } = loading;
-  //const { error } = unhandledError;
-  console.log("cartItem: ", cartItem);
+  console.log("imageUrl: ", imageUrl);
+
+  useEffect(() => {
+    const cartItemImageUrl = cartItem.product.image;
+    console.log("cartItemImageUrl: ", cartItemImageUrl);
+    const newImageUrl = changeToBackendBaseUrl(cartItemImageUrl);
+    setImageUrl(newImageUrl);
+  }, [cartItem]);
 
   const handleDecrementItemToCart = () => {
     if (cartItem.quantity <= 1) return;
@@ -81,8 +85,6 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
     }
   };
 
-  if (isLoading) return <Spinner />;
-
   return (
     <div className={styles.CartItem}>
       <div className={styles.Product}>
@@ -91,12 +93,15 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
             href={`/${cartItem.product.catalog_slug}/${cartItem.product.product_slug}`}
           >
             <a>
-              <Image
-                src={cartItem.product.product_photo1}
-                alt=""
-                width="100"
-                height="100"
-              />
+              {imageUrl && (
+                <Image
+                  src={imageUrl}
+                  alt=""
+                  width="100"
+                  height="100"
+                  priority
+                />
+              )}
             </a>
           </Link>
         </div>
