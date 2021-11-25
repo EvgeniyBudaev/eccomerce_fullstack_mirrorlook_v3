@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -15,6 +14,7 @@ import { numberWithSpaces } from "utils/numberWithSpaces";
 import { IFetchOrderResponse } from "api/types/order";
 import { IUserAccount } from "api/types/account";
 import { AlertError } from "utils/alert";
+import { OrderProductsItem } from "./OrderProductsItem/OrderProductsItem";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
 import styles from "./Order.module.scss";
 
@@ -228,34 +228,7 @@ export const Order: React.FC = () => {
               <div>
                 {hasMounted &&
                   cart.entities.map(item => (
-                    <div className={styles.Product} key={item.id}>
-                      <div className={styles.ProductInfo}>
-                        <Link
-                          href={`/${item.product.catalog_slug}/${item.product.product_slug}`}
-                        >
-                          <a>
-                            <Image
-                              src={item.product.product_photo1}
-                              alt=""
-                              width="50"
-                              height="50"
-                            />
-                          </a>
-                        </Link>
-                        <span className={styles.ProductTitle}>
-                          {item.product.title}
-                        </span>
-                      </div>
-                      <div className={styles.ProductPrice}>
-                        {item.quantity} x{" "}
-                        {numberWithSpaces(Number(item.product.price).toFixed())}{" "}
-                        ={" "}
-                        {numberWithSpaces(
-                          item.quantity * Number(item.product.price)
-                        )}{" "}
-                        ₽
-                      </div>
-                    </div>
+                    <OrderProductsItem key={item.id} item={item} />
                   ))}
               </div>
             )}

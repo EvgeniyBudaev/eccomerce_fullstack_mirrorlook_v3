@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
 import { IMirror } from "types/mirror";
-import { Button, Spinner } from "ui-kit";
+import { Button } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ActionTypes, ICartState } from "ducks/cart";
@@ -25,12 +25,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
   const [currentCart, setCurrentCart] = useState<ICartState>(null);
   const dispatch = useDispatch();
   const cart = useTypedSelector(state => state.cart);
-  const loading = useTypedSelector(state => state.loading);
-  //const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { isLoading } = loading;
-  //const { error } = unhandledError;
   const isMobileScreen = useMediaQuery({ query: "(max-width: 500px)" });
-  console.log("MirrorsListItem mirror", mirror);
 
   const getCart = (cart: ICartState) => {
     return cart;
@@ -102,8 +97,6 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
       return "216px";
     }
   };
-
-  if (isLoading) return <Spinner />;
 
   return (
     <li

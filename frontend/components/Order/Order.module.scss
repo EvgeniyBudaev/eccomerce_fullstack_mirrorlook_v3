@@ -81,32 +81,6 @@
   }
 }
 
-.Product {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  &Info {
-    display: flex;
-    align-items: center;
-  }
-
-  &Title {
-    margin-left: 16px;
-  }
-
-  &Price {
-    margin-left: 16px;
-    text-align: end;
-    white-space: nowrap;
-  }
-}
-
 .Recipient {
   &Info {
     display: flex;

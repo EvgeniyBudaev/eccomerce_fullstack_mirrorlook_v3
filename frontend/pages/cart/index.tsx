@@ -13,7 +13,6 @@ interface ICartPageProps {
 }
 
 export default function CartProductsPage(props: ICartPageProps): JSX.Element {
-  console.log("CartProductsPage", props.entities);
   const { error } = props;
 
   useEffect(() => {
