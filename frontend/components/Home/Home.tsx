@@ -1,7 +1,7 @@
 // import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { SliderNextArrow, SliderPrevArrow, SliderVideo } from "ui-kit";
@@ -17,7 +17,7 @@ const mainSliderVideos = [videoSlider1, videoSlider2];
 export const Home: React.FC = () => {
   const account = useTypedSelector(state => state.account);
   const dispatch = useDispatch();
-  const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
+  // const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const unhandledError = useTypedSelector(state => state.unhandledError);
   const { error } = unhandledError;
 
