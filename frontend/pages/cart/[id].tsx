@@ -17,7 +17,7 @@ export default function CartDetailsPage(props: ICartDetailsProps): JSX.Element {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка в корзине!", error);
+      AlertError("Ошибка в корзине! ", error);
     }
   }, [error]);
 
