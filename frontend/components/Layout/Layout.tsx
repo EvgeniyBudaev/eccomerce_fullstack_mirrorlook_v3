@@ -4,7 +4,6 @@ import React, { ReactNode } from "react";
 import classNames from "classnames";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import Banner from "./Header/Banner";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import styles from "./Layout.module.scss";
@@ -30,7 +29,6 @@ export const Layout: React.FC<ILayoutProps> = ({
       </Head>
       <div className={styles.Wrapper}>
         <div className={styles.Content}>
-          <Banner />
           <Header />
           <main
             className={classNames(styles.Main, {

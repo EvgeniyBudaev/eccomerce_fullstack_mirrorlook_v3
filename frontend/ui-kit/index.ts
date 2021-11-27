@@ -19,6 +19,7 @@ import Sidebar from "./Sidebar";
 import SliderNextArrow from "./Slider/SliderNextArrow";
 import SliderPrevArrow from "./Slider/SliderPrevArrow";
 import SliderSimple from "./Slider/SliderSimple";
+import SliderVideo from "./Slider/SliderVideo";
 import Spacer from "./Spacer";
 import Spinner from "./Spinner";
 import TextArea from "./TextArea";
@@ -47,6 +48,7 @@ export {
   SliderNextArrow,
   SliderPrevArrow,
   SliderSimple,
+  SliderVideo,
   Spacer,
   Spinner,
   TextArea,

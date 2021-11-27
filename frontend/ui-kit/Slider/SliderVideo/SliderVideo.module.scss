@@ -1,0 +1,8 @@
+@import "styles";
+
+.Item {
+  width: 100%;
+  & > div {
+    width: 100%;
+  }
+}

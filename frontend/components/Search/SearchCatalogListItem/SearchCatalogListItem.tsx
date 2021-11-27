@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { changeToBackendBaseUrl } from "utils/url";
 import styles from "./SearchCatalogListItem.module.scss";
 
 interface ISearchCatalogListItemProps {
@@ -14,12 +15,22 @@ export const SearchCatalogListItem: React.FC<ISearchCatalogListItemProps> = ({
   slug,
   title,
 }) => {
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const cartItemImageUrl = image;
+    const newImageUrl = changeToBackendBaseUrl(cartItemImageUrl);
+    setImageUrl(newImageUrl);
+  }, [image]);
+
   return (
     <li className={styles.SearchProductListItem}>
       <Link href={`/${slug}`}>
         <a className={styles.SearchProductListItemLink}>
           <div className={styles.SearchProductListItemImages}>
-            <Image src={image} alt="" width="28" height="28" />
+            {imageUrl && (
+              <Image src={imageUrl} alt="" width="28" height="28" priority />
+            )}
           </div>
           <div className={styles.SearchProductListItemTitle}>{title}</div>
         </a>
