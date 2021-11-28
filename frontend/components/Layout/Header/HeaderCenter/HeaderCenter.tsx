@@ -1,7 +1,7 @@
+import Link from "next/link";
 import React, { useRef, useState } from "react";
-import { TRANSITION } from "constants/transition";
-import { Logo, Search, SidebarMobile } from "components";
-import { Button, Hamburger, Sidebar } from "ui-kit";
+import { Logo, SidebarMobile } from "components";
+import { Button, Hamburger, Sidebar, Spacer } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 
@@ -10,10 +10,7 @@ export interface IHeaderCenterProps {
   onCatalogToggle?: () => void;
 }
 
-export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
-  isCatalogOpen,
-  onCatalogToggle,
-}) => {
+export const HeaderCenter: React.FC<IHeaderCenterProps> = () => {
   const [isSidebar, setIsSidebar] = useState(false);
   const nodeRef = useRef(null);
 
@@ -29,21 +26,16 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
     <div className={styles.HeaderCenter}>
       <div className={styles.Inner}>
         <div className={styles.InnerDesktop}>
+          <div>
+            <Link href={"tel:+74999999999"}>
+              <a className={styles.Text}>+7 (499) 999-99-99</a>
+            </Link>
+          </div>
+          <Spacer />
           <Logo />
-          <Button className={styles.ButtonCatalog} onClick={onCatalogToggle}>
-            <Hamburger
-              className={styles.ButtonCatalogHamburger}
-              color="white"
-              isActive={isCatalogOpen}
-            />
-            <div className={styles.ButtonCatalogText}>Каталог</div>
-          </Button>
-          <Search
-            className={styles.SearchControlsDesktop}
-            transition={TRANSITION}
-          />
+          <Spacer />
+          <HeaderIconsList className={styles.Desktop} />
         </div>
-        <HeaderIconsList className={styles.Desktop} />
         <div className={styles.Mobile}>
           <Button className={styles.ButtonSidebar} onClick={handleSidebarOpen}>
             <Hamburger

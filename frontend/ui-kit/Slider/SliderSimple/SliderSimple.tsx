@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import classNames from "classnames";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Link from "next/link";
 import styles from "./SliderSimple.module.scss";
 
 export interface ISliderSimpleProps {
@@ -12,7 +13,7 @@ export interface ISliderSimpleProps {
   alt?: string;
   arrows?: boolean;
   dots?: boolean;
-  images?: StaticImageData[];
+  images?: StaticImageData[] | string[];
   infinite?: boolean;
   height?: string;
   slidesToShow?: number;
@@ -77,17 +78,27 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                   width="470px"
                 />
               ) : (
-                <Image
-                  className={styles.Image}
-                  src={image}
-                  alt={alt}
-                  priority
-                  layout="responsive"
-                  //layout={imageResponsive()}
-                  //objectFit="cover"
-                  height={height}
-                  width={width}
-                />
+                <>
+                  <Image
+                    className={styles.Image}
+                    src={image}
+                    alt={alt}
+                    priority
+                    layout="responsive"
+                    //layout={imageResponsive()}
+                    //objectFit="cover"
+                    height={height}
+                    width={width}
+                  />
+                  <div className={styles.ItemContent}>
+                    <h1 className={styles.ItemTitle}>Роскошь во всём</h1>
+                    <Link href={"/mirrors"}>
+                      <a className={styles.ItemButton}>
+                        Посмотреть все зеркала
+                      </a>
+                    </Link>
+                  </div>
+                </>
               )}
             </div>
           );

@@ -9,10 +9,14 @@ import { ActionTypes } from "ducks/scroll";
 import useWindowScroll from "hooks/useWindowScroll";
 import HeaderBottom from "./HeaderBottom";
 import HeaderCenter from "./HeaderCenter";
-import HeaderTop from "./HeaderTop";
 import styles from "./Header.module.scss";
 
-export const Header: React.FC = () => {
+export interface IHeaderProps {
+  className?: string;
+  isHomePage?: boolean;
+}
+
+export const Header: React.FC<IHeaderProps> = ({ isHomePage }) => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const dispatch = useDispatch();
   const nodeRef = useRef(null);
@@ -41,17 +45,20 @@ export const Header: React.FC = () => {
       <div
         className={classNames(styles.HeaderWrapper, {
           [styles.HeaderWrapper__isCatalogOpen]: isCatalogOpen,
+          [styles.HeaderWrapper__isHomePage]: isHomePage,
           [styles.HeaderWrapper__isScroll]: isScroll,
         })}
       >
         <div className={styles.HeaderContainer}>
           <header className={styles.Header} ref={headerRef}>
-            <HeaderTop />
             <HeaderCenter
               isCatalogOpen={isCatalogOpen}
               onCatalogToggle={handleCatalogToggle}
             />
-            <HeaderBottom isCatalogOpen={isCatalogOpen} />
+            <HeaderBottom
+              isCatalogOpen={isCatalogOpen}
+              onCatalogToggle={handleCatalogToggle}
+            />
           </header>
         </div>
       </div>

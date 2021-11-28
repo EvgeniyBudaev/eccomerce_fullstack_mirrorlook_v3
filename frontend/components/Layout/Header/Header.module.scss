@@ -12,12 +12,21 @@
     max-width: 100%;
     width: 100%;
     height: max-content;
-    background-color: transparent;
+    background-color: rgba(176, 151, 106, 0.7);
     box-shadow: 0 1rem 1.7rem rgba(0, 0, 0, 0.05);
     z-index: 102;
 
     &__isCatalogOpen {
       box-shadow: none;
+    }
+
+    &__isHomePage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      //background-color: rgba(176, 151, 106, 0.2);
+      background-color: transparent;
     }
 
     &__isScroll {
@@ -29,7 +38,7 @@
   }
 
   &Container {
-    max-width: 1470px;
+    max-width: 1230px;
     width: 100%;
     padding: 0 15px;
     margin: 0 auto;

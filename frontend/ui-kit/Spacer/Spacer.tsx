@@ -1,4 +1,4 @@
 import React from "react";
-import "./Spacer.module.scss";
+import styles from "./Spacer.module.scss";
 
-export const Spacer: React.FC = () => <div className="Spacer" />;
+export const Spacer: React.FC = () => <div className={styles.Spacer} />;

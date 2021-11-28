@@ -23,7 +23,6 @@ import Search from "ui-kit/assets/icons/Search.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
 import Trash from "ui-kit/assets/icons/Trash.svg";
 import User from "ui-kit/assets/icons/User.svg";
-import User2 from "ui-kit/assets/icons/User2.svg";
 import Visibility from "ui-kit/assets/icons/Visibility.svg";
 import VisibilityOff from "ui-kit/assets/icons/VisibilityOff.svg";
 
@@ -51,7 +50,6 @@ export type IconType =
   | "Spinner"
   | "Trash"
   | "User"
-  | "User2"
   | "Visibility"
   | "VisibilityOff";
 
@@ -79,7 +77,6 @@ export const iconTypes = new Map([
   ["Spinner", <Spinner key={newGuid()} />],
   ["Trash", <Trash key={newGuid()} />],
   ["User", <User key={newGuid()} />],
-  ["User2", <User2 key={newGuid()} />],
   ["Visibility", <Visibility key={newGuid()} />],
   ["VisibilityOff", <VisibilityOff key={newGuid()} />],
 ]);

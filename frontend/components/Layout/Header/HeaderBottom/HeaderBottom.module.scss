@@ -1,9 +1,33 @@
 @import "styles";
 
+$height: 44px;
+
 .HeaderBottom {
   display: flex;
-  padding: 5px 0;
-  height: 28px;
+  position: relative;
+  height: $height;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  &::before,
+  &:after {
+    content: "";
+    position: absolute;
+    height: $height;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &::before {
+    left: -100%;
+    top: 0;
+  }
+
+  &:after {
+    right: -100%;
+    top: -1px;
+  }
 
   &__catalogOpen {
     border-top: 1px solid white;
@@ -20,22 +44,72 @@
   }
 }
 
-.Link {
-  @include roboto-14-regular;
-  color: $color-text;
-  transition: all 0.15s;
-
-  &:hover {
-    color: $color-beige-hover;
-  }
+.Desktop {
+  display: block;
+  width: 100%;
 }
 
-.Link + .Link {
+.Info {
+  width: 100%;
+}
+
+.InfoInner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.InfoLeft,
+.InfoRight {
+  display: flex;
+}
+
+.InfoLeft .Text {
+  margin-right: 25px;
+}
+
+.InfoLeft .Text:last-child {
+  margin-right: 0;
+}
+
+.InfoRight .Text:last-child {
   margin-left: 25px;
 }
 
-.Desktop {
-  display: block;
+.Text {
+  @include roboto-16-regular;
+  transition: all 0.15s;
+  color: white;
+  opacity: 0.8;
+
+  &__isActive {
+    color: $color-beige;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.Text + .Text {
+  margin-left: 25px;
+}
+
+.ButtonCatalog {
+  height: 44px;
+  border-radius: 0;
+
+  span {
+    display: flex;
+    justify-content: center;
+  }
+
+  &Hamburger {
+  }
+
+  &Text {
+    margin-left: 12px;
+  }
 }
 
 @media (max-width: 768px) {

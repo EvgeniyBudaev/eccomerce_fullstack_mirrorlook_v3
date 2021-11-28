@@ -1,23 +1,23 @@
 // import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import { useMediaQuery } from "react-responsive";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
-import { SliderNextArrow, SliderPrevArrow, SliderVideo } from "ui-kit";
+import { Header } from "components/Layout/Header";
+import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { AlertError } from "utils/alert";
 import styles from "./Home.module.scss";
 
-const videoSlider1 = "/video/home_video_slide_1.mp4";
-const videoSlider2 = "/video/home_video_slide_2.mp4";
-const mainSliderVideos = [videoSlider1, videoSlider2];
+const mainSlider1 = "/images/slide_1920x1680_5.jpg";
+const mainSlider2 = "/images/slide_1920x1680_5.jpg";
+const mainSlider3 = "/images/slide_1920x1680_5.jpg";
+const mainSliderImages = [mainSlider1, mainSlider2, mainSlider3];
 
 export const Home: React.FC = () => {
   const account = useTypedSelector(state => state.account);
   const dispatch = useDispatch();
-  // const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const unhandledError = useTypedSelector(state => state.unhandledError);
   const { error } = unhandledError;
 
@@ -40,42 +40,22 @@ export const Home: React.FC = () => {
     }
   }, [account.user, dispatch]);
 
-  // const imageResponsiveSizeWidth = () => {
-  //   if (isMobileScreen) {
-  //     return "100px";
-  //   } else {
-  //     return "160px";
-  //   }
-  // };
-
-  // const imageResponsiveSizeHeight = () => {
-  //   if (isMobileScreen) {
-  //     return "100px";
-  //   } else {
-  //     return "160px";
-  //   }
-  // };
-
   return (
     <div className={styles.Home}>
       <AlertContainer />
+      <Header isHomePage />
       <section className={styles.MainSliders}>
-        {/*<video autoPlay loop muted>*/}
-        {/*  <source*/}
-        {/*    src={"/video/home_video_slide_1.mp4"} type="video/mp4"*/}
-        {/*  />*/}
-        {/*</video>*/}
-        <SliderVideo
+        <SliderSimple
           className={styles.MainSlider}
           arrows={true}
           dots={true}
-          videoList={mainSliderVideos}
+          images={mainSliderImages}
           infinite={true}
-          height="300"
           slidesToShow={1}
           slidesToScroll={1}
           speed={500}
-          width="1440"
+          width="1920"
+          height="880"
           nextArrow={<SliderNextArrow styles={{ right: "5px" }} />}
           prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}
         />

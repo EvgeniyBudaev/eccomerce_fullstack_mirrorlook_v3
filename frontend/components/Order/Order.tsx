@@ -245,7 +245,7 @@ export const Order: React.FC = () => {
               </Link>
             </div>
             <div className={styles.RecipientInfo}>
-              <Icon className={styles.RecipientInfoIcon} type="User2" />
+              <Icon className={styles.RecipientInfoIcon} type="User" />
               <div className={styles.RecipientInfoText}>
                 <div className={styles.RecipientInfoTitle}>
                   {isAuthenticated && user
