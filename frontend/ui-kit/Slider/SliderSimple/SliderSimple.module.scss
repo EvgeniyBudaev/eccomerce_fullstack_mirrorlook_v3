@@ -49,19 +49,6 @@
   }
 
   &Button {
-    @include roboto-16-regular;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 30px;
-    width: max-content;
-    color: white;
-    border: 1px solid white;
-    transition: all 0.15s;
-
-    &:hover {
-      background-color: rgba(176, 151, 106, 0.7);
-      border: 1px solid rgba(176, 151, 106, 0.7);
-    }
+    border-radius: 0;
   }
 }

@@ -51,12 +51,10 @@ export const Header: React.FC<IHeaderProps> = ({ isHomePage }) => {
       >
         <div className={styles.HeaderContainer}>
           <header className={styles.Header} ref={headerRef}>
-            <HeaderCenter
-              isCatalogOpen={isCatalogOpen}
-              onCatalogToggle={handleCatalogToggle}
-            />
+            <HeaderCenter isHomePage={isHomePage} />
             <HeaderBottom
               isCatalogOpen={isCatalogOpen}
+              isHomePage={isHomePage}
               onCatalogToggle={handleCatalogToggle}
             />
           </header>

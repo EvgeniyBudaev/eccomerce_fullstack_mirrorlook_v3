@@ -6,8 +6,8 @@ $height: 44px;
   display: flex;
   position: relative;
   height: $height;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   &::before,
   &:after {
@@ -15,8 +15,8 @@ $height: 44px;
     position: absolute;
     height: $height;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   &::before {
@@ -35,6 +35,21 @@ $height: 44px;
 
     .Link {
       display: none;
+    }
+  }
+
+  &__isHomePage {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &::before,
+    &:after {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .Text {
+      color: white;
     }
   }
 
@@ -78,16 +93,15 @@ $height: 44px;
 
 .Text {
   @include roboto-16-regular;
+  color: $color-text;
   transition: all 0.15s;
-  color: white;
-  opacity: 0.8;
 
   &__isActive {
     color: $color-beige;
   }
 
   &:hover {
-    opacity: 1;
+    color: $color-beige;
   }
 }
 
@@ -98,6 +112,7 @@ $height: 44px;
 .ButtonCatalog {
   height: 44px;
   border-radius: 0;
+  box-shadow: none;
 
   span {
     display: flex;

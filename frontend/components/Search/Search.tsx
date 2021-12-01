@@ -14,11 +14,13 @@ import styles from "./Search.module.scss";
 export interface ISearchProps {
   className?: string;
   transition?: number;
+  isHomePage?: boolean;
 }
 
 export const Search: React.FC<ISearchProps> = ({
   className,
   transition = 300,
+  isHomePage,
 }) => {
   const [isActive, setIsActive] = useState(false);
   const [productList, setProductList] = useState<SearchProductsType>([]);
@@ -66,6 +68,7 @@ export const Search: React.FC<ISearchProps> = ({
       <div
         className={classNames(styles.Search, className, {
           [styles.Search__active]: isActive,
+          [styles.Search__isHomePage]: isHomePage,
         })}
       >
         <AlertContainer />

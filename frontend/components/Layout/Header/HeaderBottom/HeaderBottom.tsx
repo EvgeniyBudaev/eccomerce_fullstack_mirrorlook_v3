@@ -8,18 +8,21 @@ import styles from "./HeaderBottom.module.scss";
 export interface IHeaderBottomProps {
   className?: string;
   isCatalogOpen?: boolean;
+  isHomePage?: boolean;
   onCatalogToggle?: () => void;
 }
 
 export const HeaderBottom: React.FC<IHeaderBottomProps> = ({
   className,
   isCatalogOpen,
+  isHomePage,
   onCatalogToggle,
 }) => {
   return (
     <div
       className={classNames(styles.HeaderBottom, className, {
         [styles.HeaderBottom__catalogOpen]: isCatalogOpen,
+        [styles.HeaderBottom__isHomePage]: isHomePage,
       })}
     >
       <div className={styles.Desktop}>
@@ -42,6 +45,7 @@ export const HeaderBottom: React.FC<IHeaderBottomProps> = ({
             <Search
               className={styles.SearchControlsDesktop}
               transition={TRANSITION}
+              isHomePage={isHomePage}
             />
             <Spacer />
             <div className={styles.InfoRight}>

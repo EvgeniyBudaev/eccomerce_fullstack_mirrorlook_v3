@@ -5,6 +5,12 @@ $height: 100px;
 .HeaderCenter {
   height: $height;
   background-color: transparent;
+
+  &__isHomePage {
+    .Text {
+      color: white;
+    }
+  }
 }
 
 .Inner {
@@ -29,12 +35,12 @@ $height: 100px;
 }
 
 .Text {
-  color: white;
-  opacity: 0.8;
+  @include roboto-16-regular;
+  color: $color-text;
   transition: all 0.15s;
 
   &:hover {
-    opacity: 1;
+    color: $color-beige;
   }
 }
 

@@ -1,16 +1,20 @@
 import Link from "next/link";
 import React, { useRef, useState } from "react";
+import classNames from "classnames";
 import { Logo, SidebarMobile } from "components";
 import { Button, Hamburger, Sidebar, Spacer } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 
 export interface IHeaderCenterProps {
-  isCatalogOpen?: boolean;
-  onCatalogToggle?: () => void;
+  className?: string;
+  isHomePage?: boolean;
 }
 
-export const HeaderCenter: React.FC<IHeaderCenterProps> = () => {
+export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
+  className,
+  isHomePage,
+}) => {
   const [isSidebar, setIsSidebar] = useState(false);
   const nodeRef = useRef(null);
 
@@ -23,7 +27,11 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = () => {
   };
 
   return (
-    <div className={styles.HeaderCenter}>
+    <div
+      className={classNames(styles.HeaderCenter, className, {
+        [styles.HeaderCenter__isHomePage]: isHomePage,
+      })}
+    >
       <div className={styles.Inner}>
         <div className={styles.InnerDesktop}>
           <div>
@@ -32,9 +40,9 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = () => {
             </Link>
           </div>
           <Spacer />
-          <Logo />
+          <Logo isHomePage={isHomePage} />
           <Spacer />
-          <HeaderIconsList className={styles.Desktop} />
+          <HeaderIconsList className={styles.Desktop} isHomePage={isHomePage} />
         </div>
         <div className={styles.Mobile}>
           <Button className={styles.ButtonSidebar} onClick={handleSidebarOpen}>
@@ -44,7 +52,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = () => {
               isActive={isSidebar}
             />
           </Button>
-          <Logo className={styles.LogoMobile} />
+          <Logo className={styles.LogoMobile} isHomePage={isHomePage} />
           <HeaderIconsList className={styles.HeaderIconsListMobile} />
           <Sidebar
             ref={nodeRef}

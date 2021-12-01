@@ -4,6 +4,28 @@
   display: flex;
   max-width: 188px;
   width: 100%;
+
+  &__isHomePage {
+    .IconLink {
+      svg {
+        fill: white;
+      }
+
+      &:hover {
+        svg {
+          fill: $color-beige;
+        }
+      }
+    }
+
+    .IconDescription {
+      color: white;
+    }
+
+    .CartItemsCount {
+      color: white;
+    }
+  }
 }
 
 .HeaderIconListItem {
@@ -16,33 +38,30 @@
   width: 100%;
 
   a {
-    color: white;
-    opacity: 0.8;
+    color: $color-text;
     text-decoration: none;
     transition: all 0.15s;
 
+    svg {
+      transition: all 0.15s;
+    }
+
     &:hover {
-      opacity: 1;
+      .IconDescription {
+        color: $color-beige;
+      }
 
       svg {
-        fill: white;
-        opacity: 1;
+        fill: $color-beige;
       }
     }
   }
 }
 
-.Icon {
-  cursor: pointer;
-
-  svg {
-    fill: white;
-    transition: all 0.15s;
-  }
-}
-
 .IconDescription {
-  @include roboto-12-regular;
+  @include roboto-14-regular;
+  color: $color-text;
+  transition: all 0.15s;
 }
 
 .IconLink {
@@ -60,7 +79,7 @@
   right: 0;
   width: 20px;
   height: 20px;
-  color: $color-white;
+  color: $color-text;
   background-color: $color-beige;
   border: 1px solid $color-beige;
   border-radius: 50%;

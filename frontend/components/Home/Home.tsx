@@ -13,7 +13,23 @@ import styles from "./Home.module.scss";
 const mainSlider1 = "/images/slide_1920x1680_5.jpg";
 const mainSlider2 = "/images/slide_1920x1680_5.jpg";
 const mainSlider3 = "/images/slide_1920x1680_5.jpg";
-const mainSliderImages = [mainSlider1, mainSlider2, mainSlider3];
+const sliderOptions = [
+  {
+    buttonText: "Посмотреть все зеркала",
+    image: mainSlider1,
+    title: "Роскошь во всём"
+  },
+  {
+    buttonText: "Посмотреть все зеркала",
+    image: mainSlider2,
+    title: "Непревзойденное качество"
+  },
+  {
+    buttonText: "Посмотреть все зеркала",
+    image: mainSlider3,
+    title: "Внимание к деталям"
+  },
+];
 
 export const Home: React.FC = () => {
   const account = useTypedSelector(state => state.account);
@@ -49,12 +65,12 @@ export const Home: React.FC = () => {
           className={styles.MainSlider}
           arrows={true}
           dots={true}
-          images={mainSliderImages}
           infinite={true}
+          options={sliderOptions}
           slidesToShow={1}
           slidesToScroll={1}
           speed={500}
-          width="1920"
+          width="1890"
           height="880"
           nextArrow={<SliderNextArrow styles={{ right: "5px" }} />}
           prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}

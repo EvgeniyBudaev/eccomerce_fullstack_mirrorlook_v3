@@ -1,30 +1,35 @@
 @import "styles";
 
 .Logo {
+  $this: &;
   display: flex;
   align-items: center;
   position: relative;
   width: max-content;
 
+  &#{$this}__isHomePage {
+    & svg {
+      fill: white;
+    }
+  }
+
   svg {
     max-width: 100px;
     width: 100%;
     height: auto;
-    fill: white;
-    opacity: 0.8;
+    fill: $color-text;
+    opacity: 0.9;
     transition: all 0.15s;
 
     path {
-      //fill: white;
       transition: all 0.15s;
     }
 
     &:hover {
-      //fill: white;
+      fill: $color-beige;
       opacity: 1;
 
       path {
-        //fill: white;
         opacity: 1;
       }
     }

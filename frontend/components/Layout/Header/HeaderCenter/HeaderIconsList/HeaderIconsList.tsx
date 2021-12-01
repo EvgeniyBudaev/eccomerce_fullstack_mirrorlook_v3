@@ -11,10 +11,12 @@ import styles from "./HeaderIconsList.module.scss";
 
 export interface IHeaderIconsListProps {
   className?: string;
+  isHomePage?: boolean;
 }
 
 export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   className,
+  isHomePage,
 }) => {
   const [cartId, setCartId] = useState("");
   const [cartItemsCountTotal, setCartItemsCountTotal] = useState(0);
@@ -56,7 +58,11 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   }, [cart]);
 
   return (
-    <div className={classNames(styles.HeaderIconsList, className)}>
+    <div
+      className={classNames(styles.HeaderIconsList, className, {
+        [styles.HeaderIconsList__isHomePage]: isHomePage,
+      })}
+    >
       <div className={styles.HeaderIconListItem}>
         {!isNull(cartId) && (
           <div>
@@ -86,7 +92,7 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
           <Avatar size={46} title={account.user.first_name[0]} />
         ) : (
           <Link href={"/login"}>
-            <a>
+            <a className={styles.IconLink}>
               <Icon className={styles.Icon} type={"User"} />
               <div className={styles.IconDescription}>Войти</div>
             </a>
