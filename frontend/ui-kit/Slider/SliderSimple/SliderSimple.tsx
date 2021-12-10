@@ -59,7 +59,9 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
     prevArrow: prevArrow,
   };
   const router = useRouter();
-  const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
+  const isLaptopScreen = useMediaQuery({ query: "(max-width: 1366px)" });
+  const isPadScreen = useMediaQuery({ query: "(max-width: 1024px)" });
+  const isMobileScreen = useMediaQuery({ query: "(max-width: 100px)" });
 
   // const imageResponsive = () => {
   //   if (isMobileScreen) {
@@ -69,7 +71,7 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
   //   }
   // };
 
-  const handleButtonClick = (event) => {
+  const handleButtonClick = event => {
     event.preventDefault();
     router.push("/mirrors");
   };
@@ -77,7 +79,7 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
   return (
     <Slider {...settings}>
       {!isEmpty(options) &&
-      options.map((option, index) => {
+        options.map((option, index) => {
           return (
             <div className={styles.Item} key={index}>
               {isMobileScreen ? (
@@ -88,8 +90,10 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                   priority
                   layout="responsive"
                   //layout={imageResponsive()}
-                  height="120px"
-                  width="470px"
+                  // height="120px"
+                  // width="470px"
+                  height={height}
+                  width={width}
                 />
               ) : (
                 <>
@@ -104,15 +108,21 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                     height={height}
                     width={width}
                   />
-                  <div className={styles.ItemContent}>
-                    <h1 className={styles.ItemTitle}>
-                      {option.title}
-                    </h1>
-                    <Button
-                      className={styles.ItemButton
-                      } onClick={handleButtonClick}>
-                      {option.buttonText}
-                    </Button>
+                  <div
+                    className={classNames(styles.ItemContent, {
+                      [styles.ItemContent__isLaptopScreen]: isLaptopScreen,
+                      [styles.ItemContent__isPadScreen]: isPadScreen,
+                    })}
+                  >
+                    <div className={styles.Container}>
+                      <h1 className={styles.ItemTitle}>{option.title}</h1>
+                      <Button
+                        className={styles.ItemButton}
+                        onClick={handleButtonClick}
+                      >
+                        {option.buttonText}
+                      </Button>
+                    </div>
                   </div>
                 </>
               )}

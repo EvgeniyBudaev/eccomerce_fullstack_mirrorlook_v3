@@ -32,35 +32,49 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
         [styles.HeaderCenter__isHomePage]: isHomePage,
       })}
     >
-      <div className={styles.Inner}>
-        <div className={styles.InnerDesktop}>
-          <div>
-            <Link href={"tel:+74999999999"}>
-              <a className={styles.Text}>+7 (499) 999-99-99</a>
-            </Link>
-          </div>
-          <Spacer />
-          <Logo isHomePage={isHomePage} />
-          <Spacer />
-          <HeaderIconsList className={styles.Desktop} isHomePage={isHomePage} />
-        </div>
-        <div className={styles.Mobile}>
-          <Button className={styles.ButtonSidebar} onClick={handleSidebarOpen}>
-            <Hamburger
-              className={styles.HamburgerSidebar}
-              color="black"
-              isActive={isSidebar}
+      <div className={styles.Container}>
+        <div className={styles.Inner}>
+          <div className={styles.InnerDesktop}>
+            <div>
+              <Link href={"tel:+74999999999"}>
+                <a className={styles.Text}>+7 (499) 999-99-99</a>
+              </Link>
+            </div>
+            <Spacer />
+            <Logo isHomePage={isHomePage} />
+            <Spacer />
+            <HeaderIconsList
+              className={styles.Desktop}
+              isHomePage={isHomePage}
             />
-          </Button>
-          <Logo className={styles.LogoMobile} isHomePage={isHomePage} />
-          <HeaderIconsList className={styles.HeaderIconsListMobile} />
-          <Sidebar
-            ref={nodeRef}
-            isActive={isSidebar}
-            onClose={handleSidebarClose}
-          >
-            <SidebarMobile />
-          </Sidebar>
+          </div>
+          <div className={styles.Mobile}>
+            <Button
+              className={classNames(styles.ButtonSidebar, {
+                [styles.ButtonSidebar__isHomePage]: isHomePage,
+              })}
+              onClick={handleSidebarOpen}
+            >
+              <Hamburger
+                className={styles.HamburgerSidebar}
+                color={isHomePage ? "white" : "black"}
+                isActive={isSidebar}
+                isHomePage={isHomePage}
+              />
+            </Button>
+            <Logo className={styles.LogoMobile} isHomePage={isHomePage} />
+            <HeaderIconsList
+              className={styles.HeaderIconsListMobile}
+              isHomePage={isHomePage}
+            />
+            <Sidebar
+              ref={nodeRef}
+              isActive={isSidebar}
+              onClose={handleSidebarClose}
+            >
+              <SidebarMobile />
+            </Sidebar>
+          </div>
         </div>
       </div>
     </div>

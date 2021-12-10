@@ -11,9 +11,12 @@
 
   &__actve {
   }
+
+  &__isHomePage {}
 }
 
 .Burger {
+  $this: &;
   position: relative;
   width: 18px;
   height: 2px;
@@ -70,6 +73,8 @@
       transform: rotate(-45deg) translate(10px, 10px);
     }
   }
+
+  &__isHomePage {}
 }
 
 @media (max-width: 768px) {

@@ -13,6 +13,7 @@ export interface IHamburgerProps {
   className?: string;
   color?: HamburgerColorType;
   isActive?: boolean;
+  isHomePage?: boolean;
   onClick?: (event: React.MouseEvent) => void;
 }
 
@@ -20,6 +21,7 @@ export const Hamburger: React.FC<IHamburgerProps> = ({
   className,
   color = HamburgerColor.BLACK,
   isActive = false,
+  isHomePage,
   onClick,
 }) => {
   return (
@@ -29,6 +31,7 @@ export const Hamburger: React.FC<IHamburgerProps> = ({
           [styles.Burger__black]: color === HamburgerColor.BLACK,
           [styles.Burger__white]: color === HamburgerColor.WHITE,
           [styles.Burger__active]: isActive,
+          [styles.Burger__isHomePage]: isHomePage,
         })}
       />
     </div>

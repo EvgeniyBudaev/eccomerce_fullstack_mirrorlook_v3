@@ -49,16 +49,14 @@ export const Header: React.FC<IHeaderProps> = ({ isHomePage }) => {
           [styles.HeaderWrapper__isScroll]: isScroll,
         })}
       >
-        <div className={styles.HeaderContainer}>
-          <header className={styles.Header} ref={headerRef}>
-            <HeaderCenter isHomePage={isHomePage} />
-            <HeaderBottom
-              isCatalogOpen={isCatalogOpen}
-              isHomePage={isHomePage}
-              onCatalogToggle={handleCatalogToggle}
-            />
-          </header>
-        </div>
+        <header className={styles.Header} ref={headerRef}>
+          <HeaderCenter isHomePage={isHomePage} />
+          <HeaderBottom
+            isCatalogOpen={isCatalogOpen}
+            isHomePage={isHomePage}
+            onCatalogToggle={handleCatalogToggle}
+          />
+        </header>
       </div>
       <CSSTransition
         className="CatalogWindow"

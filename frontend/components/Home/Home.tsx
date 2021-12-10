@@ -17,17 +17,17 @@ const sliderOptions = [
   {
     buttonText: "Посмотреть все зеркала",
     image: mainSlider1,
-    title: "Роскошь во всём"
+    title: "Роскошь во всём",
   },
   {
     buttonText: "Посмотреть все зеркала",
     image: mainSlider2,
-    title: "Непревзойденное качество"
+    title: "Непревзойденное качество",
   },
   {
     buttonText: "Посмотреть все зеркала",
     image: mainSlider3,
-    title: "Внимание к деталям"
+    title: "Внимание к деталям",
   },
 ];
 

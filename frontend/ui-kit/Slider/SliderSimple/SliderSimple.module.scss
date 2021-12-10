@@ -1,6 +1,13 @@
 @import "styles";
 
+.Container {
+  max-width: 1230px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .Item {
+  $this: &;
   width: 100%;
   position: relative;
 
@@ -35,9 +42,23 @@
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
-    max-width: 1200px;
+    max-width: 1230px;
     width: 100%;
     z-index: 2;
+    padding: 0 15px;
+
+    &__isLaptopScreen {
+      top: 70%;
+    }
+
+    &__isPadScreen {
+      top: 70%;
+
+      #{$this}Title {
+        margin-bottom: 16px;
+        font-size: 32px;
+      }
+    }
   }
 
   &Title {
@@ -50,5 +71,48 @@
 
   &Button {
     border-radius: 0;
+  }
+}
+
+@media (max-width: 1230px) {
+  .Container {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ItemTitle {
+    margin-bottom: 16px;
+    text-align: center;
+    max-width: 100%;
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 500px) {
+  .ItemContent__isPadScreen .ItemTitle {
+    margin-bottom: 8px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 410px) {
+  .ItemContent__isPadScreen .ItemTitle {
+    display: none;
+  }
+  .ItemContent {
+    top: 75%;
+  }
+}
+
+@media (max-width: 340px) {
+  .ItemContent {
+    top: 80%;
   }
 }

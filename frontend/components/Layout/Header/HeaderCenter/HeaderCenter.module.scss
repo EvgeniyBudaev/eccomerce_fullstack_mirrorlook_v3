@@ -13,6 +13,13 @@ $height: 100px;
   }
 }
 
+.Container {
+  max-width: 1230px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
 .Inner {
   display: flex;
   align-items: center;
@@ -53,6 +60,10 @@ $height: 100px;
 }
 
 @media (max-width: 768px) {
+  .Inner {
+    height: 60px;
+  }
+
   .InnerDesktop {
     display: none;
   }
@@ -68,6 +79,8 @@ $height: 100px;
   }
 
   .HeaderCenter {
+    height: 60px;
+
     & .SearchControlsDesktop {
       display: none;
     }
@@ -87,6 +100,10 @@ $height: 100px;
     & .ButtonSidebar {
       background-color: $color-white;
       box-shadow: none;
+
+      &__isHomePage {
+        background-color: transparent;
+      }
     }
   }
 }

@@ -29,26 +29,27 @@ export default function CartProductsPage(props: ICartPageProps): JSX.Element {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<ICartPageProps> =
-  async () => {
-    const url = encodeURI(`${backendBase}api/v1/cart-products/`);
+export const getServerSideProps: GetServerSideProps<
+  ICartPageProps
+> = async () => {
+  const url = encodeURI(`${backendBase}api/v1/cart-products/`);
 
-    try {
-      const { data: cartResponse } = await axios.get<
-        IFetchItemToCartResponse[]
-      >(url);
+  try {
+    const { data: cartResponse } = await axios.get<IFetchItemToCartResponse[]>(
+      url
+    );
 
-      return {
-        props: {
-          entities: cartResponse,
-        },
-      };
-    } catch (error) {
-      return {
-        props: {
-          entities: [],
-          error: error.message,
-        },
-      };
-    }
-  };
+    return {
+      props: {
+        entities: cartResponse,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        entities: [],
+        error: error.message,
+      },
+    };
+  }
+};

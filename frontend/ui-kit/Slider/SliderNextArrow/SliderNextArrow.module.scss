@@ -36,3 +36,9 @@
     fill: $color-beige;
   }
 }
+
+@media (max-width: 550px) {
+  .SliderArrowButton {
+    display: none;
+  }
+}

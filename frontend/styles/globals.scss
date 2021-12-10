@@ -163,10 +163,23 @@ button {
   opacity: 0 !important;
 }
 
+@media (max-width: 768px) {
+  .slick-slider {
+    margin-bottom: 20px;
+  }
+
+  .slick-slider .slick-dots {
+    bottom: -30px;
+  }
+}
+
 @media (max-width: 500px) {
   .nav.slick-initialized .slick-slide {
     display: flex;
     justify-content: center;
+  }
+  .slick-slider .slick-dots {
+    bottom: -22px;
   }
 }
 
