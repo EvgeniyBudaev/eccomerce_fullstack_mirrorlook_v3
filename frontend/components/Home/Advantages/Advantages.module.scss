@@ -1,0 +1,20 @@
+.Advantages {
+  margin: 32px 0;
+
+  &Unit {
+    display: flex;
+    max-height: 630px;
+
+    &Image {
+      max-width: max-content;
+      width: 100%;
+    }
+
+    &Text1 {
+      font-size: 80px;
+      line-height: .9166666667;
+      font-weight: 600;
+      letter-spacing: -0.002em;
+    }
+  }
+}

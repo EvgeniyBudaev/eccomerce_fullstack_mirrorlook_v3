@@ -42,7 +42,7 @@ export const Search: React.FC<ISearchProps> = ({
 
   const fetchSearchItems = useCallback(
     (searchedKeyword: string) => {
-      dispatch(loadingActionCreators.setLoading());
+      //dispatch(loadingActionCreators.setLoading());
       searchApi
         .fetchLiveProductsSearch({ searchedKeyword })
         .then(response => {

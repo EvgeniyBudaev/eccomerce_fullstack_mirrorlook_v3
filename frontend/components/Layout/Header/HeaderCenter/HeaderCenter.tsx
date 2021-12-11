@@ -9,11 +9,13 @@ import styles from "./HeaderCenter.module.scss";
 export interface IHeaderCenterProps {
   className?: string;
   isHomePage?: boolean;
+  isScroll?: boolean;
 }
 
 export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
   className,
   isHomePage,
+  isScroll,
 }) => {
   const [isSidebar, setIsSidebar] = useState(false);
   const nodeRef = useRef(null);
@@ -30,6 +32,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
     <div
       className={classNames(styles.HeaderCenter, className, {
         [styles.HeaderCenter__isHomePage]: isHomePage,
+        [styles.HeaderCenter__isScroll]: isScroll,
       })}
     >
       <div className={styles.Container}>

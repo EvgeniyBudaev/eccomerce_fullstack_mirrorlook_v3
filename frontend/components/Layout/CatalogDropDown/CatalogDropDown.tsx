@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { ForwardedRef, forwardRef } from "react";
 import classNames from "classnames";
-import categories1 from "ui-kit/assets/images/categories-1.jpg";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import styles from "./CatalogDropDown.module.scss";
+
+const categories1 = "/images/mirrors.png";
 
 export interface ICatalogDropDownProps {
   className?: string;

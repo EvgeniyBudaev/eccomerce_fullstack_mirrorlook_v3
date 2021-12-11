@@ -22,6 +22,42 @@
   right: 25px !important;
 }
 
+.About {
+  margin: 32px auto;
+  max-width: 890px;
+  width: 100%;
+
+  &Title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 32px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      height: 1px;
+      width: 40px;
+      background-color: #516c9b;
+      margin: 0 auto;
+    }
+
+    h1, span {
+      @include roboto-32-medium;
+      font-weight: 300;
+    }
+  }
+
+  p {
+    @include roboto-16-regular;
+    line-height: 26px;
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
   .MainSliders {
     padding: 0 0 20px;

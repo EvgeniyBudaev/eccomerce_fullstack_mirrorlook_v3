@@ -32,6 +32,12 @@ $height: 44px;
         fill: rgba(255, 255, 255, 0.9);
       }
     }
+
+    &#{$this}__active {
+      #{$this}Input {
+        background-color: transparent;
+      }
+    }
   }
 
   .Form {
@@ -55,7 +61,7 @@ $height: 44px;
     margin: 0;
     padding: 0 50px 0 16px;
     width: 100%;
-    height: 40px;
+    height: $height;
     color: $color-text;
     background-color: transparent;
     border: none;
@@ -86,8 +92,12 @@ $height: 44px;
       border: 2px solid transparent;
     }
 
+    #{$this}Input {
+      background-color: white;
+    }
+
     #{$this}Button {
-      height: 44px;
+      height: $height;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
   }
@@ -97,7 +107,10 @@ $height: 44px;
   .Search {
     &Input {
       @include roboto-14-regular;
-      height: 32px;
+      height: $height;
+    }
+    &InputWrapper {
+      border: none;
     }
 
     &Icon {

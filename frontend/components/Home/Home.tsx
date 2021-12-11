@@ -1,4 +1,5 @@
 // import Link from "next/link";
+// import Image from "next/image";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
@@ -8,21 +9,23 @@ import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { AlertError } from "utils/alert";
+import { Advantages } from "./Advantages";
+import { Collection } from "./Collection";
 import styles from "./Home.module.scss";
 
-const mainSlider1 = "/images/slide_1920x1680_5.jpg";
-const mainSlider2 = "/images/slide_1920x1680_5.jpg";
-const mainSlider3 = "/images/slide_1920x1680_5.jpg";
+const mainSlider1 = "/images/models-0.jpg";
+const mainSlider2 = "/images/models-19.jpg";
+const mainSlider3 = "/images/models-32.jpg";
 const sliderOptions = [
   {
     buttonText: "Посмотреть все зеркала",
     image: mainSlider1,
-    title: "Роскошь во всём",
+    title: "Зеркало отражение прекрасного",
   },
   {
     buttonText: "Посмотреть все зеркала",
     image: mainSlider2,
-    title: "Непревзойденное качество",
+    title: "Роскошь во всём",
   },
   {
     buttonText: "Посмотреть все зеркала",
@@ -76,6 +79,21 @@ export const Home: React.FC = () => {
           prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}
         />
       </section>
+      <article className={styles.About}>
+        <div className={styles.AboutTitle}>
+          <h1>Meta Home</h1>
+          <span>. У тебя есть вкус.</span>
+        </div>
+        <p>
+          Вдохновляйтесь красотой и комфортом стиля в интерьерах квартир,
+          частных домов и апартаментов. Компания Meta Home производит
+          качественные зеркала и эффектный декор для тех, кто находится в поиске
+          баланса между стилем, удобством и высокой функциональностью каждого
+          элемента обстановки.
+        </p>
+      </article>
+      <Collection />
+      <Advantages />
     </div>
   );
 };

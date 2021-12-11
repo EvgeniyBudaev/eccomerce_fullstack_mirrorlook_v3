@@ -115,7 +115,7 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                     })}
                   >
                     <div className={styles.Container}>
-                      <h1 className={styles.ItemTitle}>{option.title}</h1>
+                      <h2 className={styles.ItemTitle}>{option.title}</h2>
                       <Button
                         className={styles.ItemButton}
                         onClick={handleButtonClick}
