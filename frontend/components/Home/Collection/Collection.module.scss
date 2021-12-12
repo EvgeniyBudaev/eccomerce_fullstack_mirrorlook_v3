@@ -1,17 +1,25 @@
 .Collection {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(2, 1fr);
-  width: 100%;
-  margin-bottom: 32px;
-  padding: 0 12px;
+  margin: 32px 0;
+
+  &Inner {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    margin-bottom: 32px;
+    padding: 0 12px;
+  }
 
   &Unit {
     max-height: 624px;
     width: 100%;
     overflow: hidden;
   }
-  &UnitImage {}
+
+  &Control {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {

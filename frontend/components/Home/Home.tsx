@@ -10,6 +10,8 @@ import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { AlertError } from "utils/alert";
 import { Advantages } from "./Advantages";
+import { Article } from "./Article";
+import { Benefits } from "./Benefits";
 import { Collection } from "./Collection";
 import styles from "./Home.module.scss";
 
@@ -79,20 +81,23 @@ export const Home: React.FC = () => {
           prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}
         />
       </section>
-      <article className={styles.About}>
-        <div className={styles.AboutTitle}>
-          <h1>Meta Home</h1>
-          <span>. У тебя есть вкус.</span>
-        </div>
-        <p>
-          Вдохновляйтесь красотой и комфортом стиля в интерьерах квартир,
+      <Article
+        subTitle="У тебя есть вкус."
+        text="Вдохновляйтесь красотой и комфортом стиля в интерьерах квартир,
           частных домов и апартаментов. Компания Meta Home производит
           качественные зеркала и эффектный декор для тех, кто находится в поиске
           баланса между стилем, удобством и высокой функциональностью каждого
-          элемента обстановки.
-        </p>
-      </article>
+          элемента обстановки."
+        title="Meta Home."
+      />
       <Collection />
+      <Article
+        subTitle="Производство дизайнерских зеркал"
+        text="          Мы производим зеркала, в том числе по индивидуальному заказу. Мы учтем
+          все ваши пожелания — у нас есть все, чтобы воплотить ваши самые смелые
+          фантазии и замыслы в реальность!"
+      />
+      <Benefits />
       <Advantages />
     </div>
   );
