@@ -2,9 +2,9 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Advantages.module.scss";
 
-const slide1 = "/images/models-40.jpg";
-const slide2 = "/images/models-27.jpg";
-const slide3 = "/images/models-21.jpg";
+const slide1 = "/images/advantages-1.jpg";
+const slide2 = "/images/advantages-2.jpg";
+const slide3 = "/images/advantages-3.jpg";
 
 export const Advantages: React.FC = () => {
   return (

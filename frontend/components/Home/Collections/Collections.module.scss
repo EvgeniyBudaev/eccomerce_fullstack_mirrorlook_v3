@@ -1,4 +1,4 @@
-.Collection {
+.Collections {
   margin: 32px 0;
 
   &Inner {
@@ -23,7 +23,7 @@
 }
 
 @media (max-width: 768px) {
-  .Collection {
+  .Collections {
     grid-template-columns: 1fr;
   }
 }

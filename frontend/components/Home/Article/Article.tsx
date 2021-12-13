@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styles from "./Article.module.scss";
 
 interface IArticleProps {
-  subTitle: string;
-  text?: string;
+  subTitle?: string;
+  text?: ReactNode | string;
   title?: string;
 }
 
