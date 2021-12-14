@@ -3,7 +3,7 @@ from rest_framework import serializers
 from api.fields import Base64ImageField
 from store.models import (Attribute, Cart, CartItem, Catalog, Category,
                           Comment, Order, OrderItem, OrderUser, Product,
-                          ProductAttribute, Review, ReviewUser,
+                          ProductAttribute, Review,
                           ShippingAddress)
 
 User = get_user_model()
@@ -250,29 +250,34 @@ class OrderSerializer(serializers.ModelSerializer):
         return super(OrderSerializer, self).update(instance, validated_data)
 
 
-class ReviewUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = ReviewUser
-        fields = ('id', 'review', 'first_name', 'last_name', 'email',
-                  'phone_number',)
-        extra_kwargs = {
-            'review': {'write_only': True},
-        }
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'email', 'phone_number')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    author = ReviewUserSerializer(read_only=True)
 
     class Meta:
         model = Review
         fields = ('id', 'product', 'author', 'title', 'text', 'rating',
                   'date_created', 'date_updated')
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['author'] = UserSerializer(User.objects.get(pk=data['author'])).data
+        return data
+
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = ReviewUserSerializer(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ('id', 'text', 'author', 'date_created', 'date_updated')
+        fields = ('id', 'text', 'review', 'author', 'date_created', 'date_updated')
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['author'] = UserSerializer(User.objects.get(pk=data['author'])).data
+        data['review'] = ReviewSerializer(Review.objects.get(pk=data['review'])).data
+        return data

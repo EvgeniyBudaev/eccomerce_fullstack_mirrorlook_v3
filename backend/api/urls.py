@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (CartItemViewSet, CartViewSet, CatalogViewSet,
                     OrderItemViewSet, OrderViewSet, ProductViewSet,
-                    ReviewViewSet, ShippingAddressViewSet,
+                    ReviewViewSet, CommentViewSet, ShippingAddressViewSet,
                     sending_confirm_order)
 
 router = DefaultRouter()
@@ -18,6 +18,7 @@ router.register('shipping-address', ShippingAddressViewSet,
                 basename='shipping-address')
 
 router.register('reviews', ReviewViewSet, basename='reviews')
+router.register('comments', CommentViewSet, basename='comments')
 
 urlpatterns = [
     path('v1/', include(router.urls)),
