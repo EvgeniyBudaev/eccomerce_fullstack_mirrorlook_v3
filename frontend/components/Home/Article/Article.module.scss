@@ -32,7 +32,7 @@
     }
   }
 
-  p {
+  &Text {
     @include roboto-16-regular;
     line-height: 26px;
     text-align: center;

@@ -25,6 +25,7 @@ export const Collections: React.FC = () => {
             src={slide1}
             alt={""}
             layout="responsive"
+            priority
             height={"624"}
             width={"960"}
           />
@@ -34,6 +35,7 @@ export const Collections: React.FC = () => {
             src={slide2}
             alt={""}
             layout="responsive"
+            priority
             height={"624"}
             width={"960"}
           />
@@ -43,6 +45,7 @@ export const Collections: React.FC = () => {
             src={slide3}
             alt={""}
             layout="responsive"
+            priority
             height={"624"}
             width={"960"}
           />
@@ -52,6 +55,7 @@ export const Collections: React.FC = () => {
             src={slide4}
             alt={""}
             layout="responsive"
+            priority
             height={"624"}
             width={"960"}
           />

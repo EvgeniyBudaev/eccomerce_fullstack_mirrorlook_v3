@@ -14,7 +14,7 @@ export const Article: React.FC<IArticleProps> = ({ subTitle, text, title }) => {
         <h1>{title}</h1>
         <span>{subTitle}</span>
       </div>
-      <p>{text}</p>
+      <div className={styles.ArticleText}>{text}</div>
     </article>
   );
 };
