@@ -1,12 +1,49 @@
 @import "styles/index";
 
 .MirrorCard {
+  width: 100%;
 }
 
 .Title {
   @include roboto-24-bold;
   margin-top: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+.Navigation {
+  margin-bottom: 20px;
+
+  &Text {
+    color: $color-beige;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
+}
+
+.Rating {
+  display: inline-block;
+  position: relative;
+  float: none;
+  margin-right: 15px;
+  padding: 1px 3px 0 6px;
+  color: white;
+  background-color: #359e00;
+  font-size: 13px;
+  line-height: 21px;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    border: solid;
+    border-left-color: #359e00;
+    border-width: 11px 0 11px 6px;
+  }
 }
 
 .ProductMainInfo {

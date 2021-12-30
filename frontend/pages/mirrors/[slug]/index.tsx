@@ -14,10 +14,10 @@ interface IMirrorDetailProps {
 }
 
 export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
-  const { error } = props;
+  const { error, mirrorResponse } = props;
 
   if (error) {
-    console.log("Ошибка! (frontend/pages/mirrors/[slug].tsx): ", error);
+    console.log("Ошибка! (frontend/pages/mirrors/slug/index.tsx): ", error);
   }
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
   return (
     <Layout>
       <AlertContainer />
-      {props.mirrorResponse && <MirrorCard mirror={props.mirrorResponse} />}
+      <MirrorCard mirror={mirrorResponse} />
     </Layout>
   );
 }

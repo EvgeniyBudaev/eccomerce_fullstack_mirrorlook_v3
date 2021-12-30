@@ -91,10 +91,17 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
   if (!mirror) {
     return <Error404 />;
   }
+  console.log("mirror: ", mirror);
 
   return (
     <div className={styles.MirrorCard}>
       <h1 className={styles.Title}>{mirror.title}</h1>
+      <div className={styles.Navigation}>
+        <div className={styles.Rating}>4.5</div>
+        <Link href={`/mirrors/${mirror.product_slug}/reviews`}>
+          <a className={styles.NavigationText}>Отзывы</a>
+        </Link>
+      </div>
       <div className={styles.ProductMainInfo}>
         <div className={styles.ColMedia}>
           <div className={styles.ProductGallery}>

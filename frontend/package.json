@@ -42,7 +42,7 @@
   "devDependencies": {
     "@hookform/resolvers": "^2.6.1",
     "@reduxjs/toolkit": "^1.6.0",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.1.2",
     "@types/classnames": "^2.3.1",
     "@types/lodash": "^4.14.171",
     "@types/node": "^15.12.5",
@@ -58,7 +58,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^4.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "prettier": "2.5.0",
     "redux-devtools-extension": "^2.13.9",
     "sass-loader": "^12.0.0",

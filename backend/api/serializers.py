@@ -266,6 +266,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        data['product'] = ProductSerializer(Product.objects.get(pk=data['product'])).data
         data['author'] = UserSerializer(User.objects.get(pk=data['author'])).data
         return data
 

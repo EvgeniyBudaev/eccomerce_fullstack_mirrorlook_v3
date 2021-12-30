@@ -10,6 +10,7 @@ import Marker from "./YMap/Marker";
 import NavLink from "./NavLink";
 import Order from "./Order";
 import Recipient from "./Recipient";
+import Reviews from "./Reviews";
 import Search from "./Search";
 import Shipping from "./Shipping";
 import SidebarMobile from "./SidebarMobile";
@@ -28,6 +29,7 @@ export {
   NavLink,
   Order,
   Recipient,
+  Reviews,
   Search,
   Shipping,
   SidebarMobile,

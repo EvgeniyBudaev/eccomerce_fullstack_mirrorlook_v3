@@ -22,6 +22,7 @@ import SliderSimple from "./Slider/SliderSimple";
 import SliderVideo from "./Slider/SliderVideo";
 import Spacer from "./Spacer";
 import Spinner from "./Spinner";
+import Tabs from "./Tabs";
 import TextArea from "./TextArea";
 
 export type IconType = import("./Icon/IconType").IconType;
@@ -51,5 +52,6 @@ export {
   SliderVideo,
   Spacer,
   Spinner,
+  Tabs,
   TextArea,
 };
