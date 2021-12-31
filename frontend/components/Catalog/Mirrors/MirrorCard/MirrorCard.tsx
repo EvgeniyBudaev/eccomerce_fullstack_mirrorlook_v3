@@ -2,11 +2,13 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import isNull from "lodash/isNull";
+import { RatingNumber } from "components";
 import { Error404 } from "components/Error";
 import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
+import { getDeclination, reviewDeclinations } from "utils/declinations";
 import { ActionTypes, ICartState } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { setUnhandledClearError } from "ducks/unhandledError";
@@ -14,9 +16,13 @@ import styles from "./MirrorCard.module.scss";
 
 export interface IMirrorCardProps {
   mirror: IMirror;
+  reviewsCount: string | number;
 }
 
-export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
+export const MirrorCard: React.FC<IMirrorCardProps> = ({
+  mirror,
+  reviewsCount,
+}) => {
   const sliderImages = [
     mirror.product_photo1,
     mirror.product_photo2,
@@ -91,16 +97,21 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
   if (!mirror) {
     return <Error404 />;
   }
-  console.log("mirror: ", mirror);
 
   return (
     <div className={styles.MirrorCard}>
       <h1 className={styles.Title}>{mirror.title}</h1>
       <div className={styles.Navigation}>
-        <div className={styles.Rating}>4.5</div>
-        <Link href={`/mirrors/${mirror.product_slug}/reviews`}>
-          <a className={styles.NavigationText}>Отзывы</a>
-        </Link>
+        {mirror.rating && <RatingNumber rating={mirror.rating} />}
+        {reviewsCount > 0 && (
+          <Link href={`/mirrors/${mirror.product_slug}/reviews`}>
+            <a className={styles.NavigationText}>
+              {reviewsCount}
+              &nbsp;
+              {getDeclination(Number(reviewsCount), reviewDeclinations)}
+            </a>
+          </Link>
+        )}
       </div>
       <div className={styles.ProductMainInfo}>
         <div className={styles.ColMedia}>

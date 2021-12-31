@@ -9,6 +9,7 @@ import Logo from "./Logo";
 import Marker from "./YMap/Marker";
 import NavLink from "./NavLink";
 import Order from "./Order";
+import RatingNumber from "./Rating/RatingNumber";
 import Recipient from "./Recipient";
 import Reviews from "./Reviews";
 import Search from "./Search";
@@ -28,6 +29,7 @@ export {
   Marker,
   NavLink,
   Order,
+  RatingNumber,
   Recipient,
   Reviews,
   Search,

@@ -50,7 +50,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     const { data: response } = await axios.get<IFilterResponse<IReview>>(
       `${backendBase}api/v1/reviews/?product_slug=${productId}`
     );
-    console.log("response: ", response);
     const { entities, pageItemsCount, totalItemsCount } = response;
     const pagesCount = Math.max(Math.ceil(totalItemsCount / pageItemsCount), 1);
 
