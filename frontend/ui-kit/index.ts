@@ -22,6 +22,7 @@ import SliderSimple from "./Slider/SliderSimple";
 import SliderVideo from "./Slider/SliderVideo";
 import Spacer from "./Spacer";
 import Spinner from "./Spinner";
+import Star from "./Star";
 import Tabs from "./Tabs";
 import TextArea from "./TextArea";
 
@@ -52,6 +53,7 @@ export {
   SliderVideo,
   Spacer,
   Spinner,
+  Star,
   Tabs,
   TextArea,
 };

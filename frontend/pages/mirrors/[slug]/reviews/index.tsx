@@ -3,20 +3,13 @@ import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
 import { IFilterResponse } from "api/types";
-import { IPaging } from "types/filter";
-import { IReview } from "types/review";
+import { IReview, IReviewsResponse } from "types/review";
 import { Layout, Reviews } from "components";
 import { backendBase } from "constants/paths";
 import { AlertError } from "utils/alert";
 
-interface IReviewsResponseProps {
-  error?: string;
-  entities: IReview[];
-  paging: IPaging;
-}
-
 export default function MirrorReviewsPage(
-  props: IReviewsResponseProps
+  props: IReviewsResponse
 ): JSX.Element {
   const { entities, error } = props;
 
@@ -33,23 +26,21 @@ export default function MirrorReviewsPage(
     }
   }, [error]);
 
-  console.log("reviews: ", entities);
-
   return (
     <Layout>
       <AlertContainer />
-      {entities && <Reviews />}
+      {entities && <Reviews reviewResponse={props} />}
     </Layout>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  console.log("[params]: ", params);
   const productId = params.slug;
   try {
-    const { data: response } = await axios.get<IFilterResponse<IReview>>(
+    const url = encodeURI(
       `${backendBase}api/v1/reviews/?product_slug=${productId}`
     );
+    const { data: response } = await axios.get<IFilterResponse<IReview>>(url);
     const { entities, pageItemsCount, totalItemsCount } = response;
     const pagesCount = Math.max(Math.ceil(totalItemsCount / pageItemsCount), 1);
 

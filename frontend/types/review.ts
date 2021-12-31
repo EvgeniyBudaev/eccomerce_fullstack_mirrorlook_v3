@@ -1,4 +1,5 @@
 import { IMirror } from "types/mirror";
+import { IPaging } from "./filter";
 
 export interface IAuthor {
   email: string;
@@ -16,4 +17,10 @@ export interface IReview {
   product: IMirror;
   text: string;
   title: string;
+}
+
+export interface IReviewsResponse {
+  error?: string;
+  entities: IReview[];
+  paging: IPaging;
 }

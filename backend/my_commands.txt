@@ -32,10 +32,8 @@ python manage.py startapp app_name
 
 Создать миграцию
 python manage.py makemigrations
-python manage.py makemigrations support
 Запустить все миграции
 python manage.py migrate
-python manage.py migrate support
 
 Создать супер пользователя
 python manage.py createsuperuser

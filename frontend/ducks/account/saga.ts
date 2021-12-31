@@ -74,7 +74,6 @@ function* fetchUserSignup({ payload }: ISagaUserSignupProps) {
       accountApi.fetchUserSignup,
       payload
     )) as IFetchSignupResponse;
-    console.log("[responseUserSignup]", responseUserSignup);
     yield put(actionCreators.signup(responseUserSignup));
     yield put(unsetLoading());
   } catch (error) {

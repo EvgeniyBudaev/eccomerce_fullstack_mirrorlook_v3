@@ -113,10 +113,6 @@ export default withYMaps(
       return () => void (cancelled = true);
     }, [debouncedValue, ymaps, onStateChange, state.showSuggestions]);
 
-    // useEffect(() => {
-    //   console.log("EFFECT", state.value);
-    // }, [state.value]);
-
     return (
       <div className={classNames(styles.GeoSearch, className)} style={style}>
         <MapInput

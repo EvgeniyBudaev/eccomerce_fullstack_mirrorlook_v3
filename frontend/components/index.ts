@@ -1,5 +1,6 @@
 import About from "./About";
 import Cart from "./Cart";
+import Comment from "./Comment";
 import Contacts from "./Contacts";
 import FilterBarMobile from "./FilterBarMobile";
 import Help from "./Help";
@@ -20,6 +21,7 @@ import YMap from "./YMap";
 export {
   About,
   Cart,
+  Comment,
   Contacts,
   FilterBarMobile,
   Help,

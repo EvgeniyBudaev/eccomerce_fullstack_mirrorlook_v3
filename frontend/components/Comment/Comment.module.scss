@@ -1,0 +1,10 @@
+@import "styles";
+
+.Comment {
+  &Author {
+    &Name {
+      @include roboto-14-bold;
+      color: $color-text;
+    }
+  }
+}

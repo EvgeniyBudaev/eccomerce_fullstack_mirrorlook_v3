@@ -10,7 +10,6 @@ import {
 export const fetchOrderCreate = async (
   order: IFetchOrderRequest
 ): Promise<IFetchOrderResponse> => {
-  console.log("order", order);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +20,7 @@ export const fetchOrderCreate = async (
     order,
     config
   );
-  console.log("response.data", response.data);
+
   return response.data;
 };
 
@@ -39,7 +38,6 @@ export const fetchSendingConfirmOrder = async (
     data,
     config
   );
-  console.log("sending-confirm-order response", response);
 
   return response.data;
 };

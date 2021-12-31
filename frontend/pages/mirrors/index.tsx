@@ -18,10 +18,8 @@ interface IMirrorsProps {
   paging: IPaging;
 }
 
-export default function MirrorsPage(
-  mirrorsResponse: IMirrorsProps
-): JSX.Element {
-  const { error } = mirrorsResponse;
+export default function MirrorsPage(props: IMirrorsProps): JSX.Element {
+  const { error } = props;
   if (error) {
     console.log("Ошибка! (frontend/pages/mirrors/index.tsx): ", error);
   }
@@ -35,7 +33,7 @@ export default function MirrorsPage(
   return (
     <Layout>
       <AlertContainer />
-      <Products productsResponse={mirrorsResponse} />
+      <Products productsResponse={props} />
     </Layout>
   );
 }

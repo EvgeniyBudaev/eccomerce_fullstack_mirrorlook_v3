@@ -151,7 +151,6 @@ export const Order: React.FC = () => {
 
   useEffect(() => {
     if (!isNull(order.order) && isOrderConfirmed) {
-      console.log("orderInfo", order.order);
       handleOrderSendToEmail(order.order, order_user, user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

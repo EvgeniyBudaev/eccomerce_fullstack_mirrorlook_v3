@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
+import { ROUTES } from "constants/routes";
 import { IMirror } from "types/mirror";
 import { Button } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
@@ -59,7 +60,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
       !isNull(currentCart.id) && (
         <Link
           href={{
-            pathname: `/cart/${currentCart.id}`,
+            pathname: `${ROUTES.CART}${currentCart.id}`,
           }}
         >
           <a className={styles.ButtonGoAtCart}>В корзине</a>
@@ -107,7 +108,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
       <div className={styles.Wrapper}>
         <div className={styles.Content}>
           <div className={styles.ContentImg}>
-            <Link href={`/mirrors/${mirror.product_slug}`}>
+            <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}`}>
               <a>
                 <Image
                   className={styles.ContentImage}
@@ -121,7 +122,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             </Link>
           </div>
           <div className={styles.ContentDescription}>
-            <Link href={`/mirrors/${mirror.product_slug}`}>
+            <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}`}>
               <a className={styles.ContentTitle}>{mirror.title}</a>
             </Link>
           </div>
@@ -130,7 +131,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
               {numberWithSpaces(parseInt(mirror.price))} ₽
             </li>
             <li className={styles.ContentTitleLine}>
-              <Link href={`/mirrors/${mirror.product_slug}`}>
+              <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}`}>
                 <a className={styles.ContentTitle}>{mirror.title}</a>
               </Link>
             </li>

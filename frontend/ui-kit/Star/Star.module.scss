@@ -1,0 +1,10 @@
+@import "styles";
+
+.Star {
+  fill: $color-suit-gray;
+  cursor: pointer;
+
+  &__checked {
+    fill: $color-yellow;
+  }
+}

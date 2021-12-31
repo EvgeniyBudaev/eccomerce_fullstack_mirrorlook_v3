@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import isNull from "lodash/isNull";
 import { RatingNumber } from "components";
 import { Error404 } from "components/Error";
+import { ROUTES } from "constants/routes";
 import { IMirror } from "types/mirror";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
@@ -69,7 +70,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
       !isNull(currentCart.id) && (
         <Link
           href={{
-            pathname: `/cart/${currentCart.id}`,
+            pathname: `${ROUTES.CART}${currentCart.id}`,
           }}
         >
           <a className={styles.ButtonGoAtCart}>Перейти в корзину</a>
@@ -104,7 +105,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
       <div className={styles.Navigation}>
         {mirror.rating && <RatingNumber rating={mirror.rating} />}
         {reviewsCount > 0 && (
-          <Link href={`/mirrors/${mirror.product_slug}/reviews`}>
+          <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}/reviews`}>
             <a className={styles.NavigationText}>
               {reviewsCount}
               &nbsp;

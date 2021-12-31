@@ -85,7 +85,6 @@ export const Signup: React.FC = () => {
   }, [error]);
 
   const onSubmit = (data: ISignupForm) => {
-    console.log("[DATA]", data);
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     if (data.password === data.re_password) {
       setIsPasswordMatch(false);
