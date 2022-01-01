@@ -1,11 +1,21 @@
 @import "styles";
 
 .Reviews {
+  &Inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &Title {
     @include roboto-32-bold;
     padding-bottom: 30px;
     margin-bottom: 30px;
     border-bottom: 1px solid $color-light-gray;
+  }
+
+  &Block {
+    margin-right: 65px;
+    width: 100%;
   }
 }
 

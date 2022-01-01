@@ -1,64 +1,70 @@
-import Image from "next/image";
-import React from "react";
-import classNames from "classnames";
+import React, { useEffect, useRef } from "react";
+import classnames from "classnames";
+import { Icon } from "ui-kit";
+import { setAtToStringAndPx } from "utils/string";
 import styles from "./Avatar.module.scss";
 
 export interface IAvatarProps {
   className?: string;
-  classNameSmallCircle?: string;
-  image?: StaticImageData;
+  altImage?: string;
+  backgroundColor?: string;
+  color?: string;
   size?: number;
-  title?: string;
+  user?: string;
 }
 
 export const Avatar: React.FC<IAvatarProps> = ({
   className,
-  classNameSmallCircle,
-  image,
-  size = 46,
-  title,
+  altImage,
+  backgroundColor = "#E9E9ED",
+  color = "#0A0A0B",
+  size = 24,
+  user,
 }) => {
-  const sizeBox = `${size - 4}px`;
-  const sizeInner = `${size - 8}px`;
-  const sizeTitle = `${size / 2}px`;
-  const sizeWrapper = `${size}px`;
+  const sizeInner = `${size}px`;
+  const sizeIcon = size * 0.67;
+
+  const avatarRef = useRef(null);
+
+  useEffect(() => {
+    if (avatarRef.current) {
+      avatarRef.current.style.setProperty(
+        "--avatar-backgroundColor",
+        backgroundColor
+      );
+      avatarRef.current.style.setProperty("--avatar-color", color);
+      avatarRef.current.style.setProperty(
+        "--avatar-height",
+        setAtToStringAndPx(size)
+      );
+      avatarRef.current.style.setProperty(
+        "--avatar-width",
+        setAtToStringAndPx(size)
+      );
+      if (!user) {
+        avatarRef.current.style.setProperty(
+          "--avatar-border",
+          "3px solid #0A0A0B"
+        );
+      }
+    }
+  }, [backgroundColor, color, size, user]);
 
   return (
-    <button
-      className={classNames(styles.Avatar, className)}
-      style={{ width: sizeInner, height: sizeInner }}
-    >
-      <div
-        className={classNames(styles.AvatarInner, classNameSmallCircle)}
-        style={{
-          width: sizeInner,
-          height: sizeInner,
-        }}
-      >
-        {image && (
-          <Image
-            className={styles.AvatarFace}
-            src={image}
-            alt=""
+    <div className={classnames(styles.Avatar, className)} ref={avatarRef}>
+      <div className={classnames(styles.Inner)}>
+        {user ? (
+          <img
+            className={styles.Face}
+            src={user}
+            alt={altImage}
             width={sizeInner}
             height={sizeInner}
           />
-        )}
-        {title && (
-          <div className={styles.AvatarFace} style={{ fontSize: sizeTitle }}>
-            {title}
-          </div>
+        ) : (
+          <Icon size={sizeIcon} type="UserAvatar" />
         )}
       </div>
-      <div
-        className={styles.AvatarBorder}
-        style={{ width: sizeWrapper, height: sizeWrapper }}
-      >
-        <div
-          className={styles.AvatarBorderBox}
-          style={{ width: sizeBox, height: sizeBox }}
-        />
-      </div>
-    </button>
+    </div>
   );
 };

@@ -6,6 +6,7 @@ import { ROUTES } from "constants/routes";
 import { IReviewsResponse } from "types/review";
 import { Icon } from "ui-kit";
 import { AboutProduct } from "./AboutProduct";
+import { ReviewsPanel } from "./ReviewsPanel";
 import styles from "./Reviews.module.scss";
 
 export interface IReviewsProps {
@@ -25,7 +26,7 @@ export const Reviews: React.FC<IReviewsProps> = ({
       <div className={styles.GoBack}>
         <Link
           href={{
-            pathname: `${ROUTES.MIRRORS}`,
+            pathname: `${ROUTES.MIRRORS}${entities[0].product.product_slug}`,
           }}
         >
           <a className={styles.GoBackLink}>
@@ -35,10 +36,15 @@ export const Reviews: React.FC<IReviewsProps> = ({
         </Link>
       </div>
       <AboutProduct product={entities[0].product} reviewsCount={reviewsCount} />
-      <h2 className={styles.ReviewsTitle}>Отзывы</h2>
-      <div className={styles.Comments}>
-        {entities &&
-          entities.map(item => <Comment key={item.id} comment={item} />)}
+      <div className={styles.ReviewsInner}>
+        <div className={styles.ReviewsBlock}>
+          <h2 className={styles.ReviewsTitle}>Отзывы</h2>
+          <div className={styles.Comments}>
+            {entities &&
+              entities.map(item => <Comment key={item.id} comment={item} />)}
+          </div>
+        </div>
+        <ReviewsPanel entities={entities} />
       </div>
     </div>
   );

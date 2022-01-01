@@ -1,21 +1,21 @@
 import React from "react";
 import classNames from "classnames";
 import { Star } from "ui-kit";
-import styles from "./RatingsStars.module.scss";
+import styles from "./RatingStars.module.scss";
 
-export interface IRatingsStarsProps {
+export interface IRatingStarsProps {
   className?: string;
-  value: number;
-  onChange: (event: number) => void;
+  value?: number;
+  onChange?: (event: number) => void;
 }
 
-export const RatingsStars: React.FC<IRatingsStarsProps> = ({
+export const RatingStars: React.FC<IRatingStarsProps> = ({
   className,
   value,
   onChange,
 }) => {
   return (
-    <div className={classNames(styles.RatingsStars, className)}>
+    <div className={classNames(styles.RatingStars, className)}>
       {[...Array(5)].map((_, index) => (
         <Star
           key={index}

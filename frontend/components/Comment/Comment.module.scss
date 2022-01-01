@@ -1,10 +1,30 @@
 @import "styles";
 
 .Comment {
+  display: flex;
+
+  &Inner {
+    margin-left: 16px;
+  }
+
   &Author {
+    margin-bottom: 16px;
+
     &Name {
       @include roboto-14-bold;
       color: $color-text;
     }
   }
+
+  &Block {
+    &Title {
+      @include roboto-14-bold;
+      margin-bottom: 8px;
+      color: $color-text;
+    }
+  }
+}
+
+.Comment + .Comment {
+  margin-top: 32px;
 }

@@ -15,6 +15,7 @@ export interface IReview {
   date_updated: Date;
   id: number;
   product: IMirror;
+  rating: number;
   text: string;
   title: string;
 }

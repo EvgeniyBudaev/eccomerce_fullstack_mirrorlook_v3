@@ -1,0 +1,55 @@
+@import "styles";
+
+.ReviewsAdd {
+  width: 100%;
+}
+
+.Title {
+  @include roboto-24-bold;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.Row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  max-width: 834px;
+  width: 100%;
+
+  &Title {
+    @include roboto-20-bold;
+    margin-right: 50px;
+    max-width: 238px;
+    width: 100%;
+  }
+}
+
+.Comment {
+  width: 100%;
+
+  &Title {
+    @include roboto-12-regular;
+    margin-bottom: 8px;
+    color: $color-suit-gray;
+  }
+
+  &Textarea {
+    @include roboto-14-regular;
+    padding: 6px 36px 6px 12px;
+    min-height: 36px;
+    width: 100%;
+    border: 2px solid $color-border;
+    border-radius: 4px;
+    resize: none;
+
+    &:focus {
+      outline: 0;
+      border-color: $color-beige;
+    }
+  }
+}
+
+.Button {
+  width: 100%;
+}

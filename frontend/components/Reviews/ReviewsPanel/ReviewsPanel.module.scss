@@ -1,0 +1,27 @@
+@import "styles";
+
+.ReviewsPanel {
+  max-width: 312px;
+  width: 100%;
+
+  &Button {
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  &Rating {
+    &Title {
+      @include roboto-14-bold;
+      margin-bottom: 8px;
+    }
+
+    &Stars {
+      margin-right: 8px;
+    }
+  }
+
+  &Row {
+    display: flex;
+    margin: 8px 0;
+  }
+}

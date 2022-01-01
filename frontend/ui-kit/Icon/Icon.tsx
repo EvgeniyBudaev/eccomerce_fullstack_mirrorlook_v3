@@ -1,19 +1,59 @@
-import React, { DOMAttributes } from "react";
+import React, { DOMAttributes, useEffect, useRef } from "react";
 import classNames from "classnames";
+import { setAtToStringAndPx } from "utils/string";
 import { IconType, iconTypes } from "./IconType";
-import styles from "./Icon.module.scss";
+import classes from "./Icon.module.scss";
+
+const getIcon = type => iconTypes.get(type);
 
 export interface IIconProps extends DOMAttributes<HTMLSpanElement> {
   className?: string;
+  height?: number;
+  size?: number;
   type: IconType;
+  width?: number;
 }
 
-const getIcon = (type: IconType): JSX.Element =>
-  iconTypes.get(type) as JSX.Element;
+export const Icon: React.FC<IIconProps> = ({
+  className,
+  height,
+  width,
+  size,
+  type,
+  ...rest
+}) => {
+  const iconRef = useRef(null);
 
-export const Icon: React.FC<IIconProps> = ({ className, type, ...rest }) => {
+  useEffect(() => {
+    if (iconRef.current) {
+      if (size && !height && !width) {
+        iconRef.current.style.setProperty(
+          "--icon-height",
+          setAtToStringAndPx(size)
+        );
+        iconRef.current.style.setProperty(
+          "--icon-width",
+          setAtToStringAndPx(size)
+        );
+      } else if (!size && height && width) {
+        iconRef.current.style.setProperty(
+          "--icon-height",
+          setAtToStringAndPx(height)
+        );
+        iconRef.current.style.setProperty(
+          "--icon-width",
+          setAtToStringAndPx(width)
+        );
+      }
+    }
+  }, [height, size, width]);
+
   return (
-    <div className={classNames(styles.Icon, className)} {...rest}>
+    <div
+      className={classNames(classes.Icon, className)}
+      ref={iconRef}
+      {...rest}
+    >
       {getIcon(type)}
     </div>
   );

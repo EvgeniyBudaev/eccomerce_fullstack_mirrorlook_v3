@@ -1,3 +1,1 @@
-import { RatingsStars } from "./RatingsStars";
-
-export { RatingsStars };
+export { RatingStars as default } from "./RatingStars";

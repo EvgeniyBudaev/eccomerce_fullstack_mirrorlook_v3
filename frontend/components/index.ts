@@ -11,6 +11,7 @@ import Marker from "./YMap/Marker";
 import NavLink from "./NavLink";
 import Order from "./Order";
 import RatingNumber from "./Rating/RatingNumber";
+import RatingStars from "./Rating/RatingStars";
 import Recipient from "./Recipient";
 import Reviews from "./Reviews";
 import Search from "./Search";
@@ -32,6 +33,7 @@ export {
   NavLink,
   Order,
   RatingNumber,
+  RatingStars,
   Recipient,
   Reviews,
   Search,
