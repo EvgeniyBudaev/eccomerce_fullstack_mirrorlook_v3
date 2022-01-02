@@ -2,6 +2,7 @@
 
 .Review {
   display: flex;
+  margin-bottom: 32px;
   max-width: 570px;
   width: 100%;
 
@@ -47,6 +48,8 @@
 }
 
 .CommentsBlock {
+  margin-bottom: 16px;
+
   &Title {
     @include roboto-14-bold;
     margin-bottom: 4px;
@@ -56,6 +59,7 @@
   &AddComment {
     @include roboto-14-regular;
     display: inline-block;
+    margin-right: 8px;
     color: $color-beige;
     cursor: pointer;
     transition: all 0.15s;
@@ -68,4 +72,24 @@
 
 .CommentBlock {
   margin-top: 16px;
+}
+
+.Login {
+  width: 100%;
+
+  &Link {
+    @include roboto-14-regular;
+    display: inline-block;
+    color: $color-beige;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
+
+  &Text {
+    display: inline-block;
+  }
 }

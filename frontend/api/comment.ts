@@ -1,11 +1,13 @@
 import axios from "axios";
-import { IFetchCommentRequest, IFetchCommentResponse } from "api/types/comment";
+import { IFetchCommentRequest } from "api/types/comment";
 import { backendBase } from "constants/paths";
+import { IComment } from "types/comment";
+import { IFilterResponse } from "./types";
 
 export const fetchCommentCreate = async (
   access: string,
   body: IFetchCommentRequest
-): Promise<IFetchCommentResponse> => {
+): Promise<IComment> => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -13,10 +15,25 @@ export const fetchCommentCreate = async (
       Accept: "application/json",
     },
   };
-  console.log("body: ", body);
-  const response = await axios.post<IFetchCommentResponse>(
+  const response = await axios.post<IComment>(
     `${backendBase}api/v1/comments/`,
     body,
+    config
+  );
+
+  return response.data;
+};
+
+export const fetchCommentsByReview = async (
+  reviewId: number
+): Promise<IFilterResponse<IComment>> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await axios.get<IFilterResponse<IComment>>(
+    `${backendBase}api/v1/comments/?review_id=${reviewId}`,
     config
   );
 

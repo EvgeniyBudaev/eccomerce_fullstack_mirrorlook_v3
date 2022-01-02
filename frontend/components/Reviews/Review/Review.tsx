@@ -1,9 +1,19 @@
-import React, { useRef, useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { ToastContainer as AlertContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
-import { CommentAdd, RatingStars } from "components";
+import isEmpty from "lodash/isEmpty";
+import { fetchCommentsByReview } from "api/comment";
+import { Comment, CommentAdd, RatingStars } from "components";
+import { ROUTES } from "constants/routes";
+import { setLoading, unsetLoading } from "ducks/loading";
 import { useTypedSelector } from "hooks/useTypedSelector";
+import { IComment } from "types/comment";
 import { IReview } from "types/review";
-import { Avatar } from "ui-kit";
+import { Avatar, Spinner } from "ui-kit";
+import { AlertError } from "utils/alert";
+import { commentDeclinations, getDeclination } from "utils/declinations";
 import styles from "./Review.module.scss";
 
 export interface IReviewProps {
@@ -13,11 +23,43 @@ export interface IReviewProps {
 
 export const Review: React.FC<IReviewProps> = ({ className, review }) => {
   const [canAddComment, setCanAddComment] = useState(false);
+  const [comments, setComments] = useState<IComment[]>([]);
+  const [error, setError] = useState("");
+  const [showComments, setShowComments] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const loading = useTypedSelector(state => state.loading);
+  const { isLoading } = loading;
   const account = useTypedSelector(state => state.account);
   const { access, isAuthenticated, user } = account;
+  const commentsCount = comments.length;
   const userId = user && user.id;
-  const reviewId = review.id;
+  const reviewId = review && review.id;
   const textAreaRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      AlertError("Не удалось получить список комментариев к отзыву!", error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    const getCommentsByReview = () => {
+      setError("");
+      dispatch(setLoading());
+      fetchCommentsByReview(reviewId)
+        .then(response => {
+          setComments(response.entities);
+        })
+        .catch(error => {
+          setError(error.message);
+        })
+        .finally(() => {
+          dispatch(unsetLoading());
+        });
+    };
+    void getCommentsByReview();
+  }, [dispatch, reviewId]);
 
   const renderRatingText = (rating: number): string => {
     switch (rating) {
@@ -40,12 +82,24 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
       if (textAreaRef.current) {
         textAreaRef.current.focus();
       }
+    } else {
+      setShowLogin(true);
     }
   };
 
+  const handleToggleListComments = () => {
+    setShowComments(prevState => !prevState);
+  };
+
+  if (isLoading) return <Spinner />;
+
   return (
     <div className={classNames(styles.Review, className)}>
-      <Avatar size={36} />
+      <AlertContainer />
+      <Avatar
+        user={isAuthenticated ? review.author.first_name : null}
+        size={36}
+      />
       <div className={styles.ReviewInner}>
         <div className={styles.ReviewAuthor}>
           <div className={styles.ReviewAuthorName}>
@@ -73,17 +127,45 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
         <div className={styles.CommentsBlock}>
           <div
             className={styles.CommentsBlockAddComment}
+            onClick={handleToggleListComments}
+          >
+            {!showComments ? (
+              <>
+                {commentsCount}
+                &nbsp;
+                {getDeclination(commentsCount, commentDeclinations)}
+              </>
+            ) : (
+              "Скрыть комментарии"
+            )}
+          </div>
+          <div
+            className={styles.CommentsBlockAddComment}
             onClick={handleClickCommentOn}
           >
             Комментировать
           </div>
         </div>
-        {canAddComment && reviewId && userId && (
+        {showLogin && (
+          <div className={styles.Login}>
+            <Link href={ROUTES.LOGIN}>
+              <a className={styles.LoginLink}>Войдите,</a>
+            </Link>
+            &nbsp;
+            <div className={styles.LoginText}>чтобы оставить комментарий</div>
+          </div>
+        )}
+        {!isEmpty(comments) &&
+          showComments &&
+          comments.map(comment => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
+        {canAddComment && reviewId && userId && isAuthenticated && (
           <div className={styles.CommentBlock}>
             <CommentAdd
               access={access}
-              firstName={review.author.first_name}
-              lastName={review.author.last_name}
+              firstName={user.first_name}
+              lastName={user.last_name}
               ref={textAreaRef}
               reviewId={reviewId}
               userId={userId}

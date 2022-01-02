@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
 import { RatingStars } from "components";
+import { ROUTES } from "constants/routes";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { IReview } from "types/review";
 import { Button } from "ui-kit";
@@ -18,6 +20,7 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
   className,
   entities,
 }) => {
+  const [showLogin, setShowLogin] = useState(false);
   const reviewsRatingOfFive = useMemo(() => {
     return entities && entities.filter(entity => entity.rating === 5);
   }, [entities]);
@@ -39,7 +42,7 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
   }, [entities]);
   const countRatingOfOne = reviewsRatingOfOne.length;
   const account = useTypedSelector(state => state.account);
-  const { user } = account;
+  const { isAuthenticated, user } = account;
   const userId = user && user.id;
   const wasSendReview = useMemo(() => {
     if (entities && entities[0]) {
@@ -54,7 +57,11 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
   const path = router.asPath;
 
   const handleAddReview = () => {
-    router.push(`${path}/add`);
+    if (isAuthenticated) {
+      router.push(`${path}/add`);
+    } else {
+      setShowLogin(true);
+    }
   };
 
   return (
@@ -66,6 +73,15 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
       >
         Оставить отзыв
       </Button>
+      {showLogin && (
+        <div className={styles.Login}>
+          <Link href={ROUTES.LOGIN}>
+            <a className={styles.LoginLink}>Войдите,</a>
+          </Link>
+          &nbsp;
+          <div className={styles.LoginText}>чтобы оставить комментарий</div>
+        </div>
+      )}
       <div className={styles.ReviewsPanelRating}>
         <div className={styles.ReviewsPanelRatingTitle}>Отзывы с оценкой</div>
         <div className={styles.ReviewsPanelRow}>

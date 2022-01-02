@@ -1,7 +1,7 @@
+import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import classnames from "classnames";
-import { Icon } from "ui-kit";
-import { setAtToStringAndPx } from "utils/string";
+import {getInitial, setAtToStringAndPx} from "utils/string";
 import styles from "./Avatar.module.scss";
 
 export interface IAvatarProps {
@@ -9,6 +9,7 @@ export interface IAvatarProps {
   altImage?: string;
   backgroundColor?: string;
   color?: string;
+  image?: string;
   size?: number;
   user?: string;
 }
@@ -18,12 +19,11 @@ export const Avatar: React.FC<IAvatarProps> = ({
   altImage,
   backgroundColor = "#E9E9ED",
   color = "#0A0A0B",
+  image,
   size = 24,
   user,
 }) => {
   const sizeInner = `${size}px`;
-  const sizeIcon = size * 0.67;
-
   const avatarRef = useRef(null);
 
   useEffect(() => {
@@ -50,21 +50,34 @@ export const Avatar: React.FC<IAvatarProps> = ({
     }
   }, [backgroundColor, color, size, user]);
 
+  const renderContent = () => {
+    if (user && !image) {
+      return <div>{getInitial(user)}</div>;
+    } else if (!user && image) {
+      return (
+        <Image
+          className={styles.Face}
+          src={image}
+          alt={altImage}
+          height={sizeInner}
+          width={sizeInner}
+        />
+      );
+    } else {
+      return (
+        <Image
+          src="/images/avatar.png"
+          alt="аватар"
+          height={sizeInner}
+          width={sizeInner}
+        />
+      );
+    }
+  };
+
   return (
     <div className={classnames(styles.Avatar, className)} ref={avatarRef}>
-      <div className={classnames(styles.Inner)}>
-        {user ? (
-          <img
-            className={styles.Face}
-            src={user}
-            alt={altImage}
-            width={sizeInner}
-            height={sizeInner}
-          />
-        ) : (
-          <Icon size={sizeIcon} type="UserAvatar" />
-        )}
-      </div>
+      <div className={classnames(styles.Inner)}>{renderContent()}</div>
     </div>
   );
 };

@@ -27,3 +27,5 @@
 .Input:-webkit-autofill {
   -webkit-background-clip: text;
 }
+
+input:not(:placeholder-shown) {}

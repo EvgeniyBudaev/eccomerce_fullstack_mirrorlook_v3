@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
@@ -9,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
 import * as yup from "yup";
 import isEmpty from "lodash/isEmpty";
 import isNull from "lodash/isNull";
+import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
@@ -157,16 +157,8 @@ export const Signup: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className={styles.Signup}>
+    <section className={styles.Signup}>
       <AlertContainer />
-      <div className={styles.SectionLeft}>
-        <Image
-          src={"/images/login-left-background.png"}
-          alt=""
-          height="636"
-          width="475"
-        />
-      </div>
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
           <h1 className={styles.SectionCenterContent_Title}>Регистрация</h1>
@@ -252,28 +244,12 @@ export const Signup: React.FC = () => {
           </form>
           <div className={styles.SectionCenter_Registration}>
             <span>Есть аккаунт?</span>
-            <Link href={"/login"}>
+            <Link href={ROUTES.LOGIN}>
               <a>Войти</a>
             </Link>
           </div>
         </div>
-        <div className={styles.SectionCenter_Image}>
-          <Image
-            src={"/images/login-center-background.png"}
-            alt=""
-            height="202"
-            width="237"
-          />
-        </div>
       </div>
-      <div className={styles.SectionRight}>
-        <Image
-          src={"/images/login-right-background.png"}
-          alt=""
-          height="482"
-          width="454"
-        />
-      </div>
-    </div>
+    </section>
   );
 };

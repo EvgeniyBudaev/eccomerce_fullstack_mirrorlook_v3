@@ -1,5 +1,10 @@
 const tovar: string[] = ["товар", "товара", "товаров"];
 export const reviewDeclinations: string[] = ["отзыв", "отзыва", "отзывов"];
+export const commentDeclinations: string[] = [
+  "комментарий",
+  "комментария",
+  "комментариев",
+];
 
 export const getDeclination = (
   number: number,

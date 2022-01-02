@@ -72,7 +72,7 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
               }}
             >
               <a className={styles.IconLink}>
-                <Icon className={styles.Icon} type={"Cart"} />
+                <Icon className={styles.Icon} type="Cart" />
                 <div className={styles.IconDescription}>Корзина</div>
                 <div className={styles.CartItemsCount}>
                   {cartItemsCountTotal}
@@ -89,11 +89,14 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
         )}
       >
         {isAuthenticated ? (
-          <Avatar size={46} />
+          <Avatar
+            user={isAuthenticated ? account.user.first_name : null}
+            size={46}
+          />
         ) : (
-          <Link href={"/login"}>
+          <Link href={ROUTES.LOGIN}>
             <a className={styles.IconLink}>
-              <Icon className={styles.Icon} type={"User"} />
+              <Icon className={styles.Icon} type="User" />
               <div className={styles.IconDescription}>Войти</div>
             </a>
           </Link>
