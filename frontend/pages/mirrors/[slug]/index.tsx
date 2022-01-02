@@ -20,7 +20,7 @@ export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
   const { error, mirrorResponse, reviewsCount } = props;
 
   if (error) {
-    console.log("Ошибка! (frontend/pages/mirrors/slug/index.tsx): ", error);
+    console.error("Ошибка! (frontend/pages/mirrors/slug/index.tsx): ", error);
   }
 
   useEffect(() => {

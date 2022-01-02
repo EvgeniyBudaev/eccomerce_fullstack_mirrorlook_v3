@@ -1,5 +1,5 @@
 from django_filters import rest_framework as df_filters
-from store.models import Catalog, Product, Review
+from store.models import Catalog, Comment, Product, Review
 
 # Вариант 1
 # from django_filters.fields import CSVWidget, MultipleChoiceField
@@ -62,3 +62,11 @@ class ReviewFilter(df_filters.FilterSet):
     class Meta:
         model = Review
         fields = ('product_slug',)
+
+
+class CommentFilter(df_filters.FilterSet):
+    review_id = CharFilterInFilter(field_name='review__id', lookup_expr='in')
+
+    class Meta:
+        model = Comment
+        fields = ('review_id',)

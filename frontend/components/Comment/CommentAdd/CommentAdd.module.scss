@@ -1,0 +1,37 @@
+@import "styles/index";
+
+.CommentAdd {
+  display: flex;
+  max-width: 570px;
+  width: 100%;
+
+  &Block {
+    margin-left: 8px;
+    width: 100%;
+  }
+
+  &Author {
+    @include roboto-14-bold;
+    margin-bottom: 8px;
+  }
+
+  &Textarea {
+    @include roboto-14-regular;
+    padding: 6px 36px 6px 12px;
+    min-height: 36px;
+    width: 100%;
+    border: 2px solid $color-border;
+    border-radius: 4px;
+    resize: none;
+
+    &:focus {
+      outline: 0;
+      border-color: $color-beige;
+    }
+  }
+
+  &Control {
+    margin: 16px 0;
+    width: 100%;
+  }
+}

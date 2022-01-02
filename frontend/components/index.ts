@@ -1,6 +1,7 @@
 import About from "./About";
 import Cart from "./Cart";
 import Comment from "./Comment";
+import CommentAdd from "./Comment/CommentAdd";
 import Contacts from "./Contacts";
 import FilterBarMobile from "./FilterBarMobile";
 import Help from "./Help";
@@ -23,6 +24,7 @@ export {
   About,
   Cart,
   Comment,
+  CommentAdd,
   Contacts,
   FilterBarMobile,
   Help,

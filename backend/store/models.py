@@ -344,20 +344,22 @@ class OrderUser(models.Model):
 
 class Review(models.Model):
     """Модель отзыва на продукт."""
+    advantage = models.TextField(null=True, blank=True, default=None,
+                                verbose_name='Достоинства')
+    commentary = models.TextField(null=True, blank=True, default=None,
+                                verbose_name='Комментарий')
+    disadvantage = models.TextField(null=True, blank=True, default=None,
+                                verbose_name='Недостатки')
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 verbose_name='Тип продукта',
                                 related_name='reviews')
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Покупатель',
                                related_name='reviews')
-    title = models.CharField(max_length=200, null=True, blank=True, default=None,
-                             verbose_name='Заголовок')
     rating = models.PositiveSmallIntegerField(
         verbose_name='Рейтинг',
         validators=[MinValueValidator(1),
                     MaxValueValidator(5)])
-    text = models.TextField(null=True, blank=True, default=None,
-                            verbose_name='Текст отзыва')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
     date_updated = models.DateTimeField(auto_now=True, db_index=True,
@@ -373,7 +375,7 @@ class Review(models.Model):
         verbose_name_plural = 'Отзывы'
 
     def __str__(self):
-        return str(self.title)
+        return str(self.date_created)
 
 
 class Comment(models.Model):
@@ -383,7 +385,7 @@ class Comment(models.Model):
                                related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Автор комментария')
-    text = models.TextField(verbose_name='Комментарий к отзыву',
+    commentary = models.TextField(verbose_name='Комментарий к отзыву',
                             help_text='Введите текст комментария')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')

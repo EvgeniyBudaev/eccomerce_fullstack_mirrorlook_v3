@@ -10,14 +10,15 @@ export interface IAuthor {
 }
 
 export interface IReview {
+  advantage: string;
   author: IAuthor;
+  disadvantage: string;
   date_created: Date;
   date_updated: Date;
+  commentary: string;
   id: number;
   product: IMirror;
   rating: number;
-  text: string;
-  title: string;
 }
 
 export interface IReviewsResponse {

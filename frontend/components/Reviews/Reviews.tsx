@@ -1,11 +1,12 @@
 import Link from "next/link";
 import React from "react";
 import classNames from "classnames";
-import { Comment } from "components";
+import isNil from "lodash/isNil";
 import { ROUTES } from "constants/routes";
 import { IReviewsResponse } from "types/review";
 import { Icon } from "ui-kit";
 import { AboutProduct } from "./AboutProduct";
+import Review from "./Review";
 import { ReviewsPanel } from "./ReviewsPanel";
 import styles from "./Reviews.module.scss";
 
@@ -24,24 +25,31 @@ export const Reviews: React.FC<IReviewsProps> = ({
   return (
     <div className={classNames(styles.Reviews, className)}>
       <div className={styles.GoBack}>
-        <Link
-          href={{
-            pathname: `${ROUTES.MIRRORS}${entities[0].product.product_slug}`,
-          }}
-        >
-          <a className={styles.GoBackLink}>
-            <Icon type="ArrowBack" />
-            <div className={styles.GoBackText}>К описанию товара</div>
-          </a>
-        </Link>
+        {!isNil(entities[0]) && (
+          <Link
+            href={{
+              pathname: `${ROUTES.MIRRORS}${entities[0].product.product_slug}`,
+            }}
+          >
+            <a className={styles.GoBackLink}>
+              <Icon type="ArrowBack" />
+              <div className={styles.GoBackText}>К описанию товара</div>
+            </a>
+          </Link>
+        )}
       </div>
-      <AboutProduct product={entities[0].product} reviewsCount={reviewsCount} />
+      {!isNil(entities[0]) && (
+        <AboutProduct
+          product={entities[0].product}
+          reviewsCount={reviewsCount}
+        />
+      )}
       <div className={styles.ReviewsInner}>
         <div className={styles.ReviewsBlock}>
           <h2 className={styles.ReviewsTitle}>Отзывы</h2>
           <div className={styles.Comments}>
             {entities &&
-              entities.map(item => <Comment key={item.id} comment={item} />)}
+              entities.map(item => <Review key={item.id} review={item} />)}
           </div>
         </div>
         <ReviewsPanel entities={entities} />

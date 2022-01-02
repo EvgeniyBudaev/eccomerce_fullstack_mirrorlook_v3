@@ -261,8 +261,8 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('id', 'product', 'author', 'title', 'text', 'rating',
-                  'date_created', 'date_updated')
+        fields = ('id', 'product', 'advantage', 'author', 'commentary',
+                  'disadvantage', 'rating', 'date_created', 'date_updated')
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -275,7 +275,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'text', 'review', 'author', 'date_created', 'date_updated')
+        fields = ('id', 'commentary', 'review', 'author', 'date_created', 'date_updated')
 
     def to_representation(self, instance):
         data = super().to_representation(instance)

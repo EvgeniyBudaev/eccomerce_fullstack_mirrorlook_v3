@@ -21,7 +21,7 @@ interface IMirrorsProps {
 export default function MirrorsPage(props: IMirrorsProps): JSX.Element {
   const { error } = props;
   if (error) {
-    console.log("Ошибка! (frontend/pages/mirrors/index.tsx): ", error);
+    console.error("Ошибка! (frontend/pages/mirrors/index.tsx): ", error);
   }
 
   useEffect(() => {

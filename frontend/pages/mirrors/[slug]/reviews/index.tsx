@@ -14,7 +14,7 @@ export default function MirrorReviewsPage(
   const { entities, error } = props;
 
   if (error) {
-    console.log(
+    console.error(
       "Ошибка! (frontend/pages/mirrors/slug/reviews/index.tsx): ",
       error
     );

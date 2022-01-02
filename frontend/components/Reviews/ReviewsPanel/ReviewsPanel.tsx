@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import classNames from "classnames";
+import isEmpty from "lodash/isEmpty";
 import { RatingStars } from "components";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import { IReview } from "types/review";
 import { Button } from "ui-kit";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
@@ -36,6 +38,18 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
     return entities && entities.filter(entity => entity.rating === 2);
   }, [entities]);
   const countRatingOfOne = reviewsRatingOfOne.length;
+  const account = useTypedSelector(state => state.account);
+  const { user } = account;
+  const userId = user && user.id;
+  const wasSendReview = useMemo(() => {
+    if (entities && entities[0]) {
+      const productTitle = entities[0].product.title;
+      const isReview = entities.filter(
+        item => item.product.title === productTitle && item.author.id === userId
+      );
+      return !isEmpty(isReview);
+    }
+  }, [entities, userId]);
   const router = useRouter();
   const path = router.asPath;
 
@@ -45,7 +59,11 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
 
   return (
     <div className={classNames(styles.ReviewsPanel, className)}>
-      <Button className={styles.ReviewsPanelButton} onClick={handleAddReview}>
+      <Button
+        className={styles.ReviewsPanelButton}
+        isDisabled={wasSendReview}
+        onClick={handleAddReview}
+      >
         Оставить отзыв
       </Button>
       <div className={styles.ReviewsPanelRating}>

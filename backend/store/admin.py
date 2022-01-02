@@ -79,9 +79,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title')
-    search_fields = ('title',)
-    list_filter = ('title',)
+    list_display = ('pk', 'date_created')
+    search_fields = ('date_created',)
+    list_filter = ('date_created',)
     empty_value_display = '-пусто-'
 
 

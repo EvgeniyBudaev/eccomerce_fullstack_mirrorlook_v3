@@ -4,6 +4,42 @@
   width: 100%;
 }
 
+.GoBack {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+
+  &Link {
+    @include roboto-12-regular;
+    display: flex;
+    align-items: center;
+    color: $color-beige;
+    transition: all 0.15s;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: $color-beige;
+      transition: all 0.15s;
+    }
+  }
+
+  &Link:hover {
+    color: $color-hover;
+
+    svg {
+      fill: $color-hover;
+    }
+  }
+
+  &Text {
+    margin-left: 4px;
+  }
+}
+
 .Title {
   @include roboto-24-bold;
   margin-top: 30px;
@@ -16,6 +52,20 @@
   margin-bottom: 20px;
   max-width: 834px;
   width: 100%;
+
+  &Start {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    max-width: 834px;
+    width: 100%;
+  }
+
+  &Inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 
   &Title {
     @include roboto-20-bold;
@@ -48,6 +98,10 @@
       border-color: $color-beige;
     }
   }
+}
+
+.Comment + .Comment {
+  margin-top: 16px;
 }
 
 .Button {

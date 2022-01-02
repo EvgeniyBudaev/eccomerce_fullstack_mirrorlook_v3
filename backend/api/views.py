@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from store.models import (Cart, CartItem, Catalog, Comment, Order, OrderItem,
                           Product, Review, ShippingAddress)
 
-from .filters import CatalogFilter, ProductFilter, ReviewFilter
+from .filters import CatalogFilter, CommentFilter, ProductFilter, ReviewFilter
 from .pagination import StorePagination
 from .permissions import IsAdminOrReadOnly, IsAuthorOrAdministratorOrReadOnly
 from .serializers import (CartItemSerializer, CartSerializer,
@@ -154,4 +154,8 @@ class CommentViewSet(viewsets.ModelViewSet):
     """POST для всех авторизованных, PATCH для модеров, админов и автора."""
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    pagination_class = StorePagination
     permission_classes = (IsAuthorOrAdministratorOrReadOnly,)
+    filter_backends = (DjangoFilterBackend,)
+    lookup_field = 'review_id'
+    filterset_class = CommentFilter

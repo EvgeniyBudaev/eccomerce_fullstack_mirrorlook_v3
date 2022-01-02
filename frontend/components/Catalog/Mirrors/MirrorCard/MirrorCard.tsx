@@ -103,16 +103,14 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
     <div className={styles.MirrorCard}>
       <h1 className={styles.Title}>{mirror.title}</h1>
       <div className={styles.Navigation}>
-        {mirror.rating && <RatingNumber rating={mirror.rating} />}
-        {reviewsCount > 0 && (
-          <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}/reviews`}>
-            <a className={styles.NavigationText}>
-              {reviewsCount}
-              &nbsp;
-              {getDeclination(Number(reviewsCount), reviewDeclinations)}
-            </a>
-          </Link>
-        )}
+        <RatingNumber rating={mirror.rating} />
+        <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}/reviews`}>
+          <a className={styles.NavigationText}>
+            {reviewsCount}
+            &nbsp;
+            {getDeclination(Number(reviewsCount), reviewDeclinations)}
+          </a>
+        </Link>
       </div>
       <div className={styles.ProductMainInfo}>
         <div className={styles.ColMedia}>

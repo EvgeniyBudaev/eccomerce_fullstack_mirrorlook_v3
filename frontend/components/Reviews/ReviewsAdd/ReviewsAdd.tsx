@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
@@ -5,10 +6,11 @@ import { ToastContainer as AlertContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { fetchReviewCreate } from "api/review";
+import { ROUTES } from "constants/routes";
 import { setLoading, unsetLoading } from "ducks/loading";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
-import { Button, Spinner } from "ui-kit";
+import { Button, Icon, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import styles from "./ReviewsAdd.module.scss";
 
@@ -18,11 +20,12 @@ export interface IReviewsAddProps {
 }
 
 interface IStateForm {
+  advantage: string;
   author: number;
+  commentary: string;
+  disadvantage: string;
   product: number;
   rating: number;
-  text: string;
-  title: string;
 }
 
 export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
@@ -31,11 +34,12 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
 }) => {
   const [error, setError] = useState("");
   const [stateForm, setStateForm] = useState<IStateForm>({
+    advantage: "",
     author: null,
+    commentary: "",
+    disadvantage: "",
     product: product.id,
     rating: 0,
-    text: "",
-    title: product.title,
   });
   const dispatch = useDispatch();
   const router = useRouter();
@@ -72,7 +76,6 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
       await fetchReviewCreate(access, payload);
       router.push(pathReview);
     } catch (error) {
-      console.log(error);
       setError(error.message);
     } finally {
       dispatch(unsetLoading());
@@ -89,6 +92,18 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
   return (
     <section className={classNames(styles.ReviewsAdd, className)}>
       <AlertContainer />
+      <div className={styles.GoBack}>
+        <Link
+          href={{
+            pathname: `${ROUTES.MIRRORS}${product.product_slug}${ROUTES.REVIEWS}`,
+          }}
+        >
+          <a className={styles.GoBackLink}>
+            <Icon type="ArrowBack" />
+            <div className={styles.GoBackText}>К отзывам товара</div>
+          </a>
+        </Link>
+      </div>
       <h1 className={styles.Title}>Отзыв о товаре {product.title}</h1>
       <form onSubmit={handleSubmitForm}>
         <div className={styles.Row}>
@@ -100,17 +115,39 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
             onChange={handleRatingChanged}
           />
         </div>
-        <div className={styles.Row}>
+        <div className={styles.RowStart}>
           <div className={styles.RowTitle}>Расскажите подробнее</div>
-          <div className={styles.Comment}>
-            <h4 className={styles.CommentTitle}>Комментарии</h4>
-            <textarea
-              className={styles.CommentTextarea}
-              name="text"
-              rows={4}
-              placeholder="Другие впечатления"
-              onChange={handleChange}
-            />
+          <div className={styles.RowInner}>
+            <div className={styles.Comment}>
+              <h4 className={styles.CommentTitle}>Достоинства</h4>
+              <textarea
+                className={styles.CommentTextarea}
+                name="advantage"
+                rows={4}
+                placeholder="Что вам понравилось"
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.Comment}>
+              <h4 className={styles.CommentTitle}>Недостатки</h4>
+              <textarea
+                className={styles.CommentTextarea}
+                name="disadvantage"
+                rows={4}
+                placeholder="Что не понравилось"
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.Comment}>
+              <h4 className={styles.CommentTitle}>Комментарии</h4>
+              <textarea
+                className={styles.CommentTextarea}
+                name="commentary"
+                rows={4}
+                placeholder="Другие впечатления"
+                onChange={handleChange}
+              />
+            </div>
           </div>
         </div>
         <div className={styles.Row}>
