@@ -43,7 +43,7 @@
 .Title {
   @include roboto-24-bold;
   margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .Row {
@@ -72,6 +72,8 @@
     margin-right: 50px;
     max-width: 238px;
     width: 100%;
+
+    &Total {}
   }
 }
 
@@ -106,4 +108,22 @@
 
 .Button {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .Row {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &Title {
+      margin-bottom: 16px;
+      &Total {
+        margin-bottom: 0;
+      }
+    }
+
+    &Start {
+      flex-direction: column;
+    }
+  }
 }

@@ -107,7 +107,9 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
       <h1 className={styles.Title}>Отзыв о товаре {product.title}</h1>
       <form onSubmit={handleSubmitForm}>
         <div className={styles.Row}>
-          <div className={styles.RowTitle}>Общая оценка</div>
+          <div className={classNames(styles.RowTitle, styles.RowTitleTotal)}>
+            Общая оценка
+          </div>
           <ReactStars
             activeColor="#f0ad4e"
             count={5}

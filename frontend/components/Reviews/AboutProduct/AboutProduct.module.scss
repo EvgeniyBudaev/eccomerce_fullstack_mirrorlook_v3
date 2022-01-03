@@ -76,3 +76,26 @@
     border: 1px solid $color-beige-hover;
   }
 }
+
+@media (max-width: 768px) {
+  .Inner {
+    flex-direction: column;
+  }
+
+  .Info {
+    margin-bottom: 8px;
+  }
+
+  .Check {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &Price {
+      margin-bottom: 8px;
+    }
+
+    &Control {
+      margin-left: 0;
+    }
+  }
+}

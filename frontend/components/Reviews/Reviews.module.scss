@@ -58,3 +58,20 @@
 .Comments {
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .Reviews {
+    &Inner {
+      flex-direction: column;
+    }
+
+    &Block {
+      order: 1;
+      margin-right: 0;
+    }
+
+    &Title {
+      padding-bottom: 0;
+    }
+  }
+}
