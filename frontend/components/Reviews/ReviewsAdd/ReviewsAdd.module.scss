@@ -110,6 +110,10 @@
   width: 100%;
 }
 
+.Required {
+  color: $color-red;
+}
+
 @media (max-width: 768px) {
   .Row {
     align-items: flex-start;

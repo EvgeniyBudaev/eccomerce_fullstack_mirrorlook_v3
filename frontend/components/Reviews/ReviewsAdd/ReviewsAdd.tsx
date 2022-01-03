@@ -53,7 +53,7 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
 
   useEffect(() => {
     if (error) {
-      AlertError("Нельзя создать больше одного отзыва к товару!", error);
+      AlertError("Не удалось отправить отзыв!", error);
     }
   }, [error]);
 
@@ -109,6 +109,7 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
         <div className={styles.Row}>
           <div className={classNames(styles.RowTitle, styles.RowTitleTotal)}>
             Общая оценка
+            <span className={styles.Required}>&nbsp;*</span>
           </div>
           <ReactStars
             activeColor="#f0ad4e"
@@ -154,7 +155,12 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
         </div>
         <div className={styles.Row}>
           <div className={styles.RowTitle} />
-          <Button className={styles.Button} type="submit" onClick={() => {}}>
+          <Button
+            className={styles.Button}
+            type="submit"
+            isDisabled={stateForm.rating === 0}
+            onClick={() => {}}
+          >
             Отправить отзыв
           </Button>
         </div>
