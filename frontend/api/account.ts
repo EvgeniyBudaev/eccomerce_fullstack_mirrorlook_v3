@@ -70,3 +70,7 @@ export const fetchUserSignup = async ({
   );
   return response.data;
 };
+
+export const fetchLogout = (): string => {
+  return "user logout";
+};

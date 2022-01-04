@@ -87,8 +87,39 @@
 }
 
 .AvatarDropDown {
+  position: relative;
   height: max-content;
   width: max-content;
+
+  &_Menu {
+    padding: 4px;
+  }
+
+  &_MenuItem {
+    display: flex;
+    align-items: center;
+    margin: 3px;
+    padding: 0 16px;
+    min-height: 44px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      background-color: $color-light-beige;
+    }
+
+    &Icon {
+      svg {
+        height: 24px;
+        width: 24px;
+      }
+    }
+
+    &Text {
+      margin-left: 16px;
+    }
+  }
 }
 
 @media (max-width: 768px) {

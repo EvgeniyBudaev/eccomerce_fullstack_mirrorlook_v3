@@ -395,12 +395,10 @@ $positionDropDown: -500px;
 .DropDownUser {
   content: "";
   position: absolute;
-  bottom: -58px;
-  left: 0;
-  padding: 16px 0;
+  bottom: -64px;
+  right: 0;
   height: max-content;
-  max-width: 200px;
-  width: 100%;
+  width: max-content;
   background-color: white;
   border: 1px solid transparent;
   border-radius: 4px;

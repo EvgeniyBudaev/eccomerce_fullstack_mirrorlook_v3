@@ -15,6 +15,7 @@ import Defence from "ui-kit/assets/icons/Defence.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Enter from "ui-kit/assets/icons/Enter.svg";
+import Exit from "ui-kit/assets/icons/Exit.svg";
 import Factory from "ui-kit/assets/icons/Factory.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
 import House from "ui-kit/assets/icons/House.svg";
@@ -47,6 +48,7 @@ export type IconType =
   | "DisplayGrid"
   | "DisplayLine"
   | "Enter"
+  | "Exit"
   | "Factory"
   | "Filter"
   | "House"
@@ -79,6 +81,7 @@ export const iconTypes = new Map([
   ["DisplayGrid", <DisplayGrid key={newGuid()} />],
   ["DisplayLine", <DisplayLine key={newGuid()} />],
   ["Enter", <Enter key={newGuid()} />],
+  ["Exit", <Exit key={newGuid()} />],
   ["Factory", <Factory key={newGuid()} />],
   ["Filter", <Filter key={newGuid()} />],
   ["House", <House key={newGuid()} />],

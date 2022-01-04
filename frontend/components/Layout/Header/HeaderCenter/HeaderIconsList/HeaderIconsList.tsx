@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
 import { Avatar, DropDown, Icon } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
+import { ActionTypes } from "ducks/account";
 import { ICartState } from "ducks/cart";
 import { IAccount } from "api/types/account";
 import { ROUTES } from "constants/routes";
@@ -25,6 +28,8 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   const account = useTypedSelector(state => state.account);
   const cart = useTypedSelector(state => state.cart);
   const refToggleDropDown = useRef(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const getAccount = (account: IAccount) => {
     return account;
@@ -76,6 +81,14 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
     setIsDropDownOpen(prevState => !prevState);
   };
 
+  const handleLogout = () => {
+    console.log("EXIT");
+    dispatch({
+      type: ActionTypes.FETCH_LOGOUT,
+    });
+    router.push(ROUTES.HOME);
+  };
+
   return (
     <div
       className={classNames(styles.HeaderIconsList, className, {
@@ -110,12 +123,27 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
         {isAuthenticated ? (
           <div className={styles.AvatarDropDown} ref={refToggleDropDown}>
             <Avatar
-              user={isAuthenticated ? account.user.first_name : null}
+              user={
+                isAuthenticated && account.user ? account.user.first_name : null
+              }
               size={46}
               onClick={handleToggleDropDown}
             />
             <DropDown className="DropDownUser" isOpen={isDropDownOpen}>
-              <div>Logout</div>
+              <ul className={styles.AvatarDropDown_Menu}>
+                <li
+                  className={styles.AvatarDropDown_MenuItem}
+                  onClick={handleLogout}
+                >
+                  <Icon
+                    className={styles.AvatarDropDown_MenuItemIcon}
+                    type="Exit"
+                  />
+                  <div className={styles.AvatarDropDown_MenuItemText}>
+                    Выйти
+                  </div>
+                </li>
+              </ul>
             </DropDown>
           </div>
         ) : (

@@ -1,14 +1,5 @@
 import axios from "axios";
-import {
-  AUTHENTICATED_SUCCESS,
-  AUTHENTICATED_FAIL,
-  LOGOUT,
-  PASSWORD_RESET_SUCCESS,
-  PASSWORD_RESET_FAIL,
-  PASSWORD_RESET_CONFIRM_SUCCESS,
-  PASSWORD_RESET_CONFIRM_FAIL,
-  ActionTypes,
-} from "./actionTypes";
+import { ActionTypes } from "./actionTypes";
 import {
   IPayloadSetUserToken,
   IPayloadSetUser,
@@ -16,6 +7,7 @@ import {
   IActionSetUser,
   IPayloadSignup,
   IActionUserSignup,
+  IActionUserLogout,
 } from "./types";
 
 export const setUserToken = (
@@ -64,11 +56,9 @@ export const verify = (uid, token: string) => async dispatch => {
   }
 };
 
-export const logout = () => dispatch => {
-  dispatch({
-    type: LOGOUT,
-  });
-};
+export const logout = (): IActionUserLogout => ({
+  type: ActionTypes.LOGOUT,
+});
 
 export const checkAuthenticated = () => async dispatch => {
   if (localStorage.getItem("access")) {
@@ -88,21 +78,21 @@ export const checkAuthenticated = () => async dispatch => {
       );
       if (response.data.code !== "token_not_valid") {
         dispatch({
-          type: AUTHENTICATED_SUCCESS,
+          type: ActionTypes.AUTHENTICATED_SUCCESS,
         });
       } else {
         dispatch({
-          type: AUTHENTICATED_FAIL,
+          type: ActionTypes.AUTHENTICATED_FAIL,
         });
       }
     } catch (error) {
       dispatch({
-        type: AUTHENTICATED_FAIL,
+        type: ActionTypes.AUTHENTICATED_FAIL,
       });
     }
   } else {
     dispatch({
-      type: AUTHENTICATED_SUCCESS,
+      type: ActionTypes.AUTHENTICATED_SUCCESS,
     });
   }
 };
@@ -122,11 +112,11 @@ export const reset_password = (email: string) => async dispatch => {
       config
     );
     dispatch({
-      type: PASSWORD_RESET_SUCCESS,
+      type: ActionTypes.PASSWORD_RESET_SUCCESS,
     });
   } catch (error) {
     dispatch({
-      type: PASSWORD_RESET_FAIL,
+      type: ActionTypes.PASSWORD_RESET_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
@@ -152,11 +142,11 @@ export const reset_password_confirm =
         config
       );
       dispatch({
-        type: PASSWORD_RESET_CONFIRM_SUCCESS,
+        type: ActionTypes.PASSWORD_RESET_CONFIRM_SUCCESS,
       });
     } catch (error) {
       dispatch({
-        type: PASSWORD_RESET_CONFIRM_FAIL,
+        type: ActionTypes.PASSWORD_RESET_CONFIRM_FAIL,
         payload:
           error.response && error.response.data.detail
             ? error.response.data.detail

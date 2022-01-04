@@ -82,11 +82,27 @@ function* fetchUserSignup({ payload }: ISagaUserSignupProps) {
   }
 }
 
+function* fetchUserLogout() {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const responseUserLogout = (yield call(accountApi.fetchLogout)) as string;
+    yield put(actionCreators.logout());
+    localStorage.removeItem("account");
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
 export function* watch(): Generator<
   AllEffect<ForkEffect<never>>,
   void,
   unknown
 > {
   yield all([takeLatest(ActionTypes.LOGIN, fetchUserToken)]);
+  yield all([takeLatest(ActionTypes.FETCH_LOGOUT, fetchUserLogout)]);
   yield all([takeLatest(ActionTypes.SIGNUP, fetchUserSignup)]);
 }
