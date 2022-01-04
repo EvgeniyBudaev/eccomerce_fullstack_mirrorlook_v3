@@ -90,6 +90,7 @@ function* fetchUserLogout() {
     const responseUserLogout = (yield call(accountApi.fetchLogout)) as string;
     yield put(actionCreators.logout());
     localStorage.removeItem("account");
+    localStorage.removeItem("access");
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));

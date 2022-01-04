@@ -72,8 +72,12 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   });
 
   const handleClickOutsideDropDown = (event: MouseEvent) => {
-    if (isDropDownOpen && !refToggleDropDown.current.contains(event.target)) {
-      setIsDropDownOpen(false);
+    if (isDropDownOpen) {
+      if (refToggleDropDown.current) {
+        if (!refToggleDropDown.current.contains(event.target)) {
+          setIsDropDownOpen(false);
+        }
+      }
     }
   };
 
