@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import classnames from "classnames";
-import {getInitial, setAtToStringAndPx} from "utils/string";
+import { getInitial, setAtToStringAndPx } from "utils/string";
 import styles from "./Avatar.module.scss";
 
 export interface IAvatarProps {
@@ -12,6 +12,7 @@ export interface IAvatarProps {
   image?: string;
   size?: number;
   user?: string;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Avatar: React.FC<IAvatarProps> = ({
@@ -22,6 +23,7 @@ export const Avatar: React.FC<IAvatarProps> = ({
   image,
   size = 24,
   user,
+  onClick,
 }) => {
   const sizeInner = `${size}px`;
   const avatarRef = useRef(null);
@@ -76,7 +78,11 @@ export const Avatar: React.FC<IAvatarProps> = ({
   };
 
   return (
-    <div className={classnames(styles.Avatar, className)} ref={avatarRef}>
+    <div
+      className={classnames(styles.Avatar, className)}
+      ref={avatarRef}
+      onClick={onClick}
+    >
       <div className={classnames(styles.Inner)}>{renderContent()}</div>
     </div>
   );

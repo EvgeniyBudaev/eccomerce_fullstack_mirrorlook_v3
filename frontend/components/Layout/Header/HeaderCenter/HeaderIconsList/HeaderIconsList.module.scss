@@ -33,6 +33,7 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+  position: relative;
   text-align: center;
   max-width: 94px;
   width: 100%;
@@ -83,6 +84,11 @@
   background-color: $color-beige;
   border: 1px solid $color-beige;
   border-radius: 50%;
+}
+
+.AvatarDropDown {
+  height: max-content;
+  width: max-content;
 }
 
 @media (max-width: 768px) {

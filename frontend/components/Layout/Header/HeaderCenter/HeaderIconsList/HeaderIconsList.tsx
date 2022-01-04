@@ -1,8 +1,8 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
-import { Avatar, Icon } from "ui-kit";
+import { Avatar, DropDown, Icon } from "ui-kit";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ICartState } from "ducks/cart";
 import { IAccount } from "api/types/account";
@@ -21,8 +21,10 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   const [cartId, setCartId] = useState("");
   const [cartItemsCountTotal, setCartItemsCountTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const account = useTypedSelector(state => state.account);
   const cart = useTypedSelector(state => state.cart);
+  const refToggleDropDown = useRef(null);
 
   const getAccount = (account: IAccount) => {
     return account;
@@ -57,6 +59,23 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
     fetchCartItemsCountTotal(cart);
   }, [cart]);
 
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutsideDropDown);
+    return () => {
+      window.removeEventListener("click", handleClickOutsideDropDown);
+    };
+  });
+
+  const handleClickOutsideDropDown = (event: MouseEvent) => {
+    if (isDropDownOpen && !refToggleDropDown.current.contains(event.target)) {
+      setIsDropDownOpen(false);
+    }
+  };
+
+  const handleToggleDropDown = () => {
+    setIsDropDownOpen(prevState => !prevState);
+  };
+
   return (
     <div
       className={classNames(styles.HeaderIconsList, className, {
@@ -89,10 +108,16 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
         )}
       >
         {isAuthenticated ? (
-          <Avatar
-            user={isAuthenticated ? account.user.first_name : null}
-            size={46}
-          />
+          <div className={styles.AvatarDropDown} ref={refToggleDropDown}>
+            <Avatar
+              user={isAuthenticated ? account.user.first_name : null}
+              size={46}
+              onClick={handleToggleDropDown}
+            />
+            <DropDown className="DropDownUser" isOpen={isDropDownOpen}>
+              <div>Logout</div>
+            </DropDown>
+          </div>
         ) : (
           <Link href={ROUTES.LOGIN}>
             <a className={styles.IconLink}>

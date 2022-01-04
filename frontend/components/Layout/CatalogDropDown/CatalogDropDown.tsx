@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { ForwardedRef, forwardRef } from "react";
 import classNames from "classnames";
+import { ROUTES } from "constants/routes";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import styles from "./CatalogDropDown.module.scss";
@@ -16,7 +17,7 @@ export interface ICatalogDropDownProps {
 export const CatalogDropDown = forwardRef(
   (
     { className }: ICatalogDropDownProps,
-    ref: ForwardedRef<HTMLInputElement>
+    ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
     const { hasMounted } = useMounted();
     const scroll = useTypedSelector(state => state.scroll);
@@ -32,7 +33,7 @@ export const CatalogDropDown = forwardRef(
         <div className={styles.CatalogDropDownContainer}>
           <div className={styles.CatalogDropDownList}>
             <div className={styles.CatalogDropDownListItem}>
-              <Link href={`/mirrors`}>
+              <Link href={ROUTES.MIRRORS}>
                 <a>
                   <Image
                     className={styles.CatalogDropDownListItemImage}

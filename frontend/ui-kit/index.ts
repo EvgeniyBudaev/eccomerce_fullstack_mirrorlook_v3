@@ -5,6 +5,7 @@ import { AlertType } from "./Alert";
 import Avatar from "./Avatar";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
+import DropDown from "./DropDown";
 import FormFieldYMap from "./FormFieldYMap";
 import Hamburger from "./Hamburger";
 import Icon from "./Icon";
@@ -36,6 +37,7 @@ export {
   Avatar,
   Button,
   Checkbox,
+  DropDown,
   FormField,
   FormFieldYMap,
   Hamburger,
