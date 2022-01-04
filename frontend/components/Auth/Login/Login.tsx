@@ -126,7 +126,7 @@ export const Login: React.FC = () => {
                 register={register}
                 error={errorMessage(
                   errors.email?.message,
-                  error?.response.data?.detail
+                  error?.response?.data?.detail
                 )}
                 isFocused={isFocused.email}
                 isRequired

@@ -204,7 +204,9 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errorEmailMessage(
                   errors.email?.message,
-                  error?.response.data?.email[0]
+                  error?.response.data?.email
+                    ? error?.response.data?.email[0]
+                    : ""
                 )}
                 isFocused={isFocused.email}
                 isRequired

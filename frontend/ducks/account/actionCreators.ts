@@ -27,7 +27,7 @@ export const signup = (payload: IPayloadSignup): IActionUserSignup => ({
   payload,
 });
 
-export const verify = (uid, token: string) => async dispatch => {
+export const verify = (uid: string, token: string) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -42,12 +42,12 @@ export const verify = (uid, token: string) => async dispatch => {
       config
     );
     dispatch({
-      type: ActionTypes.ACTIVATION_SUCCESS,
+      type: ActionTypes.ACTIVATION,
       payload: response.data,
     });
   } catch (error) {
     dispatch({
-      type: ActionTypes.ACTIVATION_FAIL,
+      type: ActionTypes.ACTIVATION,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

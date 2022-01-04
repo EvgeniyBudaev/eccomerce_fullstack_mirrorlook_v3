@@ -1,6 +1,6 @@
 import axios from "axios";
 import { backendBase } from "constants/paths";
-import { ISagaUserSignupPayload } from "ducks/account";
+import { ISagaUserSignupPayload, ISagaUserVerifyPayload } from "ducks/account";
 import {
   IFetchUserResponse,
   IFetchTokenResponse,
@@ -65,6 +65,27 @@ export const fetchUserSignup = async ({
   });
   const response = await axios.post<IFetchSignupResponse>(
     `${backendBase}api/v1/auth/users/`,
+    body,
+    config
+  );
+  return response.data;
+};
+
+export const fetchUserActivation = async ({
+  token,
+  uid,
+}: ISagaUserVerifyPayload): Promise<string> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    token,
+    uid,
+  });
+  const response = await axios.post<string>(
+    `${backendBase}api/v1/auth/users/activation/`,
     body,
     config
   );

@@ -25,17 +25,16 @@ export const fetchOrderCreate = async (
 };
 
 export const fetchSendingConfirmOrder = async (
-  data: IFetchSendingConfirmOrderRequest
+  payload: IFetchSendingConfirmOrderRequest
 ): Promise<IFetchSendingConfirmOrderResponse> => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchSendingConfirmOrderResponse>(
-    `${baseUrl}api/v1/sending-confirm-order/`,
-    data,
+    `${backendBase}api/v1/sending-confirm-order/`,
+    payload,
     config
   );
 
