@@ -106,7 +106,7 @@ export const Signup: React.FC = () => {
 
   useEffect(() => {
     if (!isNull(isAuthenticated) && isAuthenticated === false) {
-      router.push("/activate");
+      router.push(ROUTES.LOGIN);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
