@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -25,6 +25,7 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
   const [canAddComment, setCanAddComment] = useState(false);
   const [comments, setComments] = useState<IComment[]>([]);
   const [error, setError] = useState("");
+  const [needRequestIndicator, setNeedRequestIndicator] = useState(0);
   const [showComments, setShowComments] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const loading = useTypedSelector(state => state.loading);
@@ -59,7 +60,7 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
         });
     };
     void getCommentsByReview();
-  }, [dispatch, reviewId]);
+  }, [dispatch, needRequestIndicator, reviewId]);
 
   const renderRatingText = (rating: number): string => {
     switch (rating) {
@@ -90,6 +91,10 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
   const handleToggleListComments = () => {
     setShowComments(prevState => !prevState);
   };
+
+  const requestCommentSend = useCallback(() => {
+    setNeedRequestIndicator(needRequestIndicator + 1);
+  }, [setNeedRequestIndicator, needRequestIndicator]);
 
   if (isLoading) return <Spinner />;
 
@@ -169,6 +174,7 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
               ref={textAreaRef}
               reviewId={reviewId}
               userId={userId}
+              onRequestCommentSend={requestCommentSend}
             />
           </div>
         )}

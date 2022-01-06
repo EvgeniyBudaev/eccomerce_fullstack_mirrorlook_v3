@@ -15,7 +15,7 @@ export interface IRadioCardPaymentMethodProps {
 export const RadioCardPaymentMethod: React.FC<IRadioCardPaymentMethodProps> = ({
   className,
   name,
-  value = "Картой онлайн",
+  value = "Картой",
   isActive,
   onChoice,
 }) => {

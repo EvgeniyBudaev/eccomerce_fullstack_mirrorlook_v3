@@ -4,6 +4,11 @@ import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
+import {
+  setUnhandledError,
+  setUnhandledClearError,
+} from "ducks/unhandledError";
+import { setLoading, unsetLoading } from "ducks/loading";
 import { ActionTypes, IPayloadOrderRecipientSave } from "ducks/order";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
@@ -13,7 +18,7 @@ import { Button, Icon, Modal, Spinner } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { IFetchOrderResponse } from "api/types/order";
 import { IUserAccount } from "api/types/account";
-import { AlertError } from "utils/alert";
+import { AlertError, AlertSuccess } from "utils/alert";
 import { OrderProductsItem } from "./OrderProductsItem/OrderProductsItem";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
 import styles from "./Order.module.scss";
@@ -21,8 +26,8 @@ import styles from "./Order.module.scss";
 export const Order: React.FC = () => {
   const CARD = "card";
   const CASH = "cash";
-  const CARD_TEXT = "Картой онлайн";
-  const CASH_TEXT = "Картой или наличными при получении";
+  const CARD_TEXT = "Картой при получении";
+  const CASH_TEXT = "Наличными при получении";
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [preliminaryPaymentMethod, setPreliminaryPaymentMethod] =
     useState(CARD);
@@ -95,12 +100,14 @@ export const Order: React.FC = () => {
     requestOrderSendToEmail();
   };
 
-  const handleOrderSendToEmail = useCallback(
-    (
-      orderInfo: IFetchOrderResponse,
-      order_user: IPayloadOrderRecipientSave,
-      user: IUserAccount
-    ) => {
+  const handleOrderSendToEmail = async (
+    orderInfo: IFetchOrderResponse,
+    order_user: IPayloadOrderRecipientSave,
+    user: IUserAccount
+  ) => {
+    dispatch(setUnhandledClearError());
+    dispatch(setLoading());
+    try {
       const bodyEmail = `
       Здравствуйте!
   
@@ -118,19 +125,23 @@ export const Order: React.FC = () => {
       
       Общая сумма заказа: ${orderInfo.total_price} ₽
       `;
-      console.log("Письмо отправлено!");
       dispatch({
         type: ActionTypes.FETCH_ORDER_SEND_TO_EMAIL,
         payload: {
           customer_email: isAuthenticated ? user?.email : order_user?.email,
           message: bodyEmail,
-          subject: `Заказ № ${orderInfo.id} успешно оформлен`,
+          subject: `Заказ № ${orderInfo.id} успешно оформлен. Скоро с Вами свяжется менеджер для уточнения.`,
         },
       });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [dispatch]
-  );
+      AlertSuccess(
+        "Ваш заказ был оформлен. На Ваш email отправлено подтверждение."
+      );
+    } catch (error) {
+      dispatch(setUnhandledError(error));
+    } finally {
+      dispatch(unsetLoading());
+    }
+  };
 
   const handleOpenModal = () => {
     setIsOpenModal(true);

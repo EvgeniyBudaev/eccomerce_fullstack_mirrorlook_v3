@@ -8,6 +8,10 @@ import classNames from "classnames";
 import { fetchReviewCreate } from "api/review";
 import { ROUTES } from "constants/routes";
 import { setLoading, unsetLoading } from "ducks/loading";
+import {
+  setUnhandledClearError,
+  setUnhandledError,
+} from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
 import { Button, Icon, Spinner } from "ui-kit";
@@ -32,7 +36,6 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
   className,
   product,
 }) => {
-  const [error, setError] = useState("");
   const [stateForm, setStateForm] = useState<IStateForm>({
     advantage: "",
     author: null,
@@ -47,13 +50,15 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
   const pathReview = path.replace(/add/g, "");
   const loading = useTypedSelector(state => state.loading);
   const { isLoading } = loading;
+  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const { error } = unhandledError;
   const account = useTypedSelector(state => state.account);
   const { access, user } = account;
   const userId = user && user.id;
 
   useEffect(() => {
     if (error) {
-      AlertError("Не удалось отправить отзыв!", error);
+      AlertError("Не удалось отправить отзыв!", error.message);
     }
   }, [error]);
 
@@ -66,7 +71,7 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
   };
 
   const handleCreateReview = async (stateForm: IStateForm) => {
-    setError("");
+    dispatch(setUnhandledClearError());
     dispatch(setLoading());
     try {
       const payload = {
@@ -76,7 +81,7 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
       await fetchReviewCreate(access, payload);
       router.push(pathReview);
     } catch (error) {
-      setError(error.message);
+      dispatch(setUnhandledError(error));
     } finally {
       dispatch(unsetLoading());
     }

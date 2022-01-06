@@ -10,6 +10,7 @@ import { IReview } from "types/review";
 import { Button } from "ui-kit";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
 import styles from "./ReviewsPanel.module.scss";
+import {useMounted} from "../../../hooks/useMounted";
 
 export interface IReviewsPanelProps {
   className?: string;
@@ -44,15 +45,19 @@ export const ReviewsPanel: React.FC<IReviewsPanelProps> = ({
   const account = useTypedSelector(state => state.account);
   const { isAuthenticated, user } = account;
   const userId = user && user.id;
+  const { hasMounted } = useMounted();
   const wasSendReview = useMemo(() => {
     if (entities && entities[0]) {
       const productTitle = entities[0].product.title;
-      const isReview = entities.filter(
-        item => item.product.title === productTitle && item.author.id === userId
-      );
+      const isReview =
+        hasMounted &&
+        entities.filter(
+          item =>
+            item.product.title === productTitle && item.author.id === userId
+        );
       return !isEmpty(isReview);
     }
-  }, [entities, userId]);
+  }, [entities, hasMounted, userId]);
   const router = useRouter();
   const path = router.asPath;
 

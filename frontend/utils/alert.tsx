@@ -12,3 +12,14 @@ export const AlertError = (
       position: toast.POSITION.TOP_RIGHT,
     }
   );
+
+export const AlertSuccess = (
+  title?: string,
+  description?: string
+): React.ReactText =>
+  toast.success(
+    <Alert title={title} description={description} type={AlertType.Success} />,
+    {
+      position: toast.POSITION.TOP_RIGHT,
+    }
+  );

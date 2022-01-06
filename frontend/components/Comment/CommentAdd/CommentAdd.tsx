@@ -4,6 +4,10 @@ import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { fetchCommentCreate } from "api/comment";
 import { setLoading, unsetLoading } from "ducks/loading";
+import {
+  setUnhandledClearError,
+  setUnhandledError,
+} from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Avatar, Button, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
@@ -22,6 +26,7 @@ export interface ICommentAddProps {
   lastName?: string;
   reviewId: number;
   userId: number;
+  onRequestCommentSend?: () => void;
 }
 
 export const CommentAdd = forwardRef(
@@ -33,18 +38,20 @@ export const CommentAdd = forwardRef(
       lastName,
       reviewId,
       userId,
+      onRequestCommentSend,
     }: ICommentAddProps,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
-    const [error, setError] = useState("");
     const [commentary, setCommentary] = useState("");
     const loading = useTypedSelector(state => state.loading);
     const { isLoading } = loading;
+    const unhandledError = useTypedSelector(state => state.unhandledError);
+    const { error } = unhandledError;
     const dispatch = useDispatch();
 
     useEffect(() => {
       if (error) {
-        AlertError("Не удалось добавить комментарий!", error);
+        AlertError("Не удалось добавить комментарий!", error.message);
       }
     }, [error]);
 
@@ -53,7 +60,7 @@ export const CommentAdd = forwardRef(
     };
 
     const handleCreateComment = async (stateForm: IStateForm) => {
-      setError("");
+      dispatch(setUnhandledClearError());
       dispatch(setLoading());
       try {
         const payload = {
@@ -61,8 +68,9 @@ export const CommentAdd = forwardRef(
           author: userId,
         };
         await fetchCommentCreate(access, payload);
+        onRequestCommentSend();
       } catch (error) {
-        setError(error.message);
+        dispatch(setUnhandledError(error));
       } finally {
         dispatch(unsetLoading());
       }

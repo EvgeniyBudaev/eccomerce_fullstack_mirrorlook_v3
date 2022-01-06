@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classnames from "classnames";
 import { getInitial, setAtToStringAndPx } from "utils/string";
 import styles from "./Avatar.module.scss";
@@ -17,16 +17,23 @@ export interface IAvatarProps {
 
 export const Avatar: React.FC<IAvatarProps> = ({
   className,
-  altImage,
+  altImage = "",
   backgroundColor = "#E9E9ED",
   color = "#0A0A0B",
-  image,
+  image = "",
   size = 24,
-  user,
+  user = "",
   onClick,
 }) => {
+  const [imageAvatar, setImageAvatar] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
   const sizeInner = `${size}px`;
   const avatarRef = useRef(null);
+
+  useEffect(() => {
+    setImageAvatar(image);
+    setUserAvatar(user);
+  }, [image, user]);
 
   useEffect(() => {
     if (avatarRef.current) {
@@ -52,9 +59,9 @@ export const Avatar: React.FC<IAvatarProps> = ({
     }
   }, [backgroundColor, color, size, user]);
 
-  const renderContent = () => {
+  const renderContent = (user: string, image: string) => {
     if (user && !image) {
-      return <div>{getInitial(user)}</div>;
+      return getInitial(user);
     } else if (!user && image) {
       return (
         <Image
@@ -83,7 +90,9 @@ export const Avatar: React.FC<IAvatarProps> = ({
       ref={avatarRef}
       onClick={onClick}
     >
-      <div className={classnames(styles.Inner)}>{renderContent()}</div>
+      <div className={classnames(styles.Inner)}>
+        {renderContent(userAvatar, imageAvatar)}
+      </div>
     </div>
   );
 };
