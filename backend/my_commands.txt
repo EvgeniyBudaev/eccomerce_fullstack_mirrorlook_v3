@@ -67,3 +67,6 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 3. Создать файл .env
 SECRET_KEY=wqwewqe
+
+Невозможно загрузить файл, так как выполнение сценариев отключено в этой системе.
+Set-ExecutionPolicy Unrestricted -Force
