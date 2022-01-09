@@ -27,4 +27,20 @@
     display: inline-block;
     color: $color-suit-gray;
   }
+
+  &Controls {
+    display: flex;
+    margin: 16px 0 0;
+  }
+
+  &Control {
+    display: inline-block;
+    color: $color-beige;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
 }

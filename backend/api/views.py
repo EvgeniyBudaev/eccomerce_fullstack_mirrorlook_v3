@@ -145,7 +145,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     pagination_class = StorePagination
     permission_classes = (IsAuthorOrAdministratorOrReadOnly,)
     filter_backends = (DjangoFilterBackend,)
-    lookup_field = 'product_slug'
     filterset_class = ReviewFilter
 
 
@@ -157,5 +156,4 @@ class CommentViewSet(viewsets.ModelViewSet):
     pagination_class = StorePagination
     permission_classes = (IsAuthorOrAdministratorOrReadOnly,)
     filter_backends = (DjangoFilterBackend,)
-    lookup_field = 'review_id'
     filterset_class = CommentFilter

@@ -35,10 +35,10 @@ export default function MirrorReviewsPage(
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const productId = params.slug;
+  const productSlug = params.slug;
   try {
     const url = encodeURI(
-      `${backendBase}api/v1/reviews/?product_slug=${productId}`
+      `${backendBase}api/v1/reviews/?product_slug=${productSlug}`
     );
     const { data: response } = await axios.get<IFilterResponse<IReview>>(url);
     const { entities, pageItemsCount, totalItemsCount } = response;

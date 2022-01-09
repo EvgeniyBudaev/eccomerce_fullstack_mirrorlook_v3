@@ -5,12 +5,12 @@ import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
 import { RatingStars } from "components";
 import { ROUTES } from "constants/routes";
+import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { IReview } from "types/review";
 import { Button } from "ui-kit";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
 import styles from "./ReviewsPanel.module.scss";
-import {useMounted} from "../../../hooks/useMounted";
 
 export interface IReviewsPanelProps {
   className?: string;

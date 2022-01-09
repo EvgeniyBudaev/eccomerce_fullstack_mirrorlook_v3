@@ -39,3 +39,22 @@ export const fetchCommentsByReview = async (
 
   return response.data;
 };
+
+export const fetchCommentDelete = async (
+  access: string,
+  commentId: number
+): Promise<number> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${access}`,
+      Accept: "application/json",
+    },
+  };
+  const response = await axios.delete<number>(
+    `${backendBase}api/v1/comments/${commentId}/`,
+    config
+  );
+
+  return response.status;
+};

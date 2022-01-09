@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Avg
 from rest_framework import serializers
 from api.fields import Base64ImageField
 from store.models import (Attribute, Cart, CartItem, Catalog, Category,
@@ -26,6 +27,7 @@ class ProductSerializer(serializers.ModelSerializer):
     catalog_slug = serializers.SerializerMethodField()
     image = Base64ImageField()
     attributes = AttributeSerializer(many=True, read_only=True)
+    rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -39,6 +41,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_catalog_slug(self, obj):
         return obj.category.catalog.catalog_slug
+
+    def get_rating(self, obj):
+        return obj.reviews.aggregate(Avg('rating'))['rating__avg']
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
