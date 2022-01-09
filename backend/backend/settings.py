@@ -180,6 +180,14 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'api.renderers.UTF8CharsetJSONRenderer',
     ),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '10000/day',  # Лимит для UserRateThrottle
+        'anon': '10000/day',  # Лимит для AnonRateThrottle
+    },
 }
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
