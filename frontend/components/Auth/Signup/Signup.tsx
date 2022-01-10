@@ -10,12 +10,12 @@ import isEmpty from "lodash/isEmpty";
 import isNull from "lodash/isNull";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { Button, FormField, Spinner } from "ui-kit";
-import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Signup.module.scss";
 
 export interface ISignupForm {

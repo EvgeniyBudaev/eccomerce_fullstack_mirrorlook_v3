@@ -4,6 +4,10 @@ import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
+import { IUserAccount } from "api/types/account";
+import { IFetchOrderResponse } from "api/types/order";
+import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
+import { ROUTES } from "constants/routes";
 import {
   setUnhandledError,
   setUnhandledClearError,
@@ -12,13 +16,9 @@ import { setLoading, unsetLoading } from "ducks/loading";
 import { ActionTypes, IPayloadOrderRecipientSave } from "ducks/order";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
-import { ROUTES } from "constants/routes";
 import { Button, Icon, Modal, Spinner } from "ui-kit";
-import { numberWithSpaces } from "utils/numberWithSpaces";
-import { IFetchOrderResponse } from "api/types/order";
-import { IUserAccount } from "api/types/account";
 import { AlertError, AlertSuccess } from "utils/alert";
+import { numberWithSpaces } from "utils/numberWithSpaces";
 import { OrderProductsItem } from "./OrderProductsItem/OrderProductsItem";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
 import styles from "./Order.module.scss";

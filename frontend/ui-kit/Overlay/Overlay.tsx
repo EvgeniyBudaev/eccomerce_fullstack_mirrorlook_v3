@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
-// стили в global.scss
 
 export interface IOverlayProps {
   className?: string;

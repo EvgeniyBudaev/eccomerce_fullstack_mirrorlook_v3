@@ -6,12 +6,12 @@ import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
 import { ROUTES } from "constants/routes";
+import { ActionTypes, ICartState } from "ducks/cart";
+import { setUnhandledClearError } from "ducks/unhandledError";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
 import { Button } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { ActionTypes, ICartState } from "ducks/cart";
-import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorsListItem.module.scss";
 
 export interface IMirrorsListItemProps {

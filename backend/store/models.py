@@ -160,6 +160,9 @@ class Product(models.Model):
     count_in_stock = models.PositiveIntegerField(null=True, blank=True,
                                                  default=1,
                                                  verbose_name='Кол-во товара')
+    quantity_bought = models.PositiveIntegerField(null=True, blank=True,
+                                        default=0,
+                                        verbose_name='Купленное кол-во товара')
     description = models.TextField(null=True, blank=True,
                                    verbose_name='Описание товара')
     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,

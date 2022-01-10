@@ -1,6 +1,10 @@
 .Collections {
   margin: 32px 0;
 
+  &Wrapper {
+    width: 100%;
+  }
+
   &Inner {
     display: grid;
     gap: 12px;

@@ -4,12 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
-import { Avatar, DropDown, Icon } from "ui-kit";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { ActionTypes } from "ducks/account";
-import { ICartState } from "ducks/cart";
 import { IAccount } from "api/types/account";
 import { ROUTES } from "constants/routes";
+import { ActionTypes } from "ducks/account";
+import { ICartState } from "ducks/cart";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { Avatar, DropDown, Icon } from "ui-kit";
 import styles from "./HeaderIconsList.module.scss";
 
 export interface IHeaderIconsListProps {
@@ -86,7 +86,6 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   };
 
   const handleLogout = () => {
-    console.log("EXIT");
     dispatch({
       type: ActionTypes.FETCH_LOGOUT,
     });

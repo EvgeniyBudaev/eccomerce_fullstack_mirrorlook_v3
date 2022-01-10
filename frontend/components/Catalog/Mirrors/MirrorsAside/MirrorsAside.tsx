@@ -3,9 +3,9 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 import isEmpty from "lodash/isEmpty";
 import isNil from "lodash/isNil";
-import { Accordion, Button, Checkbox, IconButton, Overlay } from "ui-kit";
-import { TRANSITION } from "constants/transition";
 import { FilterBarMobile } from "components";
+import { TRANSITION } from "constants/transition";
+import { Accordion, Button, Checkbox, IconButton, Overlay } from "ui-kit";
 import styles from "./MirrorsAside.module.scss";
 
 export interface ICheckedMirrors {

@@ -20,7 +20,15 @@ export const SidebarMobile: React.FC = () => {
             <a className={styles.SidebarMobileLink}>
               {isAuthenticated ? (
                 <>
-                  <Avatar className={styles.SidebarMobileAvatar} size={32} />
+                  <Avatar
+                    className={styles.SidebarMobileAvatar}
+                    size={32}
+                    user={
+                      isAuthenticated && account.user
+                        ? account.user.first_name
+                        : null
+                    }
+                  />
                   <div className={styles.SidebarMobileLinkText}>
                     <div
                       className={classNames(

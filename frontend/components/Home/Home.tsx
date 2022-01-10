@@ -1,18 +1,20 @@
+import dinamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { Header } from "components/Layout/Header";
-import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
+import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { Advantages } from "./Advantages";
 import { Article } from "./Article";
 import { Benefits } from "./Benefits";
-import { Collections } from "./Collections";
 import styles from "./Home.module.scss";
+
+const Collections = dinamic(() => import("./Collections"));
 
 const mainSlider1 = "/images/models-0.jpg";
 const mainSlider2 = "/images/models-19.jpg";

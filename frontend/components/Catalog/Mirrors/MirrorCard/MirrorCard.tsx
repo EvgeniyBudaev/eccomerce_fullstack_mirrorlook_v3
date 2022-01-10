@@ -5,14 +5,14 @@ import isNull from "lodash/isNull";
 import { RatingNumber } from "components";
 import { Error404 } from "components/Error";
 import { ROUTES } from "constants/routes";
+import { ActionTypes, ICartState } from "ducks/cart";
+import { setUnhandledClearError } from "ducks/unhandledError";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
-import { numberWithSpaces } from "utils/numberWithSpaces";
 import { Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
-import { ActionTypes, ICartState } from "ducks/cart";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { setUnhandledClearError } from "ducks/unhandledError";
+import { numberWithSpaces } from "utils/numberWithSpaces";
 import styles from "./MirrorCard.module.scss";
 
 export interface IMirrorCardProps {

@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { numberWithSpaces } from "utils/numberWithSpaces";
-import { getDeclination } from "utils/declinations";
-import { Button, Icon, Spinner } from "ui-kit";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
 import { useMounted } from "hooks/useMounted";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { Button, Icon, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getDeclination } from "utils/declinations";
+import { numberWithSpaces } from "utils/numberWithSpaces";
 import { CartItem } from "./CartItem/CartItem";
 import styles from "./Cart.module.scss";
 

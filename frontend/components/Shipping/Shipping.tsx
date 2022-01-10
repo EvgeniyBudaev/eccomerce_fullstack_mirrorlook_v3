@@ -11,13 +11,13 @@ import {
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
+import { ROUTES } from "constants/routes";
+import { Marker } from "components";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, FormFieldYMap, Spinner } from "ui-kit";
-import { ROUTES } from "constants/routes";
-import { Marker } from "components";
 import { AlertError } from "utils/alert";
 import PickMap, { PickMapState } from "../YMap/PickMap";
 import { GeoSearchSuggestion } from "../YMap/GeoSearch";

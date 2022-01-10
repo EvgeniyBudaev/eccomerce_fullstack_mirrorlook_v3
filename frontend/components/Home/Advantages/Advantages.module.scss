@@ -3,6 +3,10 @@
 .Advantages {
   margin: 32px 0;
 
+  &Wrapper {
+    width: 100%;
+  }
+
   &Container {
     max-width: 1110px;
     width: 100%;

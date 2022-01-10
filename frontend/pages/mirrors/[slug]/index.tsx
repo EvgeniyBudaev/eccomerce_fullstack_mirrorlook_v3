@@ -1,13 +1,14 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
 import { IFilterResponse } from "api/types";
-import { IMirror } from "types/mirror";
-import { IReview } from "types/review";
 import { Layout } from "components";
 import { MirrorCard } from "components/Catalog/Mirrors/MirrorCard";
 import { backendBase } from "constants/paths";
+import { IMirror } from "types/mirror";
+import { IReview } from "types/review";
 import { AlertError } from "utils/alert";
 
 interface IMirrorDetailProps {
@@ -30,10 +31,33 @@ export default function MirrorDetail(props: IMirrorDetailProps): JSX.Element {
   }, [error]);
 
   return (
-    <Layout>
-      <AlertContainer />
-      <MirrorCard mirror={mirrorResponse} reviewsCount={reviewsCount} />
-    </Layout>
+    <>
+      <Head>
+        <meta
+          name="description"
+          content={
+            mirrorResponse.title + " | Интернет-магазин зеркал MirrorLook"
+          }
+        />
+        <meta
+          property="og:title"
+          content={
+            mirrorResponse.title + " | Интернет-магазин зеркал MirrorLook"
+          }
+        />
+        <meta
+          property="og:description"
+          content={
+            mirrorResponse.title + " | Интернет-магазин зеркал MirrorLook"
+          }
+        />
+        <title>{mirrorResponse.title + " | MirrorLook"}</title>
+      </Head>
+      <Layout>
+        <AlertContainer />
+        <MirrorCard mirror={mirrorResponse} reviewsCount={reviewsCount} />
+      </Layout>
+    </>
   );
 }
 

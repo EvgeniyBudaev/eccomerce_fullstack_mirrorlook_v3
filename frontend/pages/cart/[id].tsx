@@ -1,10 +1,11 @@
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios from "axios";
+import { IFetchItemToCartResponse } from "api/types/cart";
 import { Cart, Layout } from "components";
 import { backendBase } from "constants/paths";
-import { IFetchItemToCartResponse } from "api/types/cart";
 import { AlertError } from "utils/alert";
 
 interface ICartDetailsProps {
@@ -22,10 +23,27 @@ export default function CartDetailsPage(props: ICartDetailsProps): JSX.Element {
   }, [error]);
 
   return (
-    <Layout>
-      <AlertContainer />
-      <Cart />
-    </Layout>
+    <>
+      <Head>
+        <meta
+          name="description"
+          content="Корзина | Интернет-магазин зеркал MirrorLook"
+        />
+        <meta
+          property="og:title"
+          content="Корзина | Интернет-магазин зеркал MirrorLook"
+        />
+        <meta
+          property="og:description"
+          content="Корзина | Интернет-магазин зеркал MirrorLook"
+        />
+        <title>Корзина | MirrorLook</title>
+      </Head>
+      <Layout>
+        <AlertContainer />
+        <Cart />
+      </Layout>
+    </>
   );
 }
 

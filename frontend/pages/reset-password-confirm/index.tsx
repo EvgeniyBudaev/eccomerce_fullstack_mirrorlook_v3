@@ -1,8 +1,9 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { reset_password_confirm } from "ducks/account";
 import { Layout } from "components";
+import { reset_password_confirm } from "ducks/account";
 
 interface IFormData {
   new_password: string;
@@ -31,31 +32,48 @@ export default function ResetPasswordConfirmPage(): JSX.Element {
   };
 
   return (
-    <Layout>
-      <h1>Потверждение сброса пароля</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            placeholder="Новый пароль"
-            name="new_password"
-            value={new_password}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Подтверждение нового пароля"
-            name="re_new_password"
-            value={re_new_password}
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">Потверждение сброса пароля</button>
-      </form>
-    </Layout>
+    <>
+      <Head>
+        <meta
+          name="description"
+          content="Подтверждение сброса пароля | Интернет-магазин зеркал MirrorLook"
+        />
+        <meta
+          property="og:title"
+          content="Подтверждение сброса пароля | Интернет-магазин зеркал MirrorLook"
+        />
+        <meta
+          property="og:description"
+          content="Подтверждение сброса пароля | Интернет-магазин зеркал MirrorLook"
+        />
+        <title>Подтверждение сброса пароля | MirrorLook</title>
+      </Head>
+      <Layout>
+        <h1>Подтверждение сброса пароля</h1>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <input
+              type="text"
+              placeholder="Новый пароль"
+              name="new_password"
+              value={new_password}
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Подтверждение нового пароля"
+              name="re_new_password"
+              value={re_new_password}
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit">Потверждение сброса пароля</button>
+        </form>
+      </Layout>
+    </>
   );
 }
