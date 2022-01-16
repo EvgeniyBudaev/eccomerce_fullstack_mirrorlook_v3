@@ -227,7 +227,7 @@ $overlayOpacity: 0.6;
 
   &.enter {
     background: transparent;
-    opacity: $overlayOpacity;
+    opacity: 0;
     visibility: hidden;
   }
 
@@ -247,31 +247,8 @@ $overlayOpacity: 0.6;
 
   &.exit-active {
     background: transparent;
-    opacity: $overlayOpacity;
+    opacity: 0;
     visibility: hidden;
-  }
-}
-
-/* ----- Компонент затемнения в поиске ----- */
-$searchOverlayOpacity: 0.2;
-
-.SearchOverlay {
-  opacity: $searchOverlayOpacity;
-
-  &.enter {
-    opacity: $searchOverlayOpacity;
-  }
-
-  &.enter-active {
-    opacity: $searchOverlayOpacity;
-  }
-
-  &.exit {
-    opacity: $searchOverlayOpacity;
-  }
-
-  &.exit-active {
-    opacity: $searchOverlayOpacity;
   }
 }
 

@@ -84,6 +84,13 @@ export const Signup: React.FC = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.back();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
   const onSubmit = (data: ISignupForm) => {
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     if (data.password === data.re_password) {

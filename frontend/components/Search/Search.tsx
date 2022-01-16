@@ -100,12 +100,7 @@ export const Search: React.FC<ISearchProps> = ({
           </div>
         </CSSTransition>
       </div>
-      <Overlay
-        className="SearchOverlay"
-        timeout={transition}
-        isActive={isActive}
-        onClick={handleBlur}
-      />
+      <Overlay timeout={transition} isActive={isActive} onClick={handleBlur} />
     </>
   );
 };
