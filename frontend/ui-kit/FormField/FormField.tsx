@@ -86,6 +86,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
               [styles.Input__active]: isFocused,
               [styles.Input__error]: error,
             })}
+            autoComplete="on"
             name={name}
             type={handleType(type)}
             error={error}
