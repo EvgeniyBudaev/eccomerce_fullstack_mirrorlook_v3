@@ -54,7 +54,7 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
     }
   };
 
-  const handlePageChange = currentButton => {
+  const handlePageChange = (currentButton: number) => {
     if (
       currentButton === -100 ||
       currentButton === -99 ||
