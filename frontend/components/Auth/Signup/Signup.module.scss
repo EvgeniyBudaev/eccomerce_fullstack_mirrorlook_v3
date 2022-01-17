@@ -27,6 +27,12 @@
 .SectionCenterContent_Title {
   @include roboto-32-bold;
   margin-bottom: 25px;
+  text-align: center;
+}
+
+.SectionCenter_Control {
+  display: flex;
+  justify-content: center;
 }
 
 .SectionCenter_Button {
@@ -34,6 +40,9 @@
 }
 
 .SectionCenter_Registration {
+  display: flex;
+  justify-content: center;
+  
   span {
     margin-right: 10px;
   }

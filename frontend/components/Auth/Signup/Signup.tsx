@@ -243,13 +243,15 @@ export const Signup: React.FC = () => {
                 onFocus={handleFocus}
               />
             </div>
-            <Button
-              className={styles.SectionCenter_Button}
-              type="submit"
-              onClick={() => {}}
-            >
-              Зарегистрироваться
-            </Button>
+            <div className={styles.SectionCenter_Control}>
+              <Button
+                className={styles.SectionCenter_Button}
+                type="submit"
+                onClick={() => {}}
+              >
+                Зарегистрироваться
+              </Button>
+            </div>
           </form>
           <div className={styles.SectionCenter_Registration}>
             <span>Есть аккаунт?</span>
