@@ -9,18 +9,24 @@ import { Footer } from "./Footer";
 import styles from "./Layout.module.scss";
 
 export interface ILayoutProps {
+  className?: string;
   children?: ReactNode;
   title?: string;
+  is404?: boolean;
 }
 
-export const Layout: React.FC<ILayoutProps> = ({ children }) => {
+export const Layout: React.FC<ILayoutProps> = ({
+  className,
+  children,
+  is404,
+}) => {
   const { hasMounted } = useMounted();
   const router = useRouter();
   const scroll = useTypedSelector(state => state.scroll);
   const { isScroll } = hasMounted && scroll;
 
   return (
-    <div className={styles.Layout}>
+    <div className={classNames(styles.Layout, className)}>
       <div className={styles.Wrapper}>
         <div className={styles.Content}>
           <Header />
@@ -32,11 +38,17 @@ export const Layout: React.FC<ILayoutProps> = ({ children }) => {
             {router.pathname === ROUTES.HOME ? (
               <div className={styles.ContainerHomePage}>{children}</div>
             ) : (
-              <div className={styles.Container}>{children}</div>
+              <div
+                className={classNames(styles.Container, {
+                  [styles.Container__is404]: is404,
+                })}
+              >
+                {children}
+              </div>
             )}
           </main>
         </div>
-        {router.pathname !== ROUTES.SHIPPING && <Footer />}
+        {router.pathname !== ROUTES.SHIPPING && !is404 && <Footer />}
       </div>
     </div>
   );
