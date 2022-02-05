@@ -1123,11 +1123,7 @@ export const Error404: React.FC = () => {
                       gradientUnits="userSpaceOnUse"
                     >
                       <stop stopColor="white" />
-                      <stop
-                        offset="1"
-                        stopColor="white"
-                        stopOpacity="0"
-                      />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
                     </linearGradient>
                     <linearGradient
                       id="paint12_linear"
@@ -1193,11 +1189,7 @@ export const Error404: React.FC = () => {
                       gradientUnits="userSpaceOnUse"
                     >
                       <stop stopColor="white" />
-                      <stop
-                        offset="1"
-                        stopColor="white"
-                        stopOpacity="0"
-                      />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
                     </linearGradient>
                     <linearGradient
                       id="paint18_linear"
