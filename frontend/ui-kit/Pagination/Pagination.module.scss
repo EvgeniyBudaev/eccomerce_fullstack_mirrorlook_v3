@@ -61,11 +61,10 @@
 .PaginationArrowButton {
   margin: 0 16px;
 
-  .Icon {
-    svg {
-      width: 6px;
-      height: 12px;
-    }
+  svg {
+    width: 6px;
+    height: 12px;
+    overflow: visible;
   }
 
   &:active {

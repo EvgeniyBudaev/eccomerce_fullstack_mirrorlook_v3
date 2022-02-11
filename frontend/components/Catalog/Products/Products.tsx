@@ -6,7 +6,7 @@ import { CatalogNames } from "constants/names";
 import { IConsole } from "types/console";
 import { IPaging } from "types/filter";
 import { IMirror } from "types/mirror";
-import { Pagination } from "ui-kit";
+import { Breadcrumbs, Pagination } from "ui-kit";
 import { ProductsList } from "./ProductsList";
 import styles from "./Products.module.scss";
 
@@ -95,6 +95,9 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
 
   return (
     <section className={styles.Products}>
+      <Breadcrumbs
+        getDefaultTextGenerator={() => productsResponse.catalogName}
+      />
       <div className={styles.Row}>
         <h1 className={styles.Title}>{productsResponse.catalogName}</h1>
         <span>

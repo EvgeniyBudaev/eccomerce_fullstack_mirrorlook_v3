@@ -18,6 +18,7 @@ import Enter from "ui-kit/assets/icons/Enter.svg";
 import Exit from "ui-kit/assets/icons/Exit.svg";
 import Factory from "ui-kit/assets/icons/Factory.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
+import Home from "ui-kit/assets/icons/Home.svg";
 import House from "ui-kit/assets/icons/House.svg";
 import LogoShort from "ui-kit/assets/icons/LogoShort.svg";
 import Mirror from "ui-kit/assets/icons/Mirror.svg";
@@ -51,6 +52,7 @@ export type IconType =
   | "Exit"
   | "Factory"
   | "Filter"
+  | "Home"
   | "House"
   | "LogoShort"
   | "Mirror"
@@ -84,6 +86,7 @@ export const iconTypes = new Map([
   ["Exit", <Exit key={newGuid()} />],
   ["Factory", <Factory key={newGuid()} />],
   ["Filter", <Filter key={newGuid()} />],
+  ["Home", <Home key={newGuid()} />],
   ["House", <House key={newGuid()} />],
   ["LogoShort", <LogoShort key={newGuid()} />],
   ["Mirror", <Mirror key={newGuid()} />],

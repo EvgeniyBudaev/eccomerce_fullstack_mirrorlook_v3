@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import isNull from "lodash/isNull";
 import { RatingNumber } from "components";
@@ -9,7 +9,7 @@ import { ActionTypes, ICartState } from "ducks/cart";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
-import { Button, Spinner } from "ui-kit";
+import { Breadcrumbs, Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
 import { numberWithSpaces } from "utils/numberWithSpaces";
@@ -37,6 +37,18 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
   //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
   //const { error } = unhandledError;
+
+  const getDefaultTextCrumbGenerator = useCallback(
+    (subpath: string) => {
+      return (
+        {
+          mirrors: mirror.catalog,
+          [mirror.product_slug]: mirror.title,
+        }[subpath] || subpath
+      );
+    },
+    [mirror.catalog, mirror.product_slug, mirror.title]
+  );
 
   const handleAddToCart = () => {
     dispatch({
@@ -101,6 +113,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
 
   return (
     <div className={styles.MirrorCard}>
+      <Breadcrumbs getDefaultTextGenerator={getDefaultTextCrumbGenerator} />
       <h1 className={styles.Title}>{mirror.title}</h1>
       <div className={styles.Navigation}>
         <RatingNumber rating={mirror.rating} />
