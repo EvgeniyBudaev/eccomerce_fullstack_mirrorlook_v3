@@ -9,6 +9,7 @@ import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { Advantages } from "./Advantages";
 import { Article } from "./Article";
 import { Benefits } from "./Benefits";
@@ -45,7 +46,8 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка создания корзины!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

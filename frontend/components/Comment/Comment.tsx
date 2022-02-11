@@ -12,6 +12,7 @@ import { useTypedSelector } from "hooks/useTypedSelector";
 import { IComment } from "types/comment";
 import { Avatar, Spinner } from "ui-kit";
 import { AlertError, AlertSuccess } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { formatCreatedDate } from "utils/date";
 import styles from "./Comment.module.scss";
 
@@ -32,7 +33,8 @@ export const Comment: React.FC<ICommentProps> = ({ className, comment }) => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Не удалось удалить комментарий!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

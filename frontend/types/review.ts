@@ -1,3 +1,4 @@
+import { IError } from "types/error";
 import { IMirror } from "types/mirror";
 import { IPaging } from "./filter";
 
@@ -22,7 +23,7 @@ export interface IReview {
 }
 
 export interface IReviewsResponse {
-  error?: string;
+  error?: IError;
   entities: IReview[];
   paging: IPaging;
 }

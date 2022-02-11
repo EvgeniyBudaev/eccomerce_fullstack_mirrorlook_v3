@@ -18,6 +18,7 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, Modal, Spinner } from "ui-kit";
 import { AlertError, AlertSuccess } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { OrderProductsItem } from "./OrderProductsItem/OrderProductsItem";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
@@ -77,7 +78,8 @@ export const Order: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка оформления заказа!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

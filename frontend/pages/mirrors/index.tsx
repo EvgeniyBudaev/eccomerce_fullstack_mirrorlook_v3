@@ -2,32 +2,37 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { IFilterResponse } from "api/types";
 import { Layout } from "components";
 import { Products } from "components/Catalog";
 import { CatalogNames } from "constants/names";
 import { backendBase } from "constants/paths";
+import { IError } from "types/error";
 import { IFilter, IPaging } from "types/filter";
 import { IMirror } from "types/mirror";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 
 interface IMirrorsProps {
   catalogName: string;
   entities: IMirror[];
-  error?: string;
+  error?: IError;
   paging: IPaging;
 }
 
 export default function MirrorsPage(props: IMirrorsProps): JSX.Element {
   const { error } = props;
   if (error) {
-    console.error("Ошибка! (frontend/pages/mirrors/index.tsx): ", error);
+    console.error(
+      "Ошибка! (frontend/pages/mirrors/index.tsx): ",
+      error.error.message
+    );
   }
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка на странице зеркал!", error);
+      AlertError(error.error.body);
     }
   }, [error]);
 
@@ -87,12 +92,14 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
         },
       },
     };
-  } catch (error) {
+  } catch (e) {
+    const error = e as AxiosError;
+    const errorByStatus = getErrorByStatus(error);
     return {
       props: {
         catalogName: CatalogNames.MIRRORS,
         entities: [],
-        error: error.message,
+        error: errorByStatus,
         paging: {
           pageItemsCount: 0,
           pageNumber: 1,

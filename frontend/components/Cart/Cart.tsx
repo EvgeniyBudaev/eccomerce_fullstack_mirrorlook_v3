@@ -8,6 +8,7 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { getDeclination } from "utils/declinations";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import { CartItem } from "./CartItem/CartItem";
@@ -38,7 +39,8 @@ export const Cart: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка в корзине!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

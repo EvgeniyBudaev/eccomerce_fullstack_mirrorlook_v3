@@ -8,6 +8,7 @@ import { SearchProductsType } from "api/types/search";
 import * as loadingActionCreators from "ducks/loading";
 import { Icon, Overlay } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { SearchProductList } from "./SearchProductList";
 import styles from "./Search.module.scss";
 
@@ -51,7 +52,8 @@ export const Search: React.FC<ISearchProps> = ({
         })
         .catch(error => {
           dispatch(loadingActionCreators.unsetLoading());
-          AlertError("Ошибка поиска!", error.message);
+          const errorByStatus = getErrorByStatus(error);
+          AlertError(errorByStatus.error.body);
         });
     },
     // eslint-disable-next-line

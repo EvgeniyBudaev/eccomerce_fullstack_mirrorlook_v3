@@ -19,6 +19,7 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, FormFieldYMap, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import PickMap, { PickMapState } from "../YMap/PickMap";
 import { GeoSearchSuggestion } from "../YMap/GeoSearch";
 import styles from "./Shipping.module.scss";
@@ -97,7 +98,8 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка оформления доставки!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

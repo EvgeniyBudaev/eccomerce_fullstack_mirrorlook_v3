@@ -2,15 +2,17 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Layout } from "components";
 import ReviewsAdd from "components/Reviews/ReviewsAdd";
 import { backendBase } from "constants/paths";
+import { IError } from "types/error";
 import { IMirror } from "types/mirror";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 
 interface IMirrorReviewsAddPageProps {
-  error?: string;
+  error?: IError;
   product: IMirror;
 }
 
@@ -21,13 +23,13 @@ export default function MirrorReviewsAddPage({
   if (error) {
     console.error(
       "Ошибка! (frontend/pages/mirrors/slug/reviews/add/index.tsx): ",
-      error
+      error.error.message
     );
   }
 
   useEffect(() => {
     if (error) {
-      AlertError("Не удалось получить id продукта!", error);
+      AlertError(error.error.body);
     }
   }, [error]);
 
@@ -67,11 +69,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         product: response,
       },
     };
-  } catch (error) {
+  } catch (e) {
+    const error = e as AxiosError;
+    const errorByStatus = getErrorByStatus(error);
     return {
       props: {
         product: null,
-        error: error.message,
+        error: errorByStatus,
       },
     };
   }

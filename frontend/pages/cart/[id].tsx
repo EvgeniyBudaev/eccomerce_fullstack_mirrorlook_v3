@@ -2,15 +2,17 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { IFetchItemToCartResponse } from "api/types/cart";
 import { Cart, Layout } from "components";
 import { backendBase } from "constants/paths";
+import { IError } from "types/error";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 
 interface ICartDetailsProps {
   entities: IFetchItemToCartResponse[];
-  error?: string;
+  error?: IError;
 }
 
 export default function CartDetailsPage(props: ICartDetailsProps): JSX.Element {
@@ -18,7 +20,7 @@ export default function CartDetailsPage(props: ICartDetailsProps): JSX.Element {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка в корзине! ", error);
+      AlertError(error.error.body);
     }
   }, [error]);
 
@@ -57,11 +59,13 @@ export const getServerSideProps: GetServerSideProps<
     return {
       props: { entities: data },
     };
-  } catch (error) {
+  } catch (e) {
+    const error = e as AxiosError;
+    const errorByStatus = getErrorByStatus(error);
     return {
       props: {
         entities: [],
-        error: error.message,
+        error: errorByStatus,
       },
     };
   }

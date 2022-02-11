@@ -15,6 +15,7 @@ import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Signup.module.scss";
 
@@ -80,7 +81,8 @@ export const Signup: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка регистрации!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

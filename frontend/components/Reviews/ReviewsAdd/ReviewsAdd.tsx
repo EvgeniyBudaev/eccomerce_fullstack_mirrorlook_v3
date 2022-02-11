@@ -16,6 +16,7 @@ import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
 import { Button, Icon, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import styles from "./ReviewsAdd.module.scss";
 
 export interface IReviewsAddProps {
@@ -58,7 +59,8 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
 
   useEffect(() => {
     if (error) {
-      AlertError("Не удалось отправить отзыв!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

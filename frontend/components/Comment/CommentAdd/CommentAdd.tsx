@@ -11,6 +11,7 @@ import {
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Avatar, Button, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import styles from "./CommentAdd.module.scss";
 
 interface IStateForm {
@@ -51,7 +52,8 @@ export const CommentAdd = forwardRef(
 
     useEffect(() => {
       if (error) {
-        AlertError("Не удалось добавить комментарий!", error.message);
+        const errorByStatus = getErrorByStatus(error);
+        AlertError(errorByStatus.error.body);
       }
     }, [error]);
 

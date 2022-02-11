@@ -12,6 +12,7 @@ import { setUnhandledClearError } from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import styles from "./Login.module.scss";
 
 interface ILoginForm {
@@ -54,7 +55,8 @@ export const Login: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка авторизации!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 
