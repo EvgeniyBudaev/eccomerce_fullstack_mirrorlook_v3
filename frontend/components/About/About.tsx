@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./About.module.scss";
 import { Breadcrumbs } from "ui-kit";
+import styles from "./About.module.scss";
 
 export const About: React.FC = () => {
   return (

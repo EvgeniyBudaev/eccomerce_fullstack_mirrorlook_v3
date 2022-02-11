@@ -1,9 +1,11 @@
 import React from "react";
+import { Breadcrumbs } from "ui-kit";
 import styles from "./Contacts.module.scss";
 
 export const Contacts: React.FC = () => {
   return (
     <section className={styles.Contacts}>
+      <Breadcrumbs getDefaultTextGenerator={() => "Контакты"} />
       <h1 className={styles.ContactsTitle}>Контакты</h1>
       <h2 className={styles.ContactsSubTitle}>Реквизиты:</h2>
       <div>
