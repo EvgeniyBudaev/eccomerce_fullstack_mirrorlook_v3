@@ -68,12 +68,12 @@ export const Home: React.FC = () => {
     return (
       <p>
         У вас есть вопросы? Пообщайтесь со специалистом по телефону
-        <Link href={"tel:+74999999999"}>
-          <a className={styles.ArticleLink}>+7 (499) 999-99-99</a>
+        <Link href={"tel:+79955053978"}>
+          <a className={styles.ArticleLink}>+7 (995) 505-39-78</a>
         </Link>
         или можете написать письмо на электронную почту
-        <Link href={"mailto:meta-home@gmail.com"}>
-          <a className={styles.ArticleLink}>meta-home@gmail.com</a>
+        <Link href={"mailto:mirror-look@gmail.com"}>
+          <a className={styles.ArticleLink}>mirror-look@gmail.com</a>
         </Link>
       </p>
     );
@@ -102,11 +102,11 @@ export const Home: React.FC = () => {
       <Article
         subTitle="У тебя есть вкус."
         text="Вдохновляйтесь красотой и комфортом стиля в интерьерах квартир,
-          частных домов и апартаментов. Компания Meta Home производит
+          частных домов и апартаментов. Компания Mirror Look производит
           качественные зеркала и эффектный декор для тех, кто находится в поиске
           баланса между стилем, удобством и высокой функциональностью каждого
           элемента обстановки."
-        title="Meta Home."
+        title="Mirror Look."
       />
       <Collections />
       <Article

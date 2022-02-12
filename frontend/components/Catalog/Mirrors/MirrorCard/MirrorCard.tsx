@@ -25,6 +25,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
   reviewsCount,
 }) => {
   const sliderImages = [
+    mirror.image,
     mirror.product_photo1,
     mirror.product_photo2,
     mirror.product_photo3,
@@ -146,15 +147,30 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
               <li>Цвет рамы: {mirror.attributes[0].frame_color}</li>
               <li>
                 Размер внешний, с рамой:{" "}
-                {mirror.attributes[0].height_with_frame} x{" "}
-                {mirror.attributes[0].width_with_frame} см
+                {mirror.attributes[0].height_with_frame &&
+                  mirror.attributes[0].width_with_frame && (
+                    <>
+                      {mirror.attributes[0].height_with_frame} x{" "}
+                      {mirror.attributes[0].width_with_frame} см
+                    </>
+                  )}
               </li>
               <li>
                 Размер зеркала без рамы:{" "}
-                {mirror.attributes[0].height_without_frame} x{" "}
-                {mirror.attributes[0].width_without_frame} см
+                {mirror.attributes[0].height_without_frame &&
+                  mirror.attributes[0].width_without_frame && (
+                    <>
+                      {mirror.attributes[0].height_without_frame} x{" "}
+                      {mirror.attributes[0].width_without_frame} см
+                    </>
+                  )}
               </li>
-              <li>Вес: {mirror.attributes[0].weight} кг</li>
+              <li>
+                Вес:{" "}
+                {mirror.attributes[0].weight
+                  ? `${mirror.attributes[0].weight} кг`
+                  : ""}
+              </li>
               <li>
                 Наличие фацета: {mirror.attributes[0].is_faced ? "Да" : "Нет"}
               </li>

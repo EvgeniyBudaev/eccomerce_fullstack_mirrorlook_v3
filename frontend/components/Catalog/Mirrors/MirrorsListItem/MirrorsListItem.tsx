@@ -112,9 +112,9 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
               <a>
                 <Image
                   className={styles.ContentImage}
-                  alt=""
+                  alt={mirror.title}
                   priority
-                  src={mirror.product_photo1}
+                  src={mirror.image}
                   width={imageResponsiveSizeWidth()}
                   height={imageResponsiveSizeHeight()}
                 />
@@ -156,21 +156,33 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Размер внешний, с рамой:</div>
               <div className={styles.ValueLine}>
-                {mirror.attributes[0].height_with_frame} x{" "}
-                {mirror.attributes[0].width_with_frame} см
+                {mirror.attributes[0].height_with_frame &&
+                  mirror.attributes[0].width_with_frame && (
+                    <>
+                      {mirror.attributes[0].height_with_frame} x{" "}
+                      {mirror.attributes[0].width_with_frame} см
+                    </>
+                  )}
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Размер зеркала без рамы:</div>
               <div className={styles.ValueLine}>
-                {mirror.attributes[0].height_without_frame} x{" "}
-                {mirror.attributes[0].width_without_frame} см
+                {mirror.attributes[0].height_without_frame &&
+                  mirror.attributes[0].width_without_frame && (
+                    <>
+                      {mirror.attributes[0].height_without_frame} x{" "}
+                      {mirror.attributes[0].width_without_frame} см
+                    </>
+                  )}
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Вес:</div>
               <div className={styles.ValueLine}>
-                {mirror.attributes[0].weight} кг
+                {mirror.attributes[0].weight
+                  ? `${mirror.attributes[0].weight} кг`
+                  : ""}
               </div>
             </li>
             <li className={styles.RowLine}>

@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
           <Logo className={styles.FooterLogo} />
         </div>
         <div className={styles.FooterCopy}>
-          <div className={styles.FooterText}>Meta Home ©&nbsp;2021</div>
+          <div className={styles.FooterText}>Mirror Look ©&nbsp;2022</div>
           <div className={styles.FooterText}>
             Webdesign by
             <Link href={"https://github.com/EvgeniyBudaev"}>

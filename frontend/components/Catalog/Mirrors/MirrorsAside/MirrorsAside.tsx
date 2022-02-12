@@ -74,7 +74,13 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
   const asideOptionsMirrors: IAsideOption[] = [
     {
       option: { optionNameRu: "Категория", optionNameOnBackend: "category" },
-      entities: ["Венецианские зеркала", "Напольные зеркала"],
+      entities: [
+        "Венецианские зеркала",
+        "Зеркала в полный рост",
+        "Зеркала в рамах",
+        "Зеркальные панно",
+        "Зеркала солнце",
+      ],
     },
     {
       option: { optionNameRu: "Форма", optionNameOnBackend: "form" },
@@ -83,13 +89,18 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
     {
       option: { optionNameRu: "Цвет", optionNameOnBackend: "frame_color" },
       entities: [
+        "Античная бронза",
         "Античное золото",
         "Античное серебро",
         "Бронза",
         "Золото",
         "Латунь",
+        "Никель",
         "Серебро",
+        "Сталь полированная",
         "Хром",
+        "Черный",
+        "Шампань",
       ],
     },
   ];

@@ -39,8 +39,8 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
         <div className={styles.Inner}>
           <div className={styles.InnerDesktop}>
             <div>
-              <Link href={"tel:+74999999999"}>
-                <a className={styles.Text}>+7 (499) 999-99-99</a>
+              <Link href={"tel:+79955053978"}>
+                <a className={styles.Text}>+7 (995) 505-39-78</a>
               </Link>
             </div>
             <Spacer />

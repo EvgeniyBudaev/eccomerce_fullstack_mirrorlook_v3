@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, {useCallback, useEffect} from "react";
+import React, { useCallback, useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
