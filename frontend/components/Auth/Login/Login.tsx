@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";

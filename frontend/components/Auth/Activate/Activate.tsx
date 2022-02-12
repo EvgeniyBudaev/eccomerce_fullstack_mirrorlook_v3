@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { AxiosError } from "axios";
 import classNames from "classnames";
 import { fetchUserActivation } from "api/account";
 import { ROUTES } from "constants/routes";
@@ -40,7 +41,8 @@ export const Activate: React.FC<IActivateProps> = ({ className }) => {
       };
       await fetchUserActivation(payload);
       router.push(ROUTES.LOGIN);
-    } catch (error) {
+    } catch (e) {
+      const error = e as AxiosError;
       setError(error.message);
     } finally {
       dispatch(unsetLoading());
