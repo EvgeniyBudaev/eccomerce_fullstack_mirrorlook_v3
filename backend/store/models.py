@@ -174,8 +174,10 @@ class Product(models.Model):
                                                  default=1,
                                                  verbose_name='Кол-во товара')
     quantity_bought = models.PositiveIntegerField(null=True, blank=True,
-                                        default=0,
-                                        verbose_name='Купленное кол-во товара')
+                                                  default=0,
+                                                  verbose_name='Купленное'
+                                                               ' кол-во'
+                                                               ' товара')
     description = models.TextField(null=True, blank=True,
                                    verbose_name='Описание товара')
     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,
@@ -361,11 +363,11 @@ class OrderUser(models.Model):
 class Review(models.Model):
     """Модель отзыва на продукт."""
     advantage = models.TextField(null=True, blank=True, default=None,
-                                verbose_name='Достоинства')
+                                 verbose_name='Достоинства')
     commentary = models.TextField(null=True, blank=True, default=None,
-                                verbose_name='Комментарий')
+                                  verbose_name='Комментарий')
     disadvantage = models.TextField(null=True, blank=True, default=None,
-                                verbose_name='Недостатки')
+                                    verbose_name='Недостатки')
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 verbose_name='Тип продукта',
                                 related_name='reviews')
@@ -402,7 +404,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Автор комментария')
     commentary = models.TextField(verbose_name='Комментарий к отзыву',
-                            help_text='Введите текст комментария')
+                                  help_text='Введите текст комментария')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
     date_updated = models.DateTimeField(auto_now=True, db_index=True,
