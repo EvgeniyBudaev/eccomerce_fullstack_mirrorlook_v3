@@ -268,8 +268,10 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['product'] = ProductSerializer(Product.objects.get(pk=data['product'])).data
-        data['author'] = UserSerializer(User.objects.get(pk=data['author'])).data
+        data['product'] = ProductSerializer(
+        Product.objects.get(pk=data['product'])).data
+        data['author'] = UserSerializer(
+        User.objects.get(pk=data['author'])).data
         return data
 
 
@@ -277,10 +279,13 @@ class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'commentary', 'review', 'author', 'date_created', 'date_updated')
+        fields = ('id', 'commentary', 'review', 'author', 'date_created',
+         'date_updated')
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['author'] = UserSerializer(User.objects.get(pk=data['author'])).data
-        data['review'] = ReviewSerializer(Review.objects.get(pk=data['review'])).data
+        data['author'] = UserSerializer(
+        User.objects.get(pk=data['author'])).data
+        data['review'] = ReviewSerializer(
+        Review.objects.get(pk=data['review'])).data
         return data

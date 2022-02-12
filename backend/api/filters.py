@@ -57,7 +57,8 @@ class ProductFilter(df_filters.FilterSet):
 
 
 class ReviewFilter(df_filters.FilterSet):
-    product_slug = CharFilterInFilter(field_name='product__product_slug', lookup_expr='in')
+    product_slug = CharFilterInFilter(field_name='product__product_slug',
+     lookup_expr='in')
 
     class Meta:
         model = Review
