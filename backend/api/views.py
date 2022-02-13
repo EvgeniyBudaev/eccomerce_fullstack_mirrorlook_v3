@@ -102,12 +102,13 @@ def sending_confirm_order(request):
     subject = data["subject"]
     message = data["message"]
     customer_email = data["customer_email"]
-    store_email = "budaev.e@gmail.com"
+    store_email = "infomirrorlook@gmail.com"
+    dev_email = "budaev.e@gmail.com"
 
     conn_params = dict(
         host="smtp.gmail.com",
         port=465,
-        username="budaev.e@gmail.com",
+        username="infomirrorlook@gmail.com",
         password=os.getenv('EMAIL_HOST_PASSWORD')
     )
 
@@ -116,7 +117,7 @@ def sending_confirm_order(request):
         body=message,
         from_email=store_email,
         # to=[customer_email]
-        to=[store_email, customer_email]
+        to=[store_email, customer_email, dev_email]
     )
 
     if subject and message and customer_email and store_email:
