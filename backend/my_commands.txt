@@ -32,8 +32,10 @@ python manage.py startapp app_name
 
 Создать миграцию
 python manage.py makemigrations
+python manage.py makemigrations support
 Запустить все миграции
 python manage.py migrate
+python manage.py migrate support
 
 Создать супер пользователя
 python manage.py createsuperuser
@@ -67,6 +69,3 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 3. Создать файл .env
 SECRET_KEY=wqwewqe
-
-Невозможно загрузить файл, так как выполнение сценариев отключено в этой системе.
-Set-ExecutionPolicy Unrestricted -Force

@@ -1,9 +1,9 @@
 import React from "react";
 import classNames from "classnames";
-import { CatalogNames } from "constants/names";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 import { MirrorsListItem } from "components/Catalog/Mirrors";
+import { CatalogNames } from "constants/names";
 import styles from "./ProductsList.module.scss";
 
 export interface IProductsListProps {

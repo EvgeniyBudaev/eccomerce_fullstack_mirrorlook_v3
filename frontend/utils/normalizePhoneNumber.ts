@@ -1,4 +1,4 @@
-export const normalizePhoneNumber = (telephoneNumber: string): string => {
+export const normalizePhoneNumber = (telephoneNumber: string) => {
   const PATTERN = /\D/g;
   let formattedInputValue = "";
   const inputNumbersValue = telephoneNumber.replace(PATTERN, "");

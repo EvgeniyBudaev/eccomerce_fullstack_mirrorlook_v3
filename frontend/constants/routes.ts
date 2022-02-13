@@ -1,11 +1,8 @@
 export enum ROUTES {
   CART = "/cart/",
-  HOME = "/",
-  LOGIN = "/login",
+  CONSOLES = "/consoles/",
   MIRRORS = "/mirrors/",
   ORDER = "/order",
   RECIPIENT = "/recipient",
-  REVIEWS = "/reviews/",
   SHIPPING = "/shipping",
-  SIGNUP = "/signup",
 }

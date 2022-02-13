@@ -67,34 +67,21 @@ class Attribute(models.Model):
 
     MIRROR_MATERIAL = (
         ('Влагостойкое серебряное зеркало', 'Влагостойкое серебряное зеркало'),
-        ('Влагостойкое серебряное сферическое зеркало',
-         'Влагостойкое серебряное сферическое зеркало'),
     )
 
     FRAME_MATERIAL = (
-        ('Дерево', 'Дерево'),
-        ('Дерево/Полирезин', 'Дерево/Полирезин'),
-        ('Металл', 'Металл'),
         ('Основа МДФ', 'Основа МДФ'),
-        ('Основа МДФ влагостойкий', 'Основа МДФ влагостойкий'),
-        ('Основа МДФ/Экокожа', 'Основа МДФ/Экокожа'),
         ('Полирезин', 'Полирезин'),
-        ('Полиуретан', 'Полиуретан'),
     )
 
     FRAME_COLOR = (
-        ('Античная бронза', 'Античная бронза'),
         ('Античное золото', 'Античное золото'),
         ('Античное серебро', 'Античное серебро'),
         ('Бронза', 'Бронза'),
         ('Золото', 'Золото'),
         ('Латунь', 'Латунь'),
-        ('Никель', 'Никель'),
         ('Серебро', 'Серебро'),
-        ('Сталь полированная', 'Сталь полированная'),
         ('Хром', 'Хром'),
-        ('Черный', 'Черный'),
-        ('Шампань', 'Шампань'),
     )
 
     form = models.CharField(max_length=64, null=True, blank=True,
@@ -150,7 +137,7 @@ class Product(models.Model):
     attributes = models.ManyToManyField('store.Attribute',
                                         verbose_name='Атрибуты',
                                         through='ProductAttribute')
-    title = models.CharField(max_length=200, null=True, default=None,
+    title = models.CharField(max_length=200, null=True, blank=True,
                              verbose_name='Наименование товара')
     product_slug = models.SlugField(max_length=255, unique=True,
                                     verbose_name='URL продукта')
@@ -173,11 +160,6 @@ class Product(models.Model):
     count_in_stock = models.PositiveIntegerField(null=True, blank=True,
                                                  default=1,
                                                  verbose_name='Кол-во товара')
-    quantity_bought = models.PositiveIntegerField(null=True, blank=True,
-                                                  default=0,
-                                                  verbose_name='Купленное'
-                                                               ' кол-во'
-                                                               ' товара')
     description = models.TextField(null=True, blank=True,
                                    verbose_name='Описание товара')
     rating = models.DecimalField(max_digits=7, decimal_places=2, null=True,
@@ -191,7 +173,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return str(self.title)
+        return self.title
 
 
 class ProductAttribute(models.Model):
@@ -362,22 +344,21 @@ class OrderUser(models.Model):
 
 class Review(models.Model):
     """Модель отзыва на продукт."""
-    advantage = models.TextField(null=True, blank=True, default=None,
-                                 verbose_name='Достоинства')
-    commentary = models.TextField(null=True, blank=True, default=None,
-                                  verbose_name='Комментарий')
-    disadvantage = models.TextField(null=True, blank=True, default=None,
-                                    verbose_name='Недостатки')
     product = models.ForeignKey(Product, on_delete=models.CASCADE,
                                 verbose_name='Тип продукта',
                                 related_name='reviews')
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                verbose_name='Покупатель',
                                related_name='reviews')
+    title = models.CharField(max_length=200, null=True, blank=True,
+                             verbose_name='Заголовок')
     rating = models.PositiveSmallIntegerField(
+        null=True, blank=True,
         verbose_name='Рейтинг',
         validators=[MinValueValidator(1),
                     MaxValueValidator(5)])
+    text = models.TextField(null=True, blank=True,
+                            verbose_name='Текст отзыва')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
     date_updated = models.DateTimeField(auto_now=True, db_index=True,
@@ -386,14 +367,32 @@ class Review(models.Model):
     class Meta:
         ordering = ['-date_created']
         constraints = [
-            models.UniqueConstraint(fields=['product', 'author'],
+            models.UniqueConstraint(fields=['title', 'author'],
                                     name='unique review')
         ]
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
     def __str__(self):
-        return str(self.date_created)
+        return str(self.title)
+
+
+class ReviewUser(models.Model):
+    class Meta:
+        verbose_name = 'Данные пользователя, который оставил отзыв'
+        verbose_name_plural = 'Данные пользователей, которые оставили отзывы'
+
+    review = models.OneToOneField(Review, on_delete=models.CASCADE, null=True,
+                                  related_name='review_user',
+                                  verbose_name='Пользователь')
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    phone_number = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.email
 
 
 class Comment(models.Model):
@@ -403,8 +402,8 @@ class Comment(models.Model):
                                related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='Автор комментария')
-    commentary = models.TextField(verbose_name='Комментарий к отзыву',
-                                  help_text='Введите текст комментария')
+    text = models.TextField(verbose_name='Комментарий к отзыву',
+                            help_text='Введите текст комментария')
     date_created = models.DateTimeField(auto_now_add=True, db_index=True,
                                         verbose_name='Дата создания')
     date_updated = models.DateTimeField(auto_now=True, db_index=True,

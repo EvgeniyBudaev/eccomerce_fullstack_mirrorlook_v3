@@ -180,14 +180,6 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'api.renderers.UTF8CharsetJSONRenderer',
     ),
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.UserRateThrottle',
-        'rest_framework.throttling.AnonRateThrottle',
-    ],
-    'DEFAULT_THROTTLE_RATES': {
-        'user': '10000/day',  # Лимит для UserRateThrottle
-        'anon': '10000/day',  # Лимит для AnonRateThrottle
-    },
 }
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
@@ -220,7 +212,7 @@ DJOSER = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=3650),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 

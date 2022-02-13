@@ -6,17 +6,12 @@ import styles from "./Logo.module.scss";
 
 export interface ILogoProps {
   className?: string;
-  isHomePage?: boolean;
 }
 
-export const Logo: React.FC<ILogoProps> = ({ className, isHomePage }) => {
+export const Logo: React.FC<ILogoProps> = ({ className }) => {
   return (
     <Link href={"/"}>
-      <a
-        className={classNames(styles.Logo, className, {
-          [styles.Logo__isHomePage]: isHomePage,
-        })}
-      >
+      <a className={classNames(styles.Logo, className)}>
         <LogoIcon />
       </a>
     </Link>

@@ -1,26 +1,12 @@
 @import "styles/index";
 
 .MirrorCard {
-  width: 100%;
 }
 
 .Title {
   @include roboto-24-bold;
   margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-.Navigation {
-  margin-bottom: 20px;
-
-  &Text {
-    color: $color-beige;
-    transition: all 0.15s;
-
-    &:hover {
-      color: $color-beige-hover;
-    }
-  }
+  margin-bottom: 30px;
 }
 
 .ProductMainInfo {
@@ -43,7 +29,7 @@
   width: 100%;
   height: max-content;
   border-radius: 4px;
-  box-shadow: $shadow-perimeter;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.06), 0 2px 2px 0 rgba(0, 0, 0, 0.12);
 
   &Title {
     display: inline-block;

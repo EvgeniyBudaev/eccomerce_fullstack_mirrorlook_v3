@@ -1,10 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Avg
 from rest_framework import serializers
 from api.fields import Base64ImageField
 from store.models import (Attribute, Cart, CartItem, Catalog, Category,
                           Comment, Order, OrderItem, OrderUser, Product,
-                          ProductAttribute, Review,
+                          ProductAttribute, Review, ReviewUser,
                           ShippingAddress)
 
 User = get_user_model()
@@ -27,7 +26,6 @@ class ProductSerializer(serializers.ModelSerializer):
     catalog_slug = serializers.SerializerMethodField()
     image = Base64ImageField()
     attributes = AttributeSerializer(many=True, read_only=True)
-    rating = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -41,9 +39,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def get_catalog_slug(self, obj):
         return obj.category.catalog.catalog_slug
-
-    def get_rating(self, obj):
-        return obj.reviews.aggregate(Avg('rating'))['rating__avg']
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
@@ -102,6 +97,9 @@ class CatalogSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
+    # product = ProductSerializer(many=False, read_only=True)
+    # product__description = serializers.SerializerMethodField()
+
     class Meta:
         model = CartItem
         fields = ('id', 'cart', 'product', 'quantity', 'date_created',
@@ -116,12 +114,14 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Cart
         fields = ('id', 'user', 'date_created', 'date_updated')
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ShippingAddress
         fields = ('id', 'order', 'address', 'apartment', 'floor', 'entrance',
@@ -132,6 +132,7 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = OrderItem
         fields = ('id', 'order', 'product', 'title', 'quantity', 'price',
@@ -142,6 +143,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderUserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = OrderUser
         fields = ('id', 'order', 'first_name', 'last_name', 'email',
@@ -192,7 +194,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
         # Создаем объект адреса доставки и соединяем с новым заказом.
         address, _ = ShippingAddress.objects.get_or_create(order=instance,
-                                                           **address_data)
+                                                           ** address_data)
 
         # Соединяем детали заказа с самим только что созданным заказом.
         for item in items:
@@ -248,37 +250,29 @@ class OrderSerializer(serializers.ModelSerializer):
         return super(OrderSerializer, self).update(instance, validated_data)
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ReviewUserSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'phone_number')
+        model = ReviewUser
+        fields = ('id', 'review', 'first_name', 'last_name', 'email',
+                  'phone_number',)
+        extra_kwargs = {
+            'review': {'write_only': True},
+        }
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    author = ReviewUserSerializer(read_only=True)
+
     class Meta:
         model = Review
-        fields = ('id', 'product', 'advantage', 'author', 'commentary',
-                  'disadvantage', 'rating', 'date_created', 'date_updated')
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        data['product'] = ProductSerializer(
-            Product.objects.get(pk=data['product'])).data
-        data['author'] = UserSerializer(
-            User.objects.get(pk=data['author'])).data
-        return data
+        fields = ('id', 'product', 'author', 'title', 'text', 'rating',
+                  'date_created', 'date_updated')
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    author = ReviewUserSerializer(read_only=True)
+
     class Meta:
         model = Comment
-        fields = ('id', 'commentary', 'review', 'author', 'date_created',
-                  'date_updated')
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        data['author'] = UserSerializer(
-            User.objects.get(pk=data['author'])).data
-        data['review'] = ReviewSerializer(
-            Review.objects.get(pk=data['review'])).data
-        return data
+        fields = ('id', 'text', 'author', 'date_created', 'date_updated')

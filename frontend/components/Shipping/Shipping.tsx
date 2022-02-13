@@ -11,15 +11,14 @@ import {
 import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
-import { ROUTES } from "constants/routes";
-import { Marker } from "components";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Icon, FormField, FormFieldYMap, Spinner } from "ui-kit";
+import { ROUTES } from "constants/routes";
+import { Marker } from "components";
 import { AlertError } from "utils/alert";
-import { getErrorByStatus } from "utils/error";
 import PickMap, { PickMapState } from "../YMap/PickMap";
 import { GeoSearchSuggestion } from "../YMap/GeoSearch";
 import styles from "./Shipping.module.scss";
@@ -98,8 +97,7 @@ export const Shipping: React.FC<IShippingProps> = ({
 
   useEffect(() => {
     if (error) {
-      const errorByStatus = getErrorByStatus(error);
-      AlertError(errorByStatus.error.body);
+      AlertError("Ошибка оформления доставки!", error.message);
     }
   }, [error]);
 

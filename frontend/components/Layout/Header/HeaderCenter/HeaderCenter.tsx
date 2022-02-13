@@ -1,21 +1,18 @@
-import Link from "next/link";
 import React, { useRef, useState } from "react";
-import classNames from "classnames";
-import { Logo, SidebarMobile } from "components";
-import { Button, Hamburger, Sidebar, Spacer } from "ui-kit";
+import { TRANSITION } from "constants/transition";
+import { Logo, Search, SidebarMobile } from "components";
+import { Button, Hamburger, Sidebar } from "ui-kit";
 import { HeaderIconsList } from "./HeaderIconsList";
 import styles from "./HeaderCenter.module.scss";
 
 export interface IHeaderCenterProps {
-  className?: string;
-  isHomePage?: boolean;
-  isScroll?: boolean;
+  isCatalogOpen?: boolean;
+  onCatalogToggle?: () => void;
 }
 
 export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
-  className,
-  isHomePage,
-  isScroll,
+  isCatalogOpen,
+  onCatalogToggle,
 }) => {
   const [isSidebar, setIsSidebar] = useState(false);
   const nodeRef = useRef(null);
@@ -29,55 +26,41 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
   };
 
   return (
-    <div
-      className={classNames(styles.HeaderCenter, className, {
-        [styles.HeaderCenter__isHomePage]: isHomePage,
-        [styles.HeaderCenter__isScroll]: isScroll,
-      })}
-    >
-      <div className={styles.Container}>
-        <div className={styles.Inner}>
-          <div className={styles.InnerDesktop}>
-            <div>
-              <Link href={"tel:+79955053978"}>
-                <a className={styles.Text}>+7 (995) 505-39-78</a>
-              </Link>
-            </div>
-            <Spacer />
-            <Logo isHomePage={isHomePage} />
-            <Spacer />
-            <HeaderIconsList
-              className={styles.Desktop}
-              isHomePage={isHomePage}
+    <div className={styles.HeaderCenter}>
+      <div className={styles.Inner}>
+        <div className={styles.InnerDesktop}>
+          <Logo />
+          <Button className={styles.ButtonCatalog} onClick={onCatalogToggle}>
+            <Hamburger
+              className={styles.ButtonCatalogHamburger}
+              color="white"
+              isActive={isCatalogOpen}
             />
-          </div>
-          <div className={styles.Mobile}>
-            <Button
-              className={classNames(styles.ButtonSidebar, {
-                [styles.ButtonSidebar__isHomePage]: isHomePage,
-              })}
-              onClick={handleSidebarOpen}
-            >
-              <Hamburger
-                className={styles.HamburgerSidebar}
-                color={isHomePage ? "white" : "black"}
-                isActive={isSidebar}
-                isHomePage={isHomePage}
-              />
-            </Button>
-            <Logo className={styles.LogoMobile} isHomePage={isHomePage} />
-            <HeaderIconsList
-              className={styles.HeaderIconsListMobile}
-              isHomePage={isHomePage}
-            />
-            <Sidebar
-              ref={nodeRef}
+            <div className={styles.ButtonCatalogText}>Каталог</div>
+          </Button>
+          <Search
+            className={styles.SearchControlsDesktop}
+            transition={TRANSITION}
+          />
+        </div>
+        <HeaderIconsList className={styles.Desktop} />
+        <div className={styles.Mobile}>
+          <Button className={styles.ButtonSidebar} onClick={handleSidebarOpen}>
+            <Hamburger
+              className={styles.HamburgerSidebar}
+              color="black"
               isActive={isSidebar}
-              onClose={handleSidebarClose}
-            >
-              <SidebarMobile />
-            </Sidebar>
-          </div>
+            />
+          </Button>
+          <Logo className={styles.LogoMobile} />
+          <HeaderIconsList className={styles.HeaderIconsListMobile} />
+          <Sidebar
+            ref={nodeRef}
+            isActive={isSidebar}
+            onClose={handleSidebarClose}
+          >
+            <SidebarMobile />
+          </Sidebar>
         </div>
       </div>
     </div>

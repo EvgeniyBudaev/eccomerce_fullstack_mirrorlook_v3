@@ -1,11 +1,9 @@
 import React from "react";
-import { Breadcrumbs } from "ui-kit";
 import styles from "./Help.module.scss";
 
 export const Help: React.FC = () => {
   return (
     <section className={styles.Help}>
-      <Breadcrumbs getDefaultTextGenerator={() => "Доставка и оплата"} />
       <h1 className={styles.HelpTitle}>Доставка и оплата</h1>
       <h2 className={styles.HelpSubTitle}>Как оформить заказ</h2>
       <p className={styles.HelpParagraph}>

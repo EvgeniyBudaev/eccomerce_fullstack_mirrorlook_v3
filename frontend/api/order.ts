@@ -10,6 +10,7 @@ import {
 export const fetchOrderCreate = async (
   order: IFetchOrderRequest
 ): Promise<IFetchOrderResponse> => {
+  console.log("order", order);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -20,23 +21,25 @@ export const fetchOrderCreate = async (
     order,
     config
   );
-
+  console.log("response.data", response.data);
   return response.data;
 };
 
 export const fetchSendingConfirmOrder = async (
-  payload: IFetchSendingConfirmOrderRequest
+  data: IFetchSendingConfirmOrderRequest
 ): Promise<IFetchSendingConfirmOrderResponse> => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+  const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
   const response = await axios.post<IFetchSendingConfirmOrderResponse>(
-    `${backendBase}api/v1/sending-confirm-order/`,
-    payload,
+    `${baseUrl}api/v1/sending-confirm-order/`,
+    data,
     config
   );
+  console.log("sending-confirm-order response", response);
 
   return response.data;
 };

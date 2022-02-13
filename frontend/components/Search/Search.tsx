@@ -3,25 +3,22 @@ import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
+import { Icon, Overlay } from "ui-kit";
 import * as searchApi from "api/search";
 import { SearchProductsType } from "api/types/search";
 import * as loadingActionCreators from "ducks/loading";
-import { Icon, Overlay } from "ui-kit";
 import { AlertError } from "utils/alert";
-import { getErrorByStatus } from "utils/error";
 import { SearchProductList } from "./SearchProductList";
 import styles from "./Search.module.scss";
 
 export interface ISearchProps {
   className?: string;
   transition?: number;
-  isHomePage?: boolean;
 }
 
 export const Search: React.FC<ISearchProps> = ({
   className,
   transition = 300,
-  isHomePage,
 }) => {
   const [isActive, setIsActive] = useState(false);
   const [productList, setProductList] = useState<SearchProductsType>([]);
@@ -43,7 +40,7 @@ export const Search: React.FC<ISearchProps> = ({
 
   const fetchSearchItems = useCallback(
     (searchedKeyword: string) => {
-      //dispatch(loadingActionCreators.setLoading());
+      dispatch(loadingActionCreators.setLoading());
       searchApi
         .fetchLiveProductsSearch({ searchedKeyword })
         .then(response => {
@@ -52,8 +49,7 @@ export const Search: React.FC<ISearchProps> = ({
         })
         .catch(error => {
           dispatch(loadingActionCreators.unsetLoading());
-          const errorByStatus = getErrorByStatus(error);
-          AlertError(errorByStatus.error.body);
+          AlertError("Ошибка поиска!", error.message);
         });
     },
     // eslint-disable-next-line
@@ -70,7 +66,6 @@ export const Search: React.FC<ISearchProps> = ({
       <div
         className={classNames(styles.Search, className, {
           [styles.Search__active]: isActive,
-          [styles.Search__isHomePage]: isHomePage,
         })}
       >
         <AlertContainer />
@@ -80,7 +75,7 @@ export const Search: React.FC<ISearchProps> = ({
               className={styles.SearchInput}
               autoComplete="off"
               name="search"
-              placeholder="Поиск"
+              placeholder="Искать товары"
               type="text"
               value={searchedKeyword}
               onBlur={handleBlur}
@@ -102,7 +97,12 @@ export const Search: React.FC<ISearchProps> = ({
           </div>
         </CSSTransition>
       </div>
-      <Overlay timeout={transition} isActive={isActive} onClick={handleBlur} />
+      <Overlay
+        className="SearchOverlay"
+        timeout={transition}
+        isActive={isActive}
+        onClick={handleBlur}
+      />
     </>
   );
 };

@@ -1,5 +1,14 @@
 import axios from "axios";
-import { ActionTypes } from "./actionTypes";
+import {
+  AUTHENTICATED_SUCCESS,
+  AUTHENTICATED_FAIL,
+  LOGOUT,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_CONFIRM_SUCCESS,
+  PASSWORD_RESET_CONFIRM_FAIL,
+  ActionTypes,
+} from "./actionTypes";
 import {
   IPayloadSetUserToken,
   IPayloadSetUser,
@@ -7,7 +16,6 @@ import {
   IActionSetUser,
   IPayloadSignup,
   IActionUserSignup,
-  IActionUserLogout,
 } from "./types";
 
 export const setUserToken = (
@@ -27,7 +35,7 @@ export const signup = (payload: IPayloadSignup): IActionUserSignup => ({
   payload,
 });
 
-export const verify = (uid: string, token: string) => async dispatch => {
+export const verify = (uid, token: string) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -42,12 +50,12 @@ export const verify = (uid: string, token: string) => async dispatch => {
       config
     );
     dispatch({
-      type: ActionTypes.ACTIVATION,
+      type: ActionTypes.ACTIVATION_SUCCESS,
       payload: response.data,
     });
   } catch (error) {
     dispatch({
-      type: ActionTypes.ACTIVATION,
+      type: ActionTypes.ACTIVATION_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
@@ -56,9 +64,11 @@ export const verify = (uid: string, token: string) => async dispatch => {
   }
 };
 
-export const logout = (): IActionUserLogout => ({
-  type: ActionTypes.LOGOUT,
-});
+export const logout = () => dispatch => {
+  dispatch({
+    type: LOGOUT,
+  });
+};
 
 export const checkAuthenticated = () => async dispatch => {
   if (localStorage.getItem("access")) {
@@ -78,21 +88,21 @@ export const checkAuthenticated = () => async dispatch => {
       );
       if (response.data.code !== "token_not_valid") {
         dispatch({
-          type: ActionTypes.AUTHENTICATED_SUCCESS,
+          type: AUTHENTICATED_SUCCESS,
         });
       } else {
         dispatch({
-          type: ActionTypes.AUTHENTICATED_FAIL,
+          type: AUTHENTICATED_FAIL,
         });
       }
     } catch (error) {
       dispatch({
-        type: ActionTypes.AUTHENTICATED_FAIL,
+        type: AUTHENTICATED_FAIL,
       });
     }
   } else {
     dispatch({
-      type: ActionTypes.AUTHENTICATED_SUCCESS,
+      type: AUTHENTICATED_SUCCESS,
     });
   }
 };
@@ -112,11 +122,11 @@ export const reset_password = (email: string) => async dispatch => {
       config
     );
     dispatch({
-      type: ActionTypes.PASSWORD_RESET_SUCCESS,
+      type: PASSWORD_RESET_SUCCESS,
     });
   } catch (error) {
     dispatch({
-      type: ActionTypes.PASSWORD_RESET_FAIL,
+      type: PASSWORD_RESET_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
@@ -142,11 +152,11 @@ export const reset_password_confirm =
         config
       );
       dispatch({
-        type: ActionTypes.PASSWORD_RESET_CONFIRM_SUCCESS,
+        type: PASSWORD_RESET_CONFIRM_SUCCESS,
       });
     } catch (error) {
       dispatch({
-        type: ActionTypes.PASSWORD_RESET_CONFIRM_FAIL,
+        type: PASSWORD_RESET_CONFIRM_FAIL,
         payload:
           error.response && error.response.data.detail
             ? error.response.data.detail

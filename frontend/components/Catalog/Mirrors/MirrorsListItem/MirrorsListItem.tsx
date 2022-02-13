@@ -5,13 +5,12 @@ import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
-import { ROUTES } from "constants/routes";
-import { ActionTypes, ICartState } from "ducks/cart";
-import { setUnhandledClearError } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
 import { Button } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { ActionTypes, ICartState } from "ducks/cart";
+import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorsListItem.module.scss";
 
 export interface IMirrorsListItemProps {
@@ -60,7 +59,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
       !isNull(currentCart.id) && (
         <Link
           href={{
-            pathname: `${ROUTES.CART}${currentCart.id}`,
+            pathname: `/cart/${currentCart.id}`,
           }}
         >
           <a className={styles.ButtonGoAtCart}>В корзине</a>
@@ -108,13 +107,13 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
       <div className={styles.Wrapper}>
         <div className={styles.Content}>
           <div className={styles.ContentImg}>
-            <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}`}>
+            <Link href={`/mirrors/${mirror.product_slug}`}>
               <a>
                 <Image
                   className={styles.ContentImage}
-                  alt={mirror.title}
+                  alt=""
                   priority
-                  src={mirror.image}
+                  src={mirror.product_photo1}
                   width={imageResponsiveSizeWidth()}
                   height={imageResponsiveSizeHeight()}
                 />
@@ -122,7 +121,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             </Link>
           </div>
           <div className={styles.ContentDescription}>
-            <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}`}>
+            <Link href={`/mirrors/${mirror.product_slug}`}>
               <a className={styles.ContentTitle}>{mirror.title}</a>
             </Link>
           </div>
@@ -131,7 +130,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
               {numberWithSpaces(parseInt(mirror.price))} ₽
             </li>
             <li className={styles.ContentTitleLine}>
-              <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}`}>
+              <Link href={`/mirrors/${mirror.product_slug}`}>
                 <a className={styles.ContentTitle}>{mirror.title}</a>
               </Link>
             </li>
@@ -156,33 +155,21 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Размер внешний, с рамой:</div>
               <div className={styles.ValueLine}>
-                {mirror.attributes[0].height_with_frame &&
-                  mirror.attributes[0].width_with_frame && (
-                    <>
-                      {mirror.attributes[0].height_with_frame} x{" "}
-                      {mirror.attributes[0].width_with_frame} см
-                    </>
-                  )}
+                {mirror.attributes[0].height_with_frame} x{" "}
+                {mirror.attributes[0].width_with_frame} см
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Размер зеркала без рамы:</div>
               <div className={styles.ValueLine}>
-                {mirror.attributes[0].height_without_frame &&
-                  mirror.attributes[0].width_without_frame && (
-                    <>
-                      {mirror.attributes[0].height_without_frame} x{" "}
-                      {mirror.attributes[0].width_without_frame} см
-                    </>
-                  )}
+                {mirror.attributes[0].height_without_frame} x{" "}
+                {mirror.attributes[0].width_without_frame} см
               </div>
             </li>
             <li className={styles.RowLine}>
               <div className={styles.LabelLine}>Вес:</div>
               <div className={styles.ValueLine}>
-                {mirror.attributes[0].weight
-                  ? `${mirror.attributes[0].weight} кг`
-                  : ""}
+                {mirror.attributes[0].weight} кг
               </div>
             </li>
             <li className={styles.RowLine}>

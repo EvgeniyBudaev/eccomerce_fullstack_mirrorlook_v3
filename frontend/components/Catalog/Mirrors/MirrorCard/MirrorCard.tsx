@@ -1,31 +1,23 @@
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import isNull from "lodash/isNull";
-import { RatingNumber } from "components";
 import { Error404 } from "components/Error";
-import { ROUTES } from "constants/routes";
-import { ActionTypes, ICartState } from "ducks/cart";
-import { setUnhandledClearError } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
 import { IMirror } from "types/mirror";
-import { Breadcrumbs, Button, Spinner } from "ui-kit";
-import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
-import { getDeclination, reviewDeclinations } from "utils/declinations";
 import { numberWithSpaces } from "utils/numberWithSpaces";
+import { Button, Spinner } from "ui-kit";
+import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
+import { ActionTypes, ICartState } from "ducks/cart";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { setUnhandledClearError } from "ducks/unhandledError";
 import styles from "./MirrorCard.module.scss";
 
 export interface IMirrorCardProps {
   mirror: IMirror;
-  reviewsCount: string | number;
 }
 
-export const MirrorCard: React.FC<IMirrorCardProps> = ({
-  mirror,
-  reviewsCount,
-}) => {
+export const MirrorCard: React.FC<IMirrorCardProps> = ({ mirror }) => {
   const sliderImages = [
-    mirror.image,
     mirror.product_photo1,
     mirror.product_photo2,
     mirror.product_photo3,
@@ -38,18 +30,6 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
   //const unhandledError = useTypedSelector(state => state.unhandledError);
   const { isLoading } = loading;
   //const { error } = unhandledError;
-
-  const getDefaultTextCrumbGenerator = useCallback(
-    (subpath: string) => {
-      return (
-        {
-          mirrors: mirror.catalog,
-          [mirror.product_slug]: mirror.title,
-        }[subpath] || subpath
-      );
-    },
-    [mirror.catalog, mirror.product_slug, mirror.title]
-  );
 
   const handleAddToCart = () => {
     dispatch({
@@ -83,7 +63,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
       !isNull(currentCart.id) && (
         <Link
           href={{
-            pathname: `${ROUTES.CART}${currentCart.id}`,
+            pathname: `/cart/${currentCart.id}`,
           }}
         >
           <a className={styles.ButtonGoAtCart}>Перейти в корзину</a>
@@ -114,18 +94,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
 
   return (
     <div className={styles.MirrorCard}>
-      <Breadcrumbs getDefaultTextGenerator={getDefaultTextCrumbGenerator} />
       <h1 className={styles.Title}>{mirror.title}</h1>
-      <div className={styles.Navigation}>
-        <RatingNumber rating={mirror.rating} />
-        <Link href={`${ROUTES.MIRRORS}${mirror.product_slug}/reviews`}>
-          <a className={styles.NavigationText}>
-            {reviewsCount}
-            &nbsp;
-            {getDeclination(Number(reviewsCount), reviewDeclinations)}
-          </a>
-        </Link>
-      </div>
       <div className={styles.ProductMainInfo}>
         <div className={styles.ColMedia}>
           <div className={styles.ProductGallery}>
@@ -147,30 +116,15 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
               <li>Цвет рамы: {mirror.attributes[0].frame_color}</li>
               <li>
                 Размер внешний, с рамой:{" "}
-                {mirror.attributes[0].height_with_frame &&
-                  mirror.attributes[0].width_with_frame && (
-                    <>
-                      {mirror.attributes[0].height_with_frame} x{" "}
-                      {mirror.attributes[0].width_with_frame} см
-                    </>
-                  )}
+                {mirror.attributes[0].height_with_frame} x{" "}
+                {mirror.attributes[0].width_with_frame} см
               </li>
               <li>
                 Размер зеркала без рамы:{" "}
-                {mirror.attributes[0].height_without_frame &&
-                  mirror.attributes[0].width_without_frame && (
-                    <>
-                      {mirror.attributes[0].height_without_frame} x{" "}
-                      {mirror.attributes[0].width_without_frame} см
-                    </>
-                  )}
+                {mirror.attributes[0].height_without_frame} x{" "}
+                {mirror.attributes[0].width_without_frame} см
               </li>
-              <li>
-                Вес:{" "}
-                {mirror.attributes[0].weight
-                  ? `${mirror.attributes[0].weight} кг`
-                  : ""}
-              </li>
+              <li>Вес: {mirror.attributes[0].weight} кг</li>
               <li>
                 Наличие фацета: {mirror.attributes[0].is_faced ? "Да" : "Нет"}
               </li>

@@ -3,10 +3,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
-import { ActionTypes } from "ducks/cart";
 import { ICartItem } from "types/cart";
-import { IconButton } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
+import { ActionTypes } from "ducks/cart";
+import { IconButton } from "ui-kit";
 import { changeToBackendBaseUrl } from "utils/url";
 import styles from "./CartItem.module.scss";
 

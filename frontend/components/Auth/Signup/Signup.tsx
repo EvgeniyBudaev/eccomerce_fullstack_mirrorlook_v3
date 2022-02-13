@@ -1,22 +1,21 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
 import * as yup from "yup";
 import isEmpty from "lodash/isEmpty";
 import isNull from "lodash/isNull";
-import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
-import { setUnhandledClearError } from "ducks/unhandledError";
-import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
-import { AlertError } from "utils/alert";
-import { getErrorByStatus } from "utils/error";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
+import { setUnhandledClearError } from "ducks/unhandledError";
+import { useMounted } from "hooks/useMounted";
+import { AlertError } from "utils/alert";
 import styles from "./Signup.module.scss";
 
 export interface ISignupForm {
@@ -81,19 +80,12 @@ export const Signup: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      const errorByStatus = getErrorByStatus(error);
-      AlertError(errorByStatus.error.body);
+      AlertError("Ошибка регистрации!", error.message);
     }
   }, [error]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.back();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
-
   const onSubmit = (data: ISignupForm) => {
+    console.log("[DATA]", data);
     const phone_number_normalize = normalizePhoneNumber(data.phone_number);
     if (data.password === data.re_password) {
       setIsPasswordMatch(false);
@@ -115,7 +107,7 @@ export const Signup: React.FC = () => {
 
   useEffect(() => {
     if (!isNull(isAuthenticated) && isAuthenticated === false) {
-      router.push(ROUTES.LOGIN);
+      router.push("/activate");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
@@ -166,8 +158,16 @@ export const Signup: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.Signup}>
+    <div className={styles.Signup}>
       <AlertContainer />
+      <div className={styles.SectionLeft}>
+        <Image
+          src={"/images/login-left-background.png"}
+          alt=""
+          height="636"
+          width="475"
+        />
+      </div>
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
           <h1 className={styles.SectionCenterContent_Title}>Регистрация</h1>
@@ -213,9 +213,7 @@ export const Signup: React.FC = () => {
                 register={register}
                 error={errorEmailMessage(
                   errors.email?.message,
-                  error?.response.data?.email
-                    ? error?.response.data?.email[0]
-                    : ""
+                  error?.response.data?.email[0]
                 )}
                 isFocused={isFocused.email}
                 isRequired
@@ -245,24 +243,38 @@ export const Signup: React.FC = () => {
                 onFocus={handleFocus}
               />
             </div>
-            <div className={styles.SectionCenter_Control}>
-              <Button
-                className={styles.SectionCenter_Button}
-                type="submit"
-                onClick={() => {}}
-              >
-                Зарегистрироваться
-              </Button>
-            </div>
+            <Button
+              className={styles.SectionCenter_Button}
+              type="submit"
+              onClick={() => {}}
+            >
+              Зарегистрироваться
+            </Button>
           </form>
           <div className={styles.SectionCenter_Registration}>
             <span>Есть аккаунт?</span>
-            <Link href={ROUTES.LOGIN}>
+            <Link href={"/login"}>
               <a>Войти</a>
             </Link>
           </div>
         </div>
+        <div className={styles.SectionCenter_Image}>
+          <Image
+            src={"/images/login-center-background.png"}
+            alt=""
+            height="202"
+            width="237"
+          />
+        </div>
       </div>
-    </section>
+      <div className={styles.SectionRight}>
+        <Image
+          src={"/images/login-right-background.png"}
+          alt=""
+          height="482"
+          width="454"
+        />
+      </div>
+    </div>
   );
 };

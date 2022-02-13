@@ -4,36 +4,13 @@
   display: flex;
   max-width: 188px;
   width: 100%;
-
-  &__isHomePage {
-    .IconLink {
-      svg {
-        fill: white;
-      }
-
-      &:hover {
-        svg {
-          fill: $color-beige;
-        }
-      }
-    }
-
-    .IconDescription {
-      color: white;
-    }
-
-    .CartItemsCount {
-      color: white;
-    }
-  }
 }
 
 .HeaderIconListItem {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  position: relative;
   text-align: center;
   max-width: 94px;
   width: 100%;
@@ -43,26 +20,27 @@
     text-decoration: none;
     transition: all 0.15s;
 
-    svg {
-      transition: all 0.15s;
-    }
-
     &:hover {
-      .IconDescription {
-        color: $color-beige;
-      }
+      color: $color-beige-hover;
 
       svg {
-        fill: $color-beige;
+        fill: $color-beige-hover;
       }
     }
   }
 }
 
+.Icon {
+  cursor: pointer;
+
+  svg {
+    fill: $color-text;
+    transition: all 0.15s;
+  }
+}
+
 .IconDescription {
-  @include roboto-14-regular;
-  color: $color-text;
-  transition: all 0.15s;
+  @include roboto-12-regular;
 }
 
 .IconLink {
@@ -80,49 +58,17 @@
   right: 0;
   width: 20px;
   height: 20px;
-  color: $color-text;
+  color: $color-white;
   background-color: $color-beige;
   border: 1px solid $color-beige;
   border-radius: 50%;
 }
 
-.AvatarDropDown {
-  position: relative;
-  height: max-content;
-  width: max-content;
-
-  &_Menu {
-    padding: 4px;
-  }
-
-  &_MenuItem {
-    display: flex;
-    align-items: center;
-    margin: 3px;
-    padding: 0 16px;
-    min-height: 44px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.15s;
-
-    &:hover {
-      background-color: $color-light-beige;
-    }
-
-    &Icon {
-      svg {
-        height: 24px;
-        width: 24px;
-      }
-    }
-
-    &Text {
-      margin-left: 16px;
-    }
-  }
-}
-
 @media (max-width: 768px) {
+  .HeaderIconsList {
+    justify-content: flex-end;
+  }
+
   .HeaderIconListItemDesktop {
     display: none;
   }

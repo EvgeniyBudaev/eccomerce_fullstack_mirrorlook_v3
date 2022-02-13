@@ -1,11 +1,9 @@
 import React from "react";
-import { Breadcrumbs } from "ui-kit";
 import styles from "./About.module.scss";
 
 export const About: React.FC = () => {
   return (
     <section className={styles.About}>
-      <Breadcrumbs getDefaultTextGenerator={() => "О нас"} />
       <h1 className={styles.AboutTitle}>Информация о магазине</h1>
       <p className={styles.AboutParagraph}>
         <strong>Компания «Mirror Look»</strong> основана в 2021 году. Мы создали

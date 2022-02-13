@@ -5,7 +5,6 @@ export const LayoutSortingSelectStyles = {
   control: (base: CSSProperties) => ({
     ...base,
     border: "1px solid #B0976A",
-    borderRadius: "0",
     // "&:hover": { borderColor: "#e5e5e5" },
     cursor: "pointer",
   }),
@@ -17,7 +16,6 @@ export const LayoutSortingSelectStyles = {
     ...base,
     backgroundColor: isSelected ? "#dfd3c3" : "",
     color: isFocused || isSelected ? "black" : "",
-    borderRadius: "0",
     cursor: "pointer",
     ":active": {
       backgroundColor: "#dfd3c3",

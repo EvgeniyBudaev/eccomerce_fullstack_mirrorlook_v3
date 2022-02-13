@@ -1,8 +1,7 @@
-import Head from "next/head";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Layout } from "components";
 import { reset_password } from "ducks/account";
+import { Layout } from "components";
 
 interface IFormData {
   email: string;
@@ -25,38 +24,21 @@ export default function ResetPasswordPage(): JSX.Element {
   };
 
   return (
-    <>
-      <Head>
-        <meta
-          name="description"
-          content="Сброс пароля | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:title"
-          content="Сброс пароля | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:description"
-          content="Сброс пароля | Интернет-магазин зеркал MirrorLook"
-        />
-        <title>Сброс пароля | MirrorLook</title>
-      </Head>
-      <Layout>
-        <h1>Сброс пароля</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              name="email"
-              value={email}
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Cбросить пароль</button>
-        </form>
-      </Layout>
-    </>
+    <Layout>
+      <h1>Сброс пароля</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={email}
+            required
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">Cбросить пароль</button>
+      </form>
+    </Layout>
   );
 }

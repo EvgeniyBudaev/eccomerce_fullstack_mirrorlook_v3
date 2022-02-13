@@ -15,21 +15,15 @@ import Defence from "ui-kit/assets/icons/Defence.svg";
 import DisplayGrid from "ui-kit/assets/icons/DisplayGrid.svg";
 import DisplayLine from "ui-kit/assets/icons/DisplayLine.svg";
 import Enter from "ui-kit/assets/icons/Enter.svg";
-import Exit from "ui-kit/assets/icons/Exit.svg";
-import Factory from "ui-kit/assets/icons/Factory.svg";
 import Filter from "ui-kit/assets/icons/Filter.svg";
-import Home from "ui-kit/assets/icons/Home.svg";
 import House from "ui-kit/assets/icons/House.svg";
 import LogoShort from "ui-kit/assets/icons/LogoShort.svg";
 import Mirror from "ui-kit/assets/icons/Mirror.svg";
 import Search from "ui-kit/assets/icons/Search.svg";
-import Shipping from "ui-kit/assets/icons/Shipping.svg";
 import Spinner from "ui-kit/assets/icons/Spinner.svg";
-import Star from "ui-kit/assets/icons/Star.svg";
 import Trash from "ui-kit/assets/icons/Trash.svg";
 import User from "ui-kit/assets/icons/User.svg";
-import UserAvatar from "ui-kit/assets/icons/UserAvatar.svg";
-import Visa from "ui-kit/assets/icons/Visa.svg";
+import User2 from "ui-kit/assets/icons/User2.svg";
 import Visibility from "ui-kit/assets/icons/Visibility.svg";
 import VisibilityOff from "ui-kit/assets/icons/VisibilityOff.svg";
 
@@ -49,21 +43,15 @@ export type IconType =
   | "DisplayGrid"
   | "DisplayLine"
   | "Enter"
-  | "Exit"
-  | "Factory"
   | "Filter"
-  | "Home"
   | "House"
   | "LogoShort"
   | "Mirror"
   | "Search"
-  | "Shipping"
   | "Spinner"
-  | "Star"
   | "Trash"
   | "User"
-  | "UserAvatar"
-  | "Visa"
+  | "User2"
   | "Visibility"
   | "VisibilityOff";
 
@@ -83,21 +71,15 @@ export const iconTypes = new Map([
   ["DisplayGrid", <DisplayGrid key={newGuid()} />],
   ["DisplayLine", <DisplayLine key={newGuid()} />],
   ["Enter", <Enter key={newGuid()} />],
-  ["Exit", <Exit key={newGuid()} />],
-  ["Factory", <Factory key={newGuid()} />],
   ["Filter", <Filter key={newGuid()} />],
-  ["Home", <Home key={newGuid()} />],
   ["House", <House key={newGuid()} />],
   ["LogoShort", <LogoShort key={newGuid()} />],
   ["Mirror", <Mirror key={newGuid()} />],
   ["Search", <Search key={newGuid()} />],
-  ["Shipping", <Shipping key={newGuid()} />],
   ["Spinner", <Spinner key={newGuid()} />],
-  ["Star", <Star key={newGuid()} />],
   ["Trash", <Trash key={newGuid()} />],
   ["User", <User key={newGuid()} />],
-  ["UserAvatar", <UserAvatar key={newGuid()} />],
-  ["Visa", <Visa key={newGuid()} />],
+  ["User2", <User2 key={newGuid()} />],
   ["Visibility", <Visibility key={newGuid()} />],
   ["VisibilityOff", <VisibilityOff key={newGuid()} />],
 ]);

@@ -5,7 +5,6 @@ import {
   IActionSetUserToken,
   IActionSetUser,
   IActionUserSignup,
-  IActionUserLogout,
 } from "./types";
 
 const initialState = {
@@ -15,11 +14,7 @@ const initialState = {
   isAuthenticated: null,
 };
 
-type IAction =
-  | IActionSetUserToken
-  | IActionSetUser
-  | IActionUserSignup
-  | IActionUserLogout;
+type IAction = IActionSetUserToken | IActionSetUser | IActionUserSignup;
 
 export const reducer: Reducer<IAccount> = (
   state = typeof window !== "undefined"
@@ -30,6 +25,16 @@ export const reducer: Reducer<IAccount> = (
   action: IAction
 ) => {
   switch (action.type) {
+    // case AUTHENTICATED_SUCCESS:
+    //   return {
+    //     ...state,
+    //     isAuthenticated: true,
+    //   };
+    // case AUTHENTICATED_FAIL:
+    //   return {
+    //     ...state,
+    //     isAuthenticated: false,
+    //   };
     case ActionTypes.SET_USER_TOKEN:
       return {
         ...state,
@@ -47,14 +52,14 @@ export const reducer: Reducer<IAccount> = (
         ...state,
         isAuthenticated: false,
       };
-    case ActionTypes.LOGOUT:
-      return {
-        ...state,
-        access: null,
-        refresh: null,
-        user: null,
-        isAuthenticated: null,
-      };
+    // case LOGOUT:
+    //   return {
+    //     ...state,
+    //     access: null,
+    //     refresh: null,
+    //     user: null,
+    //     isAuthenticated: false,
+    //   };
     // case PASSWORD_RESET_SUCCESS:
     // case PASSWORD_RESET_CONFIRM_SUCCESS:
     // case ACTIVATION_SUCCESS:

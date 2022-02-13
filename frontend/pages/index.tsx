@@ -1,11 +1,9 @@
-import { Home } from "components";
-import { Footer } from "components/Layout/Footer";
+import { Home, Layout } from "components";
 
 export default function HomePage(): JSX.Element {
   return (
-    <>
+    <Layout>
       <Home />
-      <Footer />
-    </>
+    </Layout>
   );
 }

@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { SearchProductType } from "api/types/search";
-import { numberWithSpaces } from "utils/numberWithSpaces";
 import { changeToBackendBaseUrl } from "utils/url";
+import { numberWithSpaces } from "utils/numberWithSpaces";
 import styles from "./SearchProductListItem.module.scss";
 
 interface ISearchProductListItemProps {

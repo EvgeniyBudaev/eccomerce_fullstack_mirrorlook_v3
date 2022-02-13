@@ -1,63 +1,42 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import axios, { AxiosError } from "axios";
-import { IFilterResponse } from "api/types";
+import axios from "axios";
 import { Layout } from "components";
 import { Products } from "components/Catalog";
+import { IMirror } from "types/mirror";
+import { IFilter, IPaging } from "types/filter";
+import { IFilterResponse } from "api/types";
 import { CatalogNames } from "constants/names";
 import { backendBase } from "constants/paths";
-import { IError } from "types/error";
-import { IFilter, IPaging } from "types/filter";
-import { IMirror } from "types/mirror";
 import { AlertError } from "utils/alert";
-import { getErrorByStatus } from "utils/error";
 
 interface IMirrorsProps {
   catalogName: string;
   entities: IMirror[];
-  error?: IError;
+  error?: string;
   paging: IPaging;
 }
 
-export default function MirrorsPage(props: IMirrorsProps): JSX.Element {
-  const { error } = props;
+export default function MirrorsPage(
+  mirrorsResponse: IMirrorsProps
+): JSX.Element {
+  const { error } = mirrorsResponse;
   if (error) {
-    console.error(
-      "Ошибка! (frontend/pages/mirrors/index.tsx): ",
-      error.error.message
-    );
+    console.log("Ошибка! (frontend/pages/mirrors/index.tsx): ", error);
   }
 
   useEffect(() => {
     if (error) {
-      AlertError(error.error.body);
+      AlertError("Ошибка на странице зеркал!", error);
     }
   }, [error]);
 
   return (
-    <>
-      <Head>
-        <meta
-          name="description"
-          content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:title"
-          content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:description"
-          content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
-        />
-        <title>Каталог зеркал | MirrorLook</title>
-      </Head>
-      <Layout>
-        <AlertContainer />
-        <Products productsResponse={props} />
-      </Layout>
-    </>
+    <Layout>
+      <AlertContainer />
+      <Products productsResponse={mirrorsResponse} />
+    </Layout>
   );
 }
 
@@ -92,14 +71,12 @@ export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
         },
       },
     };
-  } catch (e) {
-    const error = e as AxiosError;
-    const errorByStatus = getErrorByStatus(error);
+  } catch (error) {
     return {
       props: {
         catalogName: CatalogNames.MIRRORS,
         entities: [],
-        error: errorByStatus,
+        error: error.message,
         paging: {
           pageItemsCount: 0,
           pageNumber: 1,

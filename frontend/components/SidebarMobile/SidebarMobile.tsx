@@ -22,12 +22,9 @@ export const SidebarMobile: React.FC = () => {
                 <>
                   <Avatar
                     className={styles.SidebarMobileAvatar}
+                    classNameSmallCircle={styles.SidebarMobileAvatarSmallCircle}
                     size={32}
-                    user={
-                      isAuthenticated && account.user
-                        ? account.user.first_name
-                        : null
-                    }
+                    title={account.user.first_name[0]}
                   />
                   <div className={styles.SidebarMobileLinkText}>
                     <div
@@ -45,7 +42,7 @@ export const SidebarMobile: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Icon type="User" />
+                  <Icon type={"User"} />
                   <div className={styles.SidebarMobileLinkText}>
                     <div className={styles.SidebarMobileLinkTitle}>Гость</div>
                     <div className={styles.SidebarMobileLinkSubTitle}>
@@ -63,6 +60,16 @@ export const SidebarMobile: React.FC = () => {
               <Icon type="Mirror" />
               <div className={styles.SidebarMobileLinkText}>
                 <div className={styles.SidebarMobileLinkTitle}>Зеркала</div>
+              </div>
+            </a>
+          </Link>
+        </li>
+        <li className={styles.SidebarMobileListItem}>
+          <Link href={ROUTES.CONSOLES}>
+            <a className={styles.SidebarMobileLink}>
+              <Icon type="Console" />
+              <div className={styles.SidebarMobileLinkText}>
+                <div className={styles.SidebarMobileLinkTitle}>Консоли</div>
               </div>
             </a>
           </Link>

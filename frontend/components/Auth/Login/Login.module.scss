@@ -6,18 +6,28 @@
   height: 100%;
 }
 
+.SectionLeft {
+  position: absolute;
+  left: 0;
+  bottom: 46px;
+  align-self: flex-end;
+  flex-shrink: 1;
+}
+
 .SectionCenter {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-grow: 1;
   flex-direction: column;
+  margin-top: 50px;
+  height: 582px;
   max-width: 470px;
   width: 100%;
 }
 
 .SectionCenter_Content {
-  padding: 24px;
+  padding: 32px 24px;
   width: 100%;
   height: auto;
   border-radius: 16px;
@@ -27,12 +37,6 @@
 .SectionCenterContent_Title {
   @include roboto-32-bold;
   margin-bottom: 25px;
-  text-align: center;
-}
-
-.SectionCenter_Control {
-  display: flex;
-  justify-content: center;
 }
 
 .SectionCenter_Button {
@@ -40,8 +44,6 @@
 }
 
 .SectionCenter_Registration {
-  text-align: center;
-
   span {
     margin-right: 10px;
   }
@@ -54,6 +56,19 @@
       color: $color-beige-hover;
     }
   }
+}
+
+.SectionCenter_Image {
+  position: absolute;
+  bottom: 0;
+}
+
+.SectionRight {
+  position: absolute;
+  right: 0;
+  bottom: 46px;
+  align-self: flex-end;
+  flex-shrink: 1;
 }
 
 .RememberPassword {

@@ -3,9 +3,9 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { CSSTransition } from "react-transition-group";
 import isEmpty from "lodash/isEmpty";
 import isNil from "lodash/isNil";
-import { FilterBarMobile } from "components";
-import { TRANSITION } from "constants/transition";
 import { Accordion, Button, Checkbox, IconButton, Overlay } from "ui-kit";
+import { TRANSITION } from "constants/transition";
+import { FilterBarMobile } from "components";
 import styles from "./MirrorsAside.module.scss";
 
 export interface ICheckedMirrors {
@@ -74,13 +74,7 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
   const asideOptionsMirrors: IAsideOption[] = [
     {
       option: { optionNameRu: "Категория", optionNameOnBackend: "category" },
-      entities: [
-        "Венецианские зеркала",
-        "Зеркала в полный рост",
-        "Зеркала в рамах",
-        "Зеркальные панно",
-        "Зеркала солнце",
-      ],
+      entities: ["Венецианские зеркала", "Напольные зеркала"],
     },
     {
       option: { optionNameRu: "Форма", optionNameOnBackend: "form" },
@@ -89,18 +83,13 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
     {
       option: { optionNameRu: "Цвет", optionNameOnBackend: "frame_color" },
       entities: [
-        "Античная бронза",
         "Античное золото",
         "Античное серебро",
         "Бронза",
         "Золото",
         "Латунь",
-        "Никель",
         "Серебро",
-        "Сталь полированная",
         "Хром",
-        "Черный",
-        "Шампань",
       ],
     },
   ];

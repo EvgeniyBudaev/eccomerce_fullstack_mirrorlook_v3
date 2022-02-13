@@ -4,22 +4,16 @@ import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
-import { IUserAccount } from "api/types/account";
-import { IFetchOrderResponse } from "api/types/order";
-import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
-import { ROUTES } from "constants/routes";
-import {
-  setUnhandledError,
-  setUnhandledClearError,
-} from "ducks/unhandledError";
-import { setLoading, unsetLoading } from "ducks/loading";
 import { ActionTypes, IPayloadOrderRecipientSave } from "ducks/order";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
+import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
+import { ROUTES } from "constants/routes";
 import { Button, Icon, Modal, Spinner } from "ui-kit";
-import { AlertError, AlertSuccess } from "utils/alert";
-import { getErrorByStatus } from "utils/error";
 import { numberWithSpaces } from "utils/numberWithSpaces";
+import { IFetchOrderResponse } from "api/types/order";
+import { IUserAccount } from "api/types/account";
+import { AlertError } from "utils/alert";
 import { OrderProductsItem } from "./OrderProductsItem/OrderProductsItem";
 import { RadioCardPaymentMethod } from "./RadioCardPaymentMethod/RadioCardPaymentMethod";
 import styles from "./Order.module.scss";
@@ -27,8 +21,8 @@ import styles from "./Order.module.scss";
 export const Order: React.FC = () => {
   const CARD = "card";
   const CASH = "cash";
-  const CARD_TEXT = "Картой при получении";
-  const CASH_TEXT = "Наличными при получении";
+  const CARD_TEXT = "Картой онлайн";
+  const CASH_TEXT = "Картой или наличными при получении";
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [preliminaryPaymentMethod, setPreliminaryPaymentMethod] =
     useState(CARD);
@@ -78,8 +72,7 @@ export const Order: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      const errorByStatus = getErrorByStatus(error);
-      AlertError(errorByStatus.error.body);
+      AlertError("Ошибка оформления заказа!", error.message);
     }
   }, [error]);
 
@@ -102,14 +95,12 @@ export const Order: React.FC = () => {
     requestOrderSendToEmail();
   };
 
-  const handleOrderSendToEmail = async (
-    orderInfo: IFetchOrderResponse,
-    order_user: IPayloadOrderRecipientSave,
-    user: IUserAccount
-  ) => {
-    dispatch(setUnhandledClearError());
-    dispatch(setLoading());
-    try {
+  const handleOrderSendToEmail = useCallback(
+    (
+      orderInfo: IFetchOrderResponse,
+      order_user: IPayloadOrderRecipientSave,
+      user: IUserAccount
+    ) => {
       const bodyEmail = `
       Здравствуйте!
   
@@ -127,23 +118,19 @@ export const Order: React.FC = () => {
       
       Общая сумма заказа: ${orderInfo.total_price} ₽
       `;
+      console.log("Письмо отправлено!");
       dispatch({
         type: ActionTypes.FETCH_ORDER_SEND_TO_EMAIL,
         payload: {
           customer_email: isAuthenticated ? user?.email : order_user?.email,
           message: bodyEmail,
-          subject: `Заказ № ${orderInfo.id} успешно оформлен. Скоро с Вами свяжется менеджер для уточнения.`,
+          subject: `Заказ № ${orderInfo.id} успешно оформлен`,
         },
       });
-      AlertSuccess(
-        "Ваш заказ был оформлен. На Ваш email отправлено подтверждение."
-      );
-    } catch (error) {
-      dispatch(setUnhandledError(error));
-    } finally {
-      dispatch(unsetLoading());
-    }
-  };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dispatch]
+  );
 
   const handleOpenModal = () => {
     setIsOpenModal(true);
@@ -164,6 +151,7 @@ export const Order: React.FC = () => {
 
   useEffect(() => {
     if (!isNull(order.order) && isOrderConfirmed) {
+      console.log("orderInfo", order.order);
       handleOrderSendToEmail(order.order, order_user, user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -257,7 +245,7 @@ export const Order: React.FC = () => {
               </Link>
             </div>
             <div className={styles.RecipientInfo}>
-              <Icon className={styles.RecipientInfoIcon} type="User" />
+              <Icon className={styles.RecipientInfoIcon} type="User2" />
               <div className={styles.RecipientInfoText}>
                 <div className={styles.RecipientInfoTitle}>
                   {isAuthenticated && user

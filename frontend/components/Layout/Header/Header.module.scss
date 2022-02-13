@@ -3,7 +3,7 @@
 .Header {
   width: 100%;
   height: 100%;
-  background-color: transparent;
+  background-color: $color-white;
   opacity: 1;
   z-index: 102;
 
@@ -12,7 +12,7 @@
     max-width: 100%;
     width: 100%;
     height: max-content;
-    background-color: white;
+    background-color: $color-white;
     box-shadow: 0 1rem 1.7rem rgba(0, 0, 0, 0.05);
     z-index: 102;
 
@@ -20,21 +20,19 @@
       box-shadow: none;
     }
 
-    &__isHomePage {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background-color: transparent;
-    }
-
     &__isScroll {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      background-color: white;
     }
+  }
+
+  &Container {
+    max-width: 1470px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
   }
 
   &Banner {
