@@ -134,11 +134,9 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 - Применить миграции и создать суперпользователя:
 
 ```python
-  docker-compose exec web python manage.py makemigrations
-  docker-compose exec web python manage.py migrate --noinput
-  docker-compose exec web python manage.py createsuperuser
-  sudo docker-compose exec -T backend python manage.py createsuperuser
-  sudo docker-compose exec -T ebudaev/mirror_backend:v1 python manage.py createsuperuser
+  sudo docker-compose exec -T backend python manage.py makemigrations --noinput
+  sudo docker-compose exec -T backend python manage.py migrate --noinput
+  docker exec -it container_id python manage.py createsuperuser
 ```
 
 - Заполнить базу начальными данными:
