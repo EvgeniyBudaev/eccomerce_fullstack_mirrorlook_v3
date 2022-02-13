@@ -9,6 +9,9 @@ module.exports = {
       "backend",
       "backend:80",
       "backend:8000",
+      "62.84.119.86",
+      "62.84.119.86:80",
+      "62.84.119.86:8000"
     ],
   },
   webpack(config) {
