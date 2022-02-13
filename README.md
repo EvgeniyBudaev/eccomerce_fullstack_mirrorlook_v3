@@ -121,8 +121,8 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
   нужно создать на сервере mkdir nginx):
 
 ```python
-  scp docker-compose.yaml <username>@<host>/home/<username>/docker-compose.yaml
-  scp default.conf <username>@<host>/home/<username>/nginx/default.conf
+  scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
+  scp default.conf <username>@<host>:/home/<username>/nginx/default.conf
 ```
 
 - После успешного деплоя зайдите на боевой сервер и выполните команды (только после первого деплоя):
