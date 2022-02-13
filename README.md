@@ -6,6 +6,7 @@
 - [Описание_проекта](#Описание_проекта)
 - [Технологии](#Технологии)
 - [Workflow](#Workflow)
+- [Настройка_сервера](#Настройка_сервера)
 - [Запуск проекта](#Запуск_проекта)
 - [Тесты](#Тесты)
 - [Авторы](#Авторы)
@@ -36,7 +37,45 @@
 - *Автоматический деплой на удаленный сервер*,
 - *Отправка уведомления в телеграм-чат*.
 
-### <a name="Запуск проекта">Запуск проекта</a>
+### <a name="Настройка_сервера">Настройка_сервера</a>
+
+- Обновление системы:
+
+```python
+ sudo apt update
+ sudo apt upgrade -y  
+```
+
+- Установка пакетов:
+
+```python
+ sudo apt install python3-pip python3-venv git -y 
+```
+
+- Установка NGINX:
+
+```python
+ sudo apt install nginx -y
+ sudo ufw allow 'Nginx Full'
+ sudo ufw allow OpenSSH 
+ sudo ufw enable 
+ sudo ufw status 
+```
+
+### <a name="Запуск_проекта">Запуск проекта</a>
+
+- Скопируйте файлы docker-compose.yaml и nginx/default.conf из проекта на сервер:
+
+```python
+ scp docker-compose.yml admin@62.84.119.86:/home/admin/docker-compose.yml
+ scp -r nginx.conf admin@62.84.119.86:/home/admin
+```
+
+- Запуск NGINX:
+
+```python
+ sudo systemctl start nginx 
+```
 
 - Предстартовая подготовка и запуск nginx на сервере:
 
