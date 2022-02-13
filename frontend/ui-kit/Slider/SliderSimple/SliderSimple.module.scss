@@ -97,13 +97,6 @@
 
 @media (max-width: 500px) {
   .ItemContent__isPadScreen .ItemTitle {
-    margin-bottom: 8px;
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 410px) {
-  .ItemContent__isPadScreen .ItemTitle {
     display: none;
   }
   .ItemContent {

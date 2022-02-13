@@ -35,6 +35,7 @@
   &Bottom {
     display: flex;
     justify-content: flex-end;
+    margin-top: 24px;
   }
 
   &Actions {
@@ -205,5 +206,9 @@
 
   .ProductTitle {
     text-align: start;
+  }
+
+  .ProductBottom {
+    justify-content: flex-start;
   }
 }

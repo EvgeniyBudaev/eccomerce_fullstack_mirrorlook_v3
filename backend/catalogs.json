@@ -1,1 +1,0 @@
-[{"model": "store.catalog", "pk": 1, "fields": {"title": "Зеркала", "image": "mirrors_GYVUjIO.jpg", "catalog_slug": "mirrors", "date_created": "2021-10-05T16:27:14.817Z"}}, {"model": "store.catalog", "pk": 2, "fields": {"title": "Консоли", "image": "consoles_1fqYwNP.jpg", "catalog_slug": "consoles", "date_created": "2021-10-22T02:40:04.826Z"}}]

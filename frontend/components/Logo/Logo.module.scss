@@ -15,8 +15,8 @@
 
   svg {
     max-width: 100px;
-    width: 100%;
-    height: auto;
+    width: 50px;
+    height: 50px;
     fill: $color-text;
     opacity: 0.9;
     transition: all 0.15s;
@@ -36,24 +36,16 @@
   }
 }
 
-@media (max-width: 768px) {
-  .Logo {
-    width: 150px;
-
-    svg {
-      height: auto;
-    }
-  }
-}
-
 @media (max-width: 500px) {
   .Logo {
-    width: 120px;
+    height: 35px;
+    width: 35px;
   }
 }
 
 @media (max-width: 350px) {
   .Logo {
+    height: 24px;
     width: 24px;
   }
 }
