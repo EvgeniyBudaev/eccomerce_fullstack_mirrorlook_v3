@@ -63,3 +63,17 @@ export interface ISagaUserSignupProps {
   payload: ISagaUserSignupPayload;
   type: string;
 }
+
+export interface IActionUserLogout {
+  type: ActionTypes.LOGOUT;
+}
+
+export interface ISagaUserVerifyPayload {
+  token: string;
+  uid: string;
+}
+
+export interface ISagaUserVerifyProps {
+  payload: ISagaUserVerifyPayload;
+  type: string;
+}

@@ -1,0 +1,46 @@
+@import "styles";
+
+.Comment {
+  display: flex;
+  margin-bottom: 16px;
+  max-width: 570px;
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &Block {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    width: 100%;
+  }
+
+  &Author {
+    @include roboto-14-bold;
+    margin-bottom: 8px;
+  }
+
+  &Date {
+    @include roboto-14-regular;
+    display: inline-block;
+    color: $color-suit-gray;
+  }
+
+  &Controls {
+    display: flex;
+    margin: 16px 0 0;
+  }
+
+  &Control {
+    display: inline-block;
+    color: $color-beige;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
+}

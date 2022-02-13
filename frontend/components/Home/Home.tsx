@@ -1,36 +1,53 @@
-import Image from "next/image";
+import dinamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useMediaQuery } from "react-responsive";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
-import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
-import mainSlider1 from "ui-kit/assets/images/slide-home-10.jpg";
-import mainSlider2 from "ui-kit/assets/images/slide-home-11.jpg";
-import mainSlider3 from "ui-kit/assets/images/slide-home-9.jpg";
-import card1 from "ui-kit/assets/images/home-mirrors4.jpg";
-import promotion1 from "ui-kit/assets/images/promotion-1.jpg";
-import promotion2 from "ui-kit/assets/images/promotion-2.jpg";
-import promotion3 from "ui-kit/assets/images/promotion-3.jpg";
-import promotion4 from "ui-kit/assets/images/promotion-4.jpg";
+import { Header } from "components/Layout/Header";
 import { ActionTypes } from "ducks/cart";
 import { useTypedSelector } from "hooks/useTypedSelector";
+import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
+import { Advantages } from "./Advantages";
+import { Article } from "./Article";
+import { Benefits } from "./Benefits";
 import styles from "./Home.module.scss";
 
-const mainSliderImages = [mainSlider1, mainSlider2, mainSlider3];
+const Collections = dinamic(() => import("./Collections"));
+
+const mainSlider1 = "/images/models-0.jpg";
+const mainSlider2 = "/images/models-19.jpg";
+const mainSlider3 = "/images/models-32.jpg";
+const sliderOptions = [
+  {
+    buttonText: "Посмотреть все зеркала",
+    image: mainSlider1,
+    title: "Зеркало отражение прекрасного",
+  },
+  {
+    buttonText: "Посмотреть все зеркала",
+    image: mainSlider2,
+    title: "Роскошь во всём",
+  },
+  {
+    buttonText: "Посмотреть все зеркала",
+    image: mainSlider3,
+    title: "Внимание к деталям",
+  },
+];
 
 export const Home: React.FC = () => {
   const account = useTypedSelector(state => state.account);
   const dispatch = useDispatch();
-  const isMobileScreen = useMediaQuery({ query: "(max-width: 768px)" });
   const unhandledError = useTypedSelector(state => state.unhandledError);
   const { error } = unhandledError;
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка создания корзины!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 
@@ -47,126 +64,60 @@ export const Home: React.FC = () => {
     }
   }, [account.user, dispatch]);
 
-  const imageResponsiveSizeWidth = () => {
-    if (isMobileScreen) {
-      return "100px";
-    } else {
-      return "160px";
-    }
-  };
-
-  const imageResponsiveSizeHeight = () => {
-    if (isMobileScreen) {
-      return "100px";
-    } else {
-      return "160px";
-    }
+  const renderHelpText = () => {
+    return (
+      <p>
+        У вас есть вопросы? Пообщайтесь со специалистом по телефону
+        <Link href={"tel:+79955053978"}>
+          <a className={styles.ArticleLink}>+7 (995) 505-39-78</a>
+        </Link>
+        или можете написать письмо на электронную почту
+        <Link href={"mailto:mirror-look@gmail.com"}>
+          <a className={styles.ArticleLink}>mirror-look@gmail.com</a>
+        </Link>
+      </p>
+    );
   };
 
   return (
     <div className={styles.Home}>
       <AlertContainer />
+      <Header isHomePage />
       <section className={styles.MainSliders}>
         <SliderSimple
           className={styles.MainSlider}
           arrows={true}
           dots={true}
-          images={mainSliderImages}
           infinite={true}
-          height="300"
+          options={sliderOptions}
           slidesToShow={1}
           slidesToScroll={1}
           speed={500}
-          width="1440"
+          width="1890"
+          height="880"
           nextArrow={<SliderNextArrow styles={{ right: "5px" }} />}
           prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}
         />
       </section>
-      <section className={styles.Catalog}>
-        <div className={styles.CatalogItem}>
-          <Link href={`/mirrors`}>
-            <a>
-              <h4 className={styles.CatalogItemTitle}>Зеркала</h4>
-              <Image
-                src={card1}
-                alt=""
-                priority
-                width={imageResponsiveSizeWidth()}
-                height={imageResponsiveSizeHeight()}
-              />
-            </a>
-          </Link>
-        </div>
-      </section>
-      <section className={styles.Promotions}>
-        <h3 className={styles.PromotionsTitle}>Выгодные акции</h3>
-        <ul className={styles.PromotionsList}>
-          <li className={styles.PromotionsListItem}>
-            <Image
-              className={styles.PromotionsListItemImage}
-              alt=""
-              priority
-              src={promotion1}
-              width="270"
-              height="205"
-            />
-            <div className={styles.PromotionsListItemTitle}>
-              Продукты, товары для дома, детей, животных
-            </div>
-            <div className={styles.PromotionsListItemSybTitle}>
-              Чтобы дома всего было с запасом
-            </div>
-          </li>
-          <li className={styles.PromotionsListItem}>
-            <Image
-              className={styles.PromotionsListItemImage}
-              alt=""
-              priority
-              src={promotion2}
-              width="270"
-              height="205"
-            />
-            <div className={styles.PromotionsListItemTitle}>
-              Станьте рок-звездой
-            </div>
-            <div className={styles.PromotionsListItemSybTitle}>
-              Настройтесь зажигать
-            </div>
-          </li>
-          <li className={styles.PromotionsListItem}>
-            <Image
-              className={styles.PromotionsListItemImage}
-              alt=""
-              priority
-              src={promotion3}
-              width="270"
-              height="205"
-            />
-            <div className={styles.PromotionsListItemTitle}>
-              Включайте новый год
-            </div>
-            <div className={styles.PromotionsListItemSybTitle}>
-              Товары для тех, кому не терпиться
-            </div>
-          </li>
-          <li className={styles.PromotionsListItem}>
-            <Image
-              className={styles.PromotionsListItemImage}
-              alt=""
-              priority
-              src={promotion4}
-              width="270"
-              height="205"
-            />
-            <div className={styles.PromotionsListItemTitle}>
-              Сантехника Grohe
-            </div>
-            <div className={styles.PromotionsListItemSybTitle}>
-              Скидки на чистую воду
-            </div>
-          </li>
-        </ul>
-      </section>
+      <Article
+        subTitle="У тебя есть вкус."
+        text="Вдохновляйтесь красотой и комфортом стиля в интерьерах квартир,
+          частных домов и апартаментов. Компания Mirror Look производит
+          качественные зеркала и эффектный декор для тех, кто находится в поиске
+          баланса между стилем, удобством и высокой функциональностью каждого
+          элемента обстановки."
+        title="Mirror Look."
+      />
+      <Collections />
+      <Article
+        subTitle="Производство дизайнерских зеркал"
+        text="          Мы производим зеркала, в том числе по индивидуальному заказу. Мы учтем
+          все ваши пожелания — у нас есть все, чтобы воплотить ваши самые смелые
+          фантазии и замыслы в реальность!"
+      />
+      <Benefits />
+      <Advantages />
+      <Article text={renderHelpText()} title="Помощь при покупке" />
     </div>
   );
 };

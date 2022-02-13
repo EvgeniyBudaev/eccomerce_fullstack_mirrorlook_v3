@@ -1,36 +1,45 @@
 @import "styles";
 
+$height: 100px;
+$heightIsScroll: 60px;
+
 .HeaderCenter {
-  margin: 8px 0;
+  height: $height;
+  background-color: transparent;
+  transition: all 0.15s;
+
+  &__isHomePage {
+    .Text {
+      color: white;
+    }
+  }
+
+  &__isScroll {
+    height: $heightIsScroll;
+
+    .Inner {
+      height: $heightIsScroll;
+    }
+  }
+}
+
+.Container {
+  max-width: 1230px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
 }
 
 .Inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  height: $height;
+  transition: all 0.15s;
 
   &Desktop {
     display: flex;
     align-items: center;
     width: 100%;
-  }
-}
-
-.ButtonCatalog {
-  margin-left: 32px;
-  margin-right: 12px;
-  height: 44px;
-
-  span {
-    display: flex;
-    justify-content: center;
-  }
-
-  &Hamburger {
-  }
-
-  &Text {
-    margin-left: 12px;
   }
 }
 
@@ -43,6 +52,16 @@
   width: 100%;
 }
 
+.Text {
+  @include roboto-16-regular;
+  color: $color-text;
+  transition: all 0.15s;
+
+  &:hover {
+    color: $color-beige;
+  }
+}
+
 @media (max-width: 1000px) {
   .ButtonCatalogText {
     display: none;
@@ -52,6 +71,10 @@
 }
 
 @media (max-width: 768px) {
+  .Inner {
+    height: 60px;
+  }
+
   .InnerDesktop {
     display: none;
   }
@@ -67,6 +90,8 @@
   }
 
   .HeaderCenter {
+    height: 60px;
+
     & .SearchControlsDesktop {
       display: none;
     }
@@ -86,6 +111,10 @@
     & .ButtonSidebar {
       background-color: $color-white;
       box-shadow: none;
+
+      &__isHomePage {
+        background-color: transparent;
+      }
     }
   }
 }

@@ -1,64 +1,98 @@
 import Image from "next/image";
-import React from "react";
-import classNames from "classnames";
+import React, { useEffect, useRef, useState } from "react";
+import classnames from "classnames";
+import { getInitial, setAtToStringAndPx } from "utils/string";
 import styles from "./Avatar.module.scss";
 
 export interface IAvatarProps {
   className?: string;
-  classNameSmallCircle?: string;
-  image?: StaticImageData;
+  altImage?: string;
+  backgroundColor?: string;
+  color?: string;
+  image?: string;
   size?: number;
-  title?: string;
+  user?: string;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Avatar: React.FC<IAvatarProps> = ({
   className,
-  classNameSmallCircle,
-  image,
-  size = 46,
-  title,
+  altImage = "",
+  backgroundColor = "#E9E9ED",
+  color = "#0A0A0B",
+  image = "",
+  size = 24,
+  user = "",
+  onClick,
 }) => {
-  const sizeBox = `${size - 4}px`;
-  const sizeInner = `${size - 8}px`;
-  const sizeTitle = `${size / 2}px`;
-  const sizeWrapper = `${size}px`;
+  const [imageAvatar, setImageAvatar] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  const sizeInner = `${size}px`;
+  const avatarRef = useRef(null);
+
+  useEffect(() => {
+    setImageAvatar(image);
+    setUserAvatar(user);
+  }, [image, user]);
+
+  useEffect(() => {
+    if (avatarRef.current) {
+      avatarRef.current.style.setProperty(
+        "--avatar-backgroundColor",
+        backgroundColor
+      );
+      avatarRef.current.style.setProperty("--avatar-color", color);
+      avatarRef.current.style.setProperty(
+        "--avatar-height",
+        setAtToStringAndPx(size)
+      );
+      avatarRef.current.style.setProperty(
+        "--avatar-width",
+        setAtToStringAndPx(size)
+      );
+      if (!user) {
+        avatarRef.current.style.setProperty(
+          "--avatar-border",
+          "3px solid #0A0A0B"
+        );
+      }
+    }
+  }, [backgroundColor, color, size, user]);
+
+  const renderContent = (user: string, image: string) => {
+    if (user && !image) {
+      return getInitial(user);
+    } else if (!user && image) {
+      return (
+        <Image
+          className={styles.Face}
+          src={image}
+          alt={altImage}
+          height={sizeInner}
+          width={sizeInner}
+        />
+      );
+    } else {
+      return (
+        <Image
+          src="/images/avatar.png"
+          alt="аватар"
+          height={sizeInner}
+          width={sizeInner}
+        />
+      );
+    }
+  };
 
   return (
-    <button
-      className={classNames(styles.Avatar, className)}
-      style={{ width: sizeInner, height: sizeInner }}
+    <div
+      className={classnames(styles.Avatar, className)}
+      ref={avatarRef}
+      onClick={onClick}
     >
-      <div
-        className={classNames(styles.AvatarInner, classNameSmallCircle)}
-        style={{
-          width: sizeInner,
-          height: sizeInner,
-        }}
-      >
-        {image && (
-          <Image
-            className={styles.AvatarFace}
-            src={image}
-            alt=""
-            width={sizeInner}
-            height={sizeInner}
-          />
-        )}
-        {title && (
-          <div className={styles.AvatarFace} style={{ fontSize: sizeTitle }}>
-            {title}
-          </div>
-        )}
+      <div className={classnames(styles.Inner)}>
+        {renderContent(userAvatar, imageAvatar)}
       </div>
-      <div
-        className={styles.AvatarBorder}
-        style={{ width: sizeWrapper, height: sizeWrapper }}
-      >
-        <div
-          className={styles.AvatarBorderBox}
-          style={{ width: sizeBox, height: sizeBox }}
-        />
-      </div>
-    </button>
+    </div>
   );
 };

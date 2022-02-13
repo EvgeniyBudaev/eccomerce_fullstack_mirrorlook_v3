@@ -1,22 +1,24 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 import classNames from "classnames";
+import { ROUTES } from "constants/routes";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import Banner from "./Header/Banner";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import styles from "./Layout.module.scss";
 
 export interface ILayoutProps {
+  className?: string;
   children?: ReactNode;
   title?: string;
+  is404?: boolean;
 }
 
 export const Layout: React.FC<ILayoutProps> = ({
+  className,
   children,
-  title = "Интернет-магазин зеркал",
+  is404,
 }) => {
   const { hasMounted } = useMounted();
   const router = useRouter();
@@ -24,27 +26,29 @@ export const Layout: React.FC<ILayoutProps> = ({
   const { isScroll } = hasMounted && scroll;
 
   return (
-    <div className={styles.Layout}>
-      <Head>
-        <title>{title} | MirrorLook</title>
-      </Head>
+    <div className={classNames(styles.Layout, className)}>
       <div className={styles.Wrapper}>
         <div className={styles.Content}>
-          <Banner />
           <Header />
           <main
             className={classNames(styles.Main, {
               [styles.Main__isScroll]: isScroll,
             })}
           >
-            {router.pathname === "/" ? (
+            {router.pathname === ROUTES.HOME ? (
               <div className={styles.ContainerHomePage}>{children}</div>
             ) : (
-              <div className={styles.Container}>{children}</div>
+              <div
+                className={classNames(styles.Container, {
+                  [styles.Container__is404]: is404,
+                })}
+              >
+                {children}
+              </div>
             )}
           </main>
         </div>
-        {router.pathname !== "/shipping" && <Footer />}
+        {router.pathname !== ROUTES.SHIPPING && !is404 && <Footer />}
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import styles from "./Alert.module.scss";
 export enum AlertType {
   Error = "Error",
   Success = "Success",
-  Warning = "Warning",
 }
 
 export interface IAlertProps {

@@ -1,0 +1,95 @@
+@import "styles";
+
+.Review {
+  display: flex;
+  margin-bottom: 32px;
+  max-width: 570px;
+  width: 100%;
+
+  &Inner {
+    margin-left: 16px;
+    width: 100%;
+  }
+
+  &Author {
+    margin-bottom: 16px;
+
+    &Name {
+      @include roboto-14-bold;
+      margin-bottom: 4px;
+      color: $color-text;
+    }
+  }
+
+  &Rating {
+    display: flex;
+    align-items: center;
+
+    &Text {
+      @include roboto-14-regular;
+      margin-left: 8px;
+      color: $color-suit-gray;
+    }
+  }
+
+  &Block {
+    margin-bottom: 16px;
+
+    &Title {
+      @include roboto-14-bold;
+      margin-bottom: 4px;
+      color: $color-text;
+    }
+  }
+}
+
+.Review + .Review{
+  margin-top: 32px;
+}
+
+.CommentsBlock {
+  margin-bottom: 16px;
+
+  &Title {
+    @include roboto-14-bold;
+    margin-bottom: 4px;
+    color: $color-text;
+  }
+
+  &AddComment {
+    @include roboto-14-regular;
+    display: inline-block;
+    margin-right: 8px;
+    color: $color-beige;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
+}
+
+.CommentBlock {
+  margin-top: 16px;
+}
+
+.Login {
+  width: 100%;
+
+  &Link {
+    @include roboto-14-regular;
+    display: inline-block;
+    color: $color-beige;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      color: $color-beige-hover;
+    }
+  }
+
+  &Text {
+    display: inline-block;
+  }
+}

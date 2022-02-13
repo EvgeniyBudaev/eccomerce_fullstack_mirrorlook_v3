@@ -2,17 +2,21 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import classNames from "classnames";
-import { Overlay } from "ui-kit";
 import { TRANSITION } from "constants/transition";
 import { CatalogDropDown } from "components/Layout";
 import { ActionTypes } from "ducks/scroll";
 import useWindowScroll from "hooks/useWindowScroll";
+import { Overlay } from "ui-kit";
 import HeaderBottom from "./HeaderBottom";
 import HeaderCenter from "./HeaderCenter";
-import HeaderTop from "./HeaderTop";
 import styles from "./Header.module.scss";
 
-export const Header: React.FC = () => {
+export interface IHeaderProps {
+  className?: string;
+  isHomePage?: boolean;
+}
+
+export const Header: React.FC<IHeaderProps> = ({ isHomePage }) => {
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const dispatch = useDispatch();
   const nodeRef = useRef(null);
@@ -41,19 +45,21 @@ export const Header: React.FC = () => {
       <div
         className={classNames(styles.HeaderWrapper, {
           [styles.HeaderWrapper__isCatalogOpen]: isCatalogOpen,
+          [styles.HeaderWrapper__isHomePage]: isHomePage,
           [styles.HeaderWrapper__isScroll]: isScroll,
         })}
       >
-        <div className={styles.HeaderContainer}>
-          <header className={styles.Header} ref={headerRef}>
-            <HeaderTop />
-            <HeaderCenter
-              isCatalogOpen={isCatalogOpen}
-              onCatalogToggle={handleCatalogToggle}
-            />
-            <HeaderBottom isCatalogOpen={isCatalogOpen} />
-          </header>
-        </div>
+        <header className={styles.Header} ref={headerRef}>
+          <HeaderCenter
+            isHomePage={!isScroll && isHomePage}
+            isScroll={isScroll}
+          />
+          <HeaderBottom
+            isCatalogOpen={isCatalogOpen}
+            isHomePage={!isScroll && isHomePage}
+            onCatalogToggle={handleCatalogToggle}
+          />
+        </header>
       </div>
       <CSSTransition
         className="CatalogWindow"

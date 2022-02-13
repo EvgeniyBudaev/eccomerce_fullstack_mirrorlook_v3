@@ -12,7 +12,7 @@ $categoryWidth: 157px;
   min-width: 100%;
   height: max-content;
   background-color: $color-white;
-  z-index: 101;
+  z-index: 102;
 
   &Container {
     max-width: 1440px;
@@ -66,9 +66,3 @@ $categoryWidth: 157px;
     }
   }
 }
-
-//@media (max-width: 1004px) {
-//  .CatalogDropDown {
-//    top: 158px;
-//  }
-//}

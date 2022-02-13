@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
-import { useTypedSelector } from "hooks/useTypedSelector";
 import { Spinner } from "ui-kit";
 import { SearchCatalogListItem } from "../SearchCatalogListItem";
 import { SearchProductListItem } from "../SearchProductListItem";

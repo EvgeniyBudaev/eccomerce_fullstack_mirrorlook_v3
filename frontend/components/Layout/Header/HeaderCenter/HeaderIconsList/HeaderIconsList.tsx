@@ -1,26 +1,35 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
-import { Avatar, Icon } from "ui-kit";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { ICartState } from "ducks/cart";
 import { IAccount } from "api/types/account";
 import { ROUTES } from "constants/routes";
+import { ActionTypes } from "ducks/account";
+import { ICartState } from "ducks/cart";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { Avatar, DropDown, Icon } from "ui-kit";
 import styles from "./HeaderIconsList.module.scss";
 
 export interface IHeaderIconsListProps {
   className?: string;
+  isHomePage?: boolean;
 }
 
 export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   className,
+  isHomePage,
 }) => {
   const [cartId, setCartId] = useState("");
   const [cartItemsCountTotal, setCartItemsCountTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const account = useTypedSelector(state => state.account);
   const cart = useTypedSelector(state => state.cart);
+  const refToggleDropDown = useRef(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const getAccount = (account: IAccount) => {
     return account;
@@ -55,8 +64,40 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
     fetchCartItemsCountTotal(cart);
   }, [cart]);
 
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutsideDropDown);
+    return () => {
+      window.removeEventListener("click", handleClickOutsideDropDown);
+    };
+  });
+
+  const handleClickOutsideDropDown = (event: MouseEvent) => {
+    if (isDropDownOpen) {
+      if (refToggleDropDown.current) {
+        if (!refToggleDropDown.current.contains(event.target)) {
+          setIsDropDownOpen(false);
+        }
+      }
+    }
+  };
+
+  const handleToggleDropDown = () => {
+    setIsDropDownOpen(prevState => !prevState);
+  };
+
+  const handleLogout = () => {
+    dispatch({
+      type: ActionTypes.FETCH_LOGOUT,
+    });
+    router.push(ROUTES.HOME);
+  };
+
   return (
-    <div className={classNames(styles.HeaderIconsList, className)}>
+    <div
+      className={classNames(styles.HeaderIconsList, className, {
+        [styles.HeaderIconsList__isHomePage]: isHomePage,
+      })}
+    >
       <div className={styles.HeaderIconListItem}>
         {!isNull(cartId) && (
           <div>
@@ -66,7 +107,7 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
               }}
             >
               <a className={styles.IconLink}>
-                <Icon className={styles.Icon} type={"Cart"} />
+                <Icon className={styles.Icon} type="Cart" />
                 <div className={styles.IconDescription}>Корзина</div>
                 <div className={styles.CartItemsCount}>
                   {cartItemsCountTotal}
@@ -83,11 +124,35 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
         )}
       >
         {isAuthenticated ? (
-          <Avatar size={46} title={account.user.first_name[0]} />
+          <div className={styles.AvatarDropDown} ref={refToggleDropDown}>
+            <Avatar
+              user={
+                isAuthenticated && account.user ? account.user.first_name : null
+              }
+              size={46}
+              onClick={handleToggleDropDown}
+            />
+            <DropDown className="DropDownUser" isOpen={isDropDownOpen}>
+              <ul className={styles.AvatarDropDown_Menu}>
+                <li
+                  className={styles.AvatarDropDown_MenuItem}
+                  onClick={handleLogout}
+                >
+                  <Icon
+                    className={styles.AvatarDropDown_MenuItemIcon}
+                    type="Exit"
+                  />
+                  <div className={styles.AvatarDropDown_MenuItemText}>
+                    Выйти
+                  </div>
+                </li>
+              </ul>
+            </DropDown>
+          </div>
         ) : (
-          <Link href={"/login"}>
-            <a>
-              <Icon className={styles.Icon} type={"User"} />
+          <Link href={ROUTES.LOGIN}>
+            <a className={styles.IconLink}>
+              <Icon className={styles.Icon} type="User" />
               <div className={styles.IconDescription}>Войти</div>
             </a>
           </Link>

@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import { MirrorsAside } from "components/Catalog/Mirrors";
 import { LayoutSorting } from "components/Layout/LayoutSorting/LayoutSorting";
 import { CatalogNames } from "constants/names";
-import { Pagination } from "ui-kit";
 import { IConsole } from "types/console";
-import { IMirror } from "types/mirror";
 import { IPaging } from "types/filter";
+import { IMirror } from "types/mirror";
+import { Breadcrumbs, Pagination } from "ui-kit";
 import { ProductsList } from "./ProductsList";
 import styles from "./Products.module.scss";
 
@@ -54,7 +54,7 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
     }
   };
 
-  const handlePageChange = currentButton => {
+  const handlePageChange = (currentButton: number) => {
     if (
       currentButton === -100 ||
       currentButton === -99 ||
@@ -95,6 +95,9 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
 
   return (
     <section className={styles.Products}>
+      <Breadcrumbs
+        getDefaultTextGenerator={() => productsResponse.catalogName}
+      />
       <div className={styles.Row}>
         <h1 className={styles.Title}>{productsResponse.catalogName}</h1>
         <span>

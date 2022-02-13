@@ -61,16 +61,10 @@ export const FormField: React.FC<IFormFieldProps> = ({
         [styles.FormField__active]: isFocused,
       })}
     >
-      <label className={styles.FormField_Label} htmlFor={name}>
-        {label}
-        {isRequired && (
-          <span className={styles.FormField_LabelRequired}> *</span>
-        )}
-      </label>
       {type === "text" && (
         <>
           <Input
-            className={classNames({
+            className={classNames(styles.Input, {
               [styles.Input__active]: isFocused,
               [styles.Input__error]: error,
             })}
@@ -88,10 +82,11 @@ export const FormField: React.FC<IFormFieldProps> = ({
       {type === "password" && (
         <>
           <Input
-            className={classNames({
+            className={classNames(styles.Input, {
               [styles.Input__active]: isFocused,
               [styles.Input__error]: error,
             })}
+            autoComplete="on"
             name={name}
             type={handleType(type)}
             error={error}
@@ -116,7 +111,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
       {type === "tel" && (
         <>
           <InputPhone
-            className={classNames({
+            className={classNames(styles.Input, {
               [styles.Input__active]: isFocused,
               [styles.Input__error]: error,
             })}
@@ -133,7 +128,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
 
       {type === "textarea" && (
         <TextArea
-          className={classNames({
+          className={classNames(styles.Input, {
             [styles.Input__active]: isFocused,
             [styles.Input__error]: error,
           })}
@@ -144,6 +139,13 @@ export const FormField: React.FC<IFormFieldProps> = ({
           onBlur={onBlur}
         />
       )}
+
+      <label className={styles.FormField_Label} htmlFor={name}>
+        {label}
+        {isRequired && (
+          <span className={styles.FormField_LabelRequired}> *</span>
+        )}
+      </label>
     </div>
   );
 };

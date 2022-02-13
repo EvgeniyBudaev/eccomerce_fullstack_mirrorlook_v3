@@ -62,7 +62,11 @@ export const Pagination: React.FC<IPaginationProps> = ({
     } else if (currentButton === dotsRight) {
       setCurrentButton(arrOfCurrButtons[3] + 3);
     } else if (currentButton === dotsLeft) {
-      setCurrentButton(arrOfCurrButtons[3] - 3);
+      if (arrOfCurrButtons[3] === 3) {
+        setCurrentButton(arrOfCurrButtons[3] - 2);
+      } else {
+        setCurrentButton(arrOfCurrButtons[3] - 3);
+      }
     }
 
     setArrOfCurrButtons(tempNumberOfPages);

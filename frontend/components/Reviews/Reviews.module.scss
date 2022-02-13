@@ -1,0 +1,77 @@
+@import "styles";
+
+.Reviews {
+  &Inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &Title {
+    @include roboto-32-bold;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $color-light-gray;
+  }
+
+  &Block {
+    margin-right: 65px;
+    width: 100%;
+  }
+}
+
+.GoBack {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 100%;
+
+  &Link {
+    @include roboto-12-regular;
+    display: flex;
+    align-items: center;
+    color: $color-beige;
+    transition: all 0.15s;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: $color-beige;
+      transition: all 0.15s;
+    }
+  }
+
+  &Link:hover {
+    color: $color-hover;
+
+    svg {
+      fill: $color-hover;
+    }
+  }
+
+  &Text {
+    margin-left: 4px;
+  }
+}
+
+.Comments {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .Reviews {
+    &Inner {
+      flex-direction: column;
+    }
+
+    &Block {
+      order: 1;
+      margin-right: 0;
+    }
+
+    &Title {
+      padding-bottom: 0;
+    }
+  }
+}

@@ -6,14 +6,15 @@ import { useForm } from "react-hook-form";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import isNull from "lodash/isNull";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { Button, Icon, FormField, Spinner } from "ui-kit";
+import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/order";
 import { setUnhandledClearError } from "ducks/unhandledError";
-import { ROUTES } from "constants/routes";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import { Button, Icon, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import { normalizePhoneNumber } from "utils/normalizePhoneNumber";
 import styles from "./Recipient.module.scss";
 
@@ -88,7 +89,8 @@ export const Recipient: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка оформления получателя!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 

@@ -1,17 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup.umd";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
+import { getErrorByStatus } from "utils/error";
 import styles from "./Login.module.scss";
 
 interface ILoginForm {
@@ -54,7 +55,8 @@ export const Login: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      AlertError("Ошибка авторизации!", error.message);
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
     }
   }, [error]);
 
@@ -70,7 +72,7 @@ export const Login: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/");
+      router.back();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
@@ -112,16 +114,8 @@ export const Login: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className={styles.Login}>
+    <section className={styles.Login}>
       <AlertContainer />
-      <div className={styles.SectionLeft}>
-        <Image
-          src={"/images/login-left-background.png"}
-          alt=""
-          height="636"
-          width="475"
-        />
-      </div>
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
           <h1 className={styles.SectionCenterContent_Title}>Вход</h1>
@@ -134,7 +128,7 @@ export const Login: React.FC = () => {
                 register={register}
                 error={errorMessage(
                   errors.email?.message,
-                  error?.response.data?.detail
+                  error?.response?.data?.detail
                 )}
                 isFocused={isFocused.email}
                 isRequired
@@ -161,38 +155,24 @@ export const Login: React.FC = () => {
                 onFocus={handleFocus}
               />
             </div>
-            <Button
-              className={styles.SectionCenter_Button}
-              type="submit"
-              onClick={() => {}}
-            >
-              Войти
-            </Button>
+            <div className={styles.SectionCenter_Control}>
+              <Button
+                className={styles.SectionCenter_Button}
+                type="submit"
+                onClick={() => {}}
+              >
+                Войти
+              </Button>
+            </div>
           </form>
           <div className={styles.SectionCenter_Registration}>
             <span>Нет аккаунта?</span>
-            <Link href={"/signup"}>
+            <Link href={ROUTES.SIGNUP}>
               <a>Зарегистрироваться</a>
             </Link>
           </div>
         </div>
-        <div className={styles.SectionCenter_Image}>
-          <Image
-            src={"/images/login-center-background.png"}
-            alt=""
-            height="202"
-            width="237"
-          />
-        </div>
       </div>
-      <div className={styles.SectionRight}>
-        <Image
-          src={"/images/login-right-background.png"}
-          alt=""
-          height="482"
-          width="454"
-        />
-      </div>
-    </div>
+    </section>
   );
 };

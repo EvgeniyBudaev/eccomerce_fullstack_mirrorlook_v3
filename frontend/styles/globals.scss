@@ -78,7 +78,6 @@ button {
   width: 100%;
   max-height: 500px;
   margin: 0 auto;
-  //border-radius: 24px;
   outline: transparent;
 }
 
@@ -117,7 +116,7 @@ button {
     }
   }
   & li.slick-active button {
-    background-color: $color-text;
+    background-color: $color-beige;
     outline: transparent;
   }
 
@@ -164,10 +163,23 @@ button {
   opacity: 0 !important;
 }
 
+@media (max-width: 768px) {
+  .slick-slider {
+    margin-bottom: 20px;
+  }
+
+  .slick-slider .slick-dots {
+    bottom: -30px;
+  }
+}
+
 @media (max-width: 500px) {
   .nav.slick-initialized .slick-slide {
     display: flex;
     justify-content: center;
+  }
+  .slick-slider .slick-dots {
+    bottom: -22px;
   }
 }
 
@@ -215,7 +227,7 @@ $overlayOpacity: 0.6;
 
   &.enter {
     background: transparent;
-    opacity: $overlayOpacity;
+    opacity: 0;
     visibility: hidden;
   }
 
@@ -235,31 +247,8 @@ $overlayOpacity: 0.6;
 
   &.exit-active {
     background: transparent;
-    opacity: $overlayOpacity;
+    opacity: 0;
     visibility: hidden;
-  }
-}
-
-/* ----- Компонент затемнения в поиске ----- */
-$searchOverlayOpacity: 0.2;
-
-.SearchOverlay {
-  opacity: $searchOverlayOpacity;
-
-  &.enter {
-    opacity: $searchOverlayOpacity;
-  }
-
-  &.enter-active {
-    opacity: $searchOverlayOpacity;
-  }
-
-  &.exit {
-    opacity: $searchOverlayOpacity;
-  }
-
-  &.exit-active {
-    opacity: $searchOverlayOpacity;
   }
 }
 
@@ -374,6 +363,42 @@ $maxWidth: 620px;
     opacity: 0;
     transform: translateX(-100px);
     transition: opacity $transition, transform $transition;
+  }
+}
+
+/* ----- Открытие/закрытие DropDown ----- */
+$positionDropDown: -500px;
+
+.DropDownUser {
+  content: "";
+  position: absolute;
+  bottom: -64px;
+  right: 0;
+  height: max-content;
+  width: max-content;
+  background-color: white;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: $shadow-perimeter;
+  z-index: 103;
+
+  &.enter {
+    opacity: 0;
+  }
+
+  &.enter-active {
+    opacity: 1;
+    transition: opacity $transition;
+  }
+
+  &.exit {
+    opacity: 1;
+    transition: opacity $transition;
+  }
+
+  &.exit-active {
+    opacity: 0;
+    transition: opacity $transition;
   }
 }
 
