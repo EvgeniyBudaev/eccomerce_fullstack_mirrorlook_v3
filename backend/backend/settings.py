@@ -199,6 +199,8 @@ EMAIL_HOST_USER = 'infomirrorlook@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+SERVER_EMAIL = 'infomirrorlook@gmail.com'
+DEFAULT_FROM_EMAIL = 'infomirrorlook@gmail.com'
 
 DJOSER = {
     'LOGIN_FIELD': 'email',

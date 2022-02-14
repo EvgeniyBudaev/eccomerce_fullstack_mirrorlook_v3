@@ -107,7 +107,7 @@ def sending_confirm_order(request):
 
     conn_params = dict(
         host="smtp.gmail.com",
-        port=465,
+        port=587,
         username="infomirrorlook@gmail.com",
         password=os.getenv('EMAIL_HOST_PASSWORD')
     )
