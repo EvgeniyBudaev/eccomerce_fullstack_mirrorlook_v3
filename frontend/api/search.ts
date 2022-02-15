@@ -1,5 +1,5 @@
 import axios from "axios";
-import { backendBase } from "constants/paths";
+// import { backendBase } from "constants/paths";
 import {
   IFetchLiveProductsSearchResponse,
   ISearchedKeyword,
@@ -14,7 +14,7 @@ export const fetchLiveProductsSearch = async ({
     },
   };
   const response = await axios.get<IFetchLiveProductsSearchResponse>(
-    `${backendBase}api/v1/products/?search=${searchedKeyword}`,
+    `http://mirror-look.shop/api/v1/products/?search=${searchedKeyword}`,
     config
   );
 
