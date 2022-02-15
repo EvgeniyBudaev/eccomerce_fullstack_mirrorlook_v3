@@ -6,4 +6,4 @@ const browser = typeof window !== "undefined";
 
 // export const backendBase = "http://127.0.0.1:8000/";
 
-export const backendBase = "/";
+export const backendBase = "http://backend:8000/";
