@@ -33,8 +33,6 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./mirror-look-shop.ru.crt:/etc/ssl/mirror-look-shop.ru.crt
-      - ./mirror-look-shop.ru.key:/etc/ssl/mirror-look-shop.ru.key
       - static_value:/var/html/static/
       - media_value:/var/html/media/
     restart: always
