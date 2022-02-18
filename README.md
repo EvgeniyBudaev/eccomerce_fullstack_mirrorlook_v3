@@ -114,9 +114,9 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
   docker-compose --version
 ```
 
--  Отредактируйте файл nginx/nginx.conf и в строке server_name впишите свой IP
+-  Отредактируйте файл nginx.conf и в строке server_name впишите свой IP
 
-- Скопируйте файлы docker-compose.yaml и nginx/default.conf из проекта на сервер
+- Скопируйте файлы docker-compose.yaml и nginx.conf из проекта на сервер
   (на локальной машине в терминале по месту нахождения файла,
   нужно создать на сервере mkdir nginx):
 
@@ -146,7 +146,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 ```
 
 ###
-Теперь проект доступен по адресу http://62.84.119.85.
+Теперь проект доступен по адресу http://62.84.119.86.
 
 - Остановить приложение:
 
