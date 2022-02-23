@@ -102,12 +102,12 @@ def sending_confirm_order(request):
     subject = data["subject"]
     message = data["message"]
     customer_email = data["customer_email"]
-    store_email = "infomirrorlook@gmail.com"
+    store_email = settings.EMAIL_HOST_USER
 
     conn_params = dict(
         host="smtp.gmail.com",
-        port=587,
-        username="infomirrorlook@gmail.com",
+        port=settings.EMAIL_PORT,
+        username=store_email,
         password=os.getenv('EMAIL_HOST_PASSWORD')
     )
 
