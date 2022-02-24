@@ -72,8 +72,8 @@ export const Home: React.FC = () => {
           <a className={styles.ArticleLink}>+7 (995) 505-39-78</a>
         </Link>
         или можете написать письмо на электронную почту
-        <Link href={"mailto:mirror-look@gmail.com"}>
-          <a className={styles.ArticleLink}>mirror-look@gmail.com</a>
+        <Link href={"mailto:infomirrorlook@gmail.com"}>
+          <a className={styles.ArticleLink}>infomirrorlook@gmail.com</a>
         </Link>
       </p>
     );

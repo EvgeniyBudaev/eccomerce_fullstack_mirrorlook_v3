@@ -95,6 +95,12 @@
  sudo systemctl stop nginx
 ```
 
+- Статус nginx на сервере:
+
+```python
+ sudo systemctl status nginx
+```
+
 - Установите docker и docker-compose на сервер:
 
 ```python
