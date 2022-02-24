@@ -6,4 +6,4 @@ const browser = typeof window !== "undefined";
 
 // export const backendBase = "http://127.0.0.1:8000/";
 
-export const backendBase = "http://62.84.119.86/";
+export const backendBase = "https://mirror-look-shop.ru/";
