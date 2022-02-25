@@ -86,6 +86,7 @@ jobs:
             echo SECRET_KEY="${{ secrets.SECRET_KEY }}" >> .env
             echo DEBUG=${{ secrets.DEBUG }} >> .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
+            echo EMAIL_HOST_PASSWORD=${{ EMAIL_HOST_PASSWORD }} >> .env
             sudo docker-compose up -d --build
             sudo docker-compose exec -T backend python manage.py collectstatic --noinput
             sudo docker-compose exec -T backend python manage.py makemigrations --noinput
