@@ -19,6 +19,9 @@ module.exports = {
       "62.84.119.86:8000"
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
