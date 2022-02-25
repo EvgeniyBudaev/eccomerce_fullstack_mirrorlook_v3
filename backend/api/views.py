@@ -1,9 +1,6 @@
-import os
-
 from django.contrib.auth import get_user_model
 # Отправка сообщений на email
-from django.core import mail
-from django.core.mail import BadHeaderError, get_connection
+from django.core.mail import BadHeaderError, send_mail
 from django_filters.rest_framework import DjangoFilterBackend
 from dotenv import load_dotenv
 from rest_framework import filters, status, viewsets
@@ -104,26 +101,15 @@ def sending_confirm_order(request):
     customer_email = data["customer_email"]
     store_email = "infomirrorlook@gmail.com"
 
-    conn_params = dict(
-        host="smtp.gmail.com",
-        port=587,
-        username=store_email,
-        password=os.getenv('EMAIL_HOST_PASSWORD')
-    )
-
-    email_params = dict(
-        subject=subject,
-        body=message,
-        from_email=store_email,
-        to=[customer_email]
-    )
-
     if subject and message and customer_email and store_email:
         try:
-            with get_connection(**conn_params) as connection:
-                message = mail.EmailMessage(**email_params,
-                                            connection=connection)
-                message.send(fail_silently=False)
+            send_mail(
+                subject,
+                message,
+                store_email,
+                [customer_email],
+                fail_silently=False,
+            )
             return Response("Заказ успешно оформлен!")
         except BadHeaderError:
             message = {
