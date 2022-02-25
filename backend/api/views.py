@@ -1,8 +1,5 @@
-import os
-
 from django.contrib.auth import get_user_model
 # Отправка сообщений на email
-from django.core import mail
 from django.core.mail import BadHeaderError, send_mail
 from django_filters.rest_framework import DjangoFilterBackend
 from dotenv import load_dotenv
