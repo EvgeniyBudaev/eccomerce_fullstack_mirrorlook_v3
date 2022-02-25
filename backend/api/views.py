@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth import get_user_model
 # Отправка сообщений на email
 from django.core import mail
@@ -106,7 +108,7 @@ def sending_confirm_order(request):
         host="smtp.gmail.com",
         port=587,
         username=store_email,
-        password="WwRk12345HCWT"
+        password=os.getenv('EMAIL_HOST_PASSWORD')
     )
 
     email_params = dict(
