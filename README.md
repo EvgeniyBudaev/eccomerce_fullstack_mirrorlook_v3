@@ -160,6 +160,12 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
   docker-compose down
 ```
 
+- Нужно отключить системный nginx на сервере. В случае с докером он не нужен:
+
+```python
+  sudo systemctl stop nginx && sudo systemctl disable nginx
+```
+
 
 Инструкция как пользоваться данным API доступна по адресу http://localhost/redoc/
 
