@@ -108,7 +108,7 @@ def sending_confirm_order(request):
         host="smtp.gmail.com",
         port=587,
         username=store_email,
-        password=os.getenv('EMAIL_HOST_PASSWORD')
+        password='WwRk12345HCWT'
     )
 
     email_params = dict(
