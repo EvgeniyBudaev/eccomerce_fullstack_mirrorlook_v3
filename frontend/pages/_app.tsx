@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
     <>
       <Head>
         <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="description" content="Интернет магазин зеркал" />
         <meta name="keywords" content="зеркало, магазин, купить, цена" />

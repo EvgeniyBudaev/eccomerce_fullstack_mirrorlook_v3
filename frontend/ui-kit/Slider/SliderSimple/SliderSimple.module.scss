@@ -96,6 +96,7 @@
 }
 
 @media (max-width: 700px) {
+  .ItemTitle,
   .ItemContent__isPadScreen .ItemTitle {
     display: none;
   }
