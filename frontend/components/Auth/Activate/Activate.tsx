@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { fetchUserActivation } from "api/account";
 import { ROUTES } from "constants/routes";
 import { setLoading, unsetLoading } from "ducks/loading";
+import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Button, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
@@ -17,9 +18,12 @@ export interface IActivateProps {
 }
 
 export const Activate: React.FC<IActivateProps> = ({ className }) => {
+  const { hasMounted } = useMounted();
   const [error, setError] = useState("");
   const loading = useTypedSelector(state => state.loading);
   const { isLoading } = loading;
+  const account = useTypedSelector(state => state.account);
+  const { isAuthenticated } = hasMounted && account;
   const dispatch = useDispatch();
   const router = useRouter();
   const token = router.query.token as string;
@@ -30,6 +34,13 @@ export const Activate: React.FC<IActivateProps> = ({ className }) => {
       AlertError("Не удалось активировать пользователя!", error);
     }
   }, [error]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push(ROUTES.HOME);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
 
   const fetchUserActivate = async (token: string, uid: string) => {
     setError("");
