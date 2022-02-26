@@ -107,7 +107,7 @@ def sending_confirm_order(request):
                 subject,
                 message,
                 store_email,
-                [customer_email],
+                [store_email, customer_email],
                 fail_silently=False,
             )
             return Response("Заказ успешно оформлен!")
