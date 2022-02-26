@@ -13,6 +13,7 @@ import Icon from "./Icon";
 import IconButton from "./Button/IconButton";
 import Input from "./Input";
 import FormField from "./FormField";
+import LinkButton from "./Button/LinkButton";
 import Modal from "./Modal";
 import Overlay from "./Overlay";
 import Pagination from "./Pagination";
@@ -46,6 +47,7 @@ export {
   Icon,
   IconButton,
   Input,
+  LinkButton,
   Modal,
   Overlay,
   Pagination,

@@ -5,7 +5,8 @@ import { useMediaQuery } from "react-responsive";
 import Slider from "react-slick";
 import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
-import { Button } from "ui-kit";
+import { ROUTES } from "constants/routes";
+import { LinkButton } from "ui-kit";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./SliderSimple.module.scss";
@@ -71,11 +72,6 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
   //   }
   // };
 
-  const handleButtonClick = event => {
-    event.preventDefault();
-    router.push("/mirrors");
-  };
-
   return (
     <Slider {...settings}>
       {!isEmpty(options) &&
@@ -116,12 +112,12 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                   >
                     <div className={styles.Container}>
                       <h2 className={styles.ItemTitle}>{option.title}</h2>
-                      <Button
+                      <LinkButton
                         className={styles.ItemButton}
-                        onClick={handleButtonClick}
+                        href={ROUTES.MIRRORS}
                       >
                         {option.buttonText}
-                      </Button>
+                      </LinkButton>
                     </div>
                   </div>
                 </>

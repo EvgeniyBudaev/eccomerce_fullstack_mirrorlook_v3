@@ -108,17 +108,18 @@ export const Signup: React.FC = () => {
           re_password: data.re_password,
         },
       });
+      router.push(ROUTES.CONFIRM_REGISTRATION);
     } else {
       setIsPasswordMatch(true);
     }
   };
 
-  useEffect(() => {
-    if (!isNull(isAuthenticated) && isAuthenticated === false) {
-      router.push(ROUTES.LOGIN);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (!isNull(isAuthenticated) && isAuthenticated === false) {
+  //     router.push(ROUTES.LOGIN);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isAuthenticated]);
 
   useEffect(() => {
     return () => {

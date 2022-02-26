@@ -25,7 +25,8 @@
       margin: 0 auto;
     }
 
-    h1, span {
+    h1,
+    span {
       @include roboto-32-medium;
       font-weight: 300;
       text-align: center;

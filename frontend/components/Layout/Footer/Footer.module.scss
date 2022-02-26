@@ -66,4 +66,14 @@
       max-width: max-content;
     }
   }
+  .FooterCopy {
+    flex-direction: column;
+  }
+  .FooterText {
+    margin-bottom: 8px;
+    margin-left: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
 import useInView from "react-cool-inview";
-import { Button } from "ui-kit";
+import { ROUTES } from "constants/routes";
+import { LinkButton } from "ui-kit";
 import styles from "./Collections.module.scss";
 
 const slide1 = "/images/collection-1.png";
@@ -12,12 +12,6 @@ const slide4 = "/images/collection-4.jpg";
 
 export const Collections: React.FC = () => {
   const { observe, inView } = useInView({ unobserveOnEnter: true });
-  const router = useRouter();
-
-  const handleButtonClick = event => {
-    event.preventDefault();
-    router.push("/mirrors");
-  };
 
   return (
     <div className={styles.CollectionsWrapper} ref={observe}>
@@ -66,9 +60,9 @@ export const Collections: React.FC = () => {
             </div>
           </div>
           <div className={styles.CollectionsControl}>
-            <Button onClick={handleButtonClick}>
+            <LinkButton className={styles.ItemButton} href={ROUTES.MIRRORS}>
               Посмотреть все коллекции
-            </Button>
+            </LinkButton>
           </div>
         </section>
       )}

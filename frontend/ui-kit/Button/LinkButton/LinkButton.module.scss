@@ -1,6 +1,6 @@
-@import "styles";
+@import "styles/index";
 
-.Button {
+.LinkButton {
   @include roboto-16-regular;
   position: relative;
   padding: 10px 30px;
@@ -49,7 +49,7 @@
     transform: translateY(0) scaleY(0);
   }
 
-  &.Button__disabled {
+  &.LinkButton__disabled {
     color: $color-silver-gray;
     background-color: $color-pearl-white;
     border-color: $color-silver-gray;
@@ -65,35 +65,10 @@
       cursor: not-allowed;
     }
   }
-
-  // Click effect
-  p {
-    position: absolute;
-    display: inline-block;
-    background-color: $color-white;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    border-radius: 50%;
-    z-index: 3;
-    animation: animate 0.6s linear;
-  }
-
-  @keyframes animate {
-    0% {
-      width: 0;
-      height: 0;
-      opacity: 0.5;
-    }
-    100% {
-      width: 500px;
-      height: 500px;
-      opacity: 0;
-    }
-  }
 }
 
 @media (max-width: 500px) {
-  .Button {
+  .LinkButton {
     @include roboto-14-regular;
   }
 }

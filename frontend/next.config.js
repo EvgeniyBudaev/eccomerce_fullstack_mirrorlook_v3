@@ -16,11 +16,8 @@ module.exports = {
       "www.mirror-look-shop.ru",
       "62.84.119.86",
       "62.84.119.86:80",
-      "62.84.119.86:8000"
+      "62.84.119.86:8000",
     ],
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   webpack(config) {
     config.module.rules.push({

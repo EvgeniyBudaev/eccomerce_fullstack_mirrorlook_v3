@@ -1,22 +1,34 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { ROUTES } from "constants/routes";
+import { ActionTypes } from "ducks/account";
 import { useMounted } from "hooks/useMounted";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { Avatar, Icon } from "ui-kit";
 import styles from "./SidebarMobile.module.scss";
 
 export const SidebarMobile: React.FC = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const { hasMounted } = useMounted();
   const account = useTypedSelector(state => state.account);
   const { isAuthenticated } = hasMounted && account;
+
+  const handleLogout = () => {
+    dispatch({
+      type: ActionTypes.FETCH_LOGOUT,
+    });
+    router.push(ROUTES.HOME);
+  };
 
   return (
     <div className={styles.SidebarMobile}>
       <ul className={styles.SidebarMobileList}>
         <li className={styles.SidebarMobileListItem}>
-          <Link href={"/"}>
+          <Link href={isAuthenticated ? "/" : ROUTES.LOGIN}>
             <a className={styles.SidebarMobileLink}>
               {isAuthenticated ? (
                 <>
@@ -49,7 +61,7 @@ export const SidebarMobile: React.FC = () => {
                   <div className={styles.SidebarMobileLinkText}>
                     <div className={styles.SidebarMobileLinkTitle}>Гость</div>
                     <div className={styles.SidebarMobileLinkSubTitle}>
-                      Регистрация
+                      Регистрация / Войти
                     </div>
                   </div>
                 </>
@@ -67,6 +79,16 @@ export const SidebarMobile: React.FC = () => {
             </a>
           </Link>
         </li>
+        {isAuthenticated && (
+          <li className={styles.SidebarMobileListItem} onClick={handleLogout}>
+            <div className={styles.SidebarMobileLink}>
+              <Icon type="Exit" />
+              <div className={styles.SidebarMobileLinkText}>
+                <div className={styles.SidebarMobileLinkTitle}>Выйти</div>
+              </div>
+            </div>
+          </li>
+        )}
       </ul>
     </div>
   );
