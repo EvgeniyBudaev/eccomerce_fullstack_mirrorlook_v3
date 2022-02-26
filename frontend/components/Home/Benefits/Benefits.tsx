@@ -22,7 +22,7 @@ export const Benefits: React.FC = () => {
         <div className={styles.BenefitsUnit}>
           <div className={styles.BenefitsUnitCircleWrapper}>
             <div className={styles.BenefitsUnitCircle}>
-              <Icon className={styles.BenefitsUnitIcon} type="Star" />
+              <Icon className={styles.BenefitsUnitIcon} type="Shipping" />
             </div>
           </div>
           <div className={styles.BenefitsUnitTitle}>Оперативная доставка</div>
