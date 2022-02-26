@@ -41,9 +41,9 @@ export const FormField: React.FC<IFormFieldProps> = ({
 }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
-  const handlePasswordShow = () => {
-    setIsShowPassword(prevState => !prevState);
-  };
+  // const handlePasswordShow = () => {
+  //   setIsShowPassword(prevState => !prevState);
+  // };
 
   const handleType = (type: string) => {
     if (type === "text") {
@@ -94,16 +94,16 @@ export const FormField: React.FC<IFormFieldProps> = ({
             onFocus={onFocus}
             onBlur={onBlur}
           />
-          <div
-            className={styles.FormField_Visibility}
-            onClick={handlePasswordShow}
-          >
-            {isShowPassword ? (
-              <Icon type="VisibilityOff" />
-            ) : (
-              <Icon type="Visibility" />
-            )}
-          </div>
+          {/*<div*/}
+          {/*  className={styles.FormField_Visibility}*/}
+          {/*  onClick={handlePasswordShow}*/}
+          {/*>*/}
+          {/*  {isShowPassword ? (*/}
+          {/*    <Icon type="VisibilityOff" />*/}
+          {/*  ) : (*/}
+          {/*    <Icon type="Visibility" />*/}
+          {/*  )}*/}
+          {/*</div>*/}
           {error && <div className={styles.ErrorMessage}>{error}</div>}
         </>
       )}
