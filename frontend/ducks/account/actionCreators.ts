@@ -1,4 +1,5 @@
 import axios from "axios";
+import { backendBase } from "constants/paths";
 import { ActionTypes } from "./actionTypes";
 import {
   IPayloadSetUserToken,
@@ -35,9 +36,8 @@ export const verify = (uid: string, token: string) => async dispatch => {
   };
   const body = JSON.stringify({ uid, token });
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
     const response = await axios.post(
-      `${baseUrl}api/v1/auth/users/activation/`,
+      `${backendBase}api/v1/auth/users/activation/`,
       body,
       config
     );
@@ -70,9 +70,8 @@ export const checkAuthenticated = () => async dispatch => {
     };
     const body = JSON.stringify({ token: localStorage.getItem("access") });
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
       const response = await axios.post(
-        `${baseUrl}api/v1/auth/jwt/verify/`,
+        `${backendBase}api/v1/auth/jwt/verify/`,
         body,
         config
       );
@@ -105,9 +104,8 @@ export const reset_password = (email: string) => async dispatch => {
   };
   const body = JSON.stringify({ email });
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
     await axios.post(
-      `${baseUrl}api/v1/auth/users/reset_password/`,
+      `${backendBase}api/v1/auth/users/reset_password/`,
       body,
       config
     );
@@ -135,9 +133,8 @@ export const reset_password_confirm =
     };
     const body = JSON.stringify({ uid, token, new_password, re_new_password });
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
       await axios.post(
-        `${baseUrl}api/v1/auth/users/reset_password_confirm/`,
+        `${backendBase}api/v1/auth/users/reset_password_confirm/`,
         body,
         config
       );
