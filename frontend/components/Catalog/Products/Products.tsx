@@ -26,46 +26,27 @@ interface IProductsProps {
 }
 
 export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
+  const router = useRouter();
+  const path = router.asPath;
   const [productRange, setProductRange] = useState<IProductRange>({
     startProduct: 0,
     endProduct: 0,
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const pageNumber = !isNaN(Number(router.asPath.split("=")[1]))
+    ? Number(router.asPath.split("=")[1])
+    : 1;
   const [isFirstPage, setIsFirstPage] = useState(false);
   const [isClickedDisplayLine, setIsClickedDisplayLine] = useState(false);
   const { pagesCount, pageItemsCount, totalItemsCount } =
     productsResponse.paging;
   const { catalogName } = productsResponse;
-  const router = useRouter();
-  const path = router.asPath;
 
-  const handleFilter = (currentButton: number) => {
-    const obj = {};
-    const entries = Object.entries(router.query);
-    entries.forEach(([key, value]) => {
-      obj[key] = value;
-    });
-
-    if (currentButton === 1) {
-      delete obj["page"];
-      return { ...obj };
-    } else {
-      return { ...obj, page: currentButton };
-    }
-  };
-
-  const handlePageChange = (currentButton: number) => {
-    if (
-      currentButton === -100 ||
-      currentButton === -99 ||
-      currentButton === -101
-    ) {
-      return;
-    }
-    setCurrentPage(currentButton);
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected + 1);
     router.push({
       href: path,
-      query: handleFilter(currentButton),
+      query: `page=${selected + 1}`,
     });
   };
 
@@ -120,8 +101,8 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
             isClickedDisplayLine={isClickedDisplayLine}
           />
           <Pagination
-            pages={pagesCount}
-            isFirstPage={isFirstPage}
+            initialPage={pageNumber - 1}
+            pagesCount={pagesCount}
             onChange={handlePageChange}
           />
         </div>

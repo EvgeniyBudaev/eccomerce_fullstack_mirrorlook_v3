@@ -16,6 +16,7 @@ import { store } from "ducks/store";
 import { setUnhandledError } from "ducks/unhandledError";
 import * as actionCreators from "./actionCreators";
 import { ActionTypes } from "./actionTypes";
+import { cartClear } from "ducks/cart/actionCreators";
 import {
   IFetchOrderProps,
   IFetchOrderRecipientSaveProps,
@@ -85,6 +86,8 @@ function* workerOrderSendToEmail({ payload }: IFetchOrderSendToEmailProps) {
       orderApi.fetchSendingConfirmOrder,
       payload
     )) as IFetchSendingConfirmOrderResponse;
+    yield put(cartClear());
+    localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));

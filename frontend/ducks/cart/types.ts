@@ -61,6 +61,10 @@ export interface IActionCartUserSet {
   payload: number;
 }
 
+export interface IActionCartClear {
+  type: ActionTypes.CART_CLEAR;
+}
+
 export interface IFetchCartCreateProps {
   payload: number;
   type: string;

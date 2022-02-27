@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { ActionTypes } from "./actionTypes";
 import {
   IActionCartAddItem,
+  IActionCartClear,
   IActionCartCreate,
   IActionCartItemChange,
   IActionCartItemDecrement,
@@ -12,6 +13,7 @@ import {
 } from "./types";
 
 type IAction =
+  | IActionCartClear
   | IActionCartCreate
   | IActionCartAddItem
   | IActionCartItemChange
@@ -130,6 +132,11 @@ export const reducer: Reducer<ICartState> = (
       return {
         ...state,
         user: action.payload,
+      };
+    case ActionTypes.CART_CLEAR:
+      return {
+        ...state,
+        entities: [],
       };
 
     default:

@@ -1,4 +1,5 @@
 export enum ActionTypes {
+  CART_CLEAR = "cart/CART_CLEAR",
   CART_CREATE = "cart/CART_CREATE",
   CART_INIT = "cart/CART_INIT",
   CART_SET = "cart/CART_SET",
