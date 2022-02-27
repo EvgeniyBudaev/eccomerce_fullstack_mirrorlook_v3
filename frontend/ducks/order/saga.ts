@@ -86,8 +86,11 @@ function* workerOrderSendToEmail({ payload }: IFetchOrderSendToEmailProps) {
       orderApi.fetchSendingConfirmOrder,
       payload
     )) as IFetchSendingConfirmOrderResponse;
-    yield put(cartClear());
-    localStorage.setItem("cart", JSON.stringify(store.getState().cart));
+    if (responseSendingConfirmOrder) {
+      yield put(cartClear());
+      localStorage.setItem("cart", JSON.stringify(store.getState().cart));
+      yield put(actionCreators.orderEmailSended());
+    }
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));

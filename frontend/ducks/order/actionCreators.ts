@@ -1,5 +1,6 @@
 import {
   IActionOrderCreate,
+  IActionOrderEmailSend,
   IActionOrderRecipientSave,
   IActionOrderShippingAddressSave,
   IPayloadOrderRecipientSave,
@@ -27,4 +28,8 @@ export const orderCreate = (
 ): IActionOrderCreate => ({
   type: ActionTypes.ORDER_CREATE,
   payload,
+});
+
+export const orderEmailSended = (): IActionOrderEmailSend => ({
+  type: ActionTypes.ORDER_EMAIL_SENDED,
 });

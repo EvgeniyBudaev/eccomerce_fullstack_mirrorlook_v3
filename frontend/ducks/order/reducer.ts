@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { ActionTypes } from "./actionTypes";
 import {
   IActionOrderCreate,
+  IActionOrderEmailSend,
   IActionOrderRecipientSave,
   IActionOrderShippingAddressSave,
   IOrderState,
@@ -10,7 +11,8 @@ import {
 type IAction =
   | IActionOrderShippingAddressSave
   | IActionOrderRecipientSave
-  | IActionOrderCreate;
+  | IActionOrderCreate
+  | IActionOrderEmailSend;
 
 const initialState = {
   order:
@@ -26,6 +28,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("shipping_address"))
       : null,
   isOrderConfirmed: false,
+  isOrderEmailSended: false,
 };
 
 export const reducer: Reducer<IOrderState> = (
@@ -37,17 +40,26 @@ export const reducer: Reducer<IOrderState> = (
       return {
         ...state,
         shipping_address: action.payload,
+        isOrderConfirmed: false,
+        isOrderEmailSended: false,
       };
     case ActionTypes.ORDER_RECIPIENT_SAVE:
       return {
         ...state,
         order_user: action.payload,
+        isOrderConfirmed: false,
+        isOrderEmailSended: false,
       };
     case ActionTypes.ORDER_CREATE:
       return {
         ...state,
         order: action.payload,
         isOrderConfirmed: true,
+      };
+    case ActionTypes.ORDER_EMAIL_SENDED:
+      return {
+        ...state,
+        isOrderEmailSended: true,
       };
     default:
       return state;

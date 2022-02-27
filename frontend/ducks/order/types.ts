@@ -53,6 +53,10 @@ export interface IActionOrderCreate {
   payload: IFetchOrderResponse;
 }
 
+export interface IActionOrderEmailSend {
+  type: ActionTypes.ORDER_EMAIL_SENDED;
+}
+
 export interface IFetchOrderRecipientSavePayload {
   email: string;
   first_name: string;
@@ -67,6 +71,7 @@ export interface IFetchOrderRecipientSaveProps {
 
 export interface IOrderState {
   isOrderConfirmed: boolean;
+  isOrderEmailSended: boolean;
   order: IFetchOrderResponse;
   order_user: IPayloadOrderRecipientSave;
   shipping_address: IFetchOrderShippingAddressSavePayload;

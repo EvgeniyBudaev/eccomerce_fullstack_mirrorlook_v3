@@ -99,11 +99,9 @@ export const FormField: React.FC<IFormFieldProps> = ({
             onClick={handlePasswordShow}
           >
             {isShowPassword ? (
-              // <Icon type="VisibilityOff" />
-              <Icon type="Star" />
+              <Icon type="VisibilityOff" />
             ) : (
-              <Icon type="Star" />
-              // <Icon type="Visibility" />
+              <Icon type="Visibility" />
             )}
           </div>
           {error && <div className={styles.ErrorMessage}>{error}</div>}

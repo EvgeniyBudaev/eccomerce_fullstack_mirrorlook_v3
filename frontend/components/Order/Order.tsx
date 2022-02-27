@@ -46,7 +46,7 @@ export const Order: React.FC = () => {
   const dispatch = useDispatch();
   const { hasMounted } = useMounted();
   const { isAuthenticated, user } = hasMounted && account;
-  const { isOrderConfirmed, order_user, shipping_address } =
+  const { isOrderConfirmed, isOrderEmailSended, order_user, shipping_address } =
     hasMounted && order;
   const cartId = hasMounted && cart.id;
   const itemsCountTotal =
@@ -140,7 +140,6 @@ export const Order: React.FC = () => {
       AlertSuccess(
         "Ваш заказ оформлен. На Ваш email отправлено письмо подтверждение."
       );
-      router.push(ROUTES.THANKS);
     } catch (error) {
       dispatch(setUnhandledError(error));
     } finally {
@@ -171,6 +170,12 @@ export const Order: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOrderConfirmed]);
+
+  useEffect(() => {
+    if (isOrderEmailSended) {
+      router.push(ROUTES.THANKS);
+    }
+  }, [isOrderEmailSended]);
 
   if (isLoading) return <Spinner />;
 
