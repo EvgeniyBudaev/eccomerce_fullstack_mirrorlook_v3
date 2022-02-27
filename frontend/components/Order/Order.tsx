@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
@@ -29,6 +30,7 @@ export const Order: React.FC = () => {
   const CASH = "cash";
   const CARD_TEXT = "Картой при получении";
   const CASH_TEXT = "Наличными при получении";
+  const router = useRouter();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [preliminaryPaymentMethod, setPreliminaryPaymentMethod] =
     useState(CARD);
@@ -132,12 +134,13 @@ export const Order: React.FC = () => {
         payload: {
           customer_email: isAuthenticated ? user?.email : order_user?.email,
           message: bodyEmail,
-          subject: `Заказ № ${orderInfo.id} успешно оформлен. Скоро с Вами свяжется менеджер для уточнения.`,
+          subject: `Заказ № ${orderInfo.id} успешно оформлен. Скоро с Вами свяжется наш менеджер для уточнения деталей.`,
         },
       });
       AlertSuccess(
-        "Ваш заказ был оформлен. На Ваш email отправлено подтверждение."
+        "Ваш заказ оформлен. На Ваш email отправлено письмо подтверждение."
       );
+      router.push(ROUTES.THANKS);
     } catch (error) {
       dispatch(setUnhandledError(error));
     } finally {

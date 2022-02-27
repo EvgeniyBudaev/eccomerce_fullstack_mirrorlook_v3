@@ -19,6 +19,7 @@ import Reviews from "./Reviews";
 import Search from "./Search";
 import Shipping from "./Shipping";
 import SidebarMobile from "./SidebarMobile";
+import Thanks from "./Thanks";
 import YMap from "./YMap";
 
 export {
@@ -43,5 +44,6 @@ export {
   Search,
   Shipping,
   SidebarMobile,
+  Thanks,
   YMap,
 };

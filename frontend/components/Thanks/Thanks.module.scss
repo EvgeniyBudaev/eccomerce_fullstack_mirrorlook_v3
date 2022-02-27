@@ -1,0 +1,41 @@
+@import "styles";
+
+.Thanks {
+  display: flex;
+  justify-content: space-around;
+  height: 50vh;
+
+  &_Info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    flex-direction: column;
+    max-width: 470px;
+    width: 100%;
+  }
+
+  &_Content {
+    padding: 24px;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: $shadow-form;
+  }
+
+  &_Title {
+    @include roboto-32-bold;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  &_Text {
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .Thanks_Title {
+    @include roboto-22-bold;
+  }
+}

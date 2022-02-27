@@ -34,9 +34,14 @@
   top: 50%;
   transform: translateY(-50%);
   right: 12px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
 
   svg {
     fill: rgba(0, 0, 0, 0.54);
+    height: 24px;
+    width: 24px;
   }
 }
 
