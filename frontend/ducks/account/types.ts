@@ -77,3 +77,7 @@ export interface ISagaUserVerifyProps {
   payload: ISagaUserVerifyPayload;
   type: string;
 }
+export interface ISagaUserResetPasswordProps {
+  payload: string;
+  type: string;
+}

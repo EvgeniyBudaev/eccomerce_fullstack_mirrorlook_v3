@@ -1,4 +1,5 @@
 import About from "./About";
+import { Activate, Login, ResetPassword, Signup } from "./Auth";
 import Cart from "./Cart";
 import Comment from "./Comment";
 import CommentAdd from "./Comment/CommentAdd";
@@ -24,6 +25,7 @@ import YMap from "./YMap";
 
 export {
   About,
+  Activate,
   Cart,
   Comment,
   CommentAdd,
@@ -33,6 +35,7 @@ export {
   Help,
   Home,
   Layout,
+  Login,
   Logo,
   Marker,
   NavLink,
@@ -40,10 +43,12 @@ export {
   RatingNumber,
   RatingStars,
   Recipient,
+  ResetPassword,
   Reviews,
   Search,
   Shipping,
   SidebarMobile,
+  Signup,
   Thanks,
   YMap,
 };

@@ -95,3 +95,19 @@ export const fetchUserActivation = async ({
 export const fetchLogout = (): string => {
   return "user logout";
 };
+
+export const reset_password = async (email: string): Promise<any> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ email });
+  const response = await axios.post(
+    `${backendBase}api/v1/auth/users/reset_password/`,
+    body,
+    config
+  );
+  console.log("reset response: ", response.data);
+  return response.data;
+};

@@ -21,6 +21,7 @@ import {
   ActionTypes,
   ISagaUserSignupProps,
   ISagaUserTokenProps,
+  ISagaUserResetPasswordProps,
 } from "ducks/account";
 import { store } from "ducks/store";
 import * as cartActionCreators from "ducks/cart";
@@ -82,7 +83,7 @@ function* fetchUserSignup({ payload }: ISagaUserSignupProps) {
   }
 }
 
-function* fetchUserLogout() {
+function* fetchUserLogout({ payload }: ISagaUserSignupProps) {
   yield put(setUnhandledError(null));
   yield put(setLoading());
   try {
@@ -98,6 +99,20 @@ function* fetchUserLogout() {
   }
 }
 
+function* fetchPasswordReset(props : ISagaUserResetPasswordProps) {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const response = (yield call(accountApi.reset_password, props.payload)) as string;
+    // yield put(actionCreators.logout());
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
 export function* watch(): Generator<
   AllEffect<ForkEffect<never>>,
   void,
@@ -106,4 +121,5 @@ export function* watch(): Generator<
   yield all([takeLatest(ActionTypes.LOGIN, fetchUserToken)]);
   yield all([takeLatest(ActionTypes.FETCH_LOGOUT, fetchUserLogout)]);
   yield all([takeLatest(ActionTypes.SIGNUP, fetchUserSignup)]);
+  yield all([takeLatest(ActionTypes.FETCH_PASSWORD_RESET, fetchPasswordReset)]);
 }
