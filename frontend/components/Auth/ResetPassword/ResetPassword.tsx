@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer as AlertContainer } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { Layout } from "components";
 import { ActionTypes } from "ducks/account";
 import styles from "./ResetPassword.module.scss";
@@ -7,6 +11,13 @@ import styles from "./ResetPassword.module.scss";
 interface IFormData {
   email: string;
 }
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("Укажите Email")
+    .email("Неверный email. Проверьте, правильно ли введён email"),
+});
 
 export const ResetPassword: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
