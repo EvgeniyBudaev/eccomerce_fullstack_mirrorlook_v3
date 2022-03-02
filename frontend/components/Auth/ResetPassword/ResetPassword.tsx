@@ -21,6 +21,9 @@ const schema = yup.object().shape({
 
 export const ResetPassword: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isFocused, setIsFocused] = useState({
+    email: false,
+  });
   const [requestSent, setRequestSent] = useState(false);
   const [formData, setFormData] = useState<IFormData>({ email: "" });
   const { email } = formData;
