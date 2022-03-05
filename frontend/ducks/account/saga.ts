@@ -22,6 +22,7 @@ import {
   ISagaUserSignupProps,
   ISagaUserTokenProps,
   ISagaUserResetPasswordProps,
+  ISagaUserResetPasswordClearProps,
 } from "ducks/account";
 import { store } from "ducks/store";
 import * as cartActionCreators from "ducks/cart";
@@ -99,13 +100,29 @@ function* fetchUserLogout({ payload }: ISagaUserSignupProps) {
   }
 }
 
-function* fetchPasswordReset(props : ISagaUserResetPasswordProps) {
+function* fetchPasswordReset(props: ISagaUserResetPasswordProps) {
   yield put(setUnhandledError(null));
   yield put(setLoading());
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = (yield call(accountApi.reset_password, props.payload)) as string;
-    // yield put(actionCreators.logout());
+    const response = (yield call(
+      accountApi.fetchResetPassword,
+      props.payload
+    )) as string;
+    yield put(actionCreators.passwordReset());
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
+function* fetchPasswordResetClear(props: ISagaUserResetPasswordClearProps) {
+  yield put(actionCreators.passwordResetClear());
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    yield put(actionCreators.passwordResetClear());
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -122,4 +139,7 @@ export function* watch(): Generator<
   yield all([takeLatest(ActionTypes.FETCH_LOGOUT, fetchUserLogout)]);
   yield all([takeLatest(ActionTypes.SIGNUP, fetchUserSignup)]);
   yield all([takeLatest(ActionTypes.FETCH_PASSWORD_RESET, fetchPasswordReset)]);
+  yield all([
+    takeLatest(ActionTypes.FETCH_PASSWORD_RESET_CLEAR, fetchPasswordResetClear),
+  ]);
 }

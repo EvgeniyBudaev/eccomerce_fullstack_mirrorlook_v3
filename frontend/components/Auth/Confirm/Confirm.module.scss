@@ -1,8 +1,8 @@
-@import "styles";
+@import "styles/index";
 
-.ConfirmRegistration {
+.Confirm {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   height: 50vh;
 
   &_Info {
@@ -35,7 +35,7 @@
 }
 
 @media (max-width: 500px) {
-  .ConfirmRegistration_Title {
+  .Confirm_Title {
     @include roboto-22-bold;
   }
 }

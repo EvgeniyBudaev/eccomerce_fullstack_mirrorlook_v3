@@ -68,6 +68,14 @@ export interface IActionUserLogout {
   type: ActionTypes.LOGOUT;
 }
 
+export interface IActionPasswordReset {
+  type: ActionTypes.PASSWORD_RESET;
+}
+
+export interface IActionPasswordResetClear {
+  type: ActionTypes.PASSWORD_RESET_CLEAR;
+}
+
 export interface ISagaUserVerifyPayload {
   token: string;
   uid: string;
@@ -79,5 +87,9 @@ export interface ISagaUserVerifyProps {
 }
 export interface ISagaUserResetPasswordProps {
   payload: string;
+  type: string;
+}
+
+export interface ISagaUserResetPasswordClearProps {
   type: string;
 }

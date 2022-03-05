@@ -9,6 +9,7 @@ export interface IUserAccount {
 export interface IAccount {
   access: string;
   isAuthenticated: boolean;
+  isPasswordReset?: boolean;
   refresh: string;
   user: IUserAccount;
 }

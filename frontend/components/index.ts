@@ -1,9 +1,8 @@
 import About from "./About";
-import { Activate, Login, ResetPassword, Signup } from "./Auth";
+import { Activate, Confirm, Login, ResetPassword, Signup } from "./Auth";
 import Cart from "./Cart";
 import Comment from "./Comment";
 import CommentAdd from "./Comment/CommentAdd";
-import ConfirmRegistration from "./ConfirmRegistration";
 import Contacts from "./Contacts";
 import FilterBarMobile from "./FilterBarMobile";
 import Help from "./Help";
@@ -29,7 +28,7 @@ export {
   Cart,
   Comment,
   CommentAdd,
-  ConfirmRegistration,
+  Confirm,
   Contacts,
   FilterBarMobile,
   Help,

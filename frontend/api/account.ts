@@ -96,7 +96,7 @@ export const fetchLogout = (): string => {
   return "user logout";
 };
 
-export const reset_password = async (email: string): Promise<any> => {
+export const fetchResetPassword = async (email: string): Promise<any> => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -108,6 +108,6 @@ export const reset_password = async (email: string): Promise<any> => {
     body,
     config
   );
-  console.log("reset response: ", response.data);
-  return response.data;
+  console.log("response: ", response);
+  return response;
 };

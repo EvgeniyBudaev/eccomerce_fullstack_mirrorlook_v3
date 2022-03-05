@@ -1,8 +1,13 @@
 import Head from "next/head";
 import React from "react";
-import { Layout, ConfirmRegistration } from "components";
+import { Layout, Confirm } from "components";
 
 export default function ConfirmRegistrationPage(): JSX.Element {
+  const content =
+    "На ваш email отправлено письмо для активации аккаунта. Пожалуйста,\n" +
+    "            подтвердите ваш email.";
+  const title = "Подтверждение регистрации";
+
   return (
     <>
       <Head>
@@ -21,7 +26,7 @@ export default function ConfirmRegistrationPage(): JSX.Element {
         <title>Подтверждение регистрации | MirrorLook</title>
       </Head>
       <Layout>
-        <ConfirmRegistration />
+        <Confirm content={content} title={title} />
       </Layout>
     </>
   );

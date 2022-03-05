@@ -78,6 +78,12 @@ export const Login: React.FC = () => {
   }, [isAuthenticated]);
 
   useEffect(() => {
+    dispatch({
+      type: ActionTypes.FETCH_PASSWORD_RESET_CLEAR,
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
     return () => {
       dispatch(setUnhandledClearError());
     };

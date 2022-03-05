@@ -6,6 +6,8 @@ import {
   IActionSetUser,
   IActionUserSignup,
   IActionUserLogout,
+  IActionPasswordReset,
+  IActionPasswordResetClear,
 } from "./types";
 
 const initialState = {
@@ -13,13 +15,16 @@ const initialState = {
   refresh: null,
   user: null,
   isAuthenticated: null,
+  isPasswordReset: false,
 };
 
 type IAction =
   | IActionSetUserToken
   | IActionSetUser
   | IActionUserSignup
-  | IActionUserLogout;
+  | IActionUserLogout
+  | IActionPasswordReset
+  | IActionPasswordResetClear;
 
 export const reducer: Reducer<IAccount> = (
   state = typeof window !== "undefined"
@@ -55,18 +60,16 @@ export const reducer: Reducer<IAccount> = (
         user: null,
         isAuthenticated: null,
       };
-    // case PASSWORD_RESET_SUCCESS:
-    // case PASSWORD_RESET_CONFIRM_SUCCESS:
-    // case ACTIVATION_SUCCESS:
-    //   return {
-    //     ...state,
-    //   };
-    // case PASSWORD_RESET_FAIL:
-    // case PASSWORD_RESET_CONFIRM_FAIL:
-    // case ACTIVATION_FAIL:
-    //   return {
-    //     ...state,
-    //   };
+    case ActionTypes.PASSWORD_RESET:
+      return {
+        ...state,
+        isPasswordReset: true,
+      };
+    case ActionTypes.PASSWORD_RESET_CLEAR:
+      return {
+        ...state,
+        isPasswordReset: false,
+      };
     default:
       return state;
   }
