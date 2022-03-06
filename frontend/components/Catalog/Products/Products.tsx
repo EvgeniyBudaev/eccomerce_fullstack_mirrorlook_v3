@@ -36,7 +36,7 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
   const pageNumber = !isNaN(Number(router.asPath.split("=")[1]))
     ? Number(router.asPath.split("=")[1])
     : 1;
-  const [isFirstPage, setIsFirstPage] = useState(false);
+  const [, setIsFirstPage] = useState(false);
   const [isClickedDisplayLine, setIsClickedDisplayLine] = useState(false);
   const { pagesCount, pageItemsCount, totalItemsCount } =
     productsResponse.paging;

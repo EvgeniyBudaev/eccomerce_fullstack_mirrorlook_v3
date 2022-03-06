@@ -1,27 +1,23 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import React, { useState } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import ym, { YMInitializer } from "react-yandex-metrika";
 import NProgress from "nprogress";
 import { backendBase } from "constants/paths";
 import { store } from "ducks/store";
-import { Spinner } from "ui-kit";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps, router }: AppProps): JSX.Element {
-  const [isLoading, setIsLoading] = useState(false);
   const path = router.asPath.substring(1);
   if (router.events) {
-    router.events.on("routeChangeStart", (url: string) => {
+    router.events.on("routeChangeStart", () => {
       NProgress.start();
-      //setIsLoading(true);
     });
     router.events.on("routeChangeComplete", (url: string) => {
       if (typeof window !== "undefined") {
         ym("hit", url);
-        //setIsLoading(false);
         NProgress.done();
       }
     });

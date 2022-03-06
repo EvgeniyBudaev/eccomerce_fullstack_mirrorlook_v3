@@ -179,6 +179,7 @@ export const Order: React.FC = () => {
     if (isOrderEmailSended) {
       router.push(ROUTES.THANKS);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOrderEmailSended]);
 
   if (isLoading) return <Spinner />;
