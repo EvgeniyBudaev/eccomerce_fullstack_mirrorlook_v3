@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
 import { ROUTES } from "constants/routes";
 import { ActionTypes, ICartState } from "ducks/cart";
+import { cartSelector } from "ducks/selectors";
 import { setUnhandledClearError } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { IMirror } from "types/mirror";
 import { Button } from "ui-kit";
 import { numberWithSpaces } from "utils/numberWithSpaces";
@@ -25,7 +25,7 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
 }) => {
   const [currentCart, setCurrentCart] = useState<ICartState>(null);
   const dispatch = useDispatch();
-  const cart = useTypedSelector(state => state.cart);
+  const cart = useSelector(cartSelector);
   const isMobileScreen = useMediaQuery({ query: "(max-width: 500px)" });
 
   const getCart = (cart: ICartState) => {

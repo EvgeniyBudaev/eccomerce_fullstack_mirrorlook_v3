@@ -23,6 +23,8 @@ import {
   ISagaUserTokenProps,
   ISagaUserResetPasswordProps,
   ISagaUserResetPasswordClearProps,
+  ISagaNewPasswordProps,
+  ISagaNewPasswordClearProps,
 } from "ducks/account";
 import { store } from "ducks/store";
 import * as cartActionCreators from "ducks/cart";
@@ -89,7 +91,7 @@ function* fetchUserLogout({ payload }: ISagaUserSignupProps) {
   yield put(setLoading());
   try {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const responseUserLogout = (yield call(accountApi.fetchLogout)) as string;
+    const response = (yield call(accountApi.fetchLogout)) as string;
     yield put(actionCreators.logout());
     localStorage.removeItem("account");
     localStorage.removeItem("access");
@@ -118,11 +120,36 @@ function* fetchPasswordReset(props: ISagaUserResetPasswordProps) {
 }
 
 function* fetchPasswordResetClear(props: ISagaUserResetPasswordClearProps) {
-  yield put(actionCreators.passwordResetClear());
   yield put(setUnhandledError(null));
   yield put(setLoading());
   try {
     yield put(actionCreators.passwordResetClear());
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
+function* fetchNewPassword({ payload }: ISagaNewPasswordProps) {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const response = yield call(accountApi.fetchNewPassword, payload);
+    yield put(actionCreators.setNewPassword());
+    yield put(unsetLoading());
+  } catch (error) {
+    yield put(setUnhandledError(error));
+    yield put(unsetLoading());
+  }
+}
+
+function* fetchNewPasswordClear(props: ISagaNewPasswordClearProps) {
+  yield put(setUnhandledError(null));
+  yield put(setLoading());
+  try {
+    yield put(actionCreators.setNewPasswordClear());
     yield put(unsetLoading());
   } catch (error) {
     yield put(setUnhandledError(error));
@@ -141,5 +168,9 @@ export function* watch(): Generator<
   yield all([takeLatest(ActionTypes.FETCH_PASSWORD_RESET, fetchPasswordReset)]);
   yield all([
     takeLatest(ActionTypes.FETCH_PASSWORD_RESET_CLEAR, fetchPasswordResetClear),
+  ]);
+  yield all([takeLatest(ActionTypes.FETCH_NEW_PASSWORD, fetchNewPassword)]);
+  yield all([
+    takeLatest(ActionTypes.FETCH_NEW_PASSWORD_CLEAR, fetchNewPasswordClear),
   ]);
 }

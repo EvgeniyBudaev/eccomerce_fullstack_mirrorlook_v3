@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import isNull from "lodash/isNull";
 import { IAccount } from "api/types/account";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
 import { ICartState } from "ducks/cart";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { accountSelector, cartSelector } from "ducks/selectors";
+import { useDispatch, useSelector } from "hooks";
 import { Avatar, DropDown, Icon } from "ui-kit";
 import styles from "./HeaderIconsList.module.scss";
 
@@ -25,8 +25,8 @@ export const HeaderIconsList: React.FC<IHeaderIconsListProps> = ({
   const [cartItemsCountTotal, setCartItemsCountTotal] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-  const account = useTypedSelector(state => state.account);
-  const cart = useTypedSelector(state => state.cart);
+  const account = useSelector(accountSelector);
+  const cart = useSelector(cartSelector);
   const refToggleDropDown = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();

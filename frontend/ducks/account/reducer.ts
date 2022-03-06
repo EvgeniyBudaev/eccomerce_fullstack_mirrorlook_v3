@@ -1,38 +1,24 @@
 import { Reducer } from "redux";
 import { IAccount } from "api/types/account";
 import { ActionTypes } from "./actionTypes";
-import {
-  IActionSetUserToken,
-  IActionSetUser,
-  IActionUserSignup,
-  IActionUserLogout,
-  IActionPasswordReset,
-  IActionPasswordResetClear,
-} from "./types";
+import { AccountActionsType } from "./types";
 
-const initialState = {
+const initialState: IAccount = {
   access: null,
   refresh: null,
   user: null,
   isAuthenticated: null,
+  isPasswordChanged: false,
   isPasswordReset: false,
 };
 
-type IAction =
-  | IActionSetUserToken
-  | IActionSetUser
-  | IActionUserSignup
-  | IActionUserLogout
-  | IActionPasswordReset
-  | IActionPasswordResetClear;
-
-export const reducer: Reducer<IAccount> = (
+export const reducer: Reducer<IAccount, AccountActionsType> = (
   state = typeof window !== "undefined"
     ? localStorage.getItem("account")
       ? JSON.parse(localStorage.getItem("account"))
       : initialState
     : initialState,
-  action: IAction
+  action
 ) => {
   switch (action.type) {
     case ActionTypes.SET_USER_TOKEN:
@@ -69,6 +55,16 @@ export const reducer: Reducer<IAccount> = (
       return {
         ...state,
         isPasswordReset: false,
+      };
+    case ActionTypes.SET_NEW_PASSWORD:
+      return {
+        ...state,
+        isPasswordChanged: true,
+      };
+    case ActionTypes.SET_NEW_PASSWORD_CLEAR:
+      return {
+        ...state,
+        isPasswordChanged: false,
       };
     default:
       return state;

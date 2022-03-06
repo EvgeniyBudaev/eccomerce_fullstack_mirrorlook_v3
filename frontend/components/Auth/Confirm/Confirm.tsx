@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import { accountSelector } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useSelector } from "hooks";
 import styles from "./Confirm.module.scss";
 
 export interface IConfirmProps {
@@ -12,7 +13,7 @@ export interface IConfirmProps {
 export const Confirm: React.FC<IConfirmProps> = ({ content, title }) => {
   const { hasMounted } = useMounted();
   const router = useRouter();
-  const account = useTypedSelector(state => state.account);
+  const account = useSelector(accountSelector);
   const { isAuthenticated } = hasMounted && account;
 
   useEffect(() => {

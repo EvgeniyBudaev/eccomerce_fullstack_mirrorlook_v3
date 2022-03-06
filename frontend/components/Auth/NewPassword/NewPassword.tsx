@@ -16,23 +16,30 @@ import { useDispatch, useSelector } from "hooks";
 import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
-import styles from "./ResetPassword.module.scss";
+import styles from "./NewPassword.module.scss";
 
 interface IFormData {
-  email: string;
+  new_password: string;
+  re_new_password: string;
 }
 
 const schema = yup.object().shape({
-  email: yup
+  new_password: yup
     .string()
-    .required("Укажите Email")
-    .email("Неверный email. Проверьте, правильно ли введён email"),
+    .required("Укажите пароль")
+    .min(8, "Пароль должен быть не менее 8 символов"),
+  re_new_password: yup
+    .string()
+    .required("Укажите пароль")
+    .min(8, "Пароль должен быть не менее 8 символов"),
 });
 
-export const ResetPassword: React.FC = () => {
+export const NewPassword: React.FC = () => {
   const [isFocused, setIsFocused] = useState({
-    email: false,
+    new_password: false,
+    re_new_password: false,
   });
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const {
     register,
     watch,
@@ -43,15 +50,17 @@ export const ResetPassword: React.FC = () => {
   const router = useRouter();
   const { isLoading } = useSelector(loadingSelector);
   const { error } = useSelector(unhandledErrorSelector);
-  const { isAuthenticated, isPasswordReset } = useSelector(accountSelector);
+  const { isAuthenticated, isPasswordChanged } = useSelector(accountSelector);
   const watchAllFields = watch();
+  const uid = router.asPath.split("/")[4];
+  const token = router.asPath.split("/")[5];
 
   useEffect(() => {
-    dispatch({
-      type: ActionTypes.FETCH_NEW_PASSWORD_CLEAR,
-    });
+    if (isAuthenticated) {
+      router.push(ROUTES.HOME);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (error) {
@@ -61,30 +70,33 @@ export const ResetPassword: React.FC = () => {
   }, [error]);
 
   useEffect(() => {
-    if (isPasswordReset) {
-      router.push(ROUTES.CONFIRM_RESET_PASSWORD);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPasswordReset]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.back();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
-
-  useEffect(() => {
     return () => {
       dispatch(setUnhandledClearError());
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isPasswordChanged) {
+      router.push(ROUTES.LOGIN);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPasswordChanged]);
+
   const onSubmit = (data: IFormData) => {
-    dispatch({
-      type: ActionTypes.FETCH_PASSWORD_RESET,
-      payload: data.email,
-    });
+    if (data.new_password === data.re_new_password) {
+      setIsPasswordMatch(false);
+      dispatch({
+        type: ActionTypes.FETCH_NEW_PASSWORD,
+        payload: {
+          uid: uid,
+          token: token,
+          new_password: data.new_password,
+          re_new_password: data.re_new_password,
+        },
+      });
+    } else {
+      setIsPasswordMatch(true);
+    }
   };
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -99,42 +111,43 @@ export const ResetPassword: React.FC = () => {
     }
   };
 
-  const errorMessage = (
-    errorValidationMessage: string,
-    errorResponseMessage: string
-  ) => {
-    if (errorValidationMessage) {
-      return errorValidationMessage;
+  const errorPasswordMessage = (message: string) => {
+    if (message) {
+      return message;
     }
-    if (
-      !errorValidationMessage &&
-      errorResponseMessage ===
-        "No active account found with the given credentials"
-    ) {
-      return "Неверный email.";
+    if (isPasswordMatch) {
+      return "Пароли не совпадают";
     }
   };
 
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.ResetPassword}>
+    <section className={styles.NewPassword}>
       <AlertContainer />
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
-          <h1 className={styles.SectionCenterContent_Title}>Сброс пароля</h1>
+          <h1 className={styles.SectionCenterContent_Title}>Новый пароль</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.FormFieldGroup}>
               <FormField
-                label="Электронная почта"
-                name="email"
-                type="text"
+                label="Новый пароль"
+                name="new_password"
+                type="password"
                 register={register}
-                error={errorMessage(
-                  errors.email?.message,
-                  error?.response?.data?.detail
-                )}
-                isFocused={isFocused.email}
+                error={errorPasswordMessage(errors.new_password?.message)}
+                isFocused={isFocused.new_password}
+                isRequired
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+              />
+              <FormField
+                label="Подтверждение нового пароля"
+                name="re_new_password"
+                type="password"
+                register={register}
+                error={errorPasswordMessage(errors.re_new_password?.message)}
+                isFocused={isFocused.re_new_password}
                 isRequired
                 onBlur={handleBlur}
                 onFocus={handleFocus}
@@ -146,7 +159,7 @@ export const ResetPassword: React.FC = () => {
                 type="submit"
                 onClick={() => {}}
               >
-                Cбросить пароль
+                Изменить пароль
               </Button>
             </div>
           </form>

@@ -4,8 +4,14 @@ import React, { useCallback, useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
+import {
+  accountSelector,
+  cartSelector,
+  loadingSelector,
+  unhandledErrorSelector,
+} from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useSelector } from "hooks";
 import { Breadcrumbs, Button, Icon, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -17,12 +23,10 @@ import styles from "./Cart.module.scss";
 export const Cart: React.FC = () => {
   const { hasMounted } = useMounted();
   const router = useRouter();
-  const cart = useTypedSelector(state => state.cart);
-  const account = useTypedSelector(state => state.account);
-  const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { isLoading } = loading;
-  const { error } = unhandledError;
+  const cart = useSelector(cartSelector);
+  const account = useSelector(accountSelector);
+  const { isLoading } = useSelector(loadingSelector);
+  const { error } = useSelector(unhandledErrorSelector);
   const { isAuthenticated } = hasMounted && account;
   const cartItemsCountTotal =
     hasMounted && cart.entities.reduce((acc, item) => acc + item.quantity, 0);

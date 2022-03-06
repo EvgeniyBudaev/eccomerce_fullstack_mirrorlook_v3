@@ -1,6 +1,10 @@
 import axios from "axios";
 import { backendBase } from "constants/paths";
-import { ISagaUserSignupPayload, ISagaUserVerifyPayload } from "ducks/account";
+import {
+  ISagaNewPasswordPayload,
+  ISagaUserSignupPayload,
+  ISagaUserVerifyPayload,
+} from "ducks/account";
 import {
   IFetchUserResponse,
   IFetchTokenResponse,
@@ -96,7 +100,7 @@ export const fetchLogout = (): string => {
   return "user logout";
 };
 
-export const fetchResetPassword = async (email: string): Promise<any> => {
+export const fetchResetPassword = async (email: string): Promise<string> => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -108,6 +112,27 @@ export const fetchResetPassword = async (email: string): Promise<any> => {
     body,
     config
   );
-  console.log("response: ", response);
-  return response;
+  return response.status === 204
+    ? "На email отправлено письмо с инструкцией как сбросить пароль"
+    : response.data;
+};
+
+export const fetchNewPassword = async ({
+  uid,
+  token,
+  new_password,
+  re_new_password,
+}: ISagaNewPasswordPayload): Promise<string> => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({ uid, token, new_password, re_new_password });
+  const response = await axios.post(
+    `${backendBase}api/v1/auth/users/reset_password_confirm/`,
+    body,
+    config
+  );
+  return response.status === 204 ? "Пароль успешно изменен" : response.data;
 };

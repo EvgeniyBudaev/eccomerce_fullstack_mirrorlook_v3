@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
+import { accountSelector } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Avatar, Icon } from "ui-kit";
 import styles from "./SidebarMobile.module.scss";
 
@@ -14,7 +14,7 @@ export const SidebarMobile: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { hasMounted } = useMounted();
-  const account = useTypedSelector(state => state.account);
+  const account = useSelector(accountSelector);
   const { isAuthenticated } = hasMounted && account;
 
   const handleLogout = () => {

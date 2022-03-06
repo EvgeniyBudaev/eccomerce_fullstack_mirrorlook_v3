@@ -2,8 +2,9 @@ import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 import classNames from "classnames";
 import { ROUTES } from "constants/routes";
+import { scrollSelector } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useSelector } from "hooks";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import styles from "./Layout.module.scss";
@@ -22,7 +23,7 @@ export const Layout: React.FC<ILayoutProps> = ({
 }) => {
   const { hasMounted } = useMounted();
   const router = useRouter();
-  const scroll = useTypedSelector(state => state.scroll);
+  const scroll = useSelector(scrollSelector);
   const { isScroll } = hasMounted && scroll;
 
   return (

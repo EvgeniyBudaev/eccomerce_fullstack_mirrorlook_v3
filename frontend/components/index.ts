@@ -1,5 +1,12 @@
 import About from "./About";
-import { Activate, Confirm, Login, ResetPassword, Signup } from "./Auth";
+import {
+  Activate,
+  Confirm,
+  Login,
+  NewPassword,
+  ResetPassword,
+  Signup,
+} from "./Auth";
 import Cart from "./Cart";
 import Comment from "./Comment";
 import CommentAdd from "./Comment/CommentAdd";
@@ -36,6 +43,7 @@ export {
   Layout,
   Login,
   Logo,
+  NewPassword,
   Marker,
   NavLink,
   Order,

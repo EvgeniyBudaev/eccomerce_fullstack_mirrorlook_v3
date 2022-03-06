@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
 import { AxiosError } from "axios";
 import classNames from "classnames";
 import { fetchUserActivation } from "api/account";
 import { ROUTES } from "constants/routes";
 import { setLoading, unsetLoading } from "ducks/loading";
+import { accountSelector, loadingSelector } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Button, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import styles from "./Activate.module.scss";
@@ -20,9 +20,8 @@ export interface IActivateProps {
 export const Activate: React.FC<IActivateProps> = ({ className }) => {
   const { hasMounted } = useMounted();
   const [error, setError] = useState("");
-  const loading = useTypedSelector(state => state.loading);
-  const { isLoading } = loading;
-  const account = useTypedSelector(state => state.account);
+  const { isLoading } = useSelector(loadingSelector);
+  const account = useSelector(accountSelector);
   const { isAuthenticated } = hasMounted && account;
   const dispatch = useDispatch();
   const router = useRouter();

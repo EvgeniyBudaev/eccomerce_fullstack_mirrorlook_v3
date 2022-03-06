@@ -3,8 +3,9 @@ import Link from "next/link";
 import React, { ForwardedRef, forwardRef } from "react";
 import classNames from "classnames";
 import { ROUTES } from "constants/routes";
+import { scrollSelector } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useSelector } from "hooks";
 import styles from "./CatalogDropDown.module.scss";
 
 const categories1 = "/images/mirrors.png";
@@ -20,7 +21,7 @@ export const CatalogDropDown = forwardRef(
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
     const { hasMounted } = useMounted();
-    const scroll = useTypedSelector(state => state.scroll);
+    const scroll = useSelector(scrollSelector);
     const { isScroll } = hasMounted && scroll;
 
     return (

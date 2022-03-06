@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { YMaps } from "react-yandex-maps";
 import isNull from "lodash/isNull";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { orderSelector } from "ducks/selectors";
+import { useSelector } from "hooks";
 import Shipping from "../Shipping";
 import { emptyMapSearchState } from "./GeoSearch";
 import { PickMapState } from "./PickMap";
@@ -12,7 +13,7 @@ export interface IYMapProps {
 }
 
 export const YMap: React.FC<IYMapProps> = () => {
-  const order = useTypedSelector(state => state.order);
+  const order = useSelector(orderSelector);
   const query = !isNull(order.shipping_address)
     ? order.shipping_address.address
     : "Москва, Россия";

@@ -1,12 +1,8 @@
-import * as actions from "ducks/order/actionCreators";
-import { InferValueTypes } from "types/common";
 import { ActionTypes } from "ducks/order";
 import {
   IFetchOrderResponse,
   IFetchSendingConfirmOrderRequest,
 } from "api/types/order";
-
-export type OrderActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 export interface IPayloadOrderShippingAddressSave {
   address: string;
@@ -107,3 +103,9 @@ export interface IFetchOrderSendToEmailProps {
   payload: IFetchSendingConfirmOrderRequest;
   type: string;
 }
+
+export type OrderActionsType =
+  | IActionOrderShippingAddressSave
+  | IActionOrderRecipientSave
+  | IActionOrderCreate
+  | IActionOrderEmailSend;

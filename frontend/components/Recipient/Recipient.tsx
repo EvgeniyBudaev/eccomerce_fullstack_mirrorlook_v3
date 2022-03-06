@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
@@ -10,8 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/order";
+import { accountSelector, orderSelector } from "ducks/selectors";
 import { setUnhandledClearError } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Button, Icon, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -55,8 +55,8 @@ export const Recipient: React.FC = () => {
     phone_number: false,
     email: false,
   });
-  const account = useTypedSelector(state => state.account);
-  const order = useTypedSelector(state => state.order);
+  const account = useSelector(accountSelector);
+  const order = useSelector(orderSelector);
   const {
     register,
     watch,
@@ -81,8 +81,8 @@ export const Recipient: React.FC = () => {
   });
   const dispatch = useDispatch();
   const router = useRouter();
-  const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const loading = useSelector(state => state.loading);
+  const unhandledError = useSelector(state => state.unhandledError);
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();

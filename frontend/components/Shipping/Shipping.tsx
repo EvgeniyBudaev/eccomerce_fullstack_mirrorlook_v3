@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import {
   GeolocationControl,
@@ -14,9 +13,10 @@ import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "constants/routes";
 import { Marker } from "components";
 import { ActionTypes } from "ducks/order";
+import { cartSelector, orderSelector } from "ducks/selectors";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Button, Icon, FormField, FormFieldYMap, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -56,8 +56,8 @@ export const Shipping: React.FC<IShippingProps> = ({
   mapState,
   setMapState,
 }) => {
-  const order = useTypedSelector(state => state.order);
-  const cart = useTypedSelector(state => state.cart);
+  const order = useSelector(orderSelector);
+  const cart = useSelector(cartSelector);
   const { hasMounted } = useMounted();
   const { shipping_address } = hasMounted && order;
   const { id } = hasMounted && cart;
@@ -90,8 +90,8 @@ export const Shipping: React.FC<IShippingProps> = ({
   });
   const dispatch = useDispatch();
   const router = useRouter();
-  const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
+  const loading = useSelector(state => state.loading);
+  const unhandledError = useSelector(state => state.unhandledError);
   const { isLoading } = loading;
   const { error } = unhandledError;
   const watchAllFields = watch();

@@ -1,28 +1,8 @@
 import { Reducer } from "redux";
 import { ActionTypes } from "./actionTypes";
-import {
-  IActionCartAddItem,
-  IActionCartClear,
-  IActionCartCreate,
-  IActionCartItemChange,
-  IActionCartItemDecrement,
-  IActionCartItemDelete,
-  IActionCartItemIncrement,
-  IActionCartUserSet,
-  ICartState,
-} from "./types";
+import { CartActionsType, ICartState } from "./types";
 
-type IAction =
-  | IActionCartClear
-  | IActionCartCreate
-  | IActionCartAddItem
-  | IActionCartItemChange
-  | IActionCartItemDecrement
-  | IActionCartItemDelete
-  | IActionCartItemIncrement
-  | IActionCartUserSet;
-
-const initialState = {
+const initialState: ICartState = {
   date_created: null,
   date_updated: null,
   entities: [],
@@ -30,13 +10,13 @@ const initialState = {
   user: null,
 };
 
-export const reducer: Reducer<ICartState> = (
+export const reducer: Reducer<ICartState, CartActionsType> = (
   state = typeof window !== "undefined"
     ? localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : initialState
     : initialState,
-  action: IAction
+  action
 ) => {
   switch (action.type) {
     case ActionTypes.CART_SET:

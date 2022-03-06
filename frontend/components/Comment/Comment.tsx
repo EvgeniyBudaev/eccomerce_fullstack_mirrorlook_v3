@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { fetchCommentDelete } from "api/comment";
 import { setLoading, unsetLoading } from "ducks/loading";
 import {
+  accountSelector,
+  loadingSelector,
+  unhandledErrorSelector,
+} from "ducks/selectors";
+import {
   setUnhandledClearError,
   setUnhandledError,
 } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { IComment } from "types/comment";
 import { Avatar, Spinner } from "ui-kit";
 import { AlertError, AlertSuccess } from "utils/alert";
@@ -22,13 +26,11 @@ export interface ICommentProps {
 }
 
 export const Comment: React.FC<ICommentProps> = ({ className, comment }) => {
-  const account = useTypedSelector(state => state.account);
+  const account = useSelector(accountSelector);
   const { access, user } = account;
   const userId = user && user.id;
-  const loading = useTypedSelector(state => state.loading);
-  const { isLoading } = loading;
-  const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { error } = unhandledError;
+  const { isLoading } = useSelector(loadingSelector);
+  const { error } = useSelector(unhandledErrorSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {

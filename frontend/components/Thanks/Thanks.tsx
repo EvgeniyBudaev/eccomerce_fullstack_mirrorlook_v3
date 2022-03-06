@@ -1,11 +1,12 @@
 import React from "react";
+import { orderSelector } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useSelector } from "hooks";
 import styles from "./Thanks.module.scss";
 
 export const Thanks: React.FC = () => {
   const { hasMounted } = useMounted();
-  const order = useTypedSelector(state => state.order);
+  const order = useSelector(orderSelector);
   const orderInfo = hasMounted && order.order;
 
   return (

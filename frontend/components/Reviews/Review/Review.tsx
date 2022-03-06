@@ -1,14 +1,14 @@
 import Link from "next/link";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
 import { fetchCommentsByReview } from "api/comment";
 import { Comment, CommentAdd, RatingStars } from "components";
 import { ROUTES } from "constants/routes";
 import { setLoading, unsetLoading } from "ducks/loading";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { accountSelector, loadingSelector } from "ducks/selectors";
+import { useDispatch, useSelector } from "hooks";
 import { IComment } from "types/comment";
 import { IReview } from "types/review";
 import { Avatar, Spinner } from "ui-kit";
@@ -28,9 +28,8 @@ export const Review: React.FC<IReviewProps> = ({ className, review }) => {
   const [needRequestIndicator, setNeedRequestIndicator] = useState(0);
   const [showComments, setShowComments] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const loading = useTypedSelector(state => state.loading);
-  const { isLoading } = loading;
-  const account = useTypedSelector(state => state.account);
+  const { isLoading } = useSelector(loadingSelector);
+  const account = useSelector(accountSelector);
   const { access, isAuthenticated, user } = account;
   const commentsCount = comments.length;
   const userId = user && user.id;

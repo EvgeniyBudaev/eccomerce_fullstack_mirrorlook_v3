@@ -1,8 +1,4 @@
-import { InferValueTypes } from "types/common";
-import * as actions from "ducks/account/actionCreators";
 import { ActionTypes } from "./actionTypes";
-
-export type AccountActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 export interface IPayloadSetUserToken {
   access: string;
@@ -76,6 +72,14 @@ export interface IActionPasswordResetClear {
   type: ActionTypes.PASSWORD_RESET_CLEAR;
 }
 
+export interface IActionSetNewPassword {
+  type: ActionTypes.SET_NEW_PASSWORD;
+}
+
+export interface IActionSetNewPasswordClear {
+  type: ActionTypes.SET_NEW_PASSWORD_CLEAR;
+}
+
 export interface ISagaUserVerifyPayload {
   token: string;
   uid: string;
@@ -93,3 +97,29 @@ export interface ISagaUserResetPasswordProps {
 export interface ISagaUserResetPasswordClearProps {
   type: string;
 }
+
+export interface ISagaNewPasswordClearProps {
+  type: string;
+}
+
+export interface ISagaNewPasswordPayload {
+  uid: string;
+  token: string;
+  new_password: string;
+  re_new_password: string;
+}
+
+export interface ISagaNewPasswordProps {
+  payload: ISagaNewPasswordPayload;
+  type: string;
+}
+
+export type AccountActionsType =
+  | IActionSetUserToken
+  | IActionSetUser
+  | IActionUserSignup
+  | IActionUserLogout
+  | IActionPasswordReset
+  | IActionPasswordResetClear
+  | IActionSetNewPassword
+  | IActionSetNewPasswordClear;

@@ -1,20 +1,8 @@
 import { Reducer } from "redux";
 import { ActionTypes } from "./actionTypes";
-import {
-  IActionOrderCreate,
-  IActionOrderEmailSend,
-  IActionOrderRecipientSave,
-  IActionOrderShippingAddressSave,
-  IOrderState,
-} from "./types";
+import { IOrderState, OrderActionsType } from "./types";
 
-type IAction =
-  | IActionOrderShippingAddressSave
-  | IActionOrderRecipientSave
-  | IActionOrderCreate
-  | IActionOrderEmailSend;
-
-const initialState = {
+const initialState: IOrderState = {
   order:
     typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("order"))
@@ -31,9 +19,9 @@ const initialState = {
   isOrderEmailSended: false,
 };
 
-export const reducer: Reducer<IOrderState> = (
+export const reducer: Reducer<IOrderState, OrderActionsType> = (
   state = initialState,
-  action: IAction
+  action
 ) => {
   switch (action.type) {
     case ActionTypes.ORDER_SHIPPING_ADDRESS_SAVE:

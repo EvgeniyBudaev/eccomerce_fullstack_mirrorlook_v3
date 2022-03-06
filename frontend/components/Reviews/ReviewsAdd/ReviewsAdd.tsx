@@ -3,16 +3,20 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { fetchReviewCreate } from "api/review";
 import { ROUTES } from "constants/routes";
 import { setLoading, unsetLoading } from "ducks/loading";
 import {
+  accountSelector,
+  loadingSelector,
+  unhandledErrorSelector,
+} from "ducks/selectors";
+import {
   setUnhandledClearError,
   setUnhandledError,
 } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { IMirror } from "types/mirror";
 import { Button, Icon, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
@@ -49,11 +53,9 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
   const router = useRouter();
   const path = router.asPath;
   const pathReview = path.replace(/add/g, "");
-  const loading = useTypedSelector(state => state.loading);
-  const { isLoading } = loading;
-  const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { error } = unhandledError;
-  const account = useTypedSelector(state => state.account);
+  const { isLoading } = useSelector(loadingSelector);
+  const { error } = useSelector(unhandledErrorSelector);
+  const account = useSelector(accountSelector);
   const { access, user } = account;
   const userId = user && user.id;
 

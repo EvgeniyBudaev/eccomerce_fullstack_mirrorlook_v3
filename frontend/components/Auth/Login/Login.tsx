@@ -1,15 +1,19 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
+import {
+  accountSelector,
+  loadingSelector,
+  unhandledErrorSelector,
+} from "ducks/selectors";
 import { setUnhandledClearError } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -44,13 +48,9 @@ export const Login: React.FC = () => {
   } = useForm<ILoginForm>({ resolver: yupResolver(schema) });
   const dispatch = useDispatch();
   const router = useRouter();
-  const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
-  const isAuthenticated = useTypedSelector(
-    state => state.account.isAuthenticated
-  );
-  const { isLoading } = loading;
-  const { error } = unhandledError;
+  const { isLoading } = useSelector(loadingSelector);
+  const { error } = useSelector(unhandledErrorSelector);
+  const { isAuthenticated } = useSelector(accountSelector);
   const watchAllFields = watch();
 
   useEffect(() => {
@@ -80,6 +80,9 @@ export const Login: React.FC = () => {
   useEffect(() => {
     dispatch({
       type: ActionTypes.FETCH_PASSWORD_RESET_CLEAR,
+    });
+    dispatch({
+      type: ActionTypes.FETCH_NEW_PASSWORD_CLEAR,
     });
   }, [dispatch]);
 

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,9 +9,14 @@ import isEmpty from "lodash/isEmpty";
 import isNull from "lodash/isNull";
 import { ROUTES } from "constants/routes";
 import { ActionTypes } from "ducks/account";
+import {
+  accountSelector,
+  loadingSelector,
+  unhandledErrorSelector,
+} from "ducks/selectors";
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useMounted } from "hooks/useMounted";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Button, FormField, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -71,12 +75,10 @@ export const Signup: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { hasMounted } = useMounted();
-  const account = useTypedSelector(state => state.account);
+  const account = useSelector(accountSelector);
   const { isAuthenticated } = hasMounted && account;
-  const loading = useTypedSelector(state => state.loading);
-  const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { isLoading } = loading;
-  const { error } = unhandledError;
+  const { isLoading } = useSelector(loadingSelector);
+  const { error } = useSelector(unhandledErrorSelector);
   const watchAllFields = watch();
 
   useEffect(() => {

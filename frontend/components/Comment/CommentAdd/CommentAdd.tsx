@@ -1,14 +1,14 @@
 import React, { ForwardedRef, forwardRef, useEffect, useState } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { fetchCommentCreate } from "api/comment";
 import { setLoading, unsetLoading } from "ducks/loading";
+import { loadingSelector, unhandledErrorSelector } from "ducks/selectors";
 import {
   setUnhandledClearError,
   setUnhandledError,
 } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { Avatar, Button, Spinner } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -44,10 +44,8 @@ export const CommentAdd = forwardRef(
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
     const [commentary, setCommentary] = useState("");
-    const loading = useTypedSelector(state => state.loading);
-    const { isLoading } = loading;
-    const unhandledError = useTypedSelector(state => state.unhandledError);
-    const { error } = unhandledError;
+    const { isLoading } = useSelector(loadingSelector);
+    const { error } = useSelector(unhandledErrorSelector);
     const dispatch = useDispatch();
 
     useEffect(() => {

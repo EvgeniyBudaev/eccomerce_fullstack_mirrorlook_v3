@@ -1,12 +1,12 @@
 import dinamic from "next/dynamic";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { Header } from "components/Layout/Header";
 import { ActionTypes } from "ducks/cart";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { accountSelector, unhandledErrorSelector } from "ducks/selectors";
+import { useDispatch, useSelector } from "hooks";
 import { SliderNextArrow, SliderPrevArrow, SliderSimple } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
@@ -39,10 +39,9 @@ const sliderOptions = [
 ];
 
 export const Home: React.FC = () => {
-  const account = useTypedSelector(state => state.account);
+  const account = useSelector(accountSelector);
   const dispatch = useDispatch();
-  const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { error } = unhandledError;
+  const { error } = useSelector(unhandledErrorSelector);
 
   useEffect(() => {
     if (error) {

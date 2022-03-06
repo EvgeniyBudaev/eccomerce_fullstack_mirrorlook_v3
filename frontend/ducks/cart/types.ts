@@ -1,10 +1,6 @@
-import * as actions from "ducks/cart/actionCreators";
-import { InferValueTypes } from "types/common";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 import { ActionTypes } from "./actionTypes";
-
-export type CartActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 export interface IPayloadCartCreate {
   date_created: string;
@@ -127,3 +123,13 @@ export interface ICartState {
   id: number;
   user: number;
 }
+
+export type CartActionsType =
+  | IActionCartCreate
+  | IActionCartAddItem
+  | IActionCartItemChange
+  | IActionCartItemDecrement
+  | IActionCartItemIncrement
+  | IActionCartItemDelete
+  | IActionCartUserSet
+  | IActionCartClear;

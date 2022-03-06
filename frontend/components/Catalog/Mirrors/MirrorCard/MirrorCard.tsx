@@ -1,17 +1,24 @@
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { ToastContainer as AlertContainer } from "react-toastify";
 import isNull from "lodash/isNull";
 import { RatingNumber } from "components";
 import { Error404 } from "components/Error";
 import { ROUTES } from "constants/routes";
 import { ActionTypes, ICartState } from "ducks/cart";
+import {
+  cartSelector,
+  loadingSelector,
+  unhandledErrorSelector,
+} from "ducks/selectors";
 import { setUnhandledClearError } from "ducks/unhandledError";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { useDispatch, useSelector } from "hooks";
 import { IMirror } from "types/mirror";
 import { Breadcrumbs, Button, Spinner } from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
+import { AlertError } from "utils/alert";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
+import { getErrorByStatus } from "utils/error";
 import { numberWithSpaces } from "utils/numberWithSpaces";
 import styles from "./MirrorCard.module.scss";
 
@@ -33,11 +40,16 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
   ];
   const [currentCart, setCurrentCart] = useState<ICartState>(null);
   const dispatch = useDispatch();
-  const cart = useTypedSelector(state => state.cart);
-  const loading = useTypedSelector(state => state.loading);
-  //const unhandledError = useTypedSelector(state => state.unhandledError);
-  const { isLoading } = loading;
-  //const { error } = unhandledError;
+  const cart = useSelector(cartSelector);
+  const { isLoading } = useSelector(loadingSelector);
+  const { error } = useSelector(unhandledErrorSelector);
+
+  useEffect(() => {
+    if (error) {
+      const errorByStatus = getErrorByStatus(error);
+      AlertError(errorByStatus.error.body);
+    }
+  }, [error]);
 
   const getDefaultTextCrumbGenerator = useCallback(
     (subpath: string) => {
@@ -114,6 +126,7 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
 
   return (
     <div className={styles.MirrorCard}>
+      <AlertContainer />
       <Breadcrumbs getDefaultTextGenerator={getDefaultTextCrumbGenerator} />
       <h1 className={styles.Title}>{mirror.title}</h1>
       <div className={styles.Navigation}>

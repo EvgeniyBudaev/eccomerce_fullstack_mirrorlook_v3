@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
-import { useTypedSelector } from "hooks/useTypedSelector";
+import { loadingSelector } from "ducks/selectors";
+import { useSelector } from "hooks";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 import { Spinner } from "ui-kit";
@@ -21,8 +22,7 @@ interface IProductsByCatalog {
 export const SearchProductList: React.FC<ISearchProductListProps> = ({
   productList,
 }) => {
-  const loading = useTypedSelector(state => state.loading);
-  const { isLoading } = loading;
+  const { isLoading } = useSelector(loadingSelector);
 
   const groupProductsByCatalog = useCallback(
     (productList: SearchProductsType): IProductsByCatalog[] => {
