@@ -1,3 +1,3 @@
-<svg data-tid="4f73035e e867b091" data-tid-prop="e867b091" fill="none" height="24" viewBox="0 0 32 24" width="32" xmlns="http://www.w3.org/2000/svg">
-  <rect height="23" rx="1.5" stroke="#222" width="31" x=".5" y=".5"></rect><path clip-rule="evenodd" d="m21 8h-11v8h11v-2h-3.3328c-.3685 0-.6672-.2987-.6672-.6672v-2.6656c0-.3685.2987-.6672.6672-.6672h3.3328zm1 2v-2c0-.5-.5-1-.9286-1h-11.0714c-.5 0-1 .5-1 1v8c0 .5.5 1 1 1h11c.5 0 1-.5 1-1v-2h.3328c.3685 0 .6672-.2987.6672-.6672v-2.6656c0-.3685-.2987-.6672-.6672-.6672zm0 1h-1-3v2h4z" fill-rule="evenodd"></path>
+<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+  <path fill="currentColor" d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
 </svg>

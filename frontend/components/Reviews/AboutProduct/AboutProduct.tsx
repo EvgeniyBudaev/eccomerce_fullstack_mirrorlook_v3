@@ -12,6 +12,7 @@ import { IMirror } from "types/mirror";
 import { Button } from "ui-kit";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
 import { numberWithSpaces } from "utils/numberWithSpaces";
+import { changeToBackendBaseUrl } from "utils/url";
 import styles from "./AboutProduct.module.scss";
 
 export interface IAboutProductProps {
@@ -26,8 +27,15 @@ export const AboutProduct: React.FC<IAboutProductProps> = ({
   reviewsCount,
 }) => {
   const [currentCart, setCurrentCart] = useState<ICartState>(null);
+  const [imageUrl, setImageUrl] = useState("");
   const dispatch = useDispatch();
   const cart = useSelector(cartSelector);
+
+  useEffect(() => {
+    const cartItemImageUrl = product.image;
+    const newImageUrl = changeToBackendBaseUrl(cartItemImageUrl);
+    setImageUrl(newImageUrl);
+  }, [product]);
 
   const handleAddToCart = () => {
     dispatch({
@@ -89,10 +97,20 @@ export const AboutProduct: React.FC<IAboutProductProps> = ({
                   className={styles.InfoImage}
                   alt={product.title}
                   priority
-                  src={product.product_photo1}
+                  src={product.image}
                   height="70px"
                   width="50px"
                 />
+                {imageUrl && (
+                  <Image
+                    className={styles.InfoImage}
+                    alt={product.title}
+                    priority
+                    src={imageUrl}
+                    height="70px"
+                    width="50px"
+                  />
+                )}
               </a>
             </Link>
           </div>

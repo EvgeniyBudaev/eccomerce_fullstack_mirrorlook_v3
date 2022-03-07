@@ -27,7 +27,13 @@ export const SearchProductListItem: React.FC<ISearchProductListItemProps> = ({
         <a className={styles.SearchProductListItemLink}>
           <div className={styles.SearchProductListItemImages}>
             {imageUrl && (
-              <Image src={imageUrl} alt="" width="28" height="28" priority />
+              <Image
+                src={imageUrl}
+                alt={product.title}
+                width="28"
+                height="28"
+                priority
+              />
             )}
           </div>
           <div className={styles.SearchProductListItemTitle}>

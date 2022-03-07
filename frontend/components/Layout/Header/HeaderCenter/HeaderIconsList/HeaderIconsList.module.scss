@@ -7,12 +7,12 @@
 
   &__isHomePage {
     .IconLink {
-      svg {
+      svg, path {
         fill: white;
       }
 
       &:hover {
-        svg {
+        svg, path {
           fill: $color-beige;
         }
       }
@@ -44,6 +44,11 @@
     transition: all 0.15s;
 
     svg {
+      height: 25px;
+      width: 25px;
+    }
+
+    svg, path {
       transition: all 0.15s;
     }
 
@@ -52,7 +57,7 @@
         color: $color-beige;
       }
 
-      svg {
+      svg, path {
         fill: $color-beige;
       }
     }
