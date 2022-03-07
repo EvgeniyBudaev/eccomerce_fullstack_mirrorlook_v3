@@ -1,6 +1,6 @@
 ![yamdb_workflow](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/actions/workflows/main.yml/badge.svg)
 
-# Яндекс.Практикум. Python backend. API YamDB
+# Интернет-магазин зеркал Mirror Look
 
 ## Содержание
 - [Описание_проекта](#Описание_проекта)
