@@ -152,7 +152,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 ```
 
 ###
-Теперь проект доступен по адресу http://62.84.119.86.
+Теперь проект доступен по адресу https://mirror-look-shop.ru
 
 - Остановить приложение:
 
@@ -167,7 +167,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 ```
 
 
-Инструкция как пользоваться данным API доступна по адресу http://localhost/redoc/
+Инструкция как пользоваться данным API доступна по адресу https://mirror-look-shop.ru/redoc/
 
 ### <a name="Тесты">Тесты</a>
 ```python
