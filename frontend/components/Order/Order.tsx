@@ -270,7 +270,7 @@ export const Order: React.FC = () => {
               </Link>
             </div>
             <div className={styles.RecipientInfo}>
-              <Icon className={styles.RecipientInfoIcon} type="User" />
+              <Icon className={styles.RecipientInfoIcon} type="House" />
               <div className={styles.RecipientInfoText}>
                 <div className={styles.RecipientInfoTitle}>
                   {isAuthenticated && user

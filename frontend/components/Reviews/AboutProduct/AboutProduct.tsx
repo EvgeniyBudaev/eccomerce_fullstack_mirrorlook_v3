@@ -93,14 +93,6 @@ export const AboutProduct: React.FC<IAboutProductProps> = ({
           <div className={styles.InfoImg}>
             <Link href={`${ROUTES.MIRRORS}${product.product_slug}`}>
               <a>
-                <Image
-                  className={styles.InfoImage}
-                  alt={product.title}
-                  priority
-                  src={product.image}
-                  height="70px"
-                  width="50px"
-                />
                 {imageUrl && (
                   <Image
                     className={styles.InfoImage}
