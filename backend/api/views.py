@@ -98,7 +98,9 @@ def sending_confirm_order(request):
     data = request.data
     subject = data["subject"]
     message = data["message"]
+    admin_email = "budaev.e@gmail.com"
     customer_email = data["customer_email"]
+    manager_email = "lyskin@gmail.com"
     store_email = "infomirrorlook@gmail.com"
 
     if subject and message and customer_email and store_email:
@@ -107,7 +109,7 @@ def sending_confirm_order(request):
                 subject,
                 message,
                 store_email,
-                [store_email, customer_email],
+                [store_email, customer_email, admin_email, manager_email],
                 fail_silently=False,
             )
             return Response("Заказ успешно оформлен!")
