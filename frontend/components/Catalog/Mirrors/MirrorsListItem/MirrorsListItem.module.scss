@@ -2,9 +2,7 @@
 
 .MirrorsListItem {
   $this: &;
-
-  height: 430px;
-  max-width: 224px;
+  min-height: max-content;
   width: 100%;
   border: 1px solid #e4e4e4;
   border-radius: 4px;
@@ -27,7 +25,7 @@
 
     .ContentImg {
       text-align: center;
-      height: 216px;
+      height: max-content;
     }
 
     .ContentDescription {
@@ -39,6 +37,8 @@
     .ContentTitle {
       margin: 8px 0;
       text-align: center;
+      min-height: 54px;
+      width: 100%;
       color: $color-text;
       transition: all 0.15s;
 
@@ -68,11 +68,16 @@
     .FooterAddToCartLine {
       display: none;
     }
+
+    .FooterAddToCartGrid {
+      margin-bottom: 16px;
+    }
   }
 
   &.MirrorsListItem__line {
     max-width: 100%;
     max-height: 312px;
+    min-height: max-content;
     border-left: transparent;
     border-right: transparent;
     border-bottom: transparent;
@@ -95,6 +100,7 @@
     }
 
     .ContentTitle {
+      min-height: max-content;
       margin-bottom: 20px;
     }
 

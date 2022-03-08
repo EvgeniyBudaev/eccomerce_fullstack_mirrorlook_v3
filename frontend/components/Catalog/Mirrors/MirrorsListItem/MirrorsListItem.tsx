@@ -87,15 +87,15 @@ export const MirrorsListItem: React.FC<IMirrorsListItemProps> = ({
     if (isMobileScreen) {
       return "100px";
     } else {
-      return "164px";
+      return "140px";
     }
   };
 
   const imageResponsiveSizeHeight = () => {
     if (isMobileScreen) {
-      return "140px";
+      return "100px";
     } else {
-      return "216px";
+      return "140px";
     }
   };
 
