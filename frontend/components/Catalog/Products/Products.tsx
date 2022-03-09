@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import isEmpty from "lodash/isEmpty";
 import { MirrorsAside } from "components/Catalog/Mirrors";
 import { LayoutSorting } from "components/Layout/LayoutSorting/LayoutSorting";
 import { CatalogNames } from "constants/names";
@@ -9,8 +10,6 @@ import { IMirror } from "types/mirror";
 import { Breadcrumbs, Pagination } from "ui-kit";
 import { ProductsList } from "./ProductsList";
 import styles from "./Products.module.scss";
-import isEmpty from "lodash/isEmpty";
-import {ICheckedMirrors} from "../Mirrors/MirrorsAside/MirrorsAside";
 
 export interface IProductRange {
   startProduct: number;
