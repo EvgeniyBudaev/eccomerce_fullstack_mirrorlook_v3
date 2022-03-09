@@ -23,6 +23,7 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
     const cartItemImageUrl = cartItem.product.image;
     const newImageUrl = changeToBackendBaseUrl(cartItemImageUrl);
     setImageUrl(newImageUrl);
+    setQuantity(cartItem.quantity);
   }, [cartItem]);
 
   const handleDecrementItemToCart = () => {

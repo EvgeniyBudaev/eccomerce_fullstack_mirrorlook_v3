@@ -46,6 +46,7 @@ class ProductFilter(df_filters.FilterSet):
                                       lookup_expr='in')
     category = CharFilterInFilter(field_name='category__title',
                                   lookup_expr='in')
+    count_in_stock = df_filters.RangeFilter()
     price = df_filters.RangeFilter()
     form = CharFilterInFilter(field_name='attributes__form', lookup_expr='in')
     frame_color = CharFilterInFilter(field_name='attributes__frame_color',

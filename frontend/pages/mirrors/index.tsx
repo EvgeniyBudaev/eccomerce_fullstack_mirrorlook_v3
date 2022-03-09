@@ -64,14 +64,16 @@ export default function MirrorsPage(props: IMirrorsProps): JSX.Element {
 export const getServerSideProps: GetServerSideProps<IFilter<IMirror>> = async ({
   query: {
     page = 1,
+    inStock = "",
     category = "",
     form = "",
     frame_color = "",
     ordering = "",
   },
 }) => {
+  inStock = inStock ? "count_in_stock_min=1&count_in_stock_max=50000" : "";
   const url = encodeURI(
-    `${backendBase}api/v1/products/?catalog_slug=mirrors&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
+    `${backendBase}api/v1/products/?catalog_slug=mirrors&${inStock}&category=${category}&form=${form}&frame_color=${frame_color}&ordering=${ordering}&page=${page}`
   );
   try {
     const { data: mirrorsResponse } = await axios.get<IFilterResponse<IMirror>>(

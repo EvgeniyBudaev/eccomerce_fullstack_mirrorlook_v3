@@ -1,18 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty";
 import { DISCOUNT_FOR_AUTHORIZATION } from "constants/cart";
 import {
   accountSelector,
   cartSelector,
-  loadingSelector,
   unhandledErrorSelector,
 } from "ducks/selectors";
 import { useMounted } from "hooks/useMounted";
 import { useSelector } from "hooks";
-import { Breadcrumbs, Button, Icon, Spinner } from "ui-kit";
+import { Button, Icon } from "ui-kit";
 import { AlertError } from "utils/alert";
 import { getErrorByStatus } from "utils/error";
 import { getDeclination } from "utils/declinations";
@@ -25,7 +24,6 @@ export const Cart: React.FC = () => {
   const router = useRouter();
   const cart = useSelector(cartSelector);
   const account = useSelector(accountSelector);
-  const { isLoading } = useSelector(loadingSelector);
   const { error } = useSelector(unhandledErrorSelector);
   const { isAuthenticated } = hasMounted && account;
   const cartItemsCountTotal =
@@ -56,20 +54,9 @@ export const Cart: React.FC = () => {
     router.push("/shipping");
   };
 
-  const getDefaultTextCrumbGenerator = useCallback((subpath: string) => {
-    return (
-      {
-        cart: "Корзина",
-      }[subpath] || subpath
-    );
-  }, []);
-
-  if (isLoading) return <Spinner />;
-
   return (
     <section className={styles.Cart}>
       <AlertContainer />
-      <Breadcrumbs getDefaultTextGenerator={getDefaultTextCrumbGenerator} />
       <h1 className={styles.CartTitle}>Моя корзина</h1>
       <div className={styles.CartInner}>
         <div className={styles.CartList}>

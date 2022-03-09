@@ -9,6 +9,7 @@ import { Accordion, Button, Checkbox, IconButton, Overlay } from "ui-kit";
 import styles from "./MirrorsAside.module.scss";
 
 export interface ICheckedMirrors {
+  inStock: string[];
   category: string[];
   form: string[];
   frame_color: string[];
@@ -28,6 +29,7 @@ export interface IAsideOption {
 
 export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
   const [checkedMirrors, setCheckedMirrors] = useState<ICheckedMirrors>({
+    inStock: ["В наличии"],
     category: [],
     form: [],
     frame_color: [],
@@ -73,6 +75,10 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
 
   const asideOptionsMirrors: IAsideOption[] = [
     {
+      option: { optionNameRu: "В наличии", optionNameOnBackend: "inStock" },
+      entities: ["В наличии"],
+    },
+    {
       option: { optionNameRu: "Категория", optionNameOnBackend: "category" },
       entities: [
         "Венецианские зеркала",
@@ -114,6 +120,9 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
         obj[key] = value.join(",");
       }
     });
+    if (!isEmpty(request.inStock)) {
+      return { ...obj, inStock: request.inStock[0], page: 1 };
+    }
     if (!isEmpty(router.query.ordering)) {
       return { ...obj, ordering: router.query.ordering, page: 1 };
     } else {

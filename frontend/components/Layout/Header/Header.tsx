@@ -68,7 +68,7 @@ export const Header: React.FC<IHeaderProps> = ({ isHomePage }) => {
         timeout={TRANSITION}
         unmountOnExit
       >
-        <CatalogDropDown ref={nodeRef} />
+        <CatalogDropDown ref={nodeRef} onClose={handleCatalogClose} />
       </CSSTransition>
       <Overlay
         timeout={TRANSITION}

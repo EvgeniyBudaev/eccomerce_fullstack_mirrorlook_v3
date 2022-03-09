@@ -9,6 +9,8 @@ import { IMirror } from "types/mirror";
 import { Breadcrumbs, Pagination } from "ui-kit";
 import { ProductsList } from "./ProductsList";
 import styles from "./Products.module.scss";
+import isEmpty from "lodash/isEmpty";
+import {ICheckedMirrors} from "../Mirrors/MirrorsAside/MirrorsAside";
 
 export interface IProductRange {
   startProduct: number;
@@ -42,11 +44,19 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
     productsResponse.paging;
   const { catalogName } = productsResponse;
 
-  const handlePageChange = ({ selected }) => {
+  const handleFilter = (selected: number) => {
+    if (!isEmpty(router.query)) {
+      return { ...router.query, page: selected + 1 };
+    } else {
+      return { ...router.query, inStock: "В наличии", page: selected + 1 };
+    }
+  };
+
+  const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected + 1);
     router.push({
       href: path,
-      query: `page=${selected + 1}`,
+      query: handleFilter(selected),
     });
   };
 

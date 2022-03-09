@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { ForwardedRef, forwardRef } from "react";
 import classNames from "classnames";
 import { ROUTES } from "constants/routes";
@@ -13,16 +14,26 @@ const categories1 = "/images/mirrors.png";
 export interface ICatalogDropDownProps {
   className?: string;
   ref: ForwardedRef<HTMLDivElement>;
+  onClose?: () => void;
 }
 
 export const CatalogDropDown = forwardRef(
   (
-    { className }: ICatalogDropDownProps,
+    { className, onClose }: ICatalogDropDownProps,
     ref: ForwardedRef<HTMLDivElement>
   ): JSX.Element => {
+    const router = useRouter();
     const { hasMounted } = useMounted();
     const scroll = useSelector(scrollSelector);
     const { isScroll } = hasMounted && scroll;
+
+    const handleRouteTo = () => {
+      if (router.pathname === "/mirrors") {
+        onClose();
+      } else {
+        router.push(ROUTES.MIRRORS);
+      }
+    };
 
     return (
       <div
@@ -34,8 +45,8 @@ export const CatalogDropDown = forwardRef(
         <div className={styles.CatalogDropDownContainer}>
           <div className={styles.CatalogDropDownList}>
             <div className={styles.CatalogDropDownListItem}>
-              <Link href={ROUTES.MIRRORS}>
-                <a>
+              <div onClick={handleRouteTo}>
+                <>
                   <Image
                     className={styles.CatalogDropDownListItemImage}
                     alt=""
@@ -47,8 +58,8 @@ export const CatalogDropDown = forwardRef(
                   <div className={styles.CatalogDropDownListItemTitle}>
                     Зеркала
                   </div>
-                </a>
-              </Link>
+                </>
+              </div>
             </div>
           </div>
         </div>
