@@ -65,6 +65,12 @@ export const Search: React.FC<ISearchProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedKeyword]);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Escape") {
+      setIsActive(false);
+    }
+  };
+
   return (
     <>
       <div
@@ -85,7 +91,9 @@ export const Search: React.FC<ISearchProps> = ({
               value={searchedKeyword}
               onBlur={handleBlur}
               onChange={handleChange}
+              onClick={handleFocus}
               onFocus={handleFocus}
+              onKeyDown={handleKeyDown}
             />
           </div>
           <Icon className={styles.SearchIcon} type="Search" />

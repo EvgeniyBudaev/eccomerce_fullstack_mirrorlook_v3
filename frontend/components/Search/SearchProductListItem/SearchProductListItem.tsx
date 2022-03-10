@@ -8,10 +8,14 @@ import styles from "./SearchProductListItem.module.scss";
 
 interface ISearchProductListItemProps {
   product: SearchProductType;
+  style: any;
+  onKeyPress: (e) => void;
 }
 
 export const SearchProductListItem: React.FC<ISearchProductListItemProps> = ({
   product,
+  style,
+  onKeyPress,
 }) => {
   const [imageUrl, setImageUrl] = useState("");
 
@@ -24,7 +28,7 @@ export const SearchProductListItem: React.FC<ISearchProductListItemProps> = ({
   return (
     <li className={styles.SearchProductListItem}>
       <Link href={`/${product.catalog_slug}/${product.product_slug}`}>
-        <a className={styles.SearchProductListItemLink}>
+        <a className={styles.SearchProductListItemLink} onKeyPress={onKeyPress}>
           <div className={styles.SearchProductListItemImages}>
             {imageUrl && (
               <Image
@@ -36,7 +40,7 @@ export const SearchProductListItem: React.FC<ISearchProductListItemProps> = ({
               />
             )}
           </div>
-          <div className={styles.SearchProductListItemTitle}>
+          <div className={styles.SearchProductListItemTitle} style={style}>
             {product.title}
           </div>
           <div className={styles.SearchProductListItemPrice}>

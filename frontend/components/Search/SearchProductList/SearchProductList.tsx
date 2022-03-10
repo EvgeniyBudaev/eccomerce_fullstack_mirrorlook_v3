@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
 import { loadingSelector } from "ducks/selectors";
-import { useSelector } from "hooks";
+import { useKey, useKeyPress, useSelector } from "hooks";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 import { Spinner } from "ui-kit";
@@ -23,6 +23,57 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
   productList,
 }) => {
   const { isLoading } = useSelector(loadingSelector);
+  // const arrowUpPressed = useKeyPress("ArrowUp");
+  // const arrowDownPressed = useKeyPress("ArrowDown");
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // useEffect(() => {
+  //   if (arrowUpPressed) {
+  //     console.log("arrowUp");
+  //     if (selectedIndex !== 0) {
+  //       setSelectedIndex(selectedIndex - 1);
+  //     } else {
+  //       setSelectedIndex(productList.slice(0, 5).length - 1);
+  //     }
+  //   }
+  // }, [arrowUpPressed]);
+  //
+  // useEffect(() => {
+  //   if (arrowDownPressed) {
+  //     console.log("arrowDown");
+  //     if (selectedIndex !== productList.slice(0, 5).length - 1) {
+  //       setSelectedIndex(selectedIndex + 1);
+  //     } else {
+  //       setSelectedIndex(0);
+  //     }
+  //   }
+  // }, [arrowDownPressed]);
+
+  const handleUp = () => {
+    console.log("UP!");
+    if (selectedIndex !== 0) {
+      setSelectedIndex(selectedIndex - 1);
+    } else {
+      setSelectedIndex(productList.slice(0, 5).length - 1);
+    }
+  };
+
+  const handleDown = () => {
+    console.log("Down!");
+    if (selectedIndex !== productList.slice(0, 5).length - 1) {
+      setSelectedIndex(selectedIndex + 1);
+    } else {
+      setSelectedIndex(0);
+    }
+  };
+
+  const handleEnter = () => {
+    console.log("Enter");
+  };
+
+  useKey("ArrowUp", handleUp);
+  useKey("ArrowDown", handleDown);
+  useKey("Enter", handleEnter);
 
   const groupProductsByCatalog = useCallback(
     (productList: SearchProductsType): IProductsByCatalog[] => {
@@ -40,6 +91,10 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
     },
     []
   );
+
+  const handleKeyPress = (event: any) => {
+    console.log("event: ", event);
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -60,11 +115,18 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
       </ul>
       <ul className={styles.SearchProductList}>
         {!isEmpty(productList) &&
-          productList
-            .slice(0, 5)
-            .map(product => (
-              <SearchProductListItem key={product.id} product={product} />
-            ))}
+          productList.slice(0, 5).map((product, index) => (
+            <SearchProductListItem
+              key={product.id}
+              product={product}
+              aria-pressed={index === selectedIndex}
+              style={{
+                cursor: "pointer",
+                color: index === selectedIndex ? "red" : "black",
+              }}
+              onKeyPress={handleKeyPress}
+            />
+          ))}
       </ul>
     </>
   );
