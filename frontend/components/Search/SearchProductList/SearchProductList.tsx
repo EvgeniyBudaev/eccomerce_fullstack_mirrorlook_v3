@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
@@ -9,7 +10,19 @@ import { Spinner } from "ui-kit";
 import { SearchCatalogListItem } from "../SearchCatalogListItem";
 import { SearchProductListItem } from "../SearchProductListItem";
 import styles from "./SearchProductList.module.scss";
+import { ROUTES } from "../../../constants/routes";
 
+export type FocusDirection =
+  | "up"
+  | "down"
+  | "pageup"
+  | "pagedown"
+  | "first"
+  | "last";
+
+interface IFocusedOption {
+  focusedOption: IMirror | IConsole | null;
+}
 export interface ISearchProductListProps {
   productList: SearchProductsType;
 }
@@ -22,10 +35,20 @@ interface IProductsByCatalog {
 export const SearchProductList: React.FC<ISearchProductListProps> = ({
   productList,
 }) => {
+  const router = useRouter();
+  const options = productList.slice(0, 5);
   const { isLoading } = useSelector(loadingSelector);
+  const [focusedOption, setFocusedOption] = useState<IFocusedOption>({
+    focusedOption: null,
+  });
+  console.log("focusedOption: ", focusedOption);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   // const arrowUpPressed = useKeyPress("ArrowUp");
   // const arrowDownPressed = useKeyPress("ArrowDown");
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const arrowUpPressed = useKey("ArrowUp");
+  const arrowDownPressed = useKey("ArrowDown");
+  const enterPressed = useKey("Enter");
 
   // useEffect(() => {
   //   if (arrowUpPressed) {
@@ -49,31 +72,57 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
   //   }
   // }, [arrowDownPressed]);
 
-  const handleUp = () => {
-    console.log("UP!");
-    if (selectedIndex !== 0) {
-      setSelectedIndex(selectedIndex - 1);
-    } else {
-      setSelectedIndex(productList.slice(0, 5).length - 1);
+  useEffect(() => {
+    setFocusedOption({ focusedOption: options[selectedIndex] });
+  }, [selectedIndex]);
+
+  const focusOption = (direction: FocusDirection = "first") => {
+    if (!options.length) return;
+    let nextFocus = selectedIndex; // handles 'first'
+
+    if (direction === "up") {
+      nextFocus = selectedIndex > 0 ? selectedIndex - 1 : options.length - 1;
+      setSelectedIndex(nextFocus);
+    } else if (direction === "down") {
+      nextFocus = selectedIndex !== options.length - 1 ? selectedIndex + 1 : 0;
+      setSelectedIndex(nextFocus);
     }
   };
 
-  const handleDown = () => {
-    console.log("Down!");
-    if (selectedIndex !== productList.slice(0, 5).length - 1) {
-      setSelectedIndex(selectedIndex + 1);
-    } else {
-      setSelectedIndex(0);
+  const handleKeyDown = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "ArrowUp":
+        focusOption("up");
+        break;
+      case "ArrowDown":
+        focusOption("down");
+        break;
+      case "Enter":
+        console.log("Enter push");
+        router.push(
+          `${ROUTES.MIRRORS}/${focusedOption.focusedOption.product_slug}`
+        );
+        break;
     }
   };
 
-  const handleEnter = () => {
-    console.log("Enter");
-  };
+  useEffect(() => {
+    if (arrowUpPressed.keyup) {
+      handleKeyDown(arrowUpPressed.event);
+    }
+  }, [arrowUpPressed]);
 
-  useKey("ArrowUp", handleUp);
-  useKey("ArrowDown", handleDown);
-  useKey("Enter", handleEnter);
+  useEffect(() => {
+    if (arrowDownPressed.keydown) {
+      handleKeyDown(arrowDownPressed.event);
+    }
+  }, [arrowDownPressed]);
+
+  useEffect(() => {
+    if (enterPressed.enter) {
+      handleKeyDown(enterPressed.event);
+    }
+  }, [enterPressed]);
 
   const groupProductsByCatalog = useCallback(
     (productList: SearchProductsType): IProductsByCatalog[] => {
@@ -91,10 +140,6 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
     },
     []
   );
-
-  const handleKeyPress = (event: any) => {
-    console.log("event: ", event);
-  };
 
   if (isLoading) return <Spinner />;
 
@@ -124,7 +169,6 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
                 cursor: "pointer",
                 color: index === selectedIndex ? "red" : "black",
               }}
-              onKeyPress={handleKeyPress}
             />
           ))}
       </ul>

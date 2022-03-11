@@ -1,27 +1,65 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
-export const useKey = (key: any, cb: any): void => {
-  const callbackRef = useRef(cb);
+interface IKeyPressed {
+  enter: boolean;
+  event: KeyboardEvent | null;
+  keydown: boolean;
+  keyup: boolean;
+}
 
-  useEffect(() => {
-    callbackRef.current = cb;
+export const useKey = (targetKey: string): IKeyPressed => {
+  const [keyPressed, setKeyPressed] = useState<IKeyPressed>({
+    enter: false,
+    event: null,
+    keydown: false,
+    keyup: false,
   });
 
   useEffect(() => {
-    function handle(event) {
-      if (event.code === key) {
-        if (callbackRef.current) {
-          callbackRef.current(event);
-        }
+    const enterHandler = (event: KeyboardEvent) => {
+      if (event.key === targetKey) {
+        setKeyPressed(prevState => ({
+          ...prevState,
+          enter: true,
+          event,
+          keydown: false,
+          keyup: false,
+        }));
       }
-    }
-    document.addEventListener("keypress", handle);
-    // document.addEventListener("keydown", handle);
-    // document.addEventListener("keyup", handle);
-    return () => {
-      document.removeEventListener("keypress", handle);
-      // document.removeEventListener("keydown", handle);
-      // document.removeEventListener("keyup", handle);
     };
-  }, [key]);
+    const downHandler = (event: KeyboardEvent) => {
+      if (event.key === targetKey) {
+        setKeyPressed(prevState => ({
+          ...prevState,
+          enter: false,
+          event,
+          keydown: true,
+          keyup: false,
+        }));
+      }
+    };
+    const upHandler = (event: KeyboardEvent) => {
+      if (event.key === targetKey) {
+        setKeyPressed(prevState => ({
+          ...prevState,
+          enter: false,
+          event,
+          keydown: false,
+          keyup: true,
+        }));
+      }
+    };
+
+    window.addEventListener("keypress", enterHandler);
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
+
+    return () => {
+      window.removeEventListener("keypress", enterHandler);
+      window.removeEventListener("keydown", downHandler);
+      window.removeEventListener("keyup", upHandler);
+    };
+  }, [targetKey]);
+
+  return keyPressed;
 };
