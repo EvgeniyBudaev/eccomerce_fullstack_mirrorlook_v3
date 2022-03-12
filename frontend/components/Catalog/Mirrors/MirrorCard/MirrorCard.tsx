@@ -144,9 +144,9 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
           <div className={styles.ProductGallery}>
             <SliderAsNavFor
               images={sliderImages}
-              heightNav="432"
+              heightNav="320"
               heightFor="60"
-              widthNav="328"
+              widthNav="320"
               widthFor="60"
             />
           </div>

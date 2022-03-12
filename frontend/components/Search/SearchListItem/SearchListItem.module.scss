@@ -1,6 +1,6 @@
 @import "styles";
 
-.SearchProductListItem {
+.SearchListItem {
   //overflow: hidden;
   //white-space: nowrap;
   //text-overflow: ellipsis;
@@ -12,10 +12,11 @@
     display: flex;
     align-items: center;
     padding: 8px 10px;
-  }
 
-  &:hover {
-    background-color: $color-light-beige;
+    &__active {
+      background-color: $color-light-beige;
+    }
+
   }
 
   &Images {
@@ -36,5 +37,9 @@
     @include roboto-14-regular;
     color: $color-suit-gray;
     white-space: nowrap;
+  }
+
+  &ByCatalog {
+    border-bottom: 1px solid $color-light-gray;
   }
 }

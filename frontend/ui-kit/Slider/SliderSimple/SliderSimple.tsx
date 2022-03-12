@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import Slider from "react-slick";
 import classNames from "classnames";
 import isEmpty from "lodash/isEmpty";
 import { ROUTES } from "constants/routes";
+import { useMounted } from "hooks/useMounted";
 import { LinkButton } from "ui-kit";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -48,6 +48,7 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
   nextArrow,
   prevArrow,
 }) => {
+  const { hasMounted } = useMounted();
   const settings = {
     arrows: arrows,
     className: classNames(className),
@@ -59,7 +60,6 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
     nextArrow: nextArrow,
     prevArrow: prevArrow,
   };
-  const router = useRouter();
   const isLaptopScreen = useMediaQuery({ query: "(max-width: 1366px)" });
   const isPadScreen = useMediaQuery({ query: "(max-width: 1024px)" });
   const isMobileScreen = useMediaQuery({ query: "(max-width: 100px)" });
@@ -106,8 +106,10 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                   />
                   <div
                     className={classNames(styles.ItemContent, {
-                      [styles.ItemContent__isLaptopScreen]: isLaptopScreen,
-                      [styles.ItemContent__isPadScreen]: isPadScreen,
+                      [styles.ItemContent__isLaptopScreen]:
+                        hasMounted && isLaptopScreen,
+                      [styles.ItemContent__isPadScreen]:
+                        hasMounted && isPadScreen,
                     })}
                   >
                     <div className={styles.Container}>

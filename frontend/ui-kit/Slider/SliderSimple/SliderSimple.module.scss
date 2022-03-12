@@ -74,6 +74,16 @@
   }
 }
 
+.ImageContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.Image {
+  cursor: pointer;
+}
+
 @media (max-width: 1230px) {
   .Container {
     margin: 0 auto;

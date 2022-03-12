@@ -56,14 +56,12 @@ export const Search: React.FC<ISearchProps> = ({
           AlertError(errorByStatus.error.body);
         });
     },
-    // eslint-disable-next-line
-    []
+    [dispatch]
   );
 
   useEffect(() => {
     fetchSearchItems(searchedKeyword);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchedKeyword]);
+  }, [fetchSearchItems, searchedKeyword]);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape") {

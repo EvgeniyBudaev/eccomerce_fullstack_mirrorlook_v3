@@ -2,83 +2,67 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
+import { ROUTES } from "constants/routes";
 import { loadingSelector } from "ducks/selectors";
-import { useKey, useKeyPress, useSelector } from "hooks";
+import { useKey, useSelector } from "hooks";
 import { IConsole } from "types/console";
 import { IMirror } from "types/mirror";
 import { Spinner } from "ui-kit";
-import { SearchCatalogListItem } from "../SearchCatalogListItem";
-import { SearchProductListItem } from "../SearchProductListItem";
+import { newGuid } from "utils/guid";
+import { SearchListItem } from "../SearchListItem";
 import styles from "./SearchProductList.module.scss";
-import { ROUTES } from "../../../constants/routes";
 
-export type FocusDirection =
-  | "up"
-  | "down"
-  | "pageup"
-  | "pagedown"
-  | "first"
-  | "last";
+type FocusDirection = "up" | "down";
 
 interface IFocusedOption {
-  focusedOption: IMirror | IConsole | null;
-}
-export interface ISearchProductListProps {
-  productList: SearchProductsType;
+  focusedOption: IProductsByCatalog | IMirror | IConsole | null;
 }
 
-interface IProductsByCatalog {
+export interface IProductsByCatalog {
   catalog: string;
   entities: IConsole[] | IMirror[];
+}
+
+export interface ISearchProductListProps {
+  productList: SearchProductsType;
 }
 
 export const SearchProductList: React.FC<ISearchProductListProps> = ({
   productList,
 }) => {
   const router = useRouter();
-  const options = productList.slice(0, 5);
   const { isLoading } = useSelector(loadingSelector);
+  const [list, setList] = useState<(IProductsByCatalog | IConsole | IMirror)[]>(
+    []
+  );
+  const options = list;
   const [focusedOption, setFocusedOption] = useState<IFocusedOption>({
     focusedOption: null,
   });
-  console.log("focusedOption: ", focusedOption);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // const arrowUpPressed = useKeyPress("ArrowUp");
-  // const arrowDownPressed = useKeyPress("ArrowDown");
   const arrowUpPressed = useKey("ArrowUp");
   const arrowDownPressed = useKey("ArrowDown");
   const enterPressed = useKey("Enter");
 
-  // useEffect(() => {
-  //   if (arrowUpPressed) {
-  //     console.log("arrowUp");
-  //     if (selectedIndex !== 0) {
-  //       setSelectedIndex(selectedIndex - 1);
-  //     } else {
-  //       setSelectedIndex(productList.slice(0, 5).length - 1);
-  //     }
-  //   }
-  // }, [arrowUpPressed]);
-  //
-  // useEffect(() => {
-  //   if (arrowDownPressed) {
-  //     console.log("arrowDown");
-  //     if (selectedIndex !== productList.slice(0, 5).length - 1) {
-  //       setSelectedIndex(selectedIndex + 1);
-  //     } else {
-  //       setSelectedIndex(0);
-  //     }
-  //   }
-  // }, [arrowDownPressed]);
-
   useEffect(() => {
     setFocusedOption({ focusedOption: options[selectedIndex] });
-  }, [selectedIndex]);
+  }, [options, selectedIndex]);
 
-  const focusOption = (direction: FocusDirection = "first") => {
+  useEffect(() => {
+    if (!isEmpty(productList)) {
+      const items = [
+        ...groupProductsByCatalog(productList).slice(0, 2),
+        ...productList.slice(0, 5),
+      ];
+      setList(items);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productList]);
+
+  const focusOption = (direction: FocusDirection) => {
     if (!options.length) return;
-    let nextFocus = selectedIndex; // handles 'first'
+    let nextFocus = selectedIndex;
 
     if (direction === "up") {
       nextFocus = selectedIndex > 0 ? selectedIndex - 1 : options.length - 1;
@@ -98,10 +82,11 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
         focusOption("down");
         break;
       case "Enter":
-        console.log("Enter push");
-        router.push(
-          `${ROUTES.MIRRORS}/${focusedOption.focusedOption.product_slug}`
-        );
+        "product_slug" in focusedOption.focusedOption
+          ? router.push(
+              `${ROUTES.MIRRORS}/${focusedOption.focusedOption.product_slug}`
+            )
+          : router.push(ROUTES.MIRRORS);
         break;
     }
   };
@@ -110,19 +95,29 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
     if (arrowUpPressed.keyup) {
       handleKeyDown(arrowUpPressed.event);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrowUpPressed]);
 
   useEffect(() => {
     if (arrowDownPressed.keydown) {
       handleKeyDown(arrowDownPressed.event);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrowDownPressed]);
 
   useEffect(() => {
     if (enterPressed.enter) {
       handleKeyDown(enterPressed.event);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enterPressed]);
+
+  const handleMouseOver = (
+    event: React.MouseEvent<HTMLLIElement>,
+    index: number
+  ) => {
+    setSelectedIndex(index);
+  };
 
   const groupProductsByCatalog = useCallback(
     (productList: SearchProductsType): IProductsByCatalog[] => {
@@ -134,6 +129,7 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
 
         return {
           ...catalog,
+          id: newGuid(),
           entities: productList.filter(product => product.catalog === item),
         };
       });
@@ -145,30 +141,16 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
 
   return (
     <>
-      <ul className={styles.SearchCatalogList}>
-        {!isEmpty(productList) &&
-          groupProductsByCatalog(productList)
-            .slice(0, 2)
-            .map(item => (
-              <SearchCatalogListItem
-                key={item.catalog}
-                image={item.entities[0].image}
-                slug={item.entities[0].catalog_slug}
-                title={item.catalog}
-              />
-            ))}
-      </ul>
       <ul className={styles.SearchProductList}>
-        {!isEmpty(productList) &&
-          productList.slice(0, 5).map((product, index) => (
-            <SearchProductListItem
-              key={product.id}
-              product={product}
+        {!isEmpty(list) &&
+          list.map((item, index) => (
+            <SearchListItem
+              index={index}
+              item={item}
+              key={index}
               aria-pressed={index === selectedIndex}
-              style={{
-                cursor: "pointer",
-                color: index === selectedIndex ? "red" : "black",
-              }}
+              isActive={index === selectedIndex}
+              onMouseOver={handleMouseOver}
             />
           ))}
       </ul>
