@@ -75,7 +75,7 @@ export const HeaderCenter: React.FC<IHeaderCenterProps> = ({
               isActive={isSidebar}
               onClose={handleSidebarClose}
             >
-              <SidebarMobile />
+              <SidebarMobile onClose={handleSidebarClose} />
             </Sidebar>
           </div>
         </div>

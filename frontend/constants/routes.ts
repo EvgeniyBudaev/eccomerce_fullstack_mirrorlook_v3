@@ -5,6 +5,7 @@ export enum ROUTES {
   HOME = "/",
   LOGIN = "/login",
   MIRRORS = "/mirrors/",
+  MIRRORS_DEFAULT = "/mirrors/?inStock=В+наличии&ordering=-count_in_stock%2Cprice&page=1",
   ORDER = "/order",
   RECIPIENT = "/recipient",
   REVIEWS = "/reviews/",

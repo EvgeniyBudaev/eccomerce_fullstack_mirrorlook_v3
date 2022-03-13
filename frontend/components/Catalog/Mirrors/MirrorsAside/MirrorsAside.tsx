@@ -121,12 +121,17 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
       }
     });
     if (!isEmpty(request.inStock)) {
-      return { ...obj, inStock: request.inStock[0], page: 1 };
+      return {
+        ...obj,
+        ordering: `-count_in_stock,price`,
+        inStock: request.inStock[0],
+        page: 1,
+      };
     }
     if (!isEmpty(router.query.ordering)) {
       return { ...obj, ordering: router.query.ordering, page: 1 };
     } else {
-      return { ...obj, page: 1 };
+      return { ...obj, ordering: `-count_in_stock,price`, page: 1 };
     }
   };
 

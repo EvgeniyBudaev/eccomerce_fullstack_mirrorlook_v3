@@ -44,8 +44,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter,
                        filters.SearchFilter)
     filterset_class = ProductFilter
-    ordering_fields = ('price',)
-    ordering = ('price',)
+    ordering_fields = ('count_in_stock', 'price')
+    ordering = ('count_in_stock', 'price')
     search_fields = ('title',)
 
     def get_serializer_class(self):

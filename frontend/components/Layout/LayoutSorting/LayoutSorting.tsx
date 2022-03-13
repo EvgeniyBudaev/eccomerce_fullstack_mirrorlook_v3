@@ -39,7 +39,11 @@ export const LayoutSorting: React.FC<ILayoutSortingProps> = ({
   const path = router.asPath;
 
   const handleSorting = (selectedOption: ISorting) => {
-    return { ...router.query, ordering: selectedOption.value, page: 1 };
+    return {
+      ...router.query,
+      ordering: `-count_in_stock,${selectedOption.value}`,
+      page: 1,
+    };
   };
 
   const handleChange = (selectedOption: ISorting) => {

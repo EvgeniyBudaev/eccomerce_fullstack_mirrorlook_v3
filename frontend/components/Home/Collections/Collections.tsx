@@ -62,7 +62,7 @@ export const Collections: React.FC = () => {
           <div className={styles.CollectionsControl}>
             <LinkButton
               className={styles.ItemButton}
-              href={`${ROUTES.MIRRORS}?inStock=В+наличии&page=1`}
+              href={ROUTES.MIRRORS_DEFAULT}
             >
               Посмотреть все коллекции
             </LinkButton>

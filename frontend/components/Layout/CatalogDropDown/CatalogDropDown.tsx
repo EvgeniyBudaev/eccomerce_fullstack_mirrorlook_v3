@@ -30,7 +30,7 @@ export const CatalogDropDown = forwardRef(
       if (router.pathname === "/mirrors") {
         onClose();
       } else {
-        router.push(`${ROUTES.MIRRORS}?inStock=В+наличии&page=1`);
+        router.push(ROUTES.MIRRORS_DEFAULT);
       }
     };
 

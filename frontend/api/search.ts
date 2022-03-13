@@ -14,7 +14,7 @@ export const fetchLiveProductsSearch = async ({
     },
   };
   const response = await axios.get<IFetchLiveProductsSearchResponse>(
-    `${backendBase}api/v1/products/?search=${searchedKeyword}`,
+    `${backendBase}api/v1/products/?ordering=-count_in_stock%2Cprice&search=${searchedKeyword}`,
     config
   );
 
