@@ -14,7 +14,13 @@ import {
 import { setUnhandledClearError } from "ducks/unhandledError";
 import { useDispatch, useSelector } from "hooks";
 import { IMirror } from "types/mirror";
-import { Breadcrumbs, Button, Spinner } from "ui-kit";
+import {
+  Breadcrumbs,
+  Button,
+  SliderNextArrow,
+  SliderPrevArrow,
+  Spinner,
+} from "ui-kit";
 import { SliderAsNavFor } from "ui-kit/Slider/SliderAsNavFor";
 import { AlertError } from "utils/alert";
 import { getDeclination, reviewDeclinations } from "utils/declinations";
@@ -148,6 +154,12 @@ export const MirrorCard: React.FC<IMirrorCardProps> = ({
               heightFor="60"
               widthNav="320"
               widthFor="60"
+              nextArrow={
+                <SliderNextArrow opacity={1} styles={{ right: "0px" }} />
+              }
+              prevArrow={
+                <SliderPrevArrow opacity={1} styles={{ left: "0px" }} />
+              }
             />
           </div>
         </div>

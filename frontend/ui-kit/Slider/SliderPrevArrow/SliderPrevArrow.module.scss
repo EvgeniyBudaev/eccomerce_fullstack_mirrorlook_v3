@@ -17,11 +17,11 @@
   z-index: 1;
   height: 40px;
   width: 40px;
-  background-color: $color-mercury-gray;
+  background-color: var(--slider-arrow-backgroundColor);
   border: 1px solid $color-mercury-gray;
   border-radius: 50%;
   box-shadow: $shadow-sliderArrow;
-  opacity: 0.3;
+  opacity: var(--slider-arrow-opacity);
   transition: all 0.15s;
 
   &:hover {

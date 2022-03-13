@@ -1,10 +1,9 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { IFilterResponse } from "api/types";
-import { Layout, Reviews } from "components";
+import { HeadApplication, Layout, Reviews } from "components";
 import { backendBase } from "constants/paths";
 import { IReview, IReviewsResponse } from "types/review";
 import { AlertError } from "utils/alert";
@@ -30,21 +29,10 @@ export default function MirrorReviewsPage(
 
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="Отзывы | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:title"
-          content="Отзывы | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:description"
-          content="Отзывы | Интернет-магазин зеркал MirrorLook"
-        />
-        <title>Отзывы | MirrorLook</title>
-      </Head>
+      <HeadApplication
+        content="Отзывы | Интернет-магазин зеркал MirrorLook"
+        title="Отзывы | MirrorLook"
+      />
       <Layout>
         <AlertContainer />
         {entities && <Reviews reviewResponse={props} />}

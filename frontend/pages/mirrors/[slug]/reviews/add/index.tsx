@@ -1,9 +1,8 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios, { AxiosError } from "axios";
-import { Layout } from "components";
+import { HeadApplication, Layout } from "components";
 import ReviewsAdd from "components/Reviews/ReviewsAdd";
 import { backendBase } from "constants/paths";
 import { IError } from "types/error";
@@ -35,21 +34,10 @@ export default function MirrorReviewsAddPage({
 
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="Добавить отзыв | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:title"
-          content="Добавить отзыв | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:description"
-          content="Добавить отзыв | Интернет-магазин зеркал MirrorLook"
-        />
-        <title>Добавить отзыв | MirrorLook</title>
-      </Head>
+      <HeadApplication
+        content="Добавить отзыв | Интернет-магазин зеркал MirrorLook"
+        title="Добавить отзыв | MirrorLook"
+      />
       <Layout>
         <AlertContainer />
         {product && <ReviewsAdd product={product} />}

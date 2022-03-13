@@ -12,6 +12,7 @@ import Comment from "./Comment";
 import CommentAdd from "./Comment/CommentAdd";
 import Contacts from "./Contacts";
 import FilterBarMobile from "./FilterBarMobile";
+import HeadApplication from "./HeadApplication";
 import Help from "./Help";
 import Home from "./Home";
 import { Layout } from "./Layout";
@@ -38,6 +39,7 @@ export {
   Confirm,
   Contacts,
   FilterBarMobile,
+  HeadApplication,
   Help,
   Home,
   Layout,

@@ -60,7 +60,10 @@ export const Collections: React.FC = () => {
             </div>
           </div>
           <div className={styles.CollectionsControl}>
-            <LinkButton className={styles.ItemButton} href={ROUTES.MIRRORS}>
+            <LinkButton
+              className={styles.ItemButton}
+              href={`${ROUTES.MIRRORS}?inStock=В+наличии&page=1`}
+            >
               Посмотреть все коллекции
             </LinkButton>
           </div>

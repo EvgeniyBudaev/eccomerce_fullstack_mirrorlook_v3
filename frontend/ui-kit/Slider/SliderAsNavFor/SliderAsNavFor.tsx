@@ -11,6 +11,8 @@ interface ISliderAsNavForProps {
   heightFor?: string;
   widthNav?: string;
   widthFor?: string;
+  nextArrow?: JSX.Element;
+  prevArrow?: JSX.Element;
 }
 
 const SliderAsNavFor: React.FC<ISliderAsNavForProps> = ({
@@ -20,6 +22,8 @@ const SliderAsNavFor: React.FC<ISliderAsNavForProps> = ({
   heightFor,
   // widthNav,
   widthFor,
+  nextArrow,
+  prevArrow,
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -27,6 +31,20 @@ const SliderAsNavFor: React.FC<ISliderAsNavForProps> = ({
   const [nav2, setNav2] = useState();
   const slider1 = useRef(null);
   const slider2 = useRef(null);
+
+  const settingsForModal = {
+    arrows: true,
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    focusOnSelect: true,
+    className: "SliderForModal",
+    nextArrow: nextArrow,
+    prevArrow: prevArrow,
+  };
 
   const settingsFor = {
     arrows: false,
@@ -89,31 +107,33 @@ const SliderAsNavFor: React.FC<ISliderAsNavForProps> = ({
         isOpen={isOpenModal}
         onCloseModal={handleCloseModal}
       >
-        <Slider
-          asNavFor={nav2}
-          initialSlide={currentSlide}
-          ref={slider1}
-          afterChange={handleAfterChange}
-          {...settingsFor}
-        >
-          {images &&
-            images.map((image, index) => {
-              return (
-                <div className={styles.ImageContainer} key={index + "Nav"}>
-                  <Image
-                    className={styles.Image}
-                    priority
-                    alt={alt}
-                    src={image}
-                    layout="responsive"
-                    objectFit="contain"
-                    height="100%"
-                    width="100%"
-                  />
-                </div>
-              );
-            })}
-        </Slider>
+        <Modal.Content>
+          <Slider
+            asNavFor={nav2}
+            initialSlide={currentSlide}
+            ref={slider1}
+            afterChange={handleAfterChange}
+            {...settingsForModal}
+          >
+            {images &&
+              images.map((image, index) => {
+                return (
+                  <div className={styles.ImageContainer} key={index + "Nav"}>
+                    <Image
+                      className={styles.Image}
+                      priority
+                      alt={alt}
+                      src={image}
+                      layout="responsive"
+                      objectFit="contain"
+                      height="100%"
+                      width="100%"
+                    />
+                  </div>
+                );
+              })}
+          </Slider>
+        </Modal.Content>
       </Modal>
       <Slider
         asNavFor={nav2}

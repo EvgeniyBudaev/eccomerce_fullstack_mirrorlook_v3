@@ -116,7 +116,7 @@ export const SliderSimple: React.FC<ISliderSimpleProps> = ({
                       <h2 className={styles.ItemTitle}>{option.title}</h2>
                       <LinkButton
                         className={styles.ItemButton}
-                        href={ROUTES.MIRRORS}
+                        href={`${ROUTES.MIRRORS}?inStock=В+наличии&page=1`}
                       >
                         {option.buttonText}
                       </LinkButton>

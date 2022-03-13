@@ -1,6 +1,5 @@
-import Head from "next/head";
 import React from "react";
-import { Layout, Confirm } from "components";
+import { Confirm, HeadApplication, Layout } from "components";
 
 export default function ConfirmRegistrationPage(): JSX.Element {
   const content =
@@ -10,21 +9,10 @@ export default function ConfirmRegistrationPage(): JSX.Element {
 
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="Подтверждение регистрации | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:title"
-          content="Подтверждение регистрации | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:description"
-          content="Подтверждение регистрации | Интернет-магазин зеркал MirrorLook"
-        />
-        <title>Подтверждение регистрации | MirrorLook</title>
-      </Head>
+      <HeadApplication
+        content="Подтверждение регистрации | Интернет-магазин зеркал MirrorLook"
+        title="Подтверждение регистрации | MirrorLook"
+      />
       <Layout>
         <Confirm content={content} title={title} />
       </Layout>

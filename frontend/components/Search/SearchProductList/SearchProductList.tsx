@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
 import { ROUTES } from "constants/routes";
@@ -49,16 +49,41 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
     setFocusedOption({ focusedOption: options[selectedIndex] });
   }, [options, selectedIndex]);
 
-  useEffect(() => {
+  const groupProductsByCatalog = useCallback(
+    (productList: SearchProductsType): IProductsByCatalog[] => {
+      const catalog: string[] = Array.from(
+        new Set(productList.map(item => item.catalog))
+      );
+      return catalog.map(item => {
+        const catalog = item ? { catalog: item } : null;
+
+        return {
+          ...catalog,
+          id: newGuid(),
+          entities: productList.filter(product => product.catalog === item),
+        };
+      });
+    },
+    []
+  );
+
+  const items = useMemo(() => {
     if (!isEmpty(productList)) {
-      const items = [
+      return [
         ...groupProductsByCatalog(productList).slice(0, 2),
-        ...productList.slice(0, 5),
+        ...productList
+          .filter(product => product.count_in_stock > 0)
+          .slice(0, 5),
       ];
-      setList(items);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productList]);
+
+  useEffect(() => {
+    if (items) {
+      setList(items);
+    }
+  }, [items]);
 
   const focusOption = (direction: FocusDirection) => {
     if (!options.length) return;
@@ -118,24 +143,6 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
   ) => {
     setSelectedIndex(index);
   };
-
-  const groupProductsByCatalog = useCallback(
-    (productList: SearchProductsType): IProductsByCatalog[] => {
-      const catalog: string[] = Array.from(
-        new Set(productList.map(item => item.catalog))
-      );
-      return catalog.map(item => {
-        const catalog = item ? { catalog: item } : null;
-
-        return {
-          ...catalog,
-          id: newGuid(),
-          entities: productList.filter(product => product.catalog === item),
-        };
-      });
-    },
-    []
-  );
 
   if (isLoading) return <Spinner />;
 

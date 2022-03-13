@@ -1,10 +1,9 @@
 import { GetServerSideProps } from "next";
-import Head from "next/head";
 import React, { useEffect } from "react";
 import { ToastContainer as AlertContainer } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { IFilterResponse } from "api/types";
-import { Layout } from "components";
+import { HeadApplication, Layout } from "components";
 import { Products } from "components/Catalog";
 import { CatalogNames } from "constants/names";
 import { backendBase } from "constants/paths";
@@ -38,21 +37,10 @@ export default function MirrorsPage(props: IMirrorsProps): JSX.Element {
 
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:title"
-          content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
-        />
-        <meta
-          property="og:description"
-          content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
-        />
-        <title>Каталог зеркал | MirrorLook</title>
-      </Head>
+      <HeadApplication
+        content="Каталог зеркал | Интернет-магазин зеркал MirrorLook"
+        title="Каталог зеркал | MirrorLook"
+      />
       <Layout>
         <AlertContainer />
         <Products productsResponse={props} />
