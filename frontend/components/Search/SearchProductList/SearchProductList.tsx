@@ -71,10 +71,24 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
     if (!isEmpty(productList)) {
       const items = [
         ...groupProductsByCatalog(productList).slice(0, 2),
-        ...productList
-          .filter(product => product.count_in_stock > 0)
-          .slice(0, 5),
+        ...productList.slice(0, 5),
       ];
+      console.log("productList: ", productList);
+      console.log(
+        "after filter: ",
+        productList.filter(product => product.count_in_stock > 0)
+      );
+      console.log(
+        "after filter and slice: ",
+        productList.filter(product => product.count_in_stock > 0).slice(0, 5)
+      );
+      console.log("after slice: ", productList.slice(0, 5));
+      console.log("items: ", items);
+      const res = [
+        ...groupProductsByCatalog(productList).slice(0, 2),
+        ...productList.slice(0, 5),
+      ];
+      console.log("items без filter: ", res);
       setList(items);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
