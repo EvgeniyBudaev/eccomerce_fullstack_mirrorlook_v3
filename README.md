@@ -180,3 +180,19 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 ```
  Евгений Будаев
 ```
+
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/home1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/home2.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/home3.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/home4.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/home5.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/home6.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/login1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/signup1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/list1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/list2.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/card1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/cart1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/shipping1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/recipient1.jpg)
+![Image alt](https://github.com/EvgeniyBudaev/eccomerce_fullstack_mirrorlook_v3/raw/main/frontend/public/images/presentation/order1.jpg)
