@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import { SearchProductsType } from "api/types/search";
 import { ROUTES } from "constants/routes";
@@ -67,23 +67,18 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
     []
   );
 
-  const items = useMemo(() => {
+  useEffect(() => {
     if (!isEmpty(productList)) {
-      return [
+      const items = [
         ...groupProductsByCatalog(productList).slice(0, 2),
         ...productList
           .filter(product => product.count_in_stock > 0)
           .slice(0, 5),
       ];
+      setList(items);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productList]);
-
-  useEffect(() => {
-    if (items) {
-      setList(items);
-    }
-  }, [items]);
 
   const focusOption = (direction: FocusDirection) => {
     if (!options.length) return;
@@ -111,7 +106,7 @@ export const SearchProductList: React.FC<ISearchProductListProps> = ({
           ? router.push(
               `${ROUTES.MIRRORS}/${focusedOption.focusedOption.product_slug}`
             )
-          : router.push(ROUTES.MIRRORS);
+          : router.push(`${ROUTES.MIRRORS}?inStock=В+наличии&page=1`);
         break;
     }
   };
