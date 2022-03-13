@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -88,31 +87,13 @@ export const CartItem: React.FC<ICartItemProps> = ({ cartItem }) => {
     <div className={styles.CartItem}>
       <div className={styles.Product}>
         <div className={styles.ProductImage}>
-          <Link
-            href={`/${cartItem.product.catalog_slug}/${cartItem.product.product_slug}`}
-          >
-            <a>
-              {imageUrl && (
-                <Image
-                  src={imageUrl}
-                  alt=""
-                  width="100"
-                  height="100"
-                  priority
-                />
-              )}
-            </a>
-          </Link>
+          {imageUrl && (
+            <Image src={imageUrl} alt="" width="100" height="100" priority />
+          )}
         </div>
         <div className={styles.ProductContent}>
           <div className={styles.ProductHeader}>
-            <div className={styles.ProductTitle}>
-              <Link
-                href={`/${cartItem.product.catalog_slug}/${cartItem.product.product_slug}`}
-              >
-                <a>{cartItem.product.title}</a>
-              </Link>
-            </div>
+            <div className={styles.ProductTitle}>{cartItem.product.title}</div>
             <div className={styles.ProductActions}>
               <div className={styles.ProductCounter}>
                 <button

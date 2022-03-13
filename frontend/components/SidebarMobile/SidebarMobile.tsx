@@ -70,7 +70,7 @@ export const SidebarMobile: React.FC = () => {
           </Link>
         </li>
         <li className={styles.SidebarMobileListItem}>
-          <Link href={ROUTES.MIRRORS}>
+          <Link href={`${ROUTES.MIRRORS}?inStock=В+наличии&page=1`}>
             <a className={styles.SidebarMobileLink}>
               <Icon type="Mirror" />
               <div className={styles.SidebarMobileLinkText}>

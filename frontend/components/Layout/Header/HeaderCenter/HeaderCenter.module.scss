@@ -7,6 +7,7 @@ $heightIsScroll: 60px;
   height: $height;
   background-color: transparent;
   transition: all 0.15s;
+  z-index: 102;
 
   &__isHomePage {
     .Text {
@@ -16,6 +17,8 @@ $heightIsScroll: 60px;
 
   &__isScroll {
     height: $heightIsScroll;
+    background-color: white;
+    z-index: 102;
 
     .Inner {
       height: $heightIsScroll;
