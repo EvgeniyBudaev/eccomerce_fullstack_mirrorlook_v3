@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import Slider from "react-slick";
