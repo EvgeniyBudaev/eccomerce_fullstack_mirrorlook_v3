@@ -168,24 +168,23 @@ export const MirrorsAside: React.FC<IMirrorsAsideProps> = ({ onFirstPage }) => {
         onClick={handleFilterBarMobileClose}
         isActive={isFilterBarMobile}
       />
-      <>
-        <CSSTransition
-          className="FilterBar"
-          in={isFilterBarMobile}
-          nodeRef={nodeRef}
-          timeout={TRANSITION}
-          unmountOnExit
-        >
+      <CSSTransition
+        className="FilterBar"
+        in={isFilterBarMobile}
+        nodeRef={nodeRef}
+        timeout={TRANSITION}
+        unmountOnExit
+      >
+        <div ref={nodeRef}>
           <FilterBarMobile
             asideOptions={asideOptionsMirrors}
             checked={checkedMirrors}
-            ref={nodeRef}
             onChangeCheckedBox={handleChangeCheckedBox}
             onClose={handleFilterBarMobileClose}
             onSubmit={handleSubmit}
           />
-        </CSSTransition>
-      </>
+        </div>
+      </CSSTransition>
       <form className={styles.AsideFilterDesktop} onSubmit={handleSubmit}>
         {asideOptionsMirrors.map(item => (
           <Accordion
