@@ -185,7 +185,7 @@ export const Order: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.Order}>
+    <div className={styles.Order}>
       <AlertContainer />
       <h2 className={styles.Title}>Оформление заказа</h2>
       <div className={classNames(styles.Inner, styles.OrderInnerMobile)}>
@@ -382,6 +382,6 @@ export const Order: React.FC = () => {
         </Modal.Content>
         <Modal.Footer buttonSubmitText="Выбрать" onSubmit={handleModalSubmit} />
       </Modal>
-    </section>
+    </div>
   );
 };

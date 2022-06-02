@@ -10,7 +10,7 @@ export const Thanks: React.FC = () => {
   const orderInfo = hasMounted && order.order;
 
   return (
-    <section className={styles.Thanks}>
+    <div className={styles.Thanks}>
       <div className={styles.Thanks_Info}>
         <div className={styles.Thanks_Content}>
           <h2 className={styles.Thanks_Title}>Благодарим за заказ!</h2>
@@ -21,6 +21,6 @@ export const Thanks: React.FC = () => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

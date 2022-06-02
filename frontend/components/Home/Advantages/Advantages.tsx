@@ -13,7 +13,7 @@ export const Advantages: React.FC = () => {
   return (
     <div className={styles.AdvantagesWrapper} ref={observe}>
       {inView && (
-        <section className={styles.Advantages}>
+        <div className={styles.Advantages}>
           <div className={styles.AdvantagesContainer}>
             <div className={styles.AdvantagesUnit1}>
               <div className={styles.AdvantagesImage}>
@@ -46,7 +46,7 @@ export const Advantages: React.FC = () => {
               </div>
             </div>
           </div>
-        </section>
+        </div>
       )}
     </div>
   );

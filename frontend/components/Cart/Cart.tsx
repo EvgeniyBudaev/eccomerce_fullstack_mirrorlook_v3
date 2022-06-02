@@ -55,7 +55,7 @@ export const Cart: React.FC = () => {
   };
 
   return (
-    <section className={styles.Cart}>
+    <div className={styles.Cart}>
       <AlertContainer />
       <h1 className={styles.CartTitle}>Моя корзина</h1>
       <div className={styles.CartInner}>
@@ -134,6 +134,6 @@ export const Cart: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

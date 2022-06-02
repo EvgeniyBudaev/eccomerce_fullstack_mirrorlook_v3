@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 import classNames from "classnames";
-import { Icon, IconType } from "ui-kit";
 import styles from "./LinkButton.module.scss";
 
 export interface ILinkButtonProps {
+  children?: ReactNode;
   className?: string;
   href: string;
 }

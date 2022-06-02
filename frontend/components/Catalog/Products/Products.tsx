@@ -84,7 +84,7 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
   };
 
   return (
-    <section className={styles.Products}>
+    <div className={styles.Products}>
       <Breadcrumbs
         getDefaultTextGenerator={() => productsResponse.catalogName}
       />
@@ -116,6 +116,6 @@ export const Products: React.FC<IProductsProps> = ({ productsResponse }) => {
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 };

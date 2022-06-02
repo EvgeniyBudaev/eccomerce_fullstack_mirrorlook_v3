@@ -3,7 +3,7 @@ import { useDispatch as dispatchHook } from "react-redux";
 import { ThunkAction } from "redux-thunk";
 import {
   AppDispatch,
-  AppThunk,
+  // AppThunk,
   RootState,
   TApplicationActions,
 } from "ducks/types";
@@ -13,5 +13,6 @@ type TDispatch =
   | ActionCreator<ThunkAction<void, Action, RootState, TApplicationActions>>;
 
 // Хук не даст отправить экшен, который ему не знаком
-export const useDispatch = (): TDispatch =>
-  dispatchHook<AppDispatch | AppThunk>();
+// export const useDispatch = (): TDispatch =>
+//   dispatchHook<AppDispatch | AppThunk>();
+export const useDispatch = (): TDispatch => dispatchHook<AppDispatch>();

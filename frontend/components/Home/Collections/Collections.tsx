@@ -16,7 +16,7 @@ export const Collections: React.FC = () => {
   return (
     <div className={styles.CollectionsWrapper} ref={observe}>
       {inView && (
-        <section className={styles.Collections}>
+        <div className={styles.Collections}>
           <div className={styles.CollectionsInner}>
             <div className={styles.CollectionsUnit}>
               <Image
@@ -67,7 +67,7 @@ export const Collections: React.FC = () => {
               Посмотреть все коллекции
             </LinkButton>
           </div>
-        </section>
+        </div>
       )}
     </div>
   );

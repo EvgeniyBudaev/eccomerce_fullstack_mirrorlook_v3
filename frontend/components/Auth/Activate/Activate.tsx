@@ -66,7 +66,7 @@ export const Activate: React.FC<IActivateProps> = ({ className }) => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={classNames(styles.Activate, className)}>
+    <div className={classNames(styles.Activate, className)}>
       <AlertContainer />
       <div className={styles.ActivateInner}>
         <h1 className={styles.ActivateTitle}>Потверждение регистрации</h1>
@@ -74,6 +74,6 @@ export const Activate: React.FC<IActivateProps> = ({ className }) => {
           <Button onClick={handleVerifyAccount}>Подтвердить</Button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

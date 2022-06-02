@@ -4,7 +4,7 @@ import styles from "./Benefits.module.scss";
 
 export const Benefits: React.FC = () => {
   return (
-    <section className={styles.Benefits}>
+    <div className={styles.Benefits}>
       <div className={styles.BenefitsInner}>
         <div className={styles.BenefitsUnit}>
           <div className={styles.BenefitsUnitCircleWrapper}>
@@ -55,6 +55,6 @@ export const Benefits: React.FC = () => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

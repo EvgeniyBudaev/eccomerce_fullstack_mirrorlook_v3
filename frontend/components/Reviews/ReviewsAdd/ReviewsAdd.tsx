@@ -99,7 +99,7 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={classNames(styles.ReviewsAdd, className)}>
+    <div className={classNames(styles.ReviewsAdd, className)}>
       <AlertContainer />
       <div className={styles.GoBack}>
         <Link
@@ -174,6 +174,6 @@ export const ReviewsAdd: React.FC<IReviewsAddProps> = ({
           </Button>
         </div>
       </form>
-    </section>
+    </div>
   );
 };

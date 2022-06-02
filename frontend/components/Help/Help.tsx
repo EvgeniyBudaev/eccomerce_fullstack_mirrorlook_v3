@@ -4,7 +4,7 @@ import styles from "./Help.module.scss";
 
 export const Help: React.FC = () => {
   return (
-    <section className={styles.Help}>
+    <div className={styles.Help}>
       <Breadcrumbs getDefaultTextGenerator={() => "Доставка и оплата"} />
       <h1 className={styles.HelpTitle}>Доставка и оплата</h1>
       <h2 className={styles.HelpSubTitle}>Как оформить заказ</h2>
@@ -38,6 +38,6 @@ export const Help: React.FC = () => {
         Наш сервис запоминает данные о пользователе, информацию о заказе и в
         следующий раз предложит вам повторить к вводу данные предыдущего заказа.
       </p>
-    </section>
+    </div>
   );
 };

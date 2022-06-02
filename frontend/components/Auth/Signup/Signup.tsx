@@ -162,7 +162,7 @@ export const Signup: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.Signup}>
+    <div className={styles.Signup}>
       <AlertContainer />
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
@@ -259,6 +259,6 @@ export const Signup: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

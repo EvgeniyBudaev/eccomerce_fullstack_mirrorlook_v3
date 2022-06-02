@@ -123,7 +123,7 @@ export const NewPassword: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.NewPassword}>
+    <div className={styles.NewPassword}>
       <AlertContainer />
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
@@ -165,6 +165,6 @@ export const NewPassword: React.FC = () => {
           </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

@@ -24,13 +24,13 @@ export const Confirm: React.FC<IConfirmProps> = ({ content, title }) => {
   }, [isAuthenticated]);
 
   return (
-    <section className={styles.Confirm}>
+    <div className={styles.Confirm}>
       <div className={styles.Confirm_Info}>
         <div className={styles.Confirm_Content}>
           <h2 className={styles.Confirm_Title}>{title}</h2>
           <p className={styles.Confirm_Text}>{content}</p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

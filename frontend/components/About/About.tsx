@@ -4,7 +4,7 @@ import styles from "./About.module.scss";
 
 export const About: React.FC = () => {
   return (
-    <section className={styles.About}>
+    <div className={styles.About}>
       <Breadcrumbs getDefaultTextGenerator={() => "О нас"} />
       <h1 className={styles.AboutTitle}>Информация о магазине</h1>
       <p className={styles.AboutParagraph}>
@@ -24,6 +24,6 @@ export const About: React.FC = () => {
         Мы контролируем качество товара с начала его производства до момента
         отгрузки покупателю.
       </p>
-    </section>
+    </div>
   );
 };

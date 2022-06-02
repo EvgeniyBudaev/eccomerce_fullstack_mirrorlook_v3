@@ -118,7 +118,7 @@ export const ResetPassword: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.ResetPassword}>
+    <div className={styles.ResetPassword}>
       <AlertContainer />
       <div className={styles.SectionCenter}>
         <div className={styles.SectionCenter_Content}>
@@ -152,6 +152,6 @@ export const ResetPassword: React.FC = () => {
           </form>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

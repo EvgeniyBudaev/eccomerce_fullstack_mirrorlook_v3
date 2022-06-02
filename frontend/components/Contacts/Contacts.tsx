@@ -4,7 +4,7 @@ import styles from "./Contacts.module.scss";
 
 export const Contacts: React.FC = () => {
   return (
-    <section className={styles.Contacts}>
+    <div className={styles.Contacts}>
       <Breadcrumbs getDefaultTextGenerator={() => "Контакты"} />
       <h1 className={styles.ContactsTitle}>Контакты</h1>
       <h2 className={styles.ContactsSubTitle}>Реквизиты:</h2>
@@ -39,6 +39,6 @@ export const Contacts: React.FC = () => {
           2-я, д. 38А, стр. 26
         </p>
       </div>
-    </section>
+    </div>
   );
 };

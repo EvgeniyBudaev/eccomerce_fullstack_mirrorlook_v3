@@ -160,7 +160,7 @@ export const Recipient: React.FC = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.Recipient}>
+    <div className={styles.Recipient}>
       <AlertContainer />
       <div className={styles.Step}>Шаг 2 из 3</div>
       <h2 className={styles.Title}>Получатель</h2>
@@ -252,6 +252,6 @@ export const Recipient: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

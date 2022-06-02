@@ -82,7 +82,7 @@ export const Home: React.FC = () => {
     <div className={styles.Home}>
       <AlertContainer />
       <Header isHomePage />
-      <section className={styles.MainSliders}>
+      <div className={styles.MainSliders}>
         <SliderSimple
           className={styles.MainSlider}
           arrows={true}
@@ -97,7 +97,7 @@ export const Home: React.FC = () => {
           nextArrow={<SliderNextArrow styles={{ right: "5px" }} />}
           prevArrow={<SliderPrevArrow styles={{ left: "5px" }} />}
         />
-      </section>
+      </div>
       <Article
         subTitle="У тебя есть вкус."
         text="Вдохновляйтесь красотой и комфортом стиля в интерьерах квартир,

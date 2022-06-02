@@ -176,7 +176,7 @@ export const Shipping: React.FC<IShippingProps> = ({
   if (isLoading) return <Spinner />;
 
   return (
-    <section className={styles.Shipping}>
+    <div className={styles.Shipping}>
       <AlertContainer />
       <div className={styles.Step}>Шаг 1 из 3</div>
       <h2 className={styles.Title}>Где Вы хотите получить заказ?</h2>
@@ -324,6 +324,6 @@ export const Shipping: React.FC<IShippingProps> = ({
           <ZoomControl options={{ float: "left" }} />
         </PickMap>
       </div>
-    </section>
+    </div>
   );
 };

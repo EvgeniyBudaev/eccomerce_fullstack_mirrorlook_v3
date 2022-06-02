@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import { Icon } from "ui-kit";
 import styles from "./Crumb.module.scss";
@@ -21,14 +21,15 @@ export const Crumb: React.FC<ICrumbProps> = ({
 }) => {
   const [title, setTitle] = React.useState(defaultText);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps,@typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  React.useEffect(async () => {
-    if (!textGenerator) {
-      return;
-    }
-    const finalText = await textGenerator();
-    setTitle(finalText);
+  useEffect(() => {
+    const getFinalText = async () => {
+      if (!textGenerator) {
+        return false;
+      }
+      const finalText = await textGenerator();
+      setTitle(finalText);
+    };
+    void getFinalText();
   }, [textGenerator]);
 
   const renderTitle = () => {
